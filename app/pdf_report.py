@@ -283,6 +283,7 @@ def _latex_document(
         r"\usepackage{grffile}",
         r"\usepackage{float}",
         r"\usepackage{hyperref}",
+        r"\usepackage{caption}",
         r"\usepackage{parskip}",
         r"\usepackage{enumitem}",
         r"\usepackage{xurl}",
@@ -349,7 +350,7 @@ def _latex_document(
                         r"\begin{figure}[H]",
                         r"\centering",
                         rf"\includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{{{_latex_escape_text(abs_path)}}}",
-                        rf"\caption*{{Why this figure matters: {_latex_inline(item.get('reason', ''))}}}" if item.get("reason") else "",
+                        rf"\captionsetup{{labelformat=empty}}\caption{{Why this figure matters: {_latex_inline(item.get('reason', ''))}}}" if item.get("reason") else "",
                         r"\end{figure}",
                     ]
                 )

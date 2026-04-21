@@ -43,26 +43,57 @@ def _extract_page_texts(pdf_path: Path, max_chars: int = 5000) -> list[str]:
     return texts
 
 
+def _clean_narration_source(text: str) -> str:
+    cleaned_lines: list[str] = []
+    for raw_line in text.splitlines():
+        line = " ".join(raw_line.split()).strip()
+        if not line:
+            continue
+        lower = line.lower()
+        if "@" in line:
+            continue
+        if lower.startswith("arxiv:") or lower.startswith("doi:"):
+            continue
+        if lower in {"references", "acknowledgements", "acknowledgments"}:
+            continue
+        if lower.startswith("received ") or lower.startswith("accepted "):
+            continue
+        if "university" in lower and len(line.split()) > 6:
+            continue
+        cleaned_lines.append(line)
+    return "\n".join(cleaned_lines)
+
+
 def _page_narration(title: str, page_num: int, page_text: str) -> str:
-    if not page_text.strip():
+    cleaned_text = _clean_narration_source(page_text)
+    if not cleaned_text.strip():
         return f"Page {page_num} of {title}. This page is primarily visual or has limited extractable text."
 
     prompt = f"""You are writing narration for a research slideshow video.
 
 Write 2 to 4 concise spoken sentences for a voiceover describing this page.
-Keep it faithful to the page text and avoid reading citations, author lists, or raw formatting.
-Sound like a clear research presenter.
+Speak like a research presenter giving the scientific takeaway, not like a screen reader.
+Focus on:
+- the scientific question
+- the method or figure takeaway
+- the result or why the page matters
+
+Strict rules:
+- Never read author names, affiliations, email addresses, dates, journal boilerplate, arXiv IDs, copyright notices, references, or acknowledgements.
+- If this looks like a title or abstract page, summarize only the paper's main idea and importance.
+- Do not list section headings or read the text verbatim.
+- Prefer plain spoken wording over paper jargon when possible.
 
 Title: {title}
 Page: {page_num}
 
 Page text:
-{page_text}
+{cleaned_text}
 """
     try:
         return gemini_generate(prompt=prompt, timeout=120.0).strip()
     except Exception:
-        clipped = page_text[:380].strip()
+        clipped = cleaned_text[:380].strip()
         if not clipped:
             return f"Page {page_num} of {title}."
         return clipped
