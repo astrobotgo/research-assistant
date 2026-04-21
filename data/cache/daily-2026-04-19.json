@@ -1,0 +1,255 @@
+{
+  "pool_count": 5,
+  "selected_count": 5,
+  "present_requested": 10,
+  "selection_note": "Pool smaller than target; including all.",
+  "pool": [
+    {
+      "id": "http://arxiv.org/abs/2604.15257v1",
+      "title": "Age bimodality in pseudo-bulges of barred spiral galaxies: Bar-driven evolution across cosmic time",
+      "summary": "We investigate the stellar population properties of pseudo-bulges in barred galaxies drawn from the Sloan Digital Sky Survey (SDSS DR7) to assess how bars regulate central star formation and secular evolution. Our sample comprises barred spiral and barred lenticular (S0) galaxies with reliable spectroscopic indices obtained from multicomponent structural decompositions. Stellar ages and recent star formation are traced using the 4000 \u00c5 break strength ($D_{n}(4000)$) and the Balmer absorption index ($H\u03b4_{A}$), complemented by bulge, bar, and disc colours. Barred spirals show a clear bimodality in $D_{n}(4000)$, with peaks at $D_{n}(4000)\\sim1.3$ and $\\sim1.8$. Low-$D_{n}(4000)$ pseudo-bulges exhibit strong $H\u03b4_{A}$ absorption, blue colours, and high specific star-formation rates, indicating young, actively growing centres. High-$D_{n}(4000)$ systems instead show weak $H\u03b4_{A}$, red colours, and low sSFR, consistent with older, quenched pseudo-bulges. Barred S0s display an old-bulge-dominated distribution, suggesting that gas-poor barred spirals transition into S0s following disc-wide quenching. We also find elevated AGN incidence among old pseudo-bulges. These trends support a scenario in which bars funnel gas inward to build pseudo-bulges and later suppress central star formation by depleting or stabilising the inflow. IFU observations show that bars assemble cold nuclear discs that age and quench over time, while high-redshift imaging confirms that bars are already present at $z\\sim4$, implying that this evolutionary cycle operates across cosmic time. The strong correspondence between stellar age, colour, and structure indicates that bar-driven secular evolution governs both the growth and quenching of central components, linking blue barred spirals to red S0 galaxies.",
+      "published": "2026-04-16T17:35:25+00:00",
+      "updated": "2026-04-16T17:35:25Z",
+      "authors": [
+        "Kavin Kumar N R",
+        "Saili Keshri",
+        "Sudhanshu Barway"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.15257v1",
+      "categories": [
+        "astro-ph.GA"
+      ],
+      "_topic": "galaxies",
+      "_topic_label": "galaxies"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.15241v1",
+      "title": "Echoes of Global Cosmic Strings",
+      "summary": "If the Universe underwent a cosmic phase transition, it may have left behind a network of cosmic strings. When these strings arise from the breaking of a gauge symmetry, their decay produces a significant stochastic background of gravitational waves. In contrast, if they originate from the breaking of a global symmetry, their decay predominantly yields Nambu-Goldstone bosons, which can persist as dark matter or dark radiation. In this work, we assess the detectability of this particle spectrum using a range of cosmological probes. We employ semi-numerical methods to estimate the resulting energy density and compute the associated matter power spectrum. We then compare these predictions with observations of the cosmic microwave background, Lyman-$\u03b1$ forest, large-scale structure surveys, and the UV luminosity function, thereby deriving constraints on the Nambu-Goldstone boson mass and the symmetry-breaking scale. Finally, we present projections for the sensitivity of upcoming cosmic microwave background missions.",
+      "published": "2026-04-16T17:16:56+00:00",
+      "updated": "2026-04-16T17:16:56Z",
+      "authors": [
+        "Jeff A. Dror",
+        "Antonios Kyriazis"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.15241v1",
+      "categories": [
+        "hep-ph",
+        "astro-ph.CO"
+      ],
+      "_topic": "dark_matter",
+      "_topic_label": "dark matter"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.15208v1",
+      "title": "Tracing evolutionary pathways of bar-driven quenching in local Universe disc galaxies",
+      "summary": "Bars play an integral role in regulating star formation (SF) in spiral galaxies, from triggering central starbursts to driving quenching. The diverse SF morphologies observed in local barred galaxies reflect different evolutionary stages of the bar, motivating studies across these stages. Here we study 12 nearby barred galaxies (z=0.01-0.06) identified as centrally quenched galaxies (having extended star-forming discs but quenched inner regions) by leveraging the differences in SFRs between the MPA-JHU and GSWLC catalogues. However, they exhibit residual central emission in the SDSS 3\" fibre spectral region. Emission line analysis shows that this emission originates from either ongoing SF or LINER-like activity, suggesting diverse central ionization mechanisms. Using spatially resolved UV-optical colour maps from SDSS (r-band) and GALEX (FUV and NUV band) imaging data, we find that discs are star-forming and bluer in colour (NUV-r < 4 mag) while the bulge and bar regions are systematically redder (NUV-r > 4 mag) and dominated by older stellar populations. The NUV-r radial colour profiles show a clear transition from red to blue colours at the bar end with a corresponding median stellar age of ~ 1 Gyr. Compared to fully centrally quenched barred galaxies from our earlier work which lack SDSS fibre emission, these galaxies remain systematically bluer at similar radii, despite showing NUV-r > 4 mag inside the bar suggesting an intermediate stage in bar-driven quenching. We also estimate black hole masses associated with kinetic-mode AGN feedback and find them below the threshold (logM_BH < 8.0). Adding this with the presence of pseudo bulges, our results support bars as the primary drivers of quenching, with these galaxies representing an evolutionary phase just before their inner regions are completely quenched.",
+      "published": "2026-04-16T16:39:08+00:00",
+      "updated": "2026-04-16T16:39:08Z",
+      "authors": [
+        "D Renu",
+        "Smitha Subramanian",
+        "Koshy George"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.15208v1",
+      "categories": [
+        "astro-ph.GA"
+      ],
+      "_topic": "galaxies",
+      "_topic_label": "galaxies"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.15182v1",
+      "title": "Understanding the regulation of star formation within TNG100 galaxies on kpc-scales using machine learning I: Global versus local",
+      "summary": "We apply Random Forest and XGBoost machine learning algorithms to determine which galaxy properties most effectively predict star formation and quenching in simulated galaxies. Using spatially-resolved data from approximately 63,000 annular bins across 6,189 TNG100 galaxies, we train classification models to predict quenching states and regression models to predict star formation rate surface densities. Despite their different algorithmic approaches, both methods produce consistent feature importance rankings, with XGBoost distributing importance more evenly among correlated features. For central galaxies and high-mass satellites, black hole mass dominates quenching predictions, consistent with quenching via active galactic nuclei (AGN) feedback. Classification of low-mass satellites shows overwhelming importance for halo mass, indicating environmental quenching. Star formation predictions are dominated by local stellar mass surface density across all star-forming galaxy types, confirming that active star formation is a local process while quenching is driven by global properties.",
+      "published": "2026-04-16T16:10:55+00:00",
+      "updated": "2026-04-16T16:10:55Z",
+      "authors": [
+        "Bryanne McDonough",
+        "Sathvika S. Iyengar",
+        "Ansa Brew-Smith",
+        "Asa F. L. Bluck",
+        "Joanna Piotrowska"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.15182v1",
+      "categories": [
+        "astro-ph.GA"
+      ],
+      "_topic": "galaxies",
+      "_topic_label": "galaxies"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.15006v1",
+      "title": "Cosmology of Inelastic Self-Interacting Dark Matter: Linear Evolution and Observational Constraints",
+      "summary": "We study the linear cosmological evolution of inelastic self-interacting dark matter in a two-component dark sector with a small mass splitting, assuming thermal initial conditions for the two species. We derive the coupled background and perturbation equations for inelastic conversion between the two species, considering both Power-law and Low-velocity saturation cross sections. Exothermic conversion injects kinetic energy into the light component, generating pressure support that suppresses small-scale structure and produces dark acoustic oscillations in the matter power spectrum. The resulting cutoff at scale $k > 1\\,h\\,\\mathrm{Mpc}^{-1}$ depends on the normalization and velocity dependence of the cross section, the dark matter mass and the mass splitting. Using linear power spectra computed with a modified Boltzmann solver, we apply recast constraints from Lyman-$\u03b1$ forest data and high-redshift UV luminosity functions, finding non-monotonic but closed exclusion regions driven by the competition between efficient conversion and rapid depletion of the heavy component. These results show that the internal thermodynamics of a secluded multi-component dark sector can leave observable imprints on structure formation, providing a complementary probe of dark matter beyond Standard Model interactions.",
+      "published": "2026-04-16T13:33:16+00:00",
+      "updated": "2026-04-16T13:33:16Z",
+      "authors": [
+        "Xin-Chen Duan",
+        "Yue-Lin Sming Tsai",
+        "Ziwei Wang"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.15006v1",
+      "categories": [
+        "astro-ph.CO",
+        "hep-ph"
+      ],
+      "_topic": "dark_matter",
+      "_topic_label": "dark matter"
+    }
+  ],
+  "selected": [
+    {
+      "id": "http://arxiv.org/abs/2604.15257v1",
+      "title": "Age bimodality in pseudo-bulges of barred spiral galaxies: Bar-driven evolution across cosmic time",
+      "summary": "We investigate the stellar population properties of pseudo-bulges in barred galaxies drawn from the Sloan Digital Sky Survey (SDSS DR7) to assess how bars regulate central star formation and secular evolution. Our sample comprises barred spiral and barred lenticular (S0) galaxies with reliable spectroscopic indices obtained from multicomponent structural decompositions. Stellar ages and recent star formation are traced using the 4000 \u00c5 break strength ($D_{n}(4000)$) and the Balmer absorption index ($H\u03b4_{A}$), complemented by bulge, bar, and disc colours. Barred spirals show a clear bimodality in $D_{n}(4000)$, with peaks at $D_{n}(4000)\\sim1.3$ and $\\sim1.8$. Low-$D_{n}(4000)$ pseudo-bulges exhibit strong $H\u03b4_{A}$ absorption, blue colours, and high specific star-formation rates, indicating young, actively growing centres. High-$D_{n}(4000)$ systems instead show weak $H\u03b4_{A}$, red colours, and low sSFR, consistent with older, quenched pseudo-bulges. Barred S0s display an old-bulge-dominated distribution, suggesting that gas-poor barred spirals transition into S0s following disc-wide quenching. We also find elevated AGN incidence among old pseudo-bulges. These trends support a scenario in which bars funnel gas inward to build pseudo-bulges and later suppress central star formation by depleting or stabilising the inflow. IFU observations show that bars assemble cold nuclear discs that age and quench over time, while high-redshift imaging confirms that bars are already present at $z\\sim4$, implying that this evolutionary cycle operates across cosmic time. The strong correspondence between stellar age, colour, and structure indicates that bar-driven secular evolution governs both the growth and quenching of central components, linking blue barred spirals to red S0 galaxies.",
+      "published": "2026-04-16T17:35:25+00:00",
+      "updated": "2026-04-16T17:35:25Z",
+      "authors": [
+        "Kavin Kumar N R",
+        "Saili Keshri",
+        "Sudhanshu Barway"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.15257v1",
+      "categories": [
+        "astro-ph.GA"
+      ],
+      "_topic": "galaxies",
+      "_topic_label": "galaxies",
+      "semantic_scholar": {
+        "paperId": "0ea8713c7c9898738764b818ac940f07209fe88c",
+        "externalIds": {
+          "ArXiv": "2604.15257",
+          "CorpusId": 287509931
+        },
+        "url": "https://www.semanticscholar.org/paper/0ea8713c7c9898738764b818ac940f07209fe88c",
+        "title": "Age bimodality in pseudo-bulges of barred spiral galaxies: Bar-driven evolution across cosmic time",
+        "venue": "",
+        "year": 2026,
+        "citationCount": 0,
+        "influentialCitationCount": 0,
+        "fieldsOfStudy": [
+          "Physics"
+        ],
+        "authors": [
+          {
+            "authorId": "2429854835",
+            "name": "R. KavinKumarN"
+          },
+          {
+            "authorId": "2340221856",
+            "name": "Saili Keshri"
+          },
+          {
+            "authorId": "26907881",
+            "name": "S. Barway"
+          }
+        ]
+      }
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.15241v1",
+      "title": "Echoes of Global Cosmic Strings",
+      "summary": "If the Universe underwent a cosmic phase transition, it may have left behind a network of cosmic strings. When these strings arise from the breaking of a gauge symmetry, their decay produces a significant stochastic background of gravitational waves. In contrast, if they originate from the breaking of a global symmetry, their decay predominantly yields Nambu-Goldstone bosons, which can persist as dark matter or dark radiation. In this work, we assess the detectability of this particle spectrum using a range of cosmological probes. We employ semi-numerical methods to estimate the resulting energy density and compute the associated matter power spectrum. We then compare these predictions with observations of the cosmic microwave background, Lyman-$\u03b1$ forest, large-scale structure surveys, and the UV luminosity function, thereby deriving constraints on the Nambu-Goldstone boson mass and the symmetry-breaking scale. Finally, we present projections for the sensitivity of upcoming cosmic microwave background missions.",
+      "published": "2026-04-16T17:16:56+00:00",
+      "updated": "2026-04-16T17:16:56Z",
+      "authors": [
+        "Jeff A. Dror",
+        "Antonios Kyriazis"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.15241v1",
+      "categories": [
+        "hep-ph",
+        "astro-ph.CO"
+      ],
+      "_topic": "dark_matter",
+      "_topic_label": "dark matter",
+      "semantic_scholar": {
+        "paperId": "ccf83adb6e1bed19c7043536b3100dbcc48121a9",
+        "externalIds": {
+          "ArXiv": "2604.15241",
+          "CorpusId": 287509954
+        },
+        "url": "https://www.semanticscholar.org/paper/ccf83adb6e1bed19c7043536b3100dbcc48121a9",
+        "title": "Echoes of Global Cosmic Strings",
+        "venue": "",
+        "year": 2026,
+        "citationCount": 0,
+        "influentialCitationCount": 0,
+        "fieldsOfStudy": [
+          "Physics"
+        ],
+        "authors": [
+          {
+            "authorId": "34641487",
+            "name": "J. Dror"
+          },
+          {
+            "authorId": "2290857729",
+            "name": "Antonios Kyriazis"
+          }
+        ]
+      }
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.15208v1",
+      "title": "Tracing evolutionary pathways of bar-driven quenching in local Universe disc galaxies",
+      "summary": "Bars play an integral role in regulating star formation (SF) in spiral galaxies, from triggering central starbursts to driving quenching. The diverse SF morphologies observed in local barred galaxies reflect different evolutionary stages of the bar, motivating studies across these stages. Here we study 12 nearby barred galaxies (z=0.01-0.06) identified as centrally quenched galaxies (having extended star-forming discs but quenched inner regions) by leveraging the differences in SFRs between the MPA-JHU and GSWLC catalogues. However, they exhibit residual central emission in the SDSS 3\" fibre spectral region. Emission line analysis shows that this emission originates from either ongoing SF or LINER-like activity, suggesting diverse central ionization mechanisms. Using spatially resolved UV-optical colour maps from SDSS (r-band) and GALEX (FUV and NUV band) imaging data, we find that discs are star-forming and bluer in colour (NUV-r < 4 mag) while the bulge and bar regions are systematically redder (NUV-r > 4 mag) and dominated by older stellar populations. The NUV-r radial colour profiles show a clear transition from red to blue colours at the bar end with a corresponding median stellar age of ~ 1 Gyr. Compared to fully centrally quenched barred galaxies from our earlier work which lack SDSS fibre emission, these galaxies remain systematically bluer at similar radii, despite showing NUV-r > 4 mag inside the bar suggesting an intermediate stage in bar-driven quenching. We also estimate black hole masses associated with kinetic-mode AGN feedback and find them below the threshold (logM_BH < 8.0). Adding this with the presence of pseudo bulges, our results support bars as the primary drivers of quenching, with these galaxies representing an evolutionary phase just before their inner regions are completely quenched.",
+      "published": "2026-04-16T16:39:08+00:00",
+      "updated": "2026-04-16T16:39:08Z",
+      "authors": [
+        "D Renu",
+        "Smitha Subramanian",
+        "Koshy George"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.15208v1",
+      "categories": [
+        "astro-ph.GA"
+      ],
+      "_topic": "galaxies",
+      "_topic_label": "galaxies",
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Tracing+evolutionary+pathways+of+bar-driven+quenching+in+local+Universe+disc+galaxies&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.15182v1",
+      "title": "Understanding the regulation of star formation within TNG100 galaxies on kpc-scales using machine learning I: Global versus local",
+      "summary": "We apply Random Forest and XGBoost machine learning algorithms to determine which galaxy properties most effectively predict star formation and quenching in simulated galaxies. Using spatially-resolved data from approximately 63,000 annular bins across 6,189 TNG100 galaxies, we train classification models to predict quenching states and regression models to predict star formation rate surface densities. Despite their different algorithmic approaches, both methods produce consistent feature importance rankings, with XGBoost distributing importance more evenly among correlated features. For central galaxies and high-mass satellites, black hole mass dominates quenching predictions, consistent with quenching via active galactic nuclei (AGN) feedback. Classification of low-mass satellites shows overwhelming importance for halo mass, indicating environmental quenching. Star formation predictions are dominated by local stellar mass surface density across all star-forming galaxy types, confirming that active star formation is a local process while quenching is driven by global properties.",
+      "published": "2026-04-16T16:10:55+00:00",
+      "updated": "2026-04-16T16:10:55Z",
+      "authors": [
+        "Bryanne McDonough",
+        "Sathvika S. Iyengar",
+        "Ansa Brew-Smith",
+        "Asa F. L. Bluck",
+        "Joanna Piotrowska"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.15182v1",
+      "categories": [
+        "astro-ph.GA"
+      ],
+      "_topic": "galaxies",
+      "_topic_label": "galaxies",
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Understanding+the+regulation+of+star+formation+within+TNG100+galaxies+on+kpc-scales+using+machine+learning+I%3A+Global+versus+local&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.15006v1",
+      "title": "Cosmology of Inelastic Self-Interacting Dark Matter: Linear Evolution and Observational Constraints",
+      "summary": "We study the linear cosmological evolution of inelastic self-interacting dark matter in a two-component dark sector with a small mass splitting, assuming thermal initial conditions for the two species. We derive the coupled background and perturbation equations for inelastic conversion between the two species, considering both Power-law and Low-velocity saturation cross sections. Exothermic conversion injects kinetic energy into the light component, generating pressure support that suppresses small-scale structure and produces dark acoustic oscillations in the matter power spectrum. The resulting cutoff at scale $k > 1\\,h\\,\\mathrm{Mpc}^{-1}$ depends on the normalization and velocity dependence of the cross section, the dark matter mass and the mass splitting. Using linear power spectra computed with a modified Boltzmann solver, we apply recast constraints from Lyman-$\u03b1$ forest data and high-redshift UV luminosity functions, finding non-monotonic but closed exclusion regions driven by the competition between efficient conversion and rapid depletion of the heavy component. These results show that the internal thermodynamics of a secluded multi-component dark sector can leave observable imprints on structure formation, providing a complementary probe of dark matter beyond Standard Model interactions.",
+      "published": "2026-04-16T13:33:16+00:00",
+      "updated": "2026-04-16T13:33:16Z",
+      "authors": [
+        "Xin-Chen Duan",
+        "Yue-Lin Sming Tsai",
+        "Ziwei Wang"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.15006v1",
+      "categories": [
+        "astro-ph.CO",
+        "hep-ph"
+      ],
+      "_topic": "dark_matter",
+      "_topic_label": "dark matter",
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Cosmology+of+Inelastic+Self-Interacting+Dark+Matter%3A+Linear+Evolution+and+Observational+Constraints&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+import hashlib
+import json
+import re
+from base64 import b64encode
+from pathlib import Path
+
+import fitz
+import httpx
+
+
+def _safe_name(text: str) -> str:
+    cleaned = re.sub(r"[^a-zA-Z0-9._-]+", "-", text.strip())
+    return cleaned.strip("-")[:120] or "paper"
+
+
+def _paper_key(paper: dict) -> str:
+    pid = paper.get("id") or paper.get("title", "paper")
+    return _safe_name(pid)
+
+
+def _download_pdf(pdf_url: str, dest: Path) -> None:
+    if dest.exists() and dest.stat().st_size > 0:
+        return
+    r = httpx.get(pdf_url, timeout=120.0, follow_redirects=True)
+    r.raise_for_status()
+    dest.write_bytes(r.content)
+
+
+def _render_page_image(page: fitz.Page, xref: int, zoom: float = 2.0) -> bytes | None:
+    """
+    Render an embedded image as it appears on the page.
+
+    Using the raw extracted image stream can lose the PDF placement transform,
+    which causes some figures to appear upside down or rotated in the digest PDF.
+    """
+    try:
+        rects = page.get_image_rects(xref)
+    except Exception:
+        return None
+    if not rects:
+        return None
+
+    rect = max(rects, key=lambda r: r.width * r.height)
+    if rect.width <= 0 or rect.height <= 0:
+        return None
+
+    try:
+        pix = page.get_pixmap(
+            matrix=fitz.Matrix(zoom, zoom),
+            clip=rect,
+            alpha=False,
+        )
+    except Exception:
+        return None
+    return pix.tobytes("png")
+
+
+def _rank_with_gemini(
+    paper: dict,
+    candidates: list[tuple[int, int, bytes]],
+    max_figures: int,
+) -> list[tuple[int, int, bytes]]:
+    api_key = (__import__("os").environ.get("GEMINI_API_KEY") or "").strip()
+    if not api_key or not candidates:
+        return []
+
+    model = (__import__("os").environ.get("GEMINI_MODEL") or "gemini-1.5-flash").strip()
+    shortlisted = candidates[: min(8, len(candidates))]
+
+    parts: list[dict] = [
+        {
+            "text": (
+                "You are ranking research paper figures by scientific usefulness for a daily digest. "
+                "Prefer plots/diagrams/results over logos/decorative images. "
+                "Return strict JSON only: {\"keep\":[indices]} where indices are from the labels below."
+            )
+        },
+        {"text": f"Paper title: {paper.get('title', '')}"},
+    ]
+    for i, (area, page_num, blob) in enumerate(shortlisted, start=1):
+        parts.append({"text": f"Figure {i} (page {page_num}, area {area}):"})
+        parts.append(
+            {
+                "inline_data": {
+                    "mime_type": "image/png",
+                    "data": b64encode(blob).decode("ascii"),
+                }
+            }
+        )
+
+    url = (
+        f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+        f"?key={api_key}"
+    )
+    payload = {"contents": [{"role": "user", "parts": parts}]}
+    r = httpx.post(url, json=payload, timeout=90.0)
+    r.raise_for_status()
+    data = r.json()
+    text = ""
+    for cand in data.get("candidates", []):
+        for part in cand.get("content", {}).get("parts", []):
+            if part.get("text"):
+                text += part["text"]
+    text = text.strip()
+    if not text:
+        return []
+
+    if text.startswith("```"):
+        text = re.sub(r"^```[a-zA-Z]*\n?", "", text)
+        text = text.replace("```", "").strip()
+    try:
+        parsed = json.loads(text)
+        keep = parsed.get("keep") or []
+    except Exception:
+        keep = []
+
+    out: list[tuple[int, int, bytes]] = []
+    for k in keep:
+        if isinstance(k, int) and 1 <= k <= len(shortlisted):
+            out.append(shortlisted[k - 1])
+        if len(out) >= max_figures:
+            break
+    return out
+
+
+def extract_key_figures(
+    paper: dict,
+    cache_pdf_dir: Path,
+    cache_fig_dir: Path,
+    max_figures: int = 2,
+    use_gemini: bool = False,
+) -> list[str]:
+    pdf_url = paper.get("pdf_url")
+    if not pdf_url:
+        return []
+
+    key = _paper_key(paper)
+    pdf_path = cache_pdf_dir / f"{key}.pdf"
+    fig_dir = cache_fig_dir / key
+    fig_dir.mkdir(parents=True, exist_ok=True)
+
+    _download_pdf(pdf_url, pdf_path)
+
+    doc = fitz.open(pdf_path)
+    candidates: list[tuple[int, int, bytes]] = []
+    seen_hashes: set[str] = set()
+
+    max_pages = min(len(doc), 20)
+    for page_idx in range(max_pages):
+        page = doc[page_idx]
+        for img in page.get_images(full=True):
+            xref = img[0]
+            try:
+                img_dict = doc.extract_image(xref)
+            except Exception:
+                continue
+            blob = img_dict.get("image")
+            if not blob:
+                continue
+            digest = hashlib.sha1(blob).hexdigest()
+            if digest in seen_hashes:
+                continue
+            seen_hashes.add(digest)
+
+            rendered = _render_page_image(page, xref)
+            if rendered:
+                blob = rendered
+                try:
+                    width = int(page.get_image_rects(xref)[0].width * 2)
+                    height = int(page.get_image_rects(xref)[0].height * 2)
+                except Exception:
+                    width = int(img_dict.get("width") or 0)
+                    height = int(img_dict.get("height") or 0)
+            else:
+                width = int(img_dict.get("width") or 0)
+                height = int(img_dict.get("height") or 0)
+            area = width * height
+            if area < 80000:
+                continue
+            candidates.append((area, page_idx + 1, blob))
+
+    doc.close()
+
+    candidates.sort(key=lambda x: x[0], reverse=True)
+
+    ranked = candidates[:max_figures]
+    if use_gemini:
+        try:
+            gemini_ranked = _rank_with_gemini(paper, candidates, max_figures=max_figures)
+            if gemini_ranked:
+                ranked = gemini_ranked
+        except Exception:
+            pass
+
+    saved: list[str] = []
+    for i, (_, _, blob) in enumerate(ranked[:max_figures], start=1):
+        out = fig_dir / f"figure_{i}.png"
+        out.write_bytes(blob)
+        saved.append(str(out))
+    return saved

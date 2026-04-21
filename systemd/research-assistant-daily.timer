@@ -1,0 +1,9 @@
+[Unit]
+Description=Run research-assistant daily arXiv digest once per day
+
+[Timer]
+OnCalendar=*-*-* 06:30:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

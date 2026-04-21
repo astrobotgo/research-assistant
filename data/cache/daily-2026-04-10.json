@@ -1,0 +1,640 @@
+{
+  "pool_count": 15,
+  "selected_count": 10,
+  "present_requested": 10,
+  "selection_note": "_Selection failed (timed out); using newest k._",
+  "pool": [
+    {
+      "id": "http://arxiv.org/abs/2604.08449v1",
+      "title": "Coupled Dark Energy and Dark Matter for DESI: An Effective Guide to the Phantom Divide",
+      "summary": "Motivated by the recent Dark Energy Spectroscopic Instrument (DESI) DR2 preference for dynamical dark energy, we study interacting dark energy models in which a canonical quintessence field couples to cold dark matter through a field-dependent mass $m(\u03c6)$. In such scenarios, the effective equation of state inferred under the assumption of non-interacting dark sectors, $w_{\\rm eff}(z)$, can differ from the intrinsic scalar-field equation of state $w_\u03c6(z)$, making an apparent phantom crossing $w_{\\rm eff}<-1$ possible without introducing a phantom scalar. We show that a viable realization of this mechanism requires the scalar field to originate from a frozen phase deep in the radiation era, in order for the effective coupling to remain sufficiently suppressed before recombination to evade cosmic microwave background constraints, and for the late-time evolution to become strong enough to reproduce the apparent behavior of $w_{\\rm eff}(z)$ preferred by DESI. We identify the general conditions that allow these requirements to be satisfied simultaneously, and present an illustrative phenomenological realization in which $w_{\\rm eff}(z)$ evolves from $w_{\\rm eff}\\approx -1.2$ at $z \\approx 1.0$ to $w_{\\rm eff}\\approx -0.9$ at $z\\approx 0.4$. These conditions and requirements serve as a guide for designing future models of this kind which can safely navigate the phantom divide at $w=-1$ in an effective way without phantom fields.",
+      "published": "2026-04-09T16:45:31+00:00",
+      "updated": "2026-04-09T16:45:31Z",
+      "authors": [
+        "Stefan Antusch",
+        "Stephen F. King",
+        "Xin Wang"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.08449v1",
+      "categories": [
+        "astro-ph.CO",
+        "hep-ph"
+      ],
+      "_topic": "dark_matter",
+      "_topic_label": "dark matter"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.08439v1",
+      "title": "Optical images of Kerr-Sen black hole illuminated by thick accretion disks",
+      "summary": "This paper investigates the shadow and polarization images of a Kerr-Sen black hole illuminated by geometrically thick and optically thin accretion disks. We adopt two classes of accretion models, namely the phenomenological radiatively inefficient accretion flow (RIAF) model and the analytical ballistic approximation accretion flow (BAAF) model. Based on radiative transfer theory, we examine the effects of the spin parameter $a$, black hole charge $Q$, and observer inclination angle $\u03b8$ on the shadow images. Both models show that, as the charge $Q$ increases, the photon rings and the central dark regions shrink simultaneously. Meanwhile, frame dragging gives rise to a pronounced brightness asymmetry, which becomes more significant with increasing $a$ and $\u03b8$. The main difference between isotropic and anisotropic radiation is that, in the latter case, the higher order images are brighter in the upper and lower polar regions. For the BAAF model, because the conical approximation renders certain regions geometrically thinner, the spatial extent of the higher order images is narrower than that in the RIAF model, and the separation between the direct image and the higher order images is more distinct. In the polarization images, the spatial distribution of the polarization vector directions is mainly determined by gravitational lensing and frame dragging, whereas the intensity near the photon ring and the scale of the higher order images are significantly influenced by $Q$.",
+      "published": "2026-04-09T16:38:30+00:00",
+      "updated": "2026-04-09T16:38:30Z",
+      "authors": [
+        "Yu-Kang Wang",
+        "Chen-Yu Yang",
+        "Xiao-Xiong Zeng"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.08439v1",
+      "categories": [
+        "astro-ph.HE",
+        "gr-qc"
+      ],
+      "_topic": "gravitational_lensing",
+      "_topic_label": "gravitational lensing"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.08409v1",
+      "title": "Morphological complexity of NGC 628 - a multiwavelength multiscale analysis using the ordinal pattern framework",
+      "summary": "As statistical systems, galaxies exhibit a rich interplay between organized structure and stochastic fluctuations across a broad range of spatial scales. This duality motivates the need for quantitative frameworks capable of capturing their morphological complexity. The ordinal patterns framework, along with its associated statistical measures: permutation entropy ($H$), disequilibrium ($D_E$), statistical complexity ($C$), and ordinal network node entropy, has recently emerged as a powerful tool for analyzing such complexity in physical systems. We apply this framework in a multiwavelength, multiscale analysis of the galaxy NGC 628, utilizing observations in the near-ultraviolet, near-infrared, mid-infrared, and millimeter bands. Our results reveal a characteristic spatial scale of approximately 200 parsecs, marking the transition from small-scale structures influenced by star formation and stellar feedback to larger-scale morphology governed by the galaxy's dynamics. Furthermore, we find that the $C$ vs. $H$ trajectories for all wavelengths converge toward a common attractor curve, consistent with the behavior of isotropic Gaussian random fields. This convergence suggests a universal statistical behavior in galactic structure at large scales, despite the differing physical processes traced by each wavelength.",
+      "published": "2026-04-09T16:08:41+00:00",
+      "updated": "2026-04-09T16:08:41Z",
+      "authors": [
+        "Athokpam Langlen Chanu",
+        "S Amrutha",
+        "Pravabati Chingangbam",
+        "Changbom Park"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.08409v1",
+      "categories": [
+        "astro-ph.GA"
+      ],
+      "_topic": "galaxies",
+      "_topic_label": "galaxies"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.08402v1",
+      "title": "Neutral Hydrogen in the Shapley Supercluster Core I: Environmental Effects on Gas Content and Galaxy Evolution",
+      "summary": "We study the atomic Hydrogen (HI) content of galaxies in the core of the Shapley Supercluster (SSC) at <z> ~ 0.048, using observations from the MeerKAT Galaxy Cluster Legacy Survey and optical data from the Shapley Supercluster Survey (ShaSS) project. Our sample comprises 169 galaxies with HI detections in the dynamically active region of Abell 3558 and SC1329-313. Following the literature, we classify galaxies into star-forming main sequence (SFMS), transition (TZ), and red sequence (RS) populations, and examine how the HI content varies across these populations. Galaxies on the SFMS exhibit an average HI gas fraction offset of 0.038 dex from the gas fraction main sequence, while TZ and RS populations show depleted HI fractions of -0.034 and -0.211 dex. HI depletion timescales span from 6 to 170 Gyr (SFMS-TZ-RS) confirming increasingly inefficient star formation with quenching. Scaling relations between HI mass and stellar mass in the SSC are generally consistent with field samples. The most direct signature of the dense environment of the SSC is the marked predominance of TZ galaxies, in contrast to what is observed in the field-dominated sample of xGASS, where the population is mostly composed of SFMS galaxies. Moreover, the SFMS and RS populations have similar size, again in contrast with field populations. These results suggest that galaxies in the SSC are undergoing environmental quenching through starvation or strangulation, rather than rapid gas stripping. Despite detectable HI reservoirs, many galaxies exhibit long depletion times, indicating reduced gas accretion and inefficient star formation.",
+      "published": "2026-04-09T16:01:32+00:00",
+      "updated": "2026-04-09T16:01:32Z",
+      "authors": [
+        "L. Gwebushe",
+        "T. Venturi",
+        "P. Merluzzi",
+        "G. Busarello",
+        "V. Casasola",
+        "O. Smirnov",
+        "M. Ramatsoku",
+        "J. Dawson"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.08402v1",
+      "categories": [
+        "astro-ph.GA"
+      ],
+      "_topic": "galaxies",
+      "_topic_label": "galaxies"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.08393v1",
+      "title": "Ray-traced weak lensing convergence in screened modified gravity theories",
+      "summary": "Weak gravitational lensing is one of the primary cosmological probes, providing powerful constraints on the cosmological model. As Stage IV surveys are expected to deliver data of unprecedented precision, accurate modeling of weak gravitational lensing observables across both linear and non-linear scales becomes increasingly important. In this work, we investigate weak lensing in modified gravity (MG) models, extensions of the standard $\u039b$CDM cosmology in which gravity deviates from general relativity, generally introducing modifications to the lensing equation. We parametrize these modifications through the common phenomenological function $\u03a3_\\mathrm{mg}$ and apply ray-tracing to the density maps of N-body and hydrodynamical simulations. We model the time dependence of $\u03a3_\\mathrm{mg}$ analytically, while we introduce a phenomenological scale dependence to represent the screening mechanisms by which MG models reduce to general relativity in high-density environments. Starting from the output of the FLAMINGO hydrodynamical simulations, we generate fully ray-traced convergence maps using our modified lensing model. We analyze how the parameters of our prescription affect the weak lensing convergence power spectrum and compare these effects to other known sources of variation, in particular cosmological parameters and baryonic feedback. We find that the modifications to the lensing equation deriving from the MG model produce non-negligible signatures in the convergence power spectrum and that, within extensions of the $\u039b$CDM framework, these effects can be larger than those induced by baryonic physics. Our results indicate that modified lensing should become a standard ingredient of the analysis of modified gravity simulations.",
+      "published": "2026-04-09T15:54:01+00:00",
+      "updated": "2026-04-09T15:54:01Z",
+      "authors": [
+        "Mattia Pantiri",
+        "Matthieu Schaller",
+        "Alessandra Silvestri",
+        "Jeger C. Broxterman",
+        "Joop Schaye"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.08393v1",
+      "categories": [
+        "astro-ph.CO"
+      ],
+      "_topic": "gravitational_lensing",
+      "_topic_label": "gravitational lensing"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.08239v1",
+      "title": "Extended coronal line emission and new clues to a possible dual AGN in the merger J1356+1026",
+      "summary": "Merging luminous galaxies are ideal laboratories to study some of the most extreme astrophysical phenomena. The local (z=0.1232) obscured quasar J1356+1026 has two nuclei, North and South (J1356N and J1356S), but despite numerous efforts, J1356S had not yet been confirmed as an AGN. Thanks to the superb sensitivity and spatial resolution of the MIRI/MRS instrument on board the JWST, we present new evidence suggesting that J1356S may indeed host an AGN with log L$_{\\rm bol}=43.4\\pm^{0.6}_{0.5} erg s^{-1}$. This is supported by the detection of strong coronal line emission at this location and by a spectral shape that differs from that of J1356N and those of the narrow-line region (NLR). Aided by the spatially resolved information of MIRI/MRS and VLT/SINFONI, we also find that the high ionization gas, traced by the coronal lines [Ne V]$14.3~\u03bc$m and [Si VI]$1.963 \u03bc$m, has an extension of ~13-15.5 kpc. This is likely a lower limit of the true extension, as suggested by the comparison with optical imaging from HST. {The extended [Ne V] emission can be accounted for by photoionization from the quasar in J1356N in a relatively low density environment, ranging from $\\rm n_e\\leq 2000-3800 cm^{-3}$ in J1356N and $\\rm n_e\\leq 600-1200 cm^{-3}$ in J1356S and the NLR, as measured from the [Ne V]$14.3\u03bc$m and $24.3~\u03bc$m lines.",
+      "published": "2026-04-09T13:30:27+00:00",
+      "updated": "2026-04-09T13:30:27Z",
+      "authors": [
+        "M. Bianchin",
+        "C. Ramos Almeida",
+        "O. Gonz\u00e1lez-Mart\u00edn",
+        "M. V. Zanchettin",
+        "M. Carneiro",
+        "M. Pereira-Santaella",
+        "C. Tadhunter",
+        "G. Speranza",
+        "I. Garc\u00eda-Bernete",
+        "A. Audibert",
+        "A. Alonso-Herrero",
+        "D. Rigopoulou",
+        "A. Labiano",
+        "J. A. Acosta-Pulido",
+        "S. Garc\u00eda-Burillo"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.08239v1",
+      "categories": [
+        "astro-ph.GA"
+      ],
+      "_topic": "galaxies",
+      "_topic_label": "galaxies"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.08193v1",
+      "title": "Probing Majoron Dark Matter with Gravitational Wave Detectors",
+      "summary": "The Majoron is a hypothetical (pseudo) Nambu-Goldstone boson arising from the spontaneous breaking of a global lepton number symmetry, and is known as a candidate for dark matter in our Universe. In this paper, we investigate the possibility of probing the Majoron dark matter with a linear optical cavity used in the interferometric gravitational wave detectors. We consider a scenario in which the Majoron dark matter couples to photons through a QED anomaly, leading to an oscillatory photon birefringence induced by the coherent dark matter background. The anomaly coefficient is fixed by requiring the model to simultaneously reproduce the electroweak Higgs scale and a typical right-handed Majorana neutrino mass scale, and the resulting dark matter-photon coupling naturally falls within the sensitivity range of optical interferometers. By incorporating additional optics to extract the birefringence signal, we find that ground-based laser interferometers such as Advanced LIGO, KAGRA, as well as future detectors, can probe a region of the parameter space of Majoron dark matter.",
+      "published": "2026-04-09T12:46:40+00:00",
+      "updated": "2026-04-09T12:46:40Z",
+      "authors": [
+        "Ippei Obata",
+        "Tsutomu T. Yanagida"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.08193v1",
+      "categories": [
+        "hep-ph",
+        "astro-ph.CO",
+        "astro-ph.IM",
+        "physics.ins-det",
+        "physics.optics"
+      ],
+      "_topic": "dark_matter",
+      "_topic_label": "dark matter"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.08053v1",
+      "title": "Constraining Ultralight Scalar Dark Matter in the Galactic Center with the S2 Orbit",
+      "summary": "The dense environment of our Galactic Center (GC) offers a unique laboratory for probing ultralight dark matter (ULDM). We explore the prospect of detecting a scalar ULDM field through its effects on the orbital dynamics of S-stars around the supermassive black hole in the GC, Sgr A$^*$. We consider both linear and quadratic couplings between the real scalar field $\u03c6$ and Standard Model particles, and analyze two representative ULDM structures: the scalar gravitational atom and the spherical soliton. We find that quadratic coupling induces a non-oscillatory perturbation, leading to a long-term secular orbital evolution. We use the observed periastron precession rate of S2 star to put stringent constraints on the total ULDM mass in the GC and the quadratic coupling constant. For the gravitational atom $|211\\rangle$ state, we constrain the mass ratio of ULDM to Sgr A$^*$ to $\u03b2\\lesssim 10^{-3}$ at $m \\sim 10^{-18}$ eV, and for the spherical soliton which extends to $\\sim 0.2\\,$pc, the mass ratio is limited to $\u03b2\\lesssim 1$ at $m \\sim 3\\times10^{-20}$ eV. Notably, the resulting limits on the quadratic coupling constant surpass current bounds in the mass range $10^{-20} \\,\\text{eV} \\lesssim m \\lesssim 10^{-18}$ eV.",
+      "published": "2026-04-09T10:02:09+00:00",
+      "updated": "2026-04-09T10:02:09Z",
+      "authors": [
+        "Jiang-Chuan Yu",
+        "Yan Cao",
+        "Lijing Shao"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.08053v1",
+      "categories": [
+        "hep-ph",
+        "gr-qc"
+      ],
+      "_topic": "dark_matter",
+      "_topic_label": "dark matter"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.07618v1",
+      "title": "Multi Component Dark Matter in a Minimal Model",
+      "summary": "We study a minimal model with an imposed $\\mathbb{Z}_2$ symmetry incorporating two singlet fermions and a singlet scalar which communicate with the SM particles through a scalar-Higgs portal. We probe regions in the parameter space where stability of the three new particles are guaranteed kinematically, and thus introducing a multi component dark matter (DM) scenario. The regions in the parameter space with predicted total relic density in accordance with the observed DM abundance are found, and the contribution of each species to the total relic density is determined. The elastic DM-nucleon scattering cross section of the two fermions DM are loop suppressed, while that of the scalar DM starts at tree level and thus presumably being dominant. It is found that there exist a viable region in the parameter space that the scalar DM can evade the current direct detection (DD) experimental bounds while it has a minimal contribution to the observed relic density. The DD cross section of the fermion DM being loop suppressed, resides below the lower limit from the {\\it neutrino floor}, possessing a large fraction of the total relic density.",
+      "published": "2026-04-08T21:39:30+00:00",
+      "updated": "2026-04-08T21:39:30Z",
+      "authors": [
+        "Karim Ghorbani"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.07618v1",
+      "categories": [
+        "hep-ph"
+      ],
+      "_topic": "dark_matter",
+      "_topic_label": "dark matter"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.07613v1",
+      "title": "Too Big to Quench? I. Constraining ISM Stripping of Dwarf Satellites in Milky Way-like Halos",
+      "summary": "Galaxy environment plays a crucial role in quenching star formation in dwarf galaxies. In Milky Way (MW)-like environments, dwarf satellite quenching is primarily driven by ram pressure stripping (RPS), the direct removal of satellite gas by the host halo gas. Using a suite of 20-pc resolution hydrodynamical wind tunnel simulations, we constrain the satellite mass scale at which the stripping of a dwarf galaxy's interstellar medium (ISM) becomes inefficient in MW-like halos. The simulations include radiative cooling in a multiphase satellite ISM, star formation, and stellar feedback, and vary both satellite masses ($M_{\\star}=10^{6.2}, 10^{6.8}, 10^{7.2}\\ M_{\\odot}$) and host halo gas densities along a first-infall and post-pericentric orbit. We find that the degree of ISM stripping in our dwarf galaxies is consistent with the analytical prediction by McCarthy et al. (2008). Star formation is rapidly quenched when RPS is effective, but can be mildly enhanced or temporarily quenched and subsequently reignited when RPS is incomplete. ISM stripping is efficient for satellites with $M_{\\star} \\lesssim 10^{7}\\ M_{\\odot}$ (or $M_{200} \\lesssim 10^{10}\\ M_{\\odot}$) but highly inefficient above this scale. This transitional mass ($M_{\\star} \\approx 10^{7}\\ M_{\\odot}$) is 0.5-1 dex lower than that found in observations and cosmological simulations, suggesting that additional mechanisms are needed to quench more massive satellites, such as tidal stripping of the satellite dark matter or RPS from a clumpy gaseous halo.",
+      "published": "2026-04-08T21:31:03+00:00",
+      "updated": "2026-04-08T21:31:03Z",
+      "authors": [
+        "Jingyao Zhu",
+        "Stephanie Tonnesen",
+        "Greg L. Bryan",
+        "Mary E. Putman"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.07613v1",
+      "categories": [
+        "astro-ph.GA"
+      ],
+      "_topic": "dark_matter",
+      "_topic_label": "dark matter"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.07438v1",
+      "title": "LSST Strong Lensing Systems Dark Matter Sensitivity Analysis with Neural Ratio Estimators",
+      "summary": "Strong gravitational lensing offers a unique probe of dark matter (DM) on sub-galactic scales, where the abundance and distribution of low-mass halos are highly sensitive to the underlying properties of DM particles. In this work, we forecast LSST's sensitivity to DM substructure in galaxy-galaxy strong lenses using simulated samples and neural ratio estimators (NREs). Our simulations include both subhalos within the main deflector and line-of-sight (LOS) halos, with halo masses down to $\\sim 10^7 M_\\odot$ under the expected LSST ten-year survey imaging quality. We show that the constraining power on halo mass function (HMF) parameters improves significantly with sample size. Analyses based on a few hundred lenses yield broad posteriors comparable with other probes like the Ly-$\u03b1$ forest. By contrast, when combining 2500 lenses, $\\approx 74\\%$ and $\\approx 36\\%$ of the prior volume considered can be excluded at the $3\u03c3$ and $5\u03c3$ levels respectively, enabling statistically significant exclusions of non-$\u039b$CDM scenarios. We further demonstrate that the sensitivity arises not only from the high-mass end of the HMF but also from low-mass halos: masking halos below $\\log (m_{\\rm halo}/M_\\odot) \\leq 7.5$ induces a measurable shift in the inferred posteriors. Finally, we find that LOS halos contribute significantly to the constraining power, with increasing importance of LOS halos at higher redshifts. While this analysis assumes perfect knowledge of the data-generating process and cannot be directly applied to data analysis, it quantifies constraints achievable with LSST alone and motivates the development of robust inference methods for real survey data.",
+      "published": "2026-04-08T18:00:01+00:00",
+      "updated": "2026-04-08T18:00:01Z",
+      "authors": [
+        "Andreas Filipp",
+        "Yashar Hezaveh",
+        "Laurence Perreault-Levasseur",
+        "Daniel Gilman",
+        "LSST Dark Energy Science Collaboration"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.07438v1",
+      "categories": [
+        "astro-ph.CO",
+        "astro-ph.GA"
+      ],
+      "_topic": "gravitational_lensing",
+      "_topic_label": "gravitational lensing, dark matter"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.07327v1",
+      "title": "Primordial magnetic fields in the light of upcoming post-EoR Lyman-$\u03b1$ and 21-cm observations",
+      "summary": "The Lorentz force exerted by a primordial magnetic field (PMF) on the coupled baryon-dark matter system may enhance total matter power at small scales after recombination. In the post-reionization (post-EoR) era, a weakly scale-dependent PMF of sub-nG strength is thus expected to influence the Lyman-$\u03b1$ (Ly$\u03b1$) power spectrum, the 21 cm power spectrum, and the Ly$\u03b1$-21 cm cross-spectrum at scales $k\\gtrsim 1\\:h/\\textrm{Mpc}$. We investigate the prospects of constraining the PMF sector via these three cosmological observables, by employing SNR estimation and Fisher forecast on the PMF amplitude $B_0$ and spectral index $n_{\\rm B}$, for a next-generation DESI-like spectroscopic survey and two upcoming 21 cm facilities, namely SKA1-Mid and PUMA. Our results indicate the possibility of constraining both PMF parameters with $\\lesssim10\\%$ relative errors through the uncontaminated 21 cm auto-spectrum as well as the Ly$\u03b1$-21 cm cross-spectrum probed with the DESI-like+SKA1-Mid combination. Indicatively, the Ly$\u03b1$-21 cm cross-correlation via DESI-like+SKA1-Mid is predicted to constrain a fiducial scenario $B_0=0.8$ nG and $n_{\\rm B}=-2.9$ with $1\u03c3$ errors $\u0394B_0\\approx 0.07$ nG and $\u0394n_{\\rm B}\\approx0.02$. The DESI-like+PUMA setup is predicted to fare relatively worse due to its restriction to larger scales, resulting in comparatively one order of magnitude relaxed error bounds for similar fiducials. Since the Ly$\u03b1$-21 cm cross-signal is expected to be largely insensitive to foreground contamination (unlike the 21 cm auto-spectrum), it may serve as an optimal foreground-immune post-EoR probe to constrain a weakly scale-dependent sub-nG PMF via future DESI-like+SKA1-Mid observations.",
+      "published": "2026-04-08T17:44:37+00:00",
+      "updated": "2026-04-08T17:44:37Z",
+      "authors": [
+        "Arko Bhaumik",
+        "Sourav Pal",
+        "Supratik Pal"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.07327v1",
+      "categories": [
+        "astro-ph.CO",
+        "astro-ph.IM",
+        "hep-ph"
+      ],
+      "_topic": "dark_matter",
+      "_topic_label": "dark matter"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.06791v1",
+      "title": "Gravitational Lensing as an Optical Framework for Modified Gravity Theories",
+      "summary": "We present a framework that reformulates gravitational lensing as an optical phenomenon governed by an effective refractive index, enabling exploration of modified gravity theories using undergraduate-level mathematics and optics. After deriving the general deflection angle for arbitrary spherically symmetric fields, we establish the observational baseline using standard general relativity, including the lens equation and Einstein ring properties. Assuming the optical relation holds for modified effective potentials, we apply the formalism to deep-MOND, Yukawa-type, and power-law ($f(R)$) models, providing closed-form analytical expressions for the deflection angle and Einstein radius. Numerical ray-tracing simulations validate these analytical results. This framework serves as a conceptual bridge to contemporary research, offering students computational experience and critical awareness of gravitational lensing foundations.",
+      "published": "2026-04-08T07:57:31+00:00",
+      "updated": "2026-04-08T07:57:31Z",
+      "authors": [
+        "Romy Hanang Setya Budhi"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.06791v1",
+      "categories": [
+        "gr-qc"
+      ],
+      "_topic": "gravitational_lensing",
+      "_topic_label": "gravitational lensing"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.06311v1",
+      "title": "An archival search for gamma-ray bursts gravitationally lensed by galaxy clusters",
+      "summary": "Discoveries of gamma-ray bursts (GRBs) have become commonplace in recent decades, totalling $\\mathcal{O}(10^4)$ unique detections across various missions. However, there have been no confirmed discoveries of a gravitationally-lensed GRB, despite expected lensing rates of $\\sim1$ in $10^{3}$. In light of this, we complete an archival search for lensed GRBs by cross-matching well-localised \\emph{Swift}/XRT-detected bursts with a large all-sky sample of galaxy clusters as potential lenses. We find a total of 17 candidate lensed GRBs defined by a 2 arcminute search radius from a cluster in our sample. 14 of our candidates are either confirmed to be at higher redshifts than their cross-matched cluster, or are consistent with a higher redshift origin based on the Amati relation between $E_{p,i}$ and $E_{\\rm iso}$ of GRBs, indicating they are, at some level, lensed by their nearby cluster. Using the Amati relation and the lens-GRB separation, we quantify the magnification experienced by each GRB. We find $\u03bc< 10$ for all except for one candidate, GRB~071031, which is consistent with $\u03bc> 10$, but is uncertain. Another candidate, GRB~050509B, does not have a directly measured redshift, but was previously assumed to be at the redshift of its nearby cluster, $z=0.225$. We produce a lens model of this cluster and show that GRB~050509B is consistent with $z>1$ and magnified by $\u03bc\\simeq2-6$. We present these findings in anticipation of future lensed GRB discoveries enabled by facilities such as the Vera C. Rubin Observatory in the coming years.",
+      "published": "2026-04-07T18:00:03+00:00",
+      "updated": "2026-04-07T18:00:03Z",
+      "authors": [
+        "Dan Ryczanowski",
+        "Benjamin P. Jones",
+        "Benjamin P. Gompertz",
+        "Graham P. Smith"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.06311v1",
+      "categories": [
+        "astro-ph.HE",
+        "astro-ph.CO"
+      ],
+      "_topic": "galaxy_clusters",
+      "_topic_label": "galaxy clusters"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.06302v1",
+      "title": "Zooming in on radio relics -- II. How relic morphology probes density fluctuations at the edge of galaxy clusters",
+      "summary": "Gas properties in the outer intracluster medium (ICM) are not well-constrained, as traditional probes lose sensitivity at Mpc distances. We show that the morphology of radio relics effectively encodes the power spectrum of the surrounding density fluctuations, and that they hence represent a new observational window. To demonstrate this, we use cosmologically motivated shock-tube simulations in which we systematically vary the coherence length, amplitude, and power-law slope of the upstream density power spectra. We then post-process our simulations with the cosmic ray electron spectral solver, Crest, thereby producing a suite of mock radio relics. We find that the downstream morphology of our simulated relics is independently sensitive to each of the aforementioned parameters. Specifically, we show that observed 'double strand' features can be formed by curved shock fronts in projection, and that the scale of these features maps directly to the fluctuation coherence length. Increasing the fluctuation amplitude, meanwhile, progressively lengthens the downstream extent of the relic, thus explaining why relics are observed to be broader than the idealised expectation. It also broadens the Mach number distribution across the shock, which simultaneously increases the integrated radio flux density and produces patchier emission. Finally, steepening the power-law slope makes 'double strand' features more likely, and additionally increases both the number of radio filaments oriented parallel to the shock front and their spacing. At higher Mach numbers, steepening the power-law slope can further lead to the production of curved radio filaments, which trace large eddies. We apply our analysis to the Toothbrush and Sausage relics, and find evidence for a typical fluctuation coherence length of ~500 kpc, a non-uniform amplitude, and power spectra that are steeper than a Kolmogorov-like scaling.",
+      "published": "2026-04-07T18:00:00+00:00",
+      "updated": "2026-04-07T18:00:00Z",
+      "authors": [
+        "Joseph Whittingham",
+        "Christoph Pfrommer",
+        "Maria Werhahn",
+        "L\u00e9na Jlassi",
+        "Philipp Girichidis"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.06302v1",
+      "categories": [
+        "astro-ph.HE",
+        "astro-ph.CO"
+      ],
+      "_topic": "galaxy_clusters",
+      "_topic_label": "galaxy clusters"
+    }
+  ],
+  "selected": [
+    {
+      "id": "http://arxiv.org/abs/2604.08449v1",
+      "title": "Coupled Dark Energy and Dark Matter for DESI: An Effective Guide to the Phantom Divide",
+      "summary": "Motivated by the recent Dark Energy Spectroscopic Instrument (DESI) DR2 preference for dynamical dark energy, we study interacting dark energy models in which a canonical quintessence field couples to cold dark matter through a field-dependent mass $m(\u03c6)$. In such scenarios, the effective equation of state inferred under the assumption of non-interacting dark sectors, $w_{\\rm eff}(z)$, can differ from the intrinsic scalar-field equation of state $w_\u03c6(z)$, making an apparent phantom crossing $w_{\\rm eff}<-1$ possible without introducing a phantom scalar. We show that a viable realization of this mechanism requires the scalar field to originate from a frozen phase deep in the radiation era, in order for the effective coupling to remain sufficiently suppressed before recombination to evade cosmic microwave background constraints, and for the late-time evolution to become strong enough to reproduce the apparent behavior of $w_{\\rm eff}(z)$ preferred by DESI. We identify the general conditions that allow these requirements to be satisfied simultaneously, and present an illustrative phenomenological realization in which $w_{\\rm eff}(z)$ evolves from $w_{\\rm eff}\\approx -1.2$ at $z \\approx 1.0$ to $w_{\\rm eff}\\approx -0.9$ at $z\\approx 0.4$. These conditions and requirements serve as a guide for designing future models of this kind which can safely navigate the phantom divide at $w=-1$ in an effective way without phantom fields.",
+      "published": "2026-04-09T16:45:31+00:00",
+      "updated": "2026-04-09T16:45:31Z",
+      "authors": [
+        "Stefan Antusch",
+        "Stephen F. King",
+        "Xin Wang"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.08449v1",
+      "categories": [
+        "astro-ph.CO",
+        "hep-ph"
+      ],
+      "_topic": "dark_matter",
+      "_topic_label": "dark matter",
+      "semantic_scholar": {
+        "paperId": "837f8bcbeb9083696c6c9ad9abfe8108fa31a8c5",
+        "externalIds": {
+          "ArXiv": "2604.08449",
+          "CorpusId": 287256436
+        },
+        "url": "https://www.semanticscholar.org/paper/837f8bcbeb9083696c6c9ad9abfe8108fa31a8c5",
+        "title": "Coupled Dark Energy and Dark Matter for DESI: An Effective Guide to the Phantom Divide",
+        "venue": "",
+        "year": 2026,
+        "citationCount": 0,
+        "influentialCitationCount": 0,
+        "fieldsOfStudy": [
+          "Physics"
+        ],
+        "authors": [
+          {
+            "authorId": "2335707507",
+            "name": "Stefan Antusch"
+          },
+          {
+            "authorId": "2258722571",
+            "name": "Stephen F. King"
+          },
+          {
+            "authorId": null,
+            "name": "Xin Wang"
+          }
+        ]
+      }
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.08439v1",
+      "title": "Optical images of Kerr-Sen black hole illuminated by thick accretion disks",
+      "summary": "This paper investigates the shadow and polarization images of a Kerr-Sen black hole illuminated by geometrically thick and optically thin accretion disks. We adopt two classes of accretion models, namely the phenomenological radiatively inefficient accretion flow (RIAF) model and the analytical ballistic approximation accretion flow (BAAF) model. Based on radiative transfer theory, we examine the effects of the spin parameter $a$, black hole charge $Q$, and observer inclination angle $\u03b8$ on the shadow images. Both models show that, as the charge $Q$ increases, the photon rings and the central dark regions shrink simultaneously. Meanwhile, frame dragging gives rise to a pronounced brightness asymmetry, which becomes more significant with increasing $a$ and $\u03b8$. The main difference between isotropic and anisotropic radiation is that, in the latter case, the higher order images are brighter in the upper and lower polar regions. For the BAAF model, because the conical approximation renders certain regions geometrically thinner, the spatial extent of the higher order images is narrower than that in the RIAF model, and the separation between the direct image and the higher order images is more distinct. In the polarization images, the spatial distribution of the polarization vector directions is mainly determined by gravitational lensing and frame dragging, whereas the intensity near the photon ring and the scale of the higher order images are significantly influenced by $Q$.",
+      "published": "2026-04-09T16:38:30+00:00",
+      "updated": "2026-04-09T16:38:30Z",
+      "authors": [
+        "Yu-Kang Wang",
+        "Chen-Yu Yang",
+        "Xiao-Xiong Zeng"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.08439v1",
+      "categories": [
+        "astro-ph.HE",
+        "gr-qc"
+      ],
+      "_topic": "gravitational_lensing",
+      "_topic_label": "gravitational lensing",
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Optical+images+of+Kerr-Sen+black+hole+illuminated+by+thick+accretion+disks&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.08409v1",
+      "title": "Morphological complexity of NGC 628 - a multiwavelength multiscale analysis using the ordinal pattern framework",
+      "summary": "As statistical systems, galaxies exhibit a rich interplay between organized structure and stochastic fluctuations across a broad range of spatial scales. This duality motivates the need for quantitative frameworks capable of capturing their morphological complexity. The ordinal patterns framework, along with its associated statistical measures: permutation entropy ($H$), disequilibrium ($D_E$), statistical complexity ($C$), and ordinal network node entropy, has recently emerged as a powerful tool for analyzing such complexity in physical systems. We apply this framework in a multiwavelength, multiscale analysis of the galaxy NGC 628, utilizing observations in the near-ultraviolet, near-infrared, mid-infrared, and millimeter bands. Our results reveal a characteristic spatial scale of approximately 200 parsecs, marking the transition from small-scale structures influenced by star formation and stellar feedback to larger-scale morphology governed by the galaxy's dynamics. Furthermore, we find that the $C$ vs. $H$ trajectories for all wavelengths converge toward a common attractor curve, consistent with the behavior of isotropic Gaussian random fields. This convergence suggests a universal statistical behavior in galactic structure at large scales, despite the differing physical processes traced by each wavelength.",
+      "published": "2026-04-09T16:08:41+00:00",
+      "updated": "2026-04-09T16:08:41Z",
+      "authors": [
+        "Athokpam Langlen Chanu",
+        "S Amrutha",
+        "Pravabati Chingangbam",
+        "Changbom Park"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.08409v1",
+      "categories": [
+        "astro-ph.GA"
+      ],
+      "_topic": "galaxies",
+      "_topic_label": "galaxies",
+      "semantic_scholar": {
+        "paperId": "f51b05f7ebaafe171cb2536c1549398e582bf3a1",
+        "externalIds": {
+          "ArXiv": "2604.08409",
+          "CorpusId": 287256415
+        },
+        "url": "https://www.semanticscholar.org/paper/f51b05f7ebaafe171cb2536c1549398e582bf3a1",
+        "title": "Morphological complexity of NGC 628 - a multiwavelength multiscale analysis using the ordinal pattern framework",
+        "venue": "",
+        "year": 2026,
+        "citationCount": 0,
+        "influentialCitationCount": 0,
+        "fieldsOfStudy": [
+          "Physics"
+        ],
+        "authors": [
+          {
+            "authorId": "123643263",
+            "name": "Athokpam Langlen Chanu"
+          },
+          {
+            "authorId": "2425085334",
+            "name": "S. Amrutha"
+          },
+          {
+            "authorId": "102637362",
+            "name": "P. Chingangbam"
+          },
+          {
+            "authorId": null,
+            "name": "Changbom Park"
+          }
+        ]
+      }
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.08402v1",
+      "title": "Neutral Hydrogen in the Shapley Supercluster Core I: Environmental Effects on Gas Content and Galaxy Evolution",
+      "summary": "We study the atomic Hydrogen (HI) content of galaxies in the core of the Shapley Supercluster (SSC) at <z> ~ 0.048, using observations from the MeerKAT Galaxy Cluster Legacy Survey and optical data from the Shapley Supercluster Survey (ShaSS) project. Our sample comprises 169 galaxies with HI detections in the dynamically active region of Abell 3558 and SC1329-313. Following the literature, we classify galaxies into star-forming main sequence (SFMS), transition (TZ), and red sequence (RS) populations, and examine how the HI content varies across these populations. Galaxies on the SFMS exhibit an average HI gas fraction offset of 0.038 dex from the gas fraction main sequence, while TZ and RS populations show depleted HI fractions of -0.034 and -0.211 dex. HI depletion timescales span from 6 to 170 Gyr (SFMS-TZ-RS) confirming increasingly inefficient star formation with quenching. Scaling relations between HI mass and stellar mass in the SSC are generally consistent with field samples. The most direct signature of the dense environment of the SSC is the marked predominance of TZ galaxies, in contrast to what is observed in the field-dominated sample of xGASS, where the population is mostly composed of SFMS galaxies. Moreover, the SFMS and RS populations have similar size, again in contrast with field populations. These results suggest that galaxies in the SSC are undergoing environmental quenching through starvation or strangulation, rather than rapid gas stripping. Despite detectable HI reservoirs, many galaxies exhibit long depletion times, indicating reduced gas accretion and inefficient star formation.",
+      "published": "2026-04-09T16:01:32+00:00",
+      "updated": "2026-04-09T16:01:32Z",
+      "authors": [
+        "L. Gwebushe",
+        "T. Venturi",
+        "P. Merluzzi",
+        "G. Busarello",
+        "V. Casasola",
+        "O. Smirnov",
+        "M. Ramatsoku",
+        "J. Dawson"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.08402v1",
+      "categories": [
+        "astro-ph.GA"
+      ],
+      "_topic": "galaxies",
+      "_topic_label": "galaxies",
+      "semantic_scholar": {
+        "paperId": "beea3a4d8443d8f8a5617fb00371cd01156839ce",
+        "externalIds": {
+          "ArXiv": "2604.08402",
+          "DOI": "10.1093/mnras/stag680",
+          "CorpusId": 287256334
+        },
+        "url": "https://www.semanticscholar.org/paper/beea3a4d8443d8f8a5617fb00371cd01156839ce",
+        "title": "Neutral Hydrogen in the Shapley Supercluster Core I: Environmental Effects on Gas Content and Galaxy Evolution",
+        "venue": "",
+        "year": 2026,
+        "citationCount": 0,
+        "influentialCitationCount": 0,
+        "fieldsOfStudy": [
+          "Physics"
+        ],
+        "authors": [
+          {
+            "authorId": "2428635113",
+            "name": "L. Gwebushe"
+          },
+          {
+            "authorId": "2245901558",
+            "name": "T. Venturi"
+          },
+          {
+            "authorId": "2264725669",
+            "name": "P. Merluzzi"
+          },
+          {
+            "authorId": "5399134",
+            "name": "G. Busarello"
+          },
+          {
+            "authorId": "103220253",
+            "name": "V. Casasola"
+          },
+          {
+            "authorId": "2372645456",
+            "name": "O. Smirnov"
+          },
+          {
+            "authorId": "69935913",
+            "name": "M. Ramatsoku"
+          },
+          {
+            "authorId": "2248060478",
+            "name": "J. Dawson"
+          }
+        ]
+      }
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.08393v1",
+      "title": "Ray-traced weak lensing convergence in screened modified gravity theories",
+      "summary": "Weak gravitational lensing is one of the primary cosmological probes, providing powerful constraints on the cosmological model. As Stage IV surveys are expected to deliver data of unprecedented precision, accurate modeling of weak gravitational lensing observables across both linear and non-linear scales becomes increasingly important. In this work, we investigate weak lensing in modified gravity (MG) models, extensions of the standard $\u039b$CDM cosmology in which gravity deviates from general relativity, generally introducing modifications to the lensing equation. We parametrize these modifications through the common phenomenological function $\u03a3_\\mathrm{mg}$ and apply ray-tracing to the density maps of N-body and hydrodynamical simulations. We model the time dependence of $\u03a3_\\mathrm{mg}$ analytically, while we introduce a phenomenological scale dependence to represent the screening mechanisms by which MG models reduce to general relativity in high-density environments. Starting from the output of the FLAMINGO hydrodynamical simulations, we generate fully ray-traced convergence maps using our modified lensing model. We analyze how the parameters of our prescription affect the weak lensing convergence power spectrum and compare these effects to other known sources of variation, in particular cosmological parameters and baryonic feedback. We find that the modifications to the lensing equation deriving from the MG model produce non-negligible signatures in the convergence power spectrum and that, within extensions of the $\u039b$CDM framework, these effects can be larger than those induced by baryonic physics. Our results indicate that modified lensing should become a standard ingredient of the analysis of modified gravity simulations.",
+      "published": "2026-04-09T15:54:01+00:00",
+      "updated": "2026-04-09T15:54:01Z",
+      "authors": [
+        "Mattia Pantiri",
+        "Matthieu Schaller",
+        "Alessandra Silvestri",
+        "Jeger C. Broxterman",
+        "Joop Schaye"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.08393v1",
+      "categories": [
+        "astro-ph.CO"
+      ],
+      "_topic": "gravitational_lensing",
+      "_topic_label": "gravitational lensing",
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Ray-traced+weak+lensing+convergence+in+screened+modified+gravity+theories&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.08239v1",
+      "title": "Extended coronal line emission and new clues to a possible dual AGN in the merger J1356+1026",
+      "summary": "Merging luminous galaxies are ideal laboratories to study some of the most extreme astrophysical phenomena. The local (z=0.1232) obscured quasar J1356+1026 has two nuclei, North and South (J1356N and J1356S), but despite numerous efforts, J1356S had not yet been confirmed as an AGN. Thanks to the superb sensitivity and spatial resolution of the MIRI/MRS instrument on board the JWST, we present new evidence suggesting that J1356S may indeed host an AGN with log L$_{\\rm bol}=43.4\\pm^{0.6}_{0.5} erg s^{-1}$. This is supported by the detection of strong coronal line emission at this location and by a spectral shape that differs from that of J1356N and those of the narrow-line region (NLR). Aided by the spatially resolved information of MIRI/MRS and VLT/SINFONI, we also find that the high ionization gas, traced by the coronal lines [Ne V]$14.3~\u03bc$m and [Si VI]$1.963 \u03bc$m, has an extension of ~13-15.5 kpc. This is likely a lower limit of the true extension, as suggested by the comparison with optical imaging from HST. {The extended [Ne V] emission can be accounted for by photoionization from the quasar in J1356N in a relatively low density environment, ranging from $\\rm n_e\\leq 2000-3800 cm^{-3}$ in J1356N and $\\rm n_e\\leq 600-1200 cm^{-3}$ in J1356S and the NLR, as measured from the [Ne V]$14.3\u03bc$m and $24.3~\u03bc$m lines.",
+      "published": "2026-04-09T13:30:27+00:00",
+      "updated": "2026-04-09T13:30:27Z",
+      "authors": [
+        "M. Bianchin",
+        "C. Ramos Almeida",
+        "O. Gonz\u00e1lez-Mart\u00edn",
+        "M. V. Zanchettin",
+        "M. Carneiro",
+        "M. Pereira-Santaella",
+        "C. Tadhunter",
+        "G. Speranza",
+        "I. Garc\u00eda-Bernete",
+        "A. Audibert",
+        "A. Alonso-Herrero",
+        "D. Rigopoulou",
+        "A. Labiano",
+        "J. A. Acosta-Pulido",
+        "S. Garc\u00eda-Burillo"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.08239v1",
+      "categories": [
+        "astro-ph.GA"
+      ],
+      "_topic": "galaxies",
+      "_topic_label": "galaxies",
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Extended+coronal+line+emission+and+new+clues+to+a+possible+dual+AGN+in+the+merger+J1356%2B1026&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.08193v1",
+      "title": "Probing Majoron Dark Matter with Gravitational Wave Detectors",
+      "summary": "The Majoron is a hypothetical (pseudo) Nambu-Goldstone boson arising from the spontaneous breaking of a global lepton number symmetry, and is known as a candidate for dark matter in our Universe. In this paper, we investigate the possibility of probing the Majoron dark matter with a linear optical cavity used in the interferometric gravitational wave detectors. We consider a scenario in which the Majoron dark matter couples to photons through a QED anomaly, leading to an oscillatory photon birefringence induced by the coherent dark matter background. The anomaly coefficient is fixed by requiring the model to simultaneously reproduce the electroweak Higgs scale and a typical right-handed Majorana neutrino mass scale, and the resulting dark matter-photon coupling naturally falls within the sensitivity range of optical interferometers. By incorporating additional optics to extract the birefringence signal, we find that ground-based laser interferometers such as Advanced LIGO, KAGRA, as well as future detectors, can probe a region of the parameter space of Majoron dark matter.",
+      "published": "2026-04-09T12:46:40+00:00",
+      "updated": "2026-04-09T12:46:40Z",
+      "authors": [
+        "Ippei Obata",
+        "Tsutomu T. Yanagida"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.08193v1",
+      "categories": [
+        "hep-ph",
+        "astro-ph.CO",
+        "astro-ph.IM",
+        "physics.ins-det",
+        "physics.optics"
+      ],
+      "_topic": "dark_matter",
+      "_topic_label": "dark matter",
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Probing+Majoron+Dark+Matter+with+Gravitational+Wave+Detectors&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.08053v1",
+      "title": "Constraining Ultralight Scalar Dark Matter in the Galactic Center with the S2 Orbit",
+      "summary": "The dense environment of our Galactic Center (GC) offers a unique laboratory for probing ultralight dark matter (ULDM). We explore the prospect of detecting a scalar ULDM field through its effects on the orbital dynamics of S-stars around the supermassive black hole in the GC, Sgr A$^*$. We consider both linear and quadratic couplings between the real scalar field $\u03c6$ and Standard Model particles, and analyze two representative ULDM structures: the scalar gravitational atom and the spherical soliton. We find that quadratic coupling induces a non-oscillatory perturbation, leading to a long-term secular orbital evolution. We use the observed periastron precession rate of S2 star to put stringent constraints on the total ULDM mass in the GC and the quadratic coupling constant. For the gravitational atom $|211\\rangle$ state, we constrain the mass ratio of ULDM to Sgr A$^*$ to $\u03b2\\lesssim 10^{-3}$ at $m \\sim 10^{-18}$ eV, and for the spherical soliton which extends to $\\sim 0.2\\,$pc, the mass ratio is limited to $\u03b2\\lesssim 1$ at $m \\sim 3\\times10^{-20}$ eV. Notably, the resulting limits on the quadratic coupling constant surpass current bounds in the mass range $10^{-20} \\,\\text{eV} \\lesssim m \\lesssim 10^{-18}$ eV.",
+      "published": "2026-04-09T10:02:09+00:00",
+      "updated": "2026-04-09T10:02:09Z",
+      "authors": [
+        "Jiang-Chuan Yu",
+        "Yan Cao",
+        "Lijing Shao"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.08053v1",
+      "categories": [
+        "hep-ph",
+        "gr-qc"
+      ],
+      "_topic": "dark_matter",
+      "_topic_label": "dark matter",
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Constraining+Ultralight+Scalar+Dark+Matter+in+the+Galactic+Center+with+the+S2+Orbit&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.07618v1",
+      "title": "Multi Component Dark Matter in a Minimal Model",
+      "summary": "We study a minimal model with an imposed $\\mathbb{Z}_2$ symmetry incorporating two singlet fermions and a singlet scalar which communicate with the SM particles through a scalar-Higgs portal. We probe regions in the parameter space where stability of the three new particles are guaranteed kinematically, and thus introducing a multi component dark matter (DM) scenario. The regions in the parameter space with predicted total relic density in accordance with the observed DM abundance are found, and the contribution of each species to the total relic density is determined. The elastic DM-nucleon scattering cross section of the two fermions DM are loop suppressed, while that of the scalar DM starts at tree level and thus presumably being dominant. It is found that there exist a viable region in the parameter space that the scalar DM can evade the current direct detection (DD) experimental bounds while it has a minimal contribution to the observed relic density. The DD cross section of the fermion DM being loop suppressed, resides below the lower limit from the {\\it neutrino floor}, possessing a large fraction of the total relic density.",
+      "published": "2026-04-08T21:39:30+00:00",
+      "updated": "2026-04-08T21:39:30Z",
+      "authors": [
+        "Karim Ghorbani"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.07618v1",
+      "categories": [
+        "hep-ph"
+      ],
+      "_topic": "dark_matter",
+      "_topic_label": "dark matter",
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Multi+Component+Dark+Matter+in+a+Minimal+Model&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.07613v1",
+      "title": "Too Big to Quench? I. Constraining ISM Stripping of Dwarf Satellites in Milky Way-like Halos",
+      "summary": "Galaxy environment plays a crucial role in quenching star formation in dwarf galaxies. In Milky Way (MW)-like environments, dwarf satellite quenching is primarily driven by ram pressure stripping (RPS), the direct removal of satellite gas by the host halo gas. Using a suite of 20-pc resolution hydrodynamical wind tunnel simulations, we constrain the satellite mass scale at which the stripping of a dwarf galaxy's interstellar medium (ISM) becomes inefficient in MW-like halos. The simulations include radiative cooling in a multiphase satellite ISM, star formation, and stellar feedback, and vary both satellite masses ($M_{\\star}=10^{6.2}, 10^{6.8}, 10^{7.2}\\ M_{\\odot}$) and host halo gas densities along a first-infall and post-pericentric orbit. We find that the degree of ISM stripping in our dwarf galaxies is consistent with the analytical prediction by McCarthy et al. (2008). Star formation is rapidly quenched when RPS is effective, but can be mildly enhanced or temporarily quenched and subsequently reignited when RPS is incomplete. ISM stripping is efficient for satellites with $M_{\\star} \\lesssim 10^{7}\\ M_{\\odot}$ (or $M_{200} \\lesssim 10^{10}\\ M_{\\odot}$) but highly inefficient above this scale. This transitional mass ($M_{\\star} \\approx 10^{7}\\ M_{\\odot}$) is 0.5-1 dex lower than that found in observations and cosmological simulations, suggesting that additional mechanisms are needed to quench more massive satellites, such as tidal stripping of the satellite dark matter or RPS from a clumpy gaseous halo.",
+      "published": "2026-04-08T21:31:03+00:00",
+      "updated": "2026-04-08T21:31:03Z",
+      "authors": [
+        "Jingyao Zhu",
+        "Stephanie Tonnesen",
+        "Greg L. Bryan",
+        "Mary E. Putman"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.07613v1",
+      "categories": [
+        "astro-ph.GA"
+      ],
+      "_topic": "dark_matter",
+      "_topic_label": "dark matter",
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Too+Big+to+Quench%3F+I.+Constraining+ISM+Stripping+of+Dwarf+Satellites+in+Milky+Way-like+Halos&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    }
+  ]
+}
