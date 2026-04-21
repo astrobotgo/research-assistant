@@ -19,6 +19,26 @@ This repository generates dated daily PDF digests in `data/reports/` and now pub
   - `docs/reports/*.pdf` for dated report links
 - Your normal workflow stays the same: run the assistant, commit the updated `data/reports/` and `docs/` files, and push.
 
+## Automatic Push After Daily Runs
+
+- The repo includes [scripts/run-daily.sh](/Users/kfinner/Documents/GitHub/research-assistant/scripts/run-daily.sh), which can:
+  - run the daily report job
+  - rebuild the site in `docs/`
+  - optionally commit and push the updated report/site files
+- To install the timer with auto-push enabled on Ubuntu:
+
+```bash
+./scripts/install-automation.sh systemd 1
+```
+
+- For cron with auto-push enabled:
+
+```bash
+./scripts/install-automation.sh cron 1
+```
+
+- Auto-push requires this machine to already have non-interactive Git push access to `origin`, usually via SSH keys or a credential helper.
+
 ## Notes
 
 - If you already have historical PDFs in `data/reports/`, rebuilding the site will include them automatically.
