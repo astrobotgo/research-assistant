@@ -1,7 +1,8 @@
-import time
-import httpx
-import feedparser
 from datetime import datetime, timezone, timedelta
+import time
+
+import feedparser
+import httpx
 
 ARXIV_API = "https://export.arxiv.org/api/query"
 ARXIV_ATOM = "https://rss.arxiv.org/atom"
@@ -10,10 +11,26 @@ HEADERS = {
     "User-Agent": "research-assistant/0.1"
 }
 
-def _parse_entries(entries, days: int, query: str = ""):
+def _matches_topic(text: str, include_any: tuple[str, ...], exclude_any: tuple[str, ...]) -> bool:
+    if not text:
+        return False
+
+    lowered = text.lower()
+    if any(term in lowered for term in exclude_any):
+        return False
+    if not include_any:
+        return True
+    return any(term in lowered for term in include_any)
+
+
+def _parse_entries(
+    entries,
+    days: int,
+    include_any: tuple[str, ...] = (),
+    exclude_any: tuple[str, ...] = (),
+):
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
     papers = []
-    q = query.lower().strip()
 
     for entry in entries:
         published_raw = getattr(entry, "published", None) or getattr(entry, "updated", None)
@@ -37,8 +54,9 @@ def _parse_entries(entries, days: int, query: str = ""):
 
         title = " ".join(getattr(entry, "title", "").split())
         summary = " ".join(getattr(entry, "summary", "").split())
+        text = f"{title}\n{summary}"
 
-        if q and q not in title.lower() and q not in summary.lower():
+        if not _matches_topic(text, include_any=include_any, exclude_any=exclude_any):
             continue
 
         pdf_url = None
@@ -62,7 +80,14 @@ def _parse_entries(entries, days: int, query: str = ""):
 
     return papers
 
-def fetch_recent_arxiv(query: str, category: str = "", days: int = 7, limit: int = 10):
+def fetch_recent_arxiv(
+    query: str,
+    category: str = "",
+    days: int = 7,
+    limit: int = 10,
+    include_any: tuple[str, ...] = (),
+    exclude_any: tuple[str, ...] = (),
+):
     search = f'all:"{query}"'
     if category:
         search += f"+AND+cat:{category}"
@@ -87,8 +112,13 @@ def fetch_recent_arxiv(query: str, category: str = "", days: int = 7, limit: int
                 break
             r.raise_for_status()
             feed = feedparser.parse(r.text)
-            # Keep a local keyword guard to avoid false positives from broad arXiv matches.
-            return _parse_entries(feed.entries, days=days, query=query)
+            # Keep a local topic guard to avoid false positives from broader arXiv matches.
+            return _parse_entries(
+                feed.entries,
+                days=days,
+                include_any=include_any,
+                exclude_any=exclude_any,
+            )
         except Exception:
             if i < len(delays):
                 time.sleep(delay)
@@ -100,6 +130,11 @@ def fetch_recent_arxiv(query: str, category: str = "", days: int = 7, limit: int
         r = httpx.get(feed_url, headers=HEADERS, timeout=60.0)
         r.raise_for_status()
         feed = feedparser.parse(r.text)
-        return _parse_entries(feed.entries, days=days, query=query)[:limit]
+        return _parse_entries(
+            feed.entries,
+            days=days,
+            include_any=include_any,
+            exclude_any=exclude_any,
+        )[:limit]
 
     return []

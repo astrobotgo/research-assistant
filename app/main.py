@@ -5,7 +5,7 @@ from pathlib import Path
 import typer
 from rich import print
 
-from app.config import DEFAULT_RESEARCH_TOPICS
+from app.config import TOPIC_CONFIGS
 from app.digest import synthesize_research_digest
 from app.figures import extract_key_figures
 from app.fetch_arxiv import fetch_recent_arxiv
@@ -174,17 +174,19 @@ def daily(
     dedupe, optionally enrich, then write a dated report with an LLM research digest.
     """
     collected: list[dict] = []
-    for topic_key, query in DEFAULT_RESEARCH_TOPICS:
+    for topic in TOPIC_CONFIGS:
         batch = fetch_recent_arxiv(
-            query=query,
+            query=topic["arxiv_query"],
             category=category,
             days=days,
             limit=min(pool_per_topic, 25),
+            include_any=tuple(topic.get("include_any", ())),
+            exclude_any=tuple(topic.get("exclude_any", ())),
         )
         for p in batch:
             p = dict(p)
-            p["_topic"] = topic_key
-            p["_topic_label"] = _topic_label(topic_key)
+            p["_topic"] = topic["key"]
+            p["_topic_label"] = topic.get("label", _topic_label(topic["key"]))
             collected.append(p)
 
     merged = _sort_by_published(_dedupe_papers(collected))
