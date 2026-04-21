@@ -27,10 +27,12 @@ This repository generates dated daily PDF digests in `data/reports/` and now pub
 - The video pipeline:
   - renders each PDF page to an image
   - generates short narration per page
-  - synthesizes narration audio with Gemini TTS
+  - synthesizes narration audio with local Piper TTS
   - combines pages and audio into an `mp4` with `ffmpeg`
 - Requirements for video generation:
-  - `GEMINI_API_KEY` set
+  - `GEMINI_API_KEY` set for narration script generation
+  - Piper TTS binary installed and on `PATH`
+  - a Piper voice model available, defaulting to `models/piper/en_US-amy-medium.onnx`
   - `ffmpeg` installed on the machine running the job
 - If either dependency is unavailable, the daily report still succeeds and simply skips the video.
 

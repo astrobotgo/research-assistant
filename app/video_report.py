@@ -1,20 +1,20 @@
 from __future__ import annotations
 
-import base64
 import os
 import shutil
 import subprocess
 import tempfile
-import wave
 from pathlib import Path
 
 import fitz
-import httpx
 
 from app.gemini_llm import gemini_generate
 
-GEMINI_TTS_MODEL = os.getenv("GEMINI_TTS_MODEL", "gemini-2.5-flash-preview-tts")
-GEMINI_TTS_VOICE = os.getenv("GEMINI_TTS_VOICE", "Kore")
+PIPER_BIN = os.getenv("PIPER_BIN", "piper")
+PIPER_MODEL = os.getenv(
+    "PIPER_MODEL",
+    str(Path("models/piper/en_US-amy-medium.onnx")),
+)
 
 
 def _render_pdf_pages(pdf_path: Path, page_dir: Path) -> list[Path]:
@@ -68,55 +68,32 @@ Page text:
         return clipped
 
 
-def _write_pcm_wav(out_path: Path, pcm_bytes: bytes, channels: int = 1, rate: int = 24000, sample_width: int = 2) -> None:
-    with wave.open(str(out_path), "wb") as wf:
-        wf.setnchannels(channels)
-        wf.setsampwidth(sample_width)
-        wf.setframerate(rate)
-        wf.writeframes(pcm_bytes)
+def _piper_tts_to_wav(text: str, out_path: Path) -> None:
+    piper_bin = shutil.which(PIPER_BIN) or PIPER_BIN
+    if not Path(piper_bin).exists() and not shutil.which(PIPER_BIN):
+        raise RuntimeError("piper TTS binary is not installed")
 
+    model_path = Path(PIPER_MODEL).expanduser()
+    if not model_path.is_absolute():
+        model_path = Path.cwd() / model_path
+    if not model_path.exists():
+        raise RuntimeError(f"Piper model not found: {model_path}")
 
-def _gemini_tts_to_wav(text: str, out_path: Path) -> None:
-    api_key = (os.getenv("GEMINI_API_KEY") or "").strip()
-    if not api_key:
-        raise RuntimeError("GEMINI_API_KEY is not set")
-
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_TTS_MODEL}:generateContent"
-    payload = {
-        "contents": [{"parts": [{"text": text}]}],
-        "generationConfig": {
-            "responseModalities": ["AUDIO"],
-            "speechConfig": {
-                "voiceConfig": {
-                    "prebuiltVoiceConfig": {
-                        "voiceName": GEMINI_TTS_VOICE,
-                    }
-                }
-            },
-        },
-        "model": GEMINI_TTS_MODEL,
-    }
-    r = httpx.post(
-        url,
-        headers={
-            "Content-Type": "application/json",
-            "x-goog-api-key": api_key,
-        },
-        json=payload,
-        timeout=300.0,
+    cmd = [
+        str(piper_bin),
+        "--model",
+        str(model_path),
+        "--output_file",
+        str(out_path),
+    ]
+    subprocess.run(
+        cmd,
+        input=text,
+        text=True,
+        check=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
     )
-    r.raise_for_status()
-    data = (
-        r.json()
-        .get("candidates", [{}])[0]
-        .get("content", {})
-        .get("parts", [{}])[0]
-        .get("inlineData", {})
-        .get("data")
-    )
-    if not data:
-        raise RuntimeError("Gemini TTS returned no audio data")
-    _write_pcm_wav(out_path, base64.b64decode(data))
 
 
 def _build_segment(image_path: Path, audio_path: Path, out_path: Path) -> None:
@@ -198,7 +175,7 @@ def build_narrated_video(pdf_path: Path, out_path: Path, title: str) -> Path:
                 page_text=page_texts[idx] if idx < len(page_texts) else "",
             )
             audio_path = audio_dir / f"page-{page_num:03d}.wav"
-            _gemini_tts_to_wav(narration, audio_path)
+            _piper_tts_to_wav(narration, audio_path)
             segment_path = segment_dir / f"segment-{page_num:03d}.mp4"
             _build_segment(image_path, audio_path, segment_path)
             segment_paths.append(segment_path)
