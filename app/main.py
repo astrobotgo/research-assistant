@@ -13,6 +13,7 @@ from app.enrich_s2 import enrich_title
 from app.page_summaries import summarize_pdf_pages
 from app.pdf_report import build_daily_pdf_report
 from app.select_papers import select_top_papers
+from app.site_pages import build_pages_site
 from app.summarize import summarize_with_ollama
 
 app = typer.Typer()
@@ -341,6 +342,7 @@ def daily(
     if pdf and report_pdf_path.exists():
         with open("data/reports/latest.pdf", "wb") as f:
             f.write(report_pdf_path.read_bytes())
+        build_pages_site()
 
     print(
         f"[green]Daily: pool {len(pool_for_selection)} → presenting {len(enriched)}[/green]"
@@ -349,6 +351,7 @@ def daily(
     print(f"[cyan]Report:[/cyan] {report_path}")
     if pdf and report_pdf_path.exists():
         print(f"[cyan]PDF:[/cyan] {report_pdf_path}")
+        print("[cyan]Site:[/cyan] docs/index.html")
     print("[cyan]Also:[/cyan] data/cache/latest.json, data/reports/latest.md")
 
 
