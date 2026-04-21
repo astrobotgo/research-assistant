@@ -4,6 +4,8 @@ import re
 import httpx
 from dotenv import load_dotenv
 
+from app.gemini_llm import gemini_generate
+
 load_dotenv()
 
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
@@ -33,8 +35,8 @@ def _extract_json(text: str):
 
     return None
 
-def summarize_with_ollama(title: str, abstract: str):
-    prompt = f"""
+def _paper_summary_prompt(title: str, abstract: str) -> str:
+    return f"""
 You are a research analyst.
 
 Return ONLY valid JSON.
@@ -53,6 +55,17 @@ Title: {title}
 Abstract:
 {abstract}
 """
+
+
+def summarize_paper(title: str, abstract: str):
+    prompt = _paper_summary_prompt(title, abstract)
+    try:
+        text = gemini_generate(prompt=prompt, timeout=180.0)
+        parsed = _extract_json(text)
+        if parsed:
+            return parsed
+    except Exception:
+        pass
 
     r = httpx.post(
         f"{OLLAMA_HOST}/api/generate",
@@ -77,3 +90,8 @@ Abstract:
         "novelty_claim": "",
         "relevance_score_1_to_10": ""
     }
+
+
+def summarize_with_ollama(title: str, abstract: str):
+    # Backward-compatible alias; now Gemini-first with Ollama fallback.
+    return summarize_paper(title, abstract)

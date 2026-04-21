@@ -14,7 +14,7 @@ from app.page_summaries import summarize_pdf_pages
 from app.pdf_report import build_daily_pdf_report
 from app.select_papers import select_top_papers
 from app.site_pages import build_pages_site
-from app.summarize import summarize_with_ollama
+from app.summarize import summarize_paper
 
 app = typer.Typer()
 
@@ -77,7 +77,7 @@ def scan(
             item["semantic_scholar_error"] = str(e)
 
         if summarize:
-            item["analysis"] = summarize_with_ollama(paper["title"], paper["summary"])
+            item["analysis"] = summarize_paper(paper["title"], paper["summary"])
 
         enriched.append(item)
 
@@ -206,7 +206,7 @@ def daily(
             except Exception as e:
                 item["semantic_scholar_error"] = str(e)
         if per_paper:
-            item["analysis"] = summarize_with_ollama(paper["title"], paper["summary"])
+            item["analysis"] = summarize_paper(paper["title"], paper["summary"])
         enriched.append(item)
 
     digest_md = ""

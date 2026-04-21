@@ -3,6 +3,7 @@ from pathlib import Path
 import fitz
 import httpx
 
+from app.gemini_llm import gemini_generate
 from app.summarize import OLLAMA_HOST, OLLAMA_MODEL
 
 
@@ -60,20 +61,24 @@ Page text:
 {clipped}
 """
         try:
-            r = httpx.post(
-                f"{OLLAMA_HOST}/api/generate",
-                json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False},
-                timeout=180.0,
-            )
-            r.raise_for_status()
-            summary = r.json().get("response", "").strip()
+            summary = gemini_generate(prompt=prompt, timeout=180.0).strip()
             if not summary:
-                summary = clipped[:400]
+                raise RuntimeError("Gemini returned empty text")
         except Exception:
-            summary = clipped[:400]
+            try:
+                r = httpx.post(
+                    f"{OLLAMA_HOST}/api/generate",
+                    json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False},
+                    timeout=180.0,
+                )
+                r.raise_for_status()
+                summary = r.json().get("response", "").strip()
+                if not summary:
+                    summary = clipped[:400]
+            except Exception:
+                summary = clipped[:400]
 
         out.append({"page": page_idx + 1, "summary": summary})
 
     doc.close()
     return out
-
