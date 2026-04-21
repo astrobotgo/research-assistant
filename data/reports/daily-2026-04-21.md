@@ -4,38 +4,39 @@ Topics scanned: galaxy clusters, galaxies, gravitational lensing, dark matter.
 
 **Pool:** 16 recent papers gathered. **Presenting:** 10 chosen by the local model for this briefing.
 
-**Selection note:** _Selection failed (timed out); using newest k._
+**Selection note:** _Selection JSON parse failed; using newest k._
 
 ## Research briefing (synthesized)
 
 ## Executive overview
 
-Recent arXiv preprints offer insights into galaxy formation and evolution through high-resolution spectroscopic and imaging studies. The research highlights the complex dynamics of gas flows in disk galaxies, the spatially resolved characteristics of molecular clouds at galactic edges, and the magnetic field properties of clusters like Fornax. Gravitational lensing is explored with a focus on higher-order statistics to understand non-Gaussianities in mass distributions. Dark matter studies include potential detections through astrometric precision improvements and neutrino observatory results probing dark matter annihilation.
+Recent arXiv preprints highlight advancements in understanding the interstellar medium (ISM) and galaxy dynamics through multi-wavelength observations. Studies on galaxy clusters reveal new insights into magnetic fields and large-scale structures, while work on dark matter focuses on improving astrometric precision and probing neutrino sources. Gravitational lensing research is expanding to higher-order statistics for a more comprehensive view of non-Gaussianities in the cosmic web.
 
-## Galaxy Clusters
-- **Magnetic Fields Characterization**: The MeerKAT Fornax Survey provides detailed magnetic field properties of the Fornax cluster, using a dense RM grid. Magnetic field power spectra are analyzed with a slope of $\sim$2.7 fluctuating between $\sim$1 and $\sim$15 kpc, revealing central strengths of $\sim$5$\mu$G decreasing with thermal plasma density.
+## Galaxy clusters
+
+Recent studies have focused on characterizing large-scale magnetic fields within galaxy clusters. The MeerKAT Fornax Survey provides the densest RM grid to date, yielding insights into the intra-cluster magnetic field's strength and structure. By modeling the power spectrum with a slope of $\sim$2.7 fluctuating between $\sim$1 and $\sim$15 kpc, the survey reveals that central strengths are around 5 μG but decrease with thermal plasma density according to a power-law exponent of $\sim$1.6.
 
 ## Galaxies
-- **Cold Gas Dynamics**: NOEMA3D studies reveal ordered molecular gas rotation with moderate turbulence in main-sequence galaxies at $z \sim 1.1$ to 1.6, finding significant spatially coherent velocity residuals interpreted as radial flows.
-- **Molecular Clouds and Halos**: Spatially resolved studies of molecular clouds show varying star formation activities and color distributions across different cosmic web patterns. Velocity anisotropy profiles in the Milky Way's stellar halo are detailed up to $\sim$70 kpc, indicating a transition from radially-dominated inner regions to tangentially-dominated outer regions.
-- **Magnetic Fields**: The Fornax cluster’s magnetic field is characterized using RM grids with high sensitivity and resolution.
 
-## Gravitational Lensing
-- **Fourth-order Statistics**: Research extends the analytical framework for correlations between galaxies and shear to fourth order, focusing on aperture statistics. This work derives a four-point correlation function (4PCF) and its relation to the trispectrum, enhancing understanding of non-Gaussian features in mass distributions.
+The recent preprints on galaxies present a broad spectrum of research from stellar halo dynamics to molecular cloud properties at the galaxy’s edge. High-resolution CO observations by NOEMA3D have resolved radial gas flows in disk galaxies, indicating significant tangential dispersion velocities beyond 30 kpc and smooth variations in anisotropy profiles. Studies also explore how the velocity anisotropy correlates with metallicity and color, reinforcing that these relationships are primarily driven by accreted structures.
 
-## Dark Matter
-- **Globular Cluster Halos**: GaiaNIR mission simulations predict improved astrometric precision for detecting dark matter halos in globular clusters like M4 under heavy extinction conditions.
-- **IllustrisTNG Caustic Skeleton**: Analysis associates galaxies with voids, walls, filaments, and cluster nodes to discern their properties across the cosmic web. Blue galaxy fractions are studied as functions of cosmic web scales.
+Molecular clouds at the galaxy’s edge show distinct properties as detailed in preprints focusing on blue horizontal-branch stars from multiple surveys like Gaia, SEGUE, DESI, and LAMOST. These studies provide a detailed profile of velocity anisotropy up to $\sim$70 kpc, noting that radial velocities are prominent within 30 kpc but tangential dispersion dominates beyond this region.
 
-## Neutrino Observations
-- **IceCube Results**: Latest IceCube results include identification of steady neutrino sources like NGC 1068, measurements on flavor composition, limits on atmospheric neutrinos, and searches for neutrinos from dark matter annihilation in the Sun. Future upgrades aim to enhance sensitivity and expand detection capabilities.
+## Dark matter
 
-## Summary
+Dark matter research continues to leverage advanced missions like GaiaNIR and observatories such as the IceCube Neutrino Observatory. The proposed GaiaNIR mission aims to enhance astrometric precision in near-infrared wavelengths, particularly crucial for detecting dark matter halos within globular clusters under high-extinction conditions. Simulations suggest that while Gaia can resolve extended dark matter halos with low extinction, its performance degrades significantly as extinction increases; conversely, GaiaNIR retains sensitivity even with strong extinction.
 
-The recent studies highlight advancements in understanding galaxy dynamics through detailed spectroscopic and imaging analyses of gas flows, magnetic fields, and spatially resolved properties. Gravitational lensing research progresses by incorporating higher-order statistical measures. Dark matter investigations involve precision astrometry and neutrino observatory results to probe the elusive nature of dark matter.
+The IceCube Neutrino Observatory has expanded the understanding of neutrinos in the context of dark matter, providing measurements over a broad energy range. Recent results include the first identification of steady neutrino sources and limits on atmospheric neutrinos from dark matter annihilation in the Sun. Future upgrades to IceCube will enhance sensitivity and expand detection rates for lower-energy neutrinos.
 
-## Future Work
-Future studies should continue exploring higher-order gravitational lensing statistics for non-Gaussianities and extend high-resolution spectroscopic surveys for more comprehensive galaxy dynamics. Enhancements in astrometric precision will be crucial for detecting dark matter halos, while expanding neutrino observatory capabilities can further elucidate dark matter interactions and annihilation processes.
+## Gravitational lensing
+
+Research into gravitational lensing is pushing towards higher-order statistics to capture non-Gaussian features within the cosmic web. By extending analytical frameworks to fourth-order correlations between galaxies and shear, new aperture statistics are being developed. These efforts aim to detect these higher-order statistics in future stage IV surveys, enriching our understanding of mass-galaxy relations.
+
+## Cross-disciplinary insights
+
+A study from the IllustrisTNG suite explores galaxy populations within the cosmic web by constructing a multiscale caustic skeleton of dark matter flows. This analysis reveals how multistreaming affects intergalactic baryonic gas and how galaxies differ based on their embedding in voids, walls, filaments, or cluster nodes. The results provide a detailed map of blue galaxies' fractions across different scales within the cosmic web, emphasizing the role of caustic features in shaping galaxy properties.
+
+These recent advancements collectively enhance our comprehension of galactic dynamics, magnetic field structures in clusters, and dark matter interactions, paving the way for more refined models and observations.
 
 ---
 
@@ -86,6 +87,14 @@ We present NOEMA3D, a unique high-resolution study of purely molecular gas kinem
 
 #### Abstract
 We present a spatially resolved study of cold molecular gas and dust in ten main-sequence galaxies at z=1.1-1.6, using observations of CO(4-3), CO(3-2), [C I](1-0), and dust continuum from the NOEMA3D survey. We find a widely presence of spatially extended molecular gas and dust, with sizes comparable to those of the stellar disk, in contrast to those of central-dominated starburst galaxies at similar redshifts. While various molecular gas tracers generally exhibit similar spatial distributions, the CO line (J=3-2 or J=4-3) remain the most effective for mapping molecular gas distribution and kinematics. In addition, the spatially resolved correlations between different molecular gas tracers exhibit about two times larger scatter than their galactic-integrated correlations, indicating that interstellar medium (ISM) conditions already deviate from global averages on scales of 3-6 kpc, likely reflecting the clumpy or inhomogeneous ISM in cosmic noon star-forming galaxies. Within our sample, both the molecular gas fraction and its depletion time are nearly constant across the galactic disks out to 2 Re, supporting a global linear Kennicutt-Schmidt law. The presence of extended molecular gas disks, along with regular stellar structures, small central bulges, and ordered cold gas kinematics, supports the idea that the evolution of main-sequence disk galaxies at cosmic noon is driven by steady gas accretion and transport through prominent spiral arms and/or bars. This process stands in contrast to the merger-driven stochastic gas accretion in compact starbursts.
+
+#### Semantic Scholar
+- Year: 2026
+- Venue: 
+- Citation Count: 0
+- Influential Citations: 0
+- Fields of Study: Physics
+- URL: https://www.semanticscholar.org/paper/fd4544dffa7c8804a7ccc73c8e5a525063051c69
 
 ### 4. Molecular Clouds at the Edge of the Galaxy II. Physical properties and scaling relations
 - **Focus:** galaxies

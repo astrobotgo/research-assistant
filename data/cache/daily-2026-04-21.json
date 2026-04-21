@@ -2,7 +2,7 @@
   "pool_count": 16,
   "selected_count": 10,
   "present_requested": 10,
-  "selection_note": "_Selection failed (timed out); using newest k._",
+  "selection_note": "_Selection JSON parse failed; using newest k._",
   "pool": [
     {
       "id": "http://arxiv.org/abs/2604.18522v1",
@@ -798,7 +798,172 @@
       ],
       "_topic": "galaxies",
       "_topic_label": "galaxies",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=NOEMA3D%3A+Spatially+resolved+dust%2C+CO%2C+and+%5BC+I%5D+in+massive+star-forming+main+sequence+galaxies+at+cosmic+noon&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "semantic_scholar": {
+        "paperId": "fd4544dffa7c8804a7ccc73c8e5a525063051c69",
+        "externalIds": {
+          "ArXiv": "2604.18504",
+          "CorpusId": 287634192
+        },
+        "url": "https://www.semanticscholar.org/paper/fd4544dffa7c8804a7ccc73c8e5a525063051c69",
+        "title": "NOEMA3D: Spatially resolved dust, CO, and [C I] in massive star-forming main sequence galaxies at cosmic noon",
+        "venue": "",
+        "year": 2026,
+        "citationCount": 0,
+        "influentialCitationCount": 0,
+        "fieldsOfStudy": [
+          "Physics"
+        ],
+        "authors": [
+          {
+            "authorId": null,
+            "name": "Jianhang Chen"
+          },
+          {
+            "authorId": "35008947",
+            "name": "L. Tacconi"
+          },
+          {
+            "authorId": "2256609616",
+            "name": "R. Genzel"
+          },
+          {
+            "authorId": "2243987001",
+            "name": "R. Neri"
+          },
+          {
+            "authorId": "2258448300",
+            "name": "K. Schuster"
+          },
+          {
+            "authorId": "2249580088",
+            "name": "N. F. Schreiber"
+          },
+          {
+            "authorId": "116451669",
+            "name": "J. Jolly"
+          },
+          {
+            "authorId": "2166091925",
+            "name": "S. Pastras"
+          },
+          {
+            "authorId": "2293615062",
+            "name": "Letizia Scaloni"
+          },
+          {
+            "authorId": "2326989061",
+            "name": "G. Tozzi"
+          },
+          {
+            "authorId": "2430636164",
+            "name": "Capucine Barf'ety"
+          },
+          {
+            "authorId": "5958325",
+            "name": "A. Bolatto"
+          },
+          {
+            "authorId": "2189274678",
+            "name": "A.J. Burker"
+          },
+          {
+            "authorId": "2249528579",
+            "name": "F. Combes"
+          },
+          {
+            "authorId": "2259903018",
+            "name": "P. Cox"
+          },
+          {
+            "authorId": "2248996802",
+            "name": "R. Davies"
+          },
+          {
+            "authorId": "1860513",
+            "name": "F. Eisenhauer"
+          },
+          {
+            "authorId": "1580625064",
+            "name": "J. M. E. Salcedo"
+          },
+          {
+            "authorId": "2430635918",
+            "name": "Rodrigo Herrera-Camu"
+          },
+          {
+            "authorId": "2422717503",
+            "name": "S. Garc'ia-Burillo"
+          },
+          {
+            "authorId": "2328008197",
+            "name": "Tadayuki Kodama"
+          },
+          {
+            "authorId": null,
+            "name": "Lilian Lee"
+          },
+          {
+            "authorId": null,
+            "name": "Minju M. Lee"
+          },
+          {
+            "authorId": null,
+            "name": "Daizhong Liu"
+          },
+          {
+            "authorId": "2309246034",
+            "name": "D. Lutz"
+          },
+          {
+            "authorId": "1489156032",
+            "name": "G. Mazzolari"
+          },
+          {
+            "authorId": "2284224150",
+            "name": "T. Naab"
+          },
+          {
+            "authorId": "2346110584",
+            "name": "A. N. Shachar"
+          },
+          {
+            "authorId": "103137079",
+            "name": "C. Pulsoni"
+          },
+          {
+            "authorId": "2308033548",
+            "name": "A. Renzini"
+          },
+          {
+            "authorId": "2308274403",
+            "name": "Monica Rubio"
+          },
+          {
+            "authorId": "2372387757",
+            "name": "T. Shimizu"
+          },
+          {
+            "authorId": "2282471673",
+            "name": "Amiel Sternberg"
+          },
+          {
+            "authorId": "2006405",
+            "name": "E. Sturm"
+          },
+          {
+            "authorId": "102930688",
+            "name": "H. Ubler"
+          },
+          {
+            "authorId": "5015129",
+            "name": "A. Usero"
+          },
+          {
+            "authorId": "2394168006",
+            "name": "Stijn Wuyts"
+          }
+        ]
+      }
     },
     {
       "id": "http://arxiv.org/abs/2604.18382v1",
