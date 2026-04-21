@@ -4,9 +4,16 @@ set -euo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 VENV_PY="$REPO/.venv/bin/python"
 MODE="${1:-systemd}"
+AUTO_PUSH="${2:-0}"
+RUNNER="$REPO/scripts/run-daily.sh"
 
 if [[ ! -x "$VENV_PY" ]]; then
   echo "Missing venv at $REPO/.venv — run: python3 -m venv .venv && .venv/bin/pip install -r requirements.txt" >&2
+  exit 1
+fi
+
+if [[ ! -x "$RUNNER" ]]; then
+  echo "Missing runner at $RUNNER" >&2
   exit 1
 fi
 
@@ -23,9 +30,10 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 WorkingDirectory=$REPO
+Environment=AUTO_PUSH_REPORTS=$AUTO_PUSH
 Environment=PYTHONPATH=$REPO
 EnvironmentFile=-$REPO/.env
-ExecStart=$VENV_PY -m app.main daily
+ExecStart=$RUNNER
 
 [Install]
 WantedBy=default.target
@@ -52,7 +60,7 @@ EOF
 
 install_cron() {
   local MARK="# research-assistant daily"
-  local LINE="30 6 * * * cd $REPO && PYTHONPATH=$REPO $VENV_PY -m app.main daily >>$REPO/data/cron-daily.log 2>&1"
+  local LINE="30 6 * * * cd $REPO && AUTO_PUSH_REPORTS=$AUTO_PUSH PYTHONPATH=$REPO $RUNNER >>$REPO/data/cron-daily.log 2>&1"
   mkdir -p "$REPO/data"
   (crontab -l 2>/dev/null | grep -vF "$MARK" || true; echo "$MARK"; echo "$LINE") | crontab -
   echo "Installed user crontab entry ($MARK). Log: $REPO/data/cron-daily.log"
@@ -63,10 +71,13 @@ case "$MODE" in
   systemd) install_systemd ;;
   cron) install_cron ;;
   *)
-    echo "Usage: $0 [systemd|cron]  (default: systemd)" >&2
+    echo "Usage: $0 [systemd|cron] [0|1]  (second arg enables auto-push)" >&2
     exit 1
     ;;
 esac
 
 echo ""
 echo "Ollama must be running when the job fires (e.g. ollama serve as a user or system service)."
+if [[ "$AUTO_PUSH" == "1" ]]; then
+  echo "Auto-push is enabled. Ensure this machine can push to origin non-interactively."
+fi
