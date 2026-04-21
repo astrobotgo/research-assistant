@@ -8,35 +8,39 @@ Topics scanned: galaxy clusters, galaxies, gravitational lensing, dark matter.
 
 ## Research briefing (synthesized)
 
-## Executive overview
+## Executive Overview
 
-Recent arXiv preprints highlight advancements in understanding the interstellar medium (ISM) and galaxy dynamics through multi-wavelength observations. Studies on galaxy clusters reveal new insights into magnetic fields and large-scale structures, while work on dark matter focuses on improving astrometric precision and probing neutrino sources. Gravitational lensing research is expanding to higher-order statistics for a more comprehensive view of non-Gaussianities in the cosmic web.
+Recent arXiv preprints highlight advancements in understanding galactic dynamics, particularly through high-resolution spectroscopic surveys and imaging techniques. Notable work includes detailed studies of molecular gas kinematics at cosmic noon, the census of neutral ISM using JWST/NIRSpec, and insights into velocity anisotropy within the Milky Way's stellar halo. There is also emerging research on dark matter halos in globular clusters enabled by upcoming GaiaNIR astrometric capabilities. In gravitational lensing, there are efforts to extend theoretical frameworks for higher-order statistics. However, contributions focused specifically on galaxy clusters and direct dark matter detection remain limited.
 
-## Galaxy clusters
+## Galaxy Clusters
 
-Recent studies have focused on characterizing large-scale magnetic fields within galaxy clusters. The MeerKAT Fornax Survey provides the densest RM grid to date, yielding insights into the intra-cluster magnetic field's strength and structure. By modeling the power spectrum with a slope of $\sim$2.7 fluctuating between $\sim$1 and $\sim$15 kpc, the survey reveals that central strengths are around 5 μG but decrease with thermal plasma density according to a power-law exponent of $\sim$1.6.
+Recent preprints have provided a broader view of magnetic fields within large-scale systems like the Fornax cluster, using MeerKAT data to characterize field strength and structure down to scales of 1-15 kpc. This work aims to understand how intra-cluster magnetic fields influence galaxy evolution and overall cluster physics.
 
 ## Galaxies
 
-The recent preprints on galaxies present a broad spectrum of research from stellar halo dynamics to molecular cloud properties at the galaxy’s edge. High-resolution CO observations by NOEMA3D have resolved radial gas flows in disk galaxies, indicating significant tangential dispersion velocities beyond 30 kpc and smooth variations in anisotropy profiles. Studies also explore how the velocity anisotropy correlates with metallicity and color, reinforcing that these relationships are primarily driven by accreted structures.
+Several studies focus on detailed kinematics and physical properties within galaxies:
+- NOEMA3D projects use high-resolution CO observations to resolve molecular gas dynamics in massive main-sequence galaxies at cosmic noon, revealing ordered rotation with significant anisotropies influenced by external structures.
+- JWST/NIRSpec surveys provide a comprehensive census of the neutral ISM, including its velocity fields and interactions within nearby galaxies.
+- The Milky Way's stellar halo is being probed using large samples of blue horizontal-branch stars to characterize its velocity anisotropy out to 70 kpc, showing transitions from radial to tangential dispersion velocities with increasing radius.
 
-Molecular clouds at the galaxy’s edge show distinct properties as detailed in preprints focusing on blue horizontal-branch stars from multiple surveys like Gaia, SEGUE, DESI, and LAMOST. These studies provide a detailed profile of velocity anisotropy up to $\sim$70 kpc, noting that radial velocities are prominent within 30 kpc but tangential dispersion dominates beyond this region.
+## Dark Matter
 
-## Dark matter
+Research on dark matter includes:
+- Projections for the GaiaNIR mission that highlight potential improvements in detecting extended dark matter halos around globular clusters by extending astrometric observations into near-infrared wavelengths.
+- Analysis of galaxy populations within the IllustrisTNG simulations to understand how they vary across different cosmic web environments, providing insights into dark matter's role in shaping galactic structures.
 
-Dark matter research continues to leverage advanced missions like GaiaNIR and observatories such as the IceCube Neutrino Observatory. The proposed GaiaNIR mission aims to enhance astrometric precision in near-infrared wavelengths, particularly crucial for detecting dark matter halos within globular clusters under high-extinction conditions. Simulations suggest that while Gaia can resolve extended dark matter halos with low extinction, its performance degrades significantly as extinction increases; conversely, GaiaNIR retains sensitivity even with strong extinction.
+## Gravitational Lensing
 
-The IceCube Neutrino Observatory has expanded the understanding of neutrinos in the context of dark matter, providing measurements over a broad energy range. Recent results include the first identification of steady neutrino sources and limits on atmospheric neutrinos from dark matter annihilation in the Sun. Future upgrades to IceCube will enhance sensitivity and expand detection rates for lower-energy neutrinos.
+Higher-order statistical measures are being explored to study non-Gaussianities in lensing correlations:
+- Work extends analytical frameworks for describing shear-galaxy cross-correlations up to fourth order (4PCF) and evaluates the detectability of these statistics from upcoming stage IV surveys, which could offer new insights into mass distributions.
 
-## Gravitational lensing
+## Summary
 
-Research into gravitational lensing is pushing towards higher-order statistics to capture non-Gaussian features within the cosmic web. By extending analytical frameworks to fourth-order correlations between galaxies and shear, new aperture statistics are being developed. These efforts aim to detect these higher-order statistics in future stage IV surveys, enriching our understanding of mass-galaxy relations.
+The recent preprints underscore advancements in high-resolution observations and theoretical modeling to understand galactic dynamics, dark matter's influence on structures, and higher-order lensing effects. However, more direct detection methods for dark matter and detailed studies of galaxy cluster properties remain areas needing further investigation.
 
-## Cross-disciplinary insights
+## Future Directions
 
-A study from the IllustrisTNG suite explores galaxy populations within the cosmic web by constructing a multiscale caustic skeleton of dark matter flows. This analysis reveals how multistreaming affects intergalactic baryonic gas and how galaxies differ based on their embedding in voids, walls, filaments, or cluster nodes. The results provide a detailed map of blue galaxies' fractions across different scales within the cosmic web, emphasizing the role of caustic features in shaping galaxy properties.
-
-These recent advancements collectively enhance our comprehension of galactic dynamics, magnetic field structures in clusters, and dark matter interactions, paving the way for more refined models and observations.
+Future research should focus on leveraging new observational capabilities like GaiaNIR and advanced simulations such as IllustrisTNG to refine our understanding of galactic dynamics and dark matter distribution. Additionally, extending gravitational lensing statistics could provide valuable insights into the non-Gaussian aspects of cosmic structures.
 
 ---
 
@@ -70,14 +74,6 @@ We present a statistical census of the Na D-traced neutral interstellar medium (
 #### Abstract
 We present NOEMA3D, a unique high-resolution study of purely molecular gas kinematics at $z \sim 1.1$ to 1.6, providing a dedicated view of cold gas dynamics at the late stages of the peak epoch of cosmic star formation. Using deep ($gtrsim 20$ hr on source per target) IRAM-NOEMA CO observations of 10 massive ($10.45 < log(M^*/M_\odot) < 11.43$) ) main-sequence galaxies, complemented by high-resolution JWST imaging, we resolve the molecular gas kinematics and morphology on kiloparsec scales. We find that all galaxies exhibit ordered rotation with moderate intrinsic turbulence (median $σ_0 \sim 32 \pm 10$ km/s, median $V_c/σ_0 \sim 8.6 \pm 2.9$), consistent with dynamically turbulent disks at late cosmic noon. After modeling the axisymmetric rotation with the forward-modeling code DysmalPy, we reveal spatially coherent velocity residuals in all but one more inclined system. The inferred in-plane non circular motions reach amplitudes of $\sim 50$-100 km/s, significantly larger than typically observed in local disk galaxies. Interpreting these non-circular motions as radial flows we find that the velocity residuals spatially coincide with non-axisymmetric structures -- spiral arms and bars -- demonstrating a direct link between galaxy morphology and gas transport at $z \sim 1$-2. In spiral galaxies, the residual velocity patterns are typically dominated by inflows, while barred systems display an apparent inflow-outflow pattern, characteristic of in-plane bar-driven gas motions. We further find that the inferred molecular gas inflow rates are substantial, with a typical net inflow rate of the order of the star formation rate ( $\dot M \sim -50 M_\odot/$yr). This implies that spiral arms and bars at cosmic noon are highly efficient at funneling cold gas toward galaxy centers, perhaps driving the buildup of bulges and feeding central star forming regions and supermassive black holes.
 
-#### Semantic Scholar
-- Year: 2026
-- Venue: 
-- Citation Count: 0
-- Influential Citations: 0
-- Fields of Study: Physics
-- URL: https://www.semanticscholar.org/paper/cde702c1e14469162b1e8a3c90e0057ad73867bf
-
 ### 3. NOEMA3D: Spatially resolved dust, CO, and [C I] in massive star-forming main sequence galaxies at cosmic noon
 - **Focus:** galaxies
 - Published: 2026-04-20T16:53:44+00:00
@@ -87,14 +83,6 @@ We present NOEMA3D, a unique high-resolution study of purely molecular gas kinem
 
 #### Abstract
 We present a spatially resolved study of cold molecular gas and dust in ten main-sequence galaxies at z=1.1-1.6, using observations of CO(4-3), CO(3-2), [C I](1-0), and dust continuum from the NOEMA3D survey. We find a widely presence of spatially extended molecular gas and dust, with sizes comparable to those of the stellar disk, in contrast to those of central-dominated starburst galaxies at similar redshifts. While various molecular gas tracers generally exhibit similar spatial distributions, the CO line (J=3-2 or J=4-3) remain the most effective for mapping molecular gas distribution and kinematics. In addition, the spatially resolved correlations between different molecular gas tracers exhibit about two times larger scatter than their galactic-integrated correlations, indicating that interstellar medium (ISM) conditions already deviate from global averages on scales of 3-6 kpc, likely reflecting the clumpy or inhomogeneous ISM in cosmic noon star-forming galaxies. Within our sample, both the molecular gas fraction and its depletion time are nearly constant across the galactic disks out to 2 Re, supporting a global linear Kennicutt-Schmidt law. The presence of extended molecular gas disks, along with regular stellar structures, small central bulges, and ordered cold gas kinematics, supports the idea that the evolution of main-sequence disk galaxies at cosmic noon is driven by steady gas accretion and transport through prominent spiral arms and/or bars. This process stands in contrast to the merger-driven stochastic gas accretion in compact starbursts.
-
-#### Semantic Scholar
-- Year: 2026
-- Venue: 
-- Citation Count: 0
-- Influential Citations: 0
-- Fields of Study: Physics
-- URL: https://www.semanticscholar.org/paper/fd4544dffa7c8804a7ccc73c8e5a525063051c69
 
 ### 4. Molecular Clouds at the Edge of the Galaxy II. Physical properties and scaling relations
 - **Focus:** galaxies
@@ -156,6 +144,14 @@ The proposed GaiaNIR mission would extend Gaia's astrometric capabilities into t
 #### Abstract
 The caustic skeleton is a parameter-free and mathematically rigorous formalism for tracing the hierarchical formation history of the multiscale cosmic web from the singularities in the underlying dark matter flow. In the present study, we explicitly use the multistreaming nature of the cosmic mass distribution to address the influence of the weblike embedding on the galaxy populations and discern their properties in different web environments. To this end, we construct the multiscale caustic skeleton of the dark mass distribution in the state-of-the-art suite of the large-scale IllustrisTNG simulations. In addition to the multistreaming dark matter density field, we assess the characteristic properties of the intergalactic baryonic gas in the vicinity of the caustics. Next, we associate the galaxies with the voids, walls, filaments and cluster nodes, and investigate their colours and star formation activities. A unique feature of the analysis is that it explicitly addresses the multiscale aspects with respect to the galaxy population, assessing issues such as the fraction of (blue) galaxies as a function of the scale of the cosmic web pattern and its caustic features. We find that the galaxy properties form a continuum in the scale-space cosmic web. Intimately coupled to the hierarchical build-up of the cosmic structure, it also allows us to systematically assess the impact of the formation time of the various structural components of the cosmic web on the galaxy properties. This furthers insight into the establishment of the observed colour-density relation of galaxies.
 
+#### Semantic Scholar
+- Year: 2026
+- Venue: 
+- Citation Count: 0
+- Influential Citations: 0
+- Fields of Study: Physics
+- URL: https://www.semanticscholar.org/paper/89769e0b4bb54dd99c5c19f638257818ddf77216
+
 ### 10. Latest results from the IceCube Neutrino Observatory
 - **Focus:** dark matter
 - Published: 2026-04-20T12:34:25+00:00
@@ -165,6 +161,14 @@ The caustic skeleton is a parameter-free and mathematically rigorous formalism f
 
 #### Abstract
 The IceCube Neutrino Observatory has opened a new window into the high-energy Universe, providing measurements of neutrinos over a broad energy range. This contribution presents recent results, including a follow-up on the first identification of a steady neutrino source NGC 1068, measurements of the flavor composition of the diffuse astrophysical flux, limits on prompt atmospheric neutrinos, and searches for neutrinos from dark matter annihilation in the Sun. These measurements probe neutrino production mechanisms, fundamental particle interactions, and physics beyond the Standard Model. Looking forward, the recently deployed IceCube Upgrade will enhance sensitivity to lower-energy neutrinos and reduce systematic uncertainties, while the planned IceCube-Gen2 will expand the detector volume, increase the neutrino detection rate, and extend energy reach, enabling more detailed studies of cosmic sources and high-energy particle physics.
+
+#### Semantic Scholar
+- Year: 2026
+- Venue: 
+- Citation Count: 0
+- Influential Citations: 0
+- Fields of Study: Physics
+- URL: https://www.semanticscholar.org/paper/1838c020555d899e11d1d7b2d875b3568c21f743
 
 ---
 
