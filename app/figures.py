@@ -59,7 +59,7 @@ def _rank_with_gemini(
     paper: dict,
     candidates: list[tuple[int, int, bytes]],
     max_figures: int,
-) -> list[tuple[int, int, bytes]]:
+) -> list[dict]:
     api_key = (__import__("os").environ.get("GEMINI_API_KEY") or "").strip()
     if not api_key or not candidates:
         return []
@@ -72,10 +72,14 @@ def _rank_with_gemini(
             "text": (
                 "You are ranking research paper figures by scientific usefulness for a daily digest. "
                 "Prefer plots/diagrams/results over logos/decorative images. "
-                "Return strict JSON only: {\"keep\":[indices]} where indices are from the labels below."
+                "Return strict JSON only with this shape: "
+                "{\"keep\":[{\"index\":1,\"reason\":\"...\"}]} "
+                "where indices are from the labels below and reason is one or two concise sentences "
+                "explaining why this figure is especially important for understanding the paper."
             )
         },
         {"text": f"Paper title: {paper.get('title', '')}"},
+        {"text": f"Paper abstract: {(paper.get('summary') or '')[:3000]}"},
     ]
     for i, (area, page_num, blob) in enumerate(shortlisted, start=1):
         parts.append({"text": f"Figure {i} (page {page_num}, area {area}):"})
@@ -114,10 +118,26 @@ def _rank_with_gemini(
     except Exception:
         keep = []
 
-    out: list[tuple[int, int, bytes]] = []
+    out: list[dict] = []
     for k in keep:
-        if isinstance(k, int) and 1 <= k <= len(shortlisted):
-            out.append(shortlisted[k - 1])
+        if isinstance(k, int):
+            idx = k
+            reason = ""
+        elif isinstance(k, dict):
+            idx = k.get("index")
+            reason = str(k.get("reason", "")).strip()
+        else:
+            continue
+        if isinstance(idx, int) and 1 <= idx <= len(shortlisted):
+            area, page_num, blob = shortlisted[idx - 1]
+            out.append(
+                {
+                    "area": area,
+                    "page": page_num,
+                    "blob": blob,
+                    "reason": reason,
+                }
+            )
         if len(out) >= max_figures:
             break
     return out
@@ -129,7 +149,7 @@ def extract_key_figures(
     cache_fig_dir: Path,
     max_figures: int = 2,
     use_gemini: bool = False,
-) -> list[str]:
+) -> list[dict]:
     pdf_url = paper.get("pdf_url")
     if not pdf_url:
         return []
@@ -183,7 +203,10 @@ def extract_key_figures(
 
     candidates.sort(key=lambda x: x[0], reverse=True)
 
-    ranked = candidates[:max_figures]
+    ranked = [
+        {"area": area, "page": page_num, "blob": blob, "reason": ""}
+        for area, page_num, blob in candidates[:max_figures]
+    ]
     if use_gemini:
         try:
             gemini_ranked = _rank_with_gemini(paper, candidates, max_figures=max_figures)
@@ -192,9 +215,16 @@ def extract_key_figures(
         except Exception:
             pass
 
-    saved: list[str] = []
-    for i, (_, _, blob) in enumerate(ranked[:max_figures], start=1):
+    saved: list[dict] = []
+    for i, item in enumerate(ranked[:max_figures], start=1):
+        blob = item["blob"]
         out = fig_dir / f"figure_{i}.png"
         out.write_bytes(blob)
-        saved.append(str(out))
+        saved.append(
+            {
+                "path": str(out),
+                "reason": item.get("reason", ""),
+                "page": item.get("page"),
+            }
+        )
     return saved

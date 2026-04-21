@@ -29,6 +29,7 @@ TARGETS=(
   "data/cache/latest.json"
   "data/cache/daily-$TODAY.json"
   "data/reports"
+  "data/videos"
   "docs"
 )
 

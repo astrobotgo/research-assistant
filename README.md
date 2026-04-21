@@ -16,8 +16,23 @@ This repository generates dated daily PDF digests in `data/reports/` and now pub
 - The daily command now also rebuilds `docs/` so GitHub Pages has:
   - `docs/index.html` with a human-friendly archive
   - `docs/latest.pdf` for the newest report
+  - `docs/latest.mp4` for the newest narrated slideshow video
   - `docs/reports/*.pdf` for dated report links
+  - `docs/videos/*.mp4` for dated narrated videos
 - Your normal workflow stays the same: run the assistant, commit the updated `data/reports/` and `docs/` files, and push.
+
+## Narrated Videos
+
+- Daily runs now attempt to generate a narrated slideshow video from the daily PDF.
+- The video pipeline:
+  - renders each PDF page to an image
+  - generates short narration per page
+  - synthesizes narration audio with Gemini TTS
+  - combines pages and audio into an `mp4` with `ffmpeg`
+- Requirements for video generation:
+  - `GEMINI_API_KEY` set
+  - `ffmpeg` installed on the machine running the job
+- If either dependency is unavailable, the daily report still succeeds and simply skips the video.
 
 ## Automatic Push After Daily Runs
 

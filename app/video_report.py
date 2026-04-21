@@ -1,0 +1,207 @@
+from __future__ import annotations
+
+import base64
+import os
+import shutil
+import subprocess
+import tempfile
+import wave
+from pathlib import Path
+
+import fitz
+import httpx
+
+from app.gemini_llm import gemini_generate
+
+GEMINI_TTS_MODEL = os.getenv("GEMINI_TTS_MODEL", "gemini-2.5-flash-preview-tts")
+GEMINI_TTS_VOICE = os.getenv("GEMINI_TTS_VOICE", "Kore")
+
+
+def _render_pdf_pages(pdf_path: Path, page_dir: Path) -> list[Path]:
+    doc = fitz.open(pdf_path)
+    image_paths: list[Path] = []
+    try:
+        for idx, page in enumerate(doc):
+            pix = page.get_pixmap(matrix=fitz.Matrix(1.5, 1.5), alpha=False)
+            out_path = page_dir / f"page-{idx + 1:03d}.png"
+            pix.save(out_path)
+            image_paths.append(out_path)
+    finally:
+        doc.close()
+    return image_paths
+
+
+def _extract_page_texts(pdf_path: Path, max_chars: int = 5000) -> list[str]:
+    doc = fitz.open(pdf_path)
+    texts: list[str] = []
+    try:
+        for page in doc:
+            text = " ".join((page.get_text("text") or "").split())
+            texts.append(text[:max_chars])
+    finally:
+        doc.close()
+    return texts
+
+
+def _page_narration(title: str, page_num: int, page_text: str) -> str:
+    if not page_text.strip():
+        return f"Page {page_num} of {title}. This page is primarily visual or has limited extractable text."
+
+    prompt = f"""You are writing narration for a research slideshow video.
+
+Write 2 to 4 concise spoken sentences for a voiceover describing this page.
+Keep it faithful to the page text and avoid reading citations, author lists, or raw formatting.
+Sound like a clear research presenter.
+
+Title: {title}
+Page: {page_num}
+
+Page text:
+{page_text}
+"""
+    try:
+        return gemini_generate(prompt=prompt, timeout=120.0).strip()
+    except Exception:
+        clipped = page_text[:380].strip()
+        if not clipped:
+            return f"Page {page_num} of {title}."
+        return clipped
+
+
+def _write_pcm_wav(out_path: Path, pcm_bytes: bytes, channels: int = 1, rate: int = 24000, sample_width: int = 2) -> None:
+    with wave.open(str(out_path), "wb") as wf:
+        wf.setnchannels(channels)
+        wf.setsampwidth(sample_width)
+        wf.setframerate(rate)
+        wf.writeframes(pcm_bytes)
+
+
+def _gemini_tts_to_wav(text: str, out_path: Path) -> None:
+    api_key = (os.getenv("GEMINI_API_KEY") or "").strip()
+    if not api_key:
+        raise RuntimeError("GEMINI_API_KEY is not set")
+
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_TTS_MODEL}:generateContent"
+    payload = {
+        "contents": [{"parts": [{"text": text}]}],
+        "generationConfig": {
+            "responseModalities": ["AUDIO"],
+            "speechConfig": {
+                "voiceConfig": {
+                    "prebuiltVoiceConfig": {
+                        "voiceName": GEMINI_TTS_VOICE,
+                    }
+                }
+            },
+        },
+        "model": GEMINI_TTS_MODEL,
+    }
+    r = httpx.post(
+        url,
+        headers={
+            "Content-Type": "application/json",
+            "x-goog-api-key": api_key,
+        },
+        json=payload,
+        timeout=300.0,
+    )
+    r.raise_for_status()
+    data = (
+        r.json()
+        .get("candidates", [{}])[0]
+        .get("content", {})
+        .get("parts", [{}])[0]
+        .get("inlineData", {})
+        .get("data")
+    )
+    if not data:
+        raise RuntimeError("Gemini TTS returned no audio data")
+    _write_pcm_wav(out_path, base64.b64decode(data))
+
+
+def _build_segment(image_path: Path, audio_path: Path, out_path: Path) -> None:
+    cmd = [
+        "ffmpeg",
+        "-y",
+        "-loop",
+        "1",
+        "-i",
+        str(image_path),
+        "-i",
+        str(audio_path),
+        "-c:v",
+        "libx264",
+        "-tune",
+        "stillimage",
+        "-pix_fmt",
+        "yuv420p",
+        "-c:a",
+        "aac",
+        "-b:a",
+        "192k",
+        "-shortest",
+        str(out_path),
+    ]
+    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+
+def _concat_segments(segment_paths: list[Path], out_path: Path) -> None:
+    with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False, encoding="utf-8") as f:
+        for path in segment_paths:
+            f.write(f"file '{path.as_posix()}'\n")
+        concat_path = Path(f.name)
+    try:
+        cmd = [
+            "ffmpeg",
+            "-y",
+            "-f",
+            "concat",
+            "-safe",
+            "0",
+            "-i",
+            str(concat_path),
+            "-c",
+            "copy",
+            str(out_path),
+        ]
+        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    finally:
+        concat_path.unlink(missing_ok=True)
+
+
+def build_narrated_video(pdf_path: Path, out_path: Path, title: str) -> Path:
+    if not shutil.which("ffmpeg"):
+        raise RuntimeError("ffmpeg is not installed")
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with tempfile.TemporaryDirectory(prefix="report-video-") as tmp:
+        tmp_dir = Path(tmp)
+        page_dir = tmp_dir / "pages"
+        audio_dir = tmp_dir / "audio"
+        segment_dir = tmp_dir / "segments"
+        page_dir.mkdir()
+        audio_dir.mkdir()
+        segment_dir.mkdir()
+
+        image_paths = _render_pdf_pages(pdf_path, page_dir)
+        page_texts = _extract_page_texts(pdf_path)
+        if not image_paths:
+            raise RuntimeError("No PDF pages found to render")
+
+        segment_paths: list[Path] = []
+        for idx, image_path in enumerate(image_paths):
+            page_num = idx + 1
+            narration = _page_narration(
+                title=title,
+                page_num=page_num,
+                page_text=page_texts[idx] if idx < len(page_texts) else "",
+            )
+            audio_path = audio_dir / f"page-{page_num:03d}.wav"
+            _gemini_tts_to_wav(narration, audio_path)
+            segment_path = segment_dir / f"segment-{page_num:03d}.mp4"
+            _build_segment(image_path, audio_path, segment_path)
+            segment_paths.append(segment_path)
+
+        _concat_segments(segment_paths, out_path)
+    return out_path

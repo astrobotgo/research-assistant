@@ -15,6 +15,7 @@ from app.pdf_report import build_daily_pdf_report
 from app.select_papers import select_top_papers
 from app.site_pages import build_pages_site
 from app.summarize import summarize_paper
+from app.video_report import build_narrated_video
 
 app = typer.Typer()
 
@@ -168,6 +169,10 @@ def daily(
         0,
         help="Cap pages summarized per paper (0 means all pages).",
     ),
+    video: bool = typer.Option(
+        True,
+        help="Generate a narrated slideshow video from the daily PDF when possible.",
+    ),
 ):
     """
     Scan arXiv once for each configured topic (clusters, galaxies, lensing, dark matter),
@@ -219,10 +224,12 @@ def daily(
     today = date.today().isoformat()
     Path("data/cache").mkdir(parents=True, exist_ok=True)
     Path("data/reports").mkdir(parents=True, exist_ok=True)
+    Path("data/videos").mkdir(parents=True, exist_ok=True)
 
     cache_path = Path(f"data/cache/daily-{today}.json")
     report_path = Path(f"data/reports/daily-{today}.md")
     report_pdf_path = Path(f"data/reports/daily-{today}.pdf")
+    report_video_path = Path(f"data/videos/daily-{today}.mp4")
 
     payload = {
         "pool_count": len(pool_for_selection),
@@ -295,7 +302,7 @@ def daily(
             for p in remainder:
                 f.write(f"- **{p['title']}** — {p.get('_topic_label', '')} — {p.get('pdf_url', '')}\n")
 
-    figure_map: dict[str, list[str]] = {}
+    figure_map: dict[str, list[dict]] = {}
     page_summary_map: dict[str, list[dict]] = {}
     if pdf:
         cache_pdf_dir = Path("data/cache/pdfs")
@@ -335,6 +342,15 @@ def daily(
             figure_map=figure_map,
             page_summary_map=page_summary_map,
         )
+        if video and report_pdf_path.exists():
+            try:
+                build_narrated_video(
+                    pdf_path=report_pdf_path,
+                    out_path=report_video_path,
+                    title=f"Daily Research Digest {today}",
+                )
+            except Exception as e:
+                print(f"[yellow]Video skipped:[/yellow] {e}")
 
     # Overwrite stable paths for quick access / cron consumers
     with open("data/cache/latest.json", "w") as f:
@@ -344,6 +360,9 @@ def daily(
     if pdf and report_pdf_path.exists():
         with open("data/reports/latest.pdf", "wb") as f:
             f.write(report_pdf_path.read_bytes())
+        if report_video_path.exists():
+            with open("data/videos/latest.mp4", "wb") as f:
+                f.write(report_video_path.read_bytes())
         build_pages_site()
 
     print(
@@ -353,6 +372,8 @@ def daily(
     print(f"[cyan]Report:[/cyan] {report_path}")
     if pdf and report_pdf_path.exists():
         print(f"[cyan]PDF:[/cyan] {report_pdf_path}")
+        if report_video_path.exists():
+            print(f"[cyan]Video:[/cyan] {report_video_path}")
         print("[cyan]Site:[/cyan] docs/index.html")
     print("[cyan]Also:[/cyan] data/cache/latest.json, data/reports/latest.md")
 

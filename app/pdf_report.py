@@ -188,7 +188,7 @@ def _build_reportlab_pdf(
     report_date: str,
     digest_md: str,
     papers: list[dict],
-    figure_map: dict[str, list[str]],
+    figure_map: dict[str, list[dict]],
     page_summary_map: dict[str, list[dict]],
 ) -> None:
     doc = SimpleDocTemplate(str(out_path), pagesize=LETTER)
@@ -239,17 +239,21 @@ def _build_reportlab_pdf(
                 ps = _clean_md_text(item.get("summary", ""))
                 story.append(Paragraph(f"Page {pnum}: {ps}", styles["Normal"]))
 
-        fig_paths = figure_map.get(paper_id, [])
-        if fig_paths:
+        fig_items = figure_map.get(paper_id, [])
+        if fig_items:
             story.append(Spacer(1, 0.12 * inch))
             story.append(Paragraph("Selected figures", styles["Heading3"]))
-            for fig in fig_paths:
-                fig_path = Path(fig)
+            for fig in fig_items:
+                fig_path = Path(fig["path"])
                 if not fig_path.exists():
                     continue
                 try:
                     img = _scaled_reportlab_image(fig_path)
                     story.append(img)
+                    reason = _clean_md_text(fig.get("reason", ""))
+                    if reason:
+                        story.append(Spacer(1, 0.04 * inch))
+                        story.append(Paragraph(f"Why this figure matters: {reason}", styles["Italic"]))
                     story.append(Spacer(1, 0.08 * inch))
                 except Exception:
                     continue
@@ -265,7 +269,7 @@ def _latex_document(
     report_date: str,
     digest_md: str,
     papers: list[dict],
-    figure_map: dict[str, list[str]],
+    figure_map: dict[str, list[dict]],
     page_summary_map: dict[str, list[dict]],
 ) -> str:
     lines = [
@@ -333,17 +337,19 @@ def _latex_document(
                 lines.append(rf"\item \textbf{{Page {pnum}:}} {ps}")
             lines.append(r"\end{itemize}")
 
-        fig_paths = [Path(p) for p in figure_map.get(paper_id, [])]
-        fig_paths = [p for p in fig_paths if p.exists()]
-        if fig_paths:
+        fig_items = figure_map.get(paper_id, [])
+        fig_items = [item for item in fig_items if Path(item["path"]).exists()]
+        if fig_items:
             lines.append(r"\subsubsection*{Selected figures}")
-            for fig_path in fig_paths:
+            for item in fig_items:
+                fig_path = Path(item["path"])
                 abs_path = fig_path.resolve().as_posix()
                 lines.extend(
                     [
                         r"\begin{figure}[H]",
                         r"\centering",
                         rf"\includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{{{_latex_escape_text(abs_path)}}}",
+                        rf"\caption*{{Why this figure matters: {_latex_inline(item.get('reason', ''))}}}" if item.get("reason") else "",
                         r"\end{figure}",
                     ]
                 )
@@ -375,7 +381,7 @@ def _build_latex_pdf(
     report_date: str,
     digest_md: str,
     papers: list[dict],
-    figure_map: dict[str, list[str]],
+    figure_map: dict[str, list[dict]],
     page_summary_map: dict[str, list[dict]],
 ) -> None:
     engine = _find_latex_engine()
@@ -426,7 +432,7 @@ def build_daily_pdf_report(
     report_date: str,
     digest_md: str,
     papers: list[dict],
-    figure_map: dict[str, list[str]],
+    figure_map: dict[str, list[dict]],
     page_summary_map: dict[str, list[dict]],
 ) -> None:
     out_path.parent.mkdir(parents=True, exist_ok=True)

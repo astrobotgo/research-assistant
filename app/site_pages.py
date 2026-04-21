@@ -23,32 +23,50 @@ def _title_for_report(path: Path) -> str:
 
 def build_pages_site(
     reports_dir: Path = Path("data/reports"),
+    videos_dir: Path = Path("data/videos"),
     site_dir: Path = Path("docs"),
 ) -> Path:
     pdf_paths = sorted(reports_dir.glob("daily-*.pdf"), reverse=True)
+    video_paths = {
+        path.stem: path for path in sorted(videos_dir.glob("daily-*.mp4"), reverse=True)
+    }
 
     site_dir.mkdir(parents=True, exist_ok=True)
     reports_site_dir = site_dir / "reports"
+    videos_site_dir = site_dir / "videos"
     reports_site_dir.mkdir(parents=True, exist_ok=True)
+    videos_site_dir.mkdir(parents=True, exist_ok=True)
 
     for existing in reports_site_dir.glob("*.pdf"):
+        existing.unlink()
+    for existing in videos_site_dir.glob("*.mp4"):
         existing.unlink()
 
     for pdf_path in pdf_paths:
         shutil.copy2(pdf_path, reports_site_dir / pdf_path.name)
+    for video_path in video_paths.values():
+        shutil.copy2(video_path, videos_site_dir / video_path.name)
 
     latest_pdf = reports_dir / "latest.pdf"
+    latest_video = videos_dir / "latest.mp4"
     if latest_pdf.exists():
         shutil.copy2(latest_pdf, site_dir / "latest.pdf")
+    if latest_video.exists():
+        shutil.copy2(latest_video, site_dir / "latest.mp4")
 
     rows = []
     for pdf_path in pdf_paths:
         label = _title_for_report(pdf_path)
         rel_href = f"reports/{html.escape(pdf_path.name)}"
         size_mb = pdf_path.stat().st_size / (1024 * 1024)
+        video_path = video_paths.get(pdf_path.stem)
+        video_link = ""
+        if video_path:
+            video_href = f"videos/{html.escape(video_path.name)}"
+            video_link = f' <a class="secondary-link" href="{video_href}">video</a>'
         rows.append(
             "<li>"
-            f"<a href=\"{rel_href}\">{html.escape(label)}</a>"
+            f"<div><a href=\"{rel_href}\">{html.escape(label)}</a>{video_link}</div>"
             f"<span>{html.escape(pdf_path.name)} · {size_mb:.1f} MB</span>"
             "</li>"
         )
@@ -57,6 +75,11 @@ def build_pages_site(
         '<a class="latest-link" href="latest.pdf">Open latest report</a>'
         if latest_pdf.exists()
         else "<p class=\"empty\">No latest PDF found yet.</p>"
+    )
+    latest_video_link = (
+        '<a class="latest-link secondary" href="latest.mp4">Watch latest video</a>'
+        if latest_video.exists()
+        else ""
     )
     archive_markup = "\n".join(rows) if rows else "<p class=\"empty\">No reports published yet.</p>"
 
@@ -125,6 +148,15 @@ def build_pages_site(
     .latest-link:hover {{
       background: var(--accent-strong);
     }}
+    .latest-link.secondary {{
+      background: transparent;
+      color: var(--accent-strong);
+      border: 1px solid var(--line);
+      margin-left: 0.75rem;
+    }}
+    .latest-link.secondary:hover {{
+      background: rgba(15, 118, 110, 0.08);
+    }}
     section {{
       margin-top: 1.5rem;
       background: rgba(255, 253, 248, 0.88);
@@ -164,6 +196,11 @@ def build_pages_site(
       text-decoration-thickness: 1px;
       text-underline-offset: 0.15em;
     }}
+    .secondary-link {{
+      margin-left: 0.65rem;
+      font-size: 0.9rem;
+      color: var(--accent);
+    }}
     span {{
       color: var(--muted);
       white-space: nowrap;
@@ -187,8 +224,9 @@ def build_pages_site(
   <main>
     <section class="hero">
       <h1>Daily Research Reports</h1>
-      <p>Browse the latest generated PDF digest or open the archive of previous reports published from this repository.</p>
+      <p>Browse the latest generated PDF digest, or watch an AI-narrated slideshow video built from the report pages and summaries.</p>
       {latest_link}
+      {latest_video_link}
     </section>
     <section>
       <h2>Archive</h2>
