@@ -2,54 +2,60 @@
 
 Topics scanned: galaxy clusters, galaxies, gravitational lensing, dark matter.
 
-**Pool:** 16 recent papers gathered. **Presenting:** 10 chosen by the local model for this briefing.
+**Pool:** 16 recent papers gathered. **Presenting:** 13 chosen by the local model for this briefing.
 
 **Selection note:** _Selection failed (timed out); using newest k._
 
+## Recent context and open threads
+
+In recent astrophysics research, several themes have emerged prominently across multiple briefings. These include the dynamics of star formation within galaxies, particularly focusing on the influence of galactic bars and local versus global mechanisms; the exploration of unconventional dark matter models like inelastic self-interacting dark matter and cosmic strings; and advances in gravitational lensing techniques that go beyond traditional second-order statistics.
+
+### Star Formation Dynamics
+Studies continue to highlight the significant role of galactic bars in regulating star formation, emphasizing both local processes driven by stellar mass surface density and global mechanisms influenced by black hole masses. The age bimodality observed in pseudo-bulges supports bar-driven evolutionary scenarios, indicating a complex interplay between internal galaxy structures and their broader environment.
+
+### Dark Matter Models
+Recent investigations into dark matter models have explored exotic possibilities such as cosmic strings and inelastic self-interactions. These studies suggest that dark matter could play a crucial role in the formation of large-scale structure through mechanisms like suppression of small-scale structure formation, potentially leading to detectable differences in power spectra and observable signatures via cosmological probes like the Cosmic Microwave Background (CMB).
+
+### Gravitational Lensing Techniques
+Advances in gravitational lensing techniques are moving beyond traditional approaches by incorporating higher-order statistical measures. The development of fourth-order correlation functions aims to provide more detailed insights into non-Gaussian features of the cosmic web, enhancing our understanding of the large-scale structure and its underlying dynamics.
+
+### Open Questions
+Several open questions persist across these themes:
+- **Star Formation Regulation**: How do local and global processes interact in regulating star formation within galaxies? What are the precise mechanisms behind bar-driven quenching?
+- **Dark Matter Detection**: Can cosmic strings be detected through their echoes in the CMB or other cosmological probes? What are the observational signatures of inelastic self-interacting dark matter?
+- **Lensing Statistics**: How can higher-order lensing statistics, like fourth-order correlations, be effectively utilized to probe the non-Gaussian features of the cosmic web?
+
+These unresolved questions continue to drive active research and debates within the field, highlighting the need for further theoretical exploration and observational evidence.
+
+---
+
 ## Research briefing (synthesized)
 
-## Executive Overview
+Here is a summary of the key research topics covered by these papers:
 
-Recent preprints highlight advancements in the study of galaxy clusters, galaxies, gravitational lensing, and dark matter through a variety of methods. Key themes include precision measurements using spectroscopic data, detailed analysis of gravitational effects like the kinetic Sunyaev-Zel'dovich effect (kSZ), and novel probes for constraining dark matter models during early epochs. The papers also underscore the importance of high-resolution imaging and modeling in elucidating galactic properties and the role of feedback mechanisms.
+1. **Dark Matter:**
+   - **"Extracting Dark-Matter Mass from Angular Scanning":** Proposes a novel method to determine dark matter mass using directionality observables in two-dimensional direct detection experiments.
+   - **"Cosmological constraints on TeV-scale dark matter subcomponents decaying between recombination and reionisation":** Studies the impact of decaying TeV-scale dark matter particles on cosmological observables, with an emphasis on future radio telescopes' sensitivity to 21-cm signals.
 
-## Galaxy Clusters
+2. **Galaxy-Galaxy Lensing:**
+   - **"Fourth-order galaxy-galaxy-lensing: Theoretical framework and direct estimation":** Extends the analytical basis for galaxy-galaxy lensing to fourth-order statistics, focusing on non-Gaussian features in the matter distribution. Develops methods for detecting these statistics from observations of Stage IV surveys.
 
-No recent preprints are tagged specifically with galaxy clusters, so this section is sparse. Focus remains on indirect contributions through related topics like dark matter and gravitational lensing.
+3. **Gravitational Lensing:**
+   - **"SDSSJ110546.07+145202.4: The first long-duration radio changing-look NLS1 galaxy":** Describes a unique radio-changing look Narrow-line Seyfert 1 (NLS1) galaxy with high-frequency radio observations and detailed spectral energy distribution analysis.
+   - **"Other red dots: A possible GLIMPSE of normal AGB stars at Cosmic Noon through extreme lensing":** Reports the discovery of extremely faint red point sources in JWST/NIRCam images, suggesting that these may be magnified asymptotic giant branch (AGB) stars or yellow super-giants.
 
-## Galaxies
+4. **Galaxy Formation and Evolution:**
+   - **"Characterizing and spectrally modeling embedded FUor eruptions in the near-infrared":** Uses infrared surveys to identify and characterize FU Ori outbursts, providing detailed disk modeling with high-resolution spectroscopy.
+   - **"SDSSJ110546.07+145202.4: The first long-duration radio changing-look NLS1 galaxy":** Also touches on the nature of AGN and accretion rate changes, contributing to our understanding of active galactic nuclei.
 
-Recent submissions emphasize detailed studies of galaxies using high-resolution imaging and spectroscopic data from telescopes such as Hubble and ALMA. Papers include investigations into the luminosity functions and spectral energy distributions (SEDs) of active galactic nuclei (AGN), protoclusters, supernova gravitational waves, and accretion processes in young stellar objects (YSOs). These studies aim to disentangle AGN properties from host galaxy emission through morphological decomposition techniques and resolve complex astrophysical phenomena.
+5. **Interstellar Medium (ISM) and High-Energy Phenomena:**
+   - **"Cosmological constraints on TeV-scale dark matter subcomponents decaying between recombination and reionisation":** Considers the impact of decaying dark matter particles on the ISM, particularly in the context of cosmic microwave background (CMB) observations.
 
-## Gravitational Lensing
+6. **Astrophysical Phenomena:**
+   - **"Fourth-order galaxy-galaxy-lensing: Theoretical framework and direct estimation":** Investigates higher-order statistical measures to probe non-Gaussian features in the matter distribution.
+   - **"Other red dots: A possible GLIMPSE of normal AGB stars at Cosmic Noon through extreme lensing":** Discusses how extreme gravitational lensing can reveal stellar populations that are otherwise too faint to observe.
 
-Submissions on gravitational lensing include the analysis of a rare radio changing-look Narrow-line Seyfert 1 (NLS1) galaxy, SDSSJ110546.07+145202.4, which presents unique challenges and opportunities for understanding outburst mechanisms in AGNs. This work provides comprehensive observational data across multiple wavelengths, including the first high-frequency radio observations and X-ray monitoring.
-
-## Dark Matter
-
-Recent dark matter papers explore constraints on TeV-scale subcomponents of dark matter through cosmic microwave background (CMB) data and future 21-cm signal detections. Another paper investigates the kinetic Sunyaev-Zel'dovich effect for probing feedback mechanisms in galaxies, offering a novel approach to constrain dark matter models by examining decays into different particle types during early cosmological epochs.
-
-## Characterizing Supernova Gravitational Waves
-
-A recent submission explores the potential of supernovae as gravitational wave sources using protoneutron star asteroseismology. The study aims to establish universal relations between gravitational wave signals and physical properties independent of model parameters, which could aid in future detections and interpretations of these events.
-
-## Spectral Modeling of YSO Eruptions
-
-Research on young stellar objects (YSOs) focuses on identifying and characterizing FUor outbursts using infrared time-domain surveys and high-resolution spectroscopy. The paper employs Gemini South/IGRINS for follow-up observations, constructing SEDs to fit disk models with both actively accreting inner disks and passively irradiated outer disks.
-
-## Cosmological Constraints on Decaying Dark Matter
-
-A recent study revisits constraints from the CMB on decaying dark matter subcomponents composed of TeV-scale particles. The paper re-evaluates these constraints using current datasets and estimates the sensitivity of future 21-cm signal detections, indicating that this method may be more sensitive to certain decay scenarios than previous analyses.
-
-## Conclusion
-
-These recent submissions collectively advance our understanding of galactic properties, dark matter models, and gravitational phenomena through a combination of observational data, high-resolution imaging techniques, and novel theoretical approaches. The detailed investigations into the kinetic Sunyaev-Zel'dovich effect and decaying dark matter subcomponents provide promising avenues for future research in cosmology.
-
-## Papers to Read
-
-- **"Understanding supernova gravitational waves with protoneutron star asteroseismology"**: Provides insights into using supernovae as gravitational wave sources.
-- **"Cosmological constraints on TeV-scale dark matter subcomponents decaying between recombination and reionisation"**: Explores novel approaches to constraining early universe physics through CMB data and future 21-cm signal detections.
-
-These papers offer significant contributions to their respective fields, providing valuable insights into the complex astrophysical phenomena under investigation.
+These papers collectively contribute to our understanding of dark matter, galaxy formation and evolution, high-energy astrophysical phenomena, and the use of advanced observational techniques like gravitational lensing.
 
 ---
 
@@ -101,6 +107,14 @@ We present the most precise measurements of the kinetic Sunyaev-Zel'dovich (kSZ)
 #### Abstract
 Self-interacting dark matter (SIDM) is the leading framework resolving small-scale cold dark matter (CDM) crises, yet high-redshift SIDM constraints are fundamentally limited by degeneracies between dark matter microphysics and galaxy formation astrophysics. We demonstrate that the UV luminosity function alone cannot constrain SIDM: star formation suppression from SIDM halo core formation is fully absorbed by modest adjustments to standard astrophysical parameters. We show that 21 cm reionization topology breaks this degeneracy completely, providing a nuisance-immune probe: the SIDM-enhanced duty cycle of ionizing photon escape leaves a morphological signature fully independent of star formation efficiency. Combining JWST UVLF measurements with SKA1-Low forecasts, constant-cross-section SIDM with $σ/m \gtrsim 1$--$2\ \mathrm{cm^2/g}$ is either excluded or detectable across all physically motivated star formation coupling strengths. Our results establish a robust new avenue to probe dark matter microphysics in the early Universe.
 
+#### Semantic Scholar
+- Year: 2026
+- Venue: 
+- Citation Count: 0
+- Influential Citations: 0
+- Fields of Study: Physics
+- URL: https://www.semanticscholar.org/paper/ebdd49a7edf5670a2962583cb43c340933bbc4f0
+
 ### 4. Resolved UV-Optical HST Imaging and Spectral Energy Distribution Modeling of Nearby BAT Active Galactic Nuclei
 - **Focus:** galaxies
 - Published: 2026-04-21T16:54:19+00:00
@@ -110,6 +124,14 @@ Self-interacting dark matter (SIDM) is the leading framework resolving small-sca
 
 #### Abstract
 We use high-resolution UV-to-optical imaging from the Hubble Space Telescope (HST) to construct spatially resolved spectral energy distributions (SEDs) for seven nearby ($z<0.07$) hard (14--195$\,$keV) X-ray-selected broad-line active galactic nuclei (AGN) with $L_{\rm bol}=10^{43.26}-10^{45.34}\,\rm{erg\,s^{-1}}$. The high spatial resolution of HST, which physically resolves structures on the scale of $\sim$50$\,$pc at $z=0.05$, enables the separation of AGN and host-galaxy emission through morphological decomposition with GALFIT, yielding improved measurements of AGN properties compared to those obtained with lower-resolution Swift UV/Optical Telescope (UVOT) data. AGN UV magnitudes derived from HST imaging (e.g., F225W) can differ by more than a magnitude from those from Swift/UVOT UVM2 due to extended nuclear emission. Additionally, the inclusion of high-resolution data at longer wavelengths (e.g., F814W) can significantly affect the resulting SED fit. Comparing fits of accretion disk and extinction models using HST and Swift/UVOT data, we find significant differences in the resulting parameters, with average differences of 2.0$\,$eV in the maximum disk temperature and 2.2$\,$mag in the AGN host-galaxy extinction. These differences ultimately lead to significant changes in bolometric luminosities and X-ray bolometric corrections, with the HST-based fits yielding average increases of $\sim$0.57$\,$dex and $\sim$0.66$\,$dex respectively. This demonstrates host-galaxy contamination in unresolved UV--optical data can strongly bias SED-based estimates of disk temperatures, extinction, bolometric luminosities, and X-ray bolometric corrections in AGN. Large-area, high-resolution imaging surveys from Euclid and the Nancy Grace Roman Space Telescope will extend these techniques to much larger AGN samples, enabling uniform, high-precision SED measurements in the near-IR.
+
+#### Semantic Scholar
+- Year: 2026
+- Venue: 
+- Citation Count: 0
+- Influential Citations: 0
+- Fields of Study: Physics
+- URL: https://www.semanticscholar.org/paper/206b0ee47fbfb178b15f8948ee33b32e8709765e
 
 ### 5. A Possible Protocluster of Galaxies Serendipitously Discovered in the Field of an Intermediate-Redshift Post-starburst Galaxy
 - **Focus:** galaxies
@@ -121,6 +143,14 @@ We use high-resolution UV-to-optical imaging from the Hubble Space Telescope (HS
 #### Abstract
 We present the serendipitous discovery of an overdensity of submillimeter galaxies (SMGs) in the field of SDSSJ0909-0108, a massive z~0.7 post-starburst galaxy from the SQuIGGLE survey. ALMA observations at 870um and 2mm reveal six galaxies within a 35'' region with flux ratios consistent with emission from dust. Given the rarity of 870um sources and the small field-of-view of ALMA, we speculate that some of these sources are physically associated. None of the sources are at the same redshift as the post-starburst, and four do not have spectroscopic redshifts. We suggest that follow-up optical and/or ALMA observations be carried out to measure redshifts for the galaxies in this potential protocluster environment.
 
+#### Semantic Scholar
+- Year: 2026
+- Venue: 
+- Citation Count: 0
+- Influential Citations: 0
+- Fields of Study: Physics
+- URL: https://www.semanticscholar.org/paper/28202a3c6249224ab031c2b02eb5034cc05128dc
+
 ### 6. MG-NECOLA: A Field-Level Emulator for $f(R)$ Gravity and Massive Neutrino Cosmologies
 - **Focus:** galaxies
 - Published: 2026-04-21T16:01:37+00:00
@@ -130,6 +160,14 @@ We present the serendipitous discovery of an overdensity of submillimeter galaxi
 
 #### Abstract
 Accurate modeling of non-linear gravitational dynamics is essential for constraining extensions to the standard cosmological model using large-scale structure observations. While high-resolution $N$-body simulations provide the required fidelity, they are computationally prohibitive for the large ensembles needed to analyze Modified Gravity (MG) scenarios. We present MG-NECOLA, a field-level emulator based on a convolutional neural network that upgrades fast, approximate MG-PICOLA simulations to near--$N$-body accuracy at a fraction of the computational cost. Trained on a suite of QUIJOTE_MG simulations for $f(R)$ gravity, MG-NECOLA achieves nearly sub-percent accuracy ($\lesssim 1\%$) in both the matter power spectrum and bispectrum up to $k \simeq 1~h\,\mathrm{Mpc}^{-1}$. Crucially, although being trained on a fixed cosmology, the network generalizes robustly to cosmologies outside its training manifold keeping the error below $5\%$. It successfully recovers the General Relativity limit ($Λ$CDM) without introducing spurious MG signals and accurately captures the power suppression induced by massive neutrinos ($M_ν\leq 0.4$ eV), despite being trained on cosmologies with massless neutrinos. The pipeline delivers a speed-up factor of $\sim 1500\times$ relative to full $N$-body runs, generating a high-fidelity realization in O$(10^3)$ CPU seconds compared to O$(10^6)$ for the baseline. This accuracy-efficiency trade-off establishes MG-NECOLA as a powerful tool for generating the massive mock catalogs required for next-generation galaxy surveys.
+
+#### Semantic Scholar
+- Year: 2026
+- Venue: 
+- Citation Count: 0
+- Influential Citations: 0
+- Fields of Study: Physics
+- URL: https://www.semanticscholar.org/paper/e341a1b5c4afd53b2799af042bbfaee7bc17542f
 
 ### 7. Understanding supernova gravitational waves with protoneutron star asteroseismology
 - **Focus:** galaxies
@@ -171,13 +209,43 @@ SDSSJ110546.07+145202.4 stands out as a unique radio changing-look Narrow-line S
 #### Abstract
 The Dark Ages and the Cosmic Dawn are an untapped well of information about the particle physics properties of dark matter, which may become accessible with future radio telescopes able to probe the 21-cm signal from atomic hydrogen. In this work we study the impact on cosmological observables of a dark matter subcomponent composed of TeV-scale particles that decay into electrons, photons or neutrinos with a lifetime shorter than the age of the universe. We re-evaluate constraints from the Cosmic Microwave Background (CMB) on these scenarios using the most recent data sets and estimate the sensitivity of future detections of the global 21-cm signal. Our main result is that the latter is potentially more sensitive to the effects of decaying dark matter with a lifetime $τ\gtrsim 10^{15} \, \mathrm{s}$. This effect is strongest for the case of decays into neutrinos due to the different spectral distribution of the injected electromagnetic energy. For DM masses well above the TeV-scale, these differences become less pronounced and the sensitivity of both the CMB and the 21-cm signal depend primarily on the total amount of injected electromagnetic energy.
 
+### 11. Extracting Dark-Matter Mass from Angular Scanning
+- **Focus:** dark matter
+- **Watchlisted:** act
+- Published: 2026-04-20T18:03:24+00:00
+- Authors: Daeyeong Jeong, Doojin Kim, Jong-Chul Park
+- Categories: hep-ph
+- PDF: https://arxiv.org/pdf/2604.18704v1
+
+#### Abstract
+We propose a novel method to determine the mass scale of ambient dark matter, applicable to (at least effectively) two-dimensional direct detection experiments that allow for directionality observables. Due to the motion of the solar system and Earth relative to the Galactic Center and the Sun, the dark-matter flux exhibits a directional preference. We first demonstrate that dark-matter event rates depend non-trivially on the angle between the detection plane and the overall dark-matter flow, with the curvature of this angular spectrum encoding mass information. As proof of principle, we take the recently proposed Graphene-Josephson-Junction-based superlight dark-matter detector as a concrete example and validate these theoretical expectations through numerical analyses.
+
+### 12. Other red dots: A possible GLIMPSE of normal AGB stars at Cosmic Noon through extreme lensing
+- **Focus:** gravitational lensing
+- **Watchlisted:** jwst
+- Published: 2026-04-20T18:00:10+00:00
+- Authors: Lukas J. Furtak, Adi Zitrin, Erik Zackrisson, Vasily Kokorev, Anthony J. Taylor, Joseph F. V. Allingham, John Chisholm, Jose M. Diego, Hakim Atek, Kristen B. W. McQuinn, Ryan Endsley, Richard Pan, Gabriel Brammer, Qinyue Fei, Seiji Fujimoto, Tiger Y. -Y. Hsiao, Patrick L. Kelly, Damien Korber, Ashish K. Meena, Rohan P. Naidu, Alberto Saldana-Lopez
+- Categories: astro-ph.GA, astro-ph.SR
+- PDF: https://arxiv.org/pdf/2604.18696v1
+
+#### Abstract
+We report the discovery of four extremely faint ($m_{\mathrm{F444W}}\gtrsim29$) red point sources in recent ultra-deep JWST/NIRCam images of the strong lensing galaxy cluster Abell S1063. All four sources sit in lensed arcs, on the symmetry points very close to the critical curves for their host-galaxies' redshifts ($z\sim1-4$). Remarkably, these point sources appear in most arcs that are sufficiently faint close to the critical curve's position ($<21\,\mathrm{nJy}\,\mathrm{arcsec}^{-2}$ in F115W). This suggests that -- unlike previous caustic-crossing events or lensed stars -- thanks to the unprecedented depth of the GLIMPSE observations paired with the extreme lensing magnification (up to $μ\sim10^4$) we might be resolving the lower-mass ($M\sim1-11\,\mathrm{M}_{\odot}$) red stellar population. Concretely, we detect three likely extremely magnified asymptotic giant branch (AGB) stars ($T_{\mathrm{eff}}\sim3200-3750$ K), and one yellow super-giant star ($T_{\mathrm{eff}}\sim6750$ K) -- possibly a yellow hyper-giant or a Cepheid. In addition to offering the first glimpse at low-mass extremely magnified stars, these detections open a possible window into stellar populations, evolution, and chemical enrichment at high redshifts, and could pave the way for using lensed stars such as these as standard candles to populate the distance ladder at cosmological redshifts.
+
+### 13. Fourth-order galaxy-galaxy-lensing: Theoretical framework and direct estimation
+- **Focus:** gravitational lensing
+- **Watchlisted:** des
+- Published: 2026-04-20T15:04:01+00:00
+- Authors: Jonathan Oel, Lucas Porth, Peter Schneider, Elena Silvestre-Rosello
+- Categories: astro-ph.CO
+- PDF: https://arxiv.org/pdf/2604.18378v1
+
+#### Abstract
+Traditional galaxy-galaxy lensing is a well-established method of probing the statistical properties of the Universe's matter and galaxy distribution. However, this measure does not carry all the statistical information, provided the matter and galaxy distribution contain non-Gaussian features. In order to study these non-Gaussianities, it is necessary to consider higher-order statistical measures. The aim of this work is to extend the analytical basis describing the statistical correlations between galaxies and shear to the fourth order, with special emphasis on the associated aperture statistics. In order to include fourth-order statistics in future analysis of the relation between mass and galaxies, we further investigate whether we can expect to detect these statistics from observations of stage IV surveys. We define the four-point correlation function (4PCF) between the shear and the positions of triplets of foreground galaxies and derive its relation to the respective trispectrum. We convert the 4PCF to aperture statistics and derive the analytical form of the respective filter function, which we then implement in a numerical integration pipeline. Furthermore, we develop a direct estimator that allows us to measure galaxy-mass aperture moments of arbitrary order on pixelized data using a Fast-Fourier-Transform (FFT) algorithm. We show that the corresponding aperture measure $\langle\mathcal{N}^3 M_\mathrm{ap}\rangle$ can be calculated with sub-percent accuracy on relevant aperture scales, $θ$, by means of numerical integration. Furthermore, we apply the FFT-based direct estimator to a mock catalog with a realistic stage IV survey setup on a sky area of $2000~\mathrm{deg}^2$, and detect the connected part of the aperture statistics $\langle\mathcal{N}^3 M_\mathrm{ap}\rangle(θ)$ with a signal-to-noise ratio of roughly nine on small aperture scales.
+
 ---
 
 ## Other candidates (not in top selection)
 
-- **Extracting Dark-Matter Mass from Angular Scanning** — dark matter — https://arxiv.org/pdf/2604.18704v1
-- **Other red dots: A possible GLIMPSE of normal AGB stars at Cosmic Noon through extreme lensing** — gravitational lensing — https://arxiv.org/pdf/2604.18696v1
 - **Hunting Sterile Neutrino Dark Matter in the MeV Gap** — dark matter — https://arxiv.org/pdf/2604.18674v1
-- **Fourth-order galaxy-galaxy-lensing: Theoretical framework and direct estimation** — gravitational lensing — https://arxiv.org/pdf/2604.18378v1
 - **From Gaia to GaiaNIR: I. Probing dark matter halos in globular clusters** — dark matter — https://arxiv.org/pdf/2604.18265v1
 - **Galaxy Populations in the IllustrisTNG Caustic Skeleton** — dark matter — https://arxiv.org/pdf/2604.18209v1

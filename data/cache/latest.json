@@ -1,8 +1,9 @@
 {
   "pool_count": 16,
-  "selected_count": 10,
+  "selected_count": 13,
   "present_requested": 10,
   "selection_note": "_Selection failed (timed out); using newest k._",
+  "context_covered_count": 45,
   "pool": [
     {
       "id": "http://arxiv.org/abs/2604.19745v1",
@@ -723,7 +724,7 @@
             "name": "L. Samushia"
           },
           {
-            "authorId": null,
+            "authorId": "2425172186",
             "name": "E. Sanchez"
           },
           {
@@ -1023,7 +1024,7 @@
             "name": "L. Samushia"
           },
           {
-            "authorId": null,
+            "authorId": "2425172186",
             "name": "E. Sanchez"
           },
           {
@@ -1081,7 +1082,32 @@
       ],
       "_topic": "galaxies",
       "_topic_label": "galaxies, dark matter",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Breaking+the+UV+Luminosity+Function+Degeneracy%3ASelf-Interacting+Dark+Matter+Constraints+from+Reionization+Topology&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "semantic_scholar": {
+        "paperId": "ebdd49a7edf5670a2962583cb43c340933bbc4f0",
+        "externalIds": {
+          "ArXiv": "2604.19726",
+          "CorpusId": 287636982
+        },
+        "url": "https://www.semanticscholar.org/paper/ebdd49a7edf5670a2962583cb43c340933bbc4f0",
+        "title": "Breaking the UV Luminosity Function Degeneracy:Self-Interacting Dark Matter Constraints from Reionization Topology",
+        "venue": "",
+        "year": 2026,
+        "citationCount": 0,
+        "influentialCitationCount": 0,
+        "fieldsOfStudy": [
+          "Physics"
+        ],
+        "authors": [
+          {
+            "authorId": null,
+            "name": "Zihan Wang"
+          },
+          {
+            "authorId": "102629858",
+            "name": "H. Shan"
+          }
+        ]
+      }
     },
     {
       "id": "http://arxiv.org/abs/2604.19674v1",
@@ -1117,7 +1143,104 @@
       ],
       "_topic": "galaxies",
       "_topic_label": "galaxies",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Resolved+UV-Optical+HST+Imaging+and+Spectral+Energy+Distribution+Modeling+of+Nearby+BAT+Active+Galactic+Nuclei&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "semantic_scholar": {
+        "paperId": "206b0ee47fbfb178b15f8948ee33b32e8709765e",
+        "externalIds": {
+          "ArXiv": "2604.19674",
+          "CorpusId": 287636875
+        },
+        "url": "https://www.semanticscholar.org/paper/206b0ee47fbfb178b15f8948ee33b32e8709765e",
+        "title": "Resolved UV-Optical HST Imaging and Spectral Energy Distribution Modeling of Nearby BAT Active Galactic Nuclei",
+        "venue": "",
+        "year": 2026,
+        "citationCount": 0,
+        "influentialCitationCount": 0,
+        "fieldsOfStudy": [
+          "Physics"
+        ],
+        "authors": [
+          {
+            "authorId": "1562099677",
+            "name": "Connor Auge"
+          },
+          {
+            "authorId": "2266464519",
+            "name": "M. Koss"
+          },
+          {
+            "authorId": "2249642548",
+            "name": "K. K. Gupta"
+          },
+          {
+            "authorId": "2338694090",
+            "name": "Claudio Ricci"
+          },
+          {
+            "authorId": "7561944",
+            "name": "B. Trakhtenbrot"
+          },
+          {
+            "authorId": "2322500257",
+            "name": "F. Bauer"
+          },
+          {
+            "authorId": "4065049",
+            "name": "E. Treister"
+          },
+          {
+            "authorId": "1389530884",
+            "name": "A. Peca"
+          },
+          {
+            "authorId": "2255163892",
+            "name": "B. Cenko"
+          },
+          {
+            "authorId": "2239369272",
+            "name": "K. Ichikawa"
+          },
+          {
+            "authorId": "2430771920",
+            "name": "Arghajit Janna"
+          },
+          {
+            "authorId": "81456318",
+            "name": "D. Kakkad"
+          },
+          {
+            "authorId": "2074807365",
+            "name": "R. Mushotzky"
+          },
+          {
+            "authorId": "101790660",
+            "name": "K. Oh"
+          },
+          {
+            "authorId": "2430771422",
+            "name": "Alejandra Rojas Lilay'u"
+          },
+          {
+            "authorId": "2237989659",
+            "name": "D. Sanders"
+          },
+          {
+            "authorId": "3567045",
+            "name": "R. Serafinelli"
+          },
+          {
+            "authorId": "2209881905",
+            "name": "M. Signorini"
+          },
+          {
+            "authorId": "152457618",
+            "name": "A. Tortosa"
+          },
+          {
+            "authorId": "2068382357",
+            "name": "C. Urry"
+          }
+        ]
+      }
     },
     {
       "id": "http://arxiv.org/abs/2604.19651v1",
@@ -1140,7 +1263,52 @@
       ],
       "_topic": "galaxies",
       "_topic_label": "galaxies",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=A+Possible+Protocluster+of+Galaxies+Serendipitously+Discovered+in+the+Field+of+an+Intermediate-Redshift+Post-starburst+Galaxy&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "semantic_scholar": {
+        "paperId": "28202a3c6249224ab031c2b02eb5034cc05128dc",
+        "externalIds": {
+          "ArXiv": "2604.19651",
+          "CorpusId": 287636833
+        },
+        "url": "https://www.semanticscholar.org/paper/28202a3c6249224ab031c2b02eb5034cc05128dc",
+        "title": "A Possible Protocluster of Galaxies Serendipitously Discovered in the Field of an Intermediate-Redshift Post-starburst Galaxy",
+        "venue": "",
+        "year": 2026,
+        "citationCount": 0,
+        "influentialCitationCount": 0,
+        "fieldsOfStudy": [
+          "Physics"
+        ],
+        "authors": [
+          {
+            "authorId": "1486300627",
+            "name": "M. Knowlton"
+          },
+          {
+            "authorId": "2046724",
+            "name": "J. Spilker"
+          },
+          {
+            "authorId": "2348475352",
+            "name": "R. Bezanson"
+          },
+          {
+            "authorId": "2367276930",
+            "name": "V. D\u2019Onofrio"
+          },
+          {
+            "authorId": null,
+            "name": "Anika Kumar"
+          },
+          {
+            "authorId": "104512008",
+            "name": "D. Setton"
+          },
+          {
+            "authorId": "50642904",
+            "name": "K. Suess"
+          }
+        ]
+      }
     },
     {
       "id": "http://arxiv.org/abs/2604.19613v1",
@@ -1162,7 +1330,48 @@
       ],
       "_topic": "galaxies",
       "_topic_label": "galaxies",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=MG-NECOLA%3A+A+Field-Level+Emulator+for+%24f%28R%29%24+Gravity+and+Massive+Neutrino+Cosmologies&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "semantic_scholar": {
+        "paperId": "e341a1b5c4afd53b2799af042bbfaee7bc17542f",
+        "externalIds": {
+          "ArXiv": "2604.19613",
+          "CorpusId": 287636913
+        },
+        "url": "https://www.semanticscholar.org/paper/e341a1b5c4afd53b2799af042bbfaee7bc17542f",
+        "title": "MG-NECOLA: A Field-Level Emulator for $f(R)$ Gravity and Massive Neutrino Cosmologies",
+        "venue": "",
+        "year": 2026,
+        "citationCount": 0,
+        "influentialCitationCount": 0,
+        "fieldsOfStudy": [
+          "Physics"
+        ],
+        "authors": [
+          {
+            "authorId": "1422504960",
+            "name": "J. B. Orjuela-Quintana"
+          },
+          {
+            "authorId": "2285692326",
+            "name": "Mauricio Reyes"
+          },
+          {
+            "authorId": "102396720",
+            "name": "E. Giusarma"
+          },
+          {
+            "authorId": "2289610253",
+            "name": "Marco Baldi"
+          },
+          {
+            "authorId": "150246372",
+            "name": "Neerav Kaushal"
+          },
+          {
+            "authorId": "1380256508",
+            "name": "C\u00e9sar A. Valenzuela-Toledo"
+          }
+        ]
+      }
     },
     {
       "id": "http://arxiv.org/abs/2604.19557v1",
@@ -1253,6 +1462,86 @@
       "_topic": "dark_matter",
       "_topic_label": "dark matter",
       "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Cosmological+constraints+on+TeV-scale+dark+matter+subcomponents+decaying+between+recombination+and+reionisation&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.18704v1",
+      "title": "Extracting Dark-Matter Mass from Angular Scanning",
+      "summary": "We propose a novel method to determine the mass scale of ambient dark matter, applicable to (at least effectively) two-dimensional direct detection experiments that allow for directionality observables. Due to the motion of the solar system and Earth relative to the Galactic Center and the Sun, the dark-matter flux exhibits a directional preference. We first demonstrate that dark-matter event rates depend non-trivially on the angle between the detection plane and the overall dark-matter flow, with the curvature of this angular spectrum encoding mass information. As proof of principle, we take the recently proposed Graphene-Josephson-Junction-based superlight dark-matter detector as a concrete example and validate these theoretical expectations through numerical analyses.",
+      "published": "2026-04-20T18:03:24+00:00",
+      "updated": "2026-04-20T18:03:24Z",
+      "authors": [
+        "Daeyeong Jeong",
+        "Doojin Kim",
+        "Jong-Chul Park"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.18704v1",
+      "categories": [
+        "hep-ph"
+      ],
+      "_topic": "dark_matter",
+      "_topic_label": "dark matter",
+      "_watchlisted": "act",
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Extracting+Dark-Matter+Mass+from+Angular+Scanning&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.18696v1",
+      "title": "Other red dots: A possible GLIMPSE of normal AGB stars at Cosmic Noon through extreme lensing",
+      "summary": "We report the discovery of four extremely faint ($m_{\\mathrm{F444W}}\\gtrsim29$) red point sources in recent ultra-deep JWST/NIRCam images of the strong lensing galaxy cluster Abell S1063. All four sources sit in lensed arcs, on the symmetry points very close to the critical curves for their host-galaxies' redshifts ($z\\sim1-4$). Remarkably, these point sources appear in most arcs that are sufficiently faint close to the critical curve's position ($<21\\,\\mathrm{nJy}\\,\\mathrm{arcsec}^{-2}$ in F115W). This suggests that -- unlike previous caustic-crossing events or lensed stars -- thanks to the unprecedented depth of the GLIMPSE observations paired with the extreme lensing magnification (up to $\u03bc\\sim10^4$) we might be resolving the lower-mass ($M\\sim1-11\\,\\mathrm{M}_{\\odot}$) red stellar population. Concretely, we detect three likely extremely magnified asymptotic giant branch (AGB) stars ($T_{\\mathrm{eff}}\\sim3200-3750$ K), and one yellow super-giant star ($T_{\\mathrm{eff}}\\sim6750$ K) -- possibly a yellow hyper-giant or a Cepheid. In addition to offering the first glimpse at low-mass extremely magnified stars, these detections open a possible window into stellar populations, evolution, and chemical enrichment at high redshifts, and could pave the way for using lensed stars such as these as standard candles to populate the distance ladder at cosmological redshifts.",
+      "published": "2026-04-20T18:00:10+00:00",
+      "updated": "2026-04-20T18:00:10Z",
+      "authors": [
+        "Lukas J. Furtak",
+        "Adi Zitrin",
+        "Erik Zackrisson",
+        "Vasily Kokorev",
+        "Anthony J. Taylor",
+        "Joseph F. V. Allingham",
+        "John Chisholm",
+        "Jose M. Diego",
+        "Hakim Atek",
+        "Kristen B. W. McQuinn",
+        "Ryan Endsley",
+        "Richard Pan",
+        "Gabriel Brammer",
+        "Qinyue Fei",
+        "Seiji Fujimoto",
+        "Tiger Y. -Y. Hsiao",
+        "Patrick L. Kelly",
+        "Damien Korber",
+        "Ashish K. Meena",
+        "Rohan P. Naidu",
+        "Alberto Saldana-Lopez"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.18696v1",
+      "categories": [
+        "astro-ph.GA",
+        "astro-ph.SR"
+      ],
+      "_topic": "gravitational_lensing",
+      "_topic_label": "gravitational lensing",
+      "_watchlisted": "jwst",
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Other+red+dots%3A+A+possible+GLIMPSE+of+normal+AGB+stars+at+Cosmic+Noon+through+extreme+lensing&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.18378v1",
+      "title": "Fourth-order galaxy-galaxy-lensing: Theoretical framework and direct estimation",
+      "summary": "Traditional galaxy-galaxy lensing is a well-established method of probing the statistical properties of the Universe's matter and galaxy distribution. However, this measure does not carry all the statistical information, provided the matter and galaxy distribution contain non-Gaussian features. In order to study these non-Gaussianities, it is necessary to consider higher-order statistical measures. The aim of this work is to extend the analytical basis describing the statistical correlations between galaxies and shear to the fourth order, with special emphasis on the associated aperture statistics. In order to include fourth-order statistics in future analysis of the relation between mass and galaxies, we further investigate whether we can expect to detect these statistics from observations of stage IV surveys. We define the four-point correlation function (4PCF) between the shear and the positions of triplets of foreground galaxies and derive its relation to the respective trispectrum. We convert the 4PCF to aperture statistics and derive the analytical form of the respective filter function, which we then implement in a numerical integration pipeline. Furthermore, we develop a direct estimator that allows us to measure galaxy-mass aperture moments of arbitrary order on pixelized data using a Fast-Fourier-Transform (FFT) algorithm. We show that the corresponding aperture measure $\\langle\\mathcal{N}^3 M_\\mathrm{ap}\\rangle$ can be calculated with sub-percent accuracy on relevant aperture scales, $\u03b8$, by means of numerical integration. Furthermore, we apply the FFT-based direct estimator to a mock catalog with a realistic stage IV survey setup on a sky area of $2000~\\mathrm{deg}^2$, and detect the connected part of the aperture statistics $\\langle\\mathcal{N}^3 M_\\mathrm{ap}\\rangle(\u03b8)$ with a signal-to-noise ratio of roughly nine on small aperture scales.",
+      "published": "2026-04-20T15:04:01+00:00",
+      "updated": "2026-04-20T15:04:01Z",
+      "authors": [
+        "Jonathan Oel",
+        "Lucas Porth",
+        "Peter Schneider",
+        "Elena Silvestre-Rosello"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.18378v1",
+      "categories": [
+        "astro-ph.CO"
+      ],
+      "_topic": "gravitational_lensing",
+      "_topic_label": "gravitational lensing",
+      "_watchlisted": "des",
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Fourth-order+galaxy-galaxy-lensing%3A+Theoretical+framework+and+direct+estimation&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     }
   ]
 }
