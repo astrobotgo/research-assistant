@@ -1,11 +1,14 @@
 import json
+import re
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timezone
 from pathlib import Path
 
 import typer
 from rich import print
 
-from app.config import TOPIC_CONFIGS
+from app.config import TOPIC_CONFIGS, WATCHLIST
+from app.context import build_research_context
 from app.digest import synthesize_research_digest
 from app.figures import extract_key_figures
 from app.fetch_arxiv import fetch_recent_arxiv
@@ -57,6 +60,102 @@ def _sort_by_published(papers: list[dict]) -> list[dict]:
             return datetime.min.replace(tzinfo=timezone.utc)
 
     return sorted(papers, key=key, reverse=True)
+
+
+def _auto_widen_days(requested_days: int) -> int:
+    """
+    If the last successful run was more than `requested_days` ago, extend the
+    window so the gap is covered. This handles weekends and missed runs.
+    """
+    cache_files = sorted(Path("data/cache").glob("daily-*.json"))
+    if not cache_files:
+        return requested_days
+    latest_stem = cache_files[-1].stem  # e.g. "daily-2026-04-21"
+    try:
+        last_run = date.fromisoformat(latest_stem.replace("daily-", ""))
+    except ValueError:
+        return requested_days
+    gap = (date.today() - last_run).days
+    if gap > requested_days:
+        widened = gap + 1
+        print(
+            f"[yellow]Auto-widening --days from {requested_days} to {widened} "
+            f"(last run was {gap} day(s) ago)[/yellow]"
+        )
+        return widened
+    return requested_days
+
+
+def _matches_watchlist(paper: dict, watchlist: dict) -> str:
+    """Return the matched watchlist term, or '' if no match."""
+    surveys = [s.lower() for s in (watchlist.get("surveys") or [])]
+    authors = [a.lower() for a in (watchlist.get("authors") or [])]
+    text = " ".join([
+        paper.get("title") or "",
+        paper.get("summary") or "",
+        " ".join(paper.get("authors") or []),
+    ]).lower()
+    for term in surveys + authors:
+        if term and term in text:
+            return term
+    return ""
+
+
+def _apply_watchlist(pool: list[dict], selected: list[dict], watchlist: dict) -> list[dict]:
+    """
+    Force-include watchlisted papers that aren't already in the selection.
+    Appends them (up to 3 extras) without displacing existing picks.
+    """
+    if not watchlist.get("surveys") and not watchlist.get("authors"):
+        return selected
+
+    selected_ids = {p.get("id") or p.get("title") for p in selected}
+    extras: list[dict] = []
+    for p in pool:
+        pid = p.get("id") or p.get("title")
+        if pid in selected_ids:
+            continue
+        match = _matches_watchlist(p, watchlist)
+        if match:
+            p = dict(p)
+            p["_watchlisted"] = match
+            extras.append(p)
+            selected_ids.add(pid)
+            if len(extras) >= 3:
+                break
+
+    if extras:
+        labels = [f"'{e['_watchlisted']}'" for e in extras]
+        print(f"[cyan]Watchlist:[/cyan] force-including {len(extras)} paper(s) matching {', '.join(labels)}")
+
+    return selected + extras
+
+
+def _append_open_questions(today: str, digest_md: str) -> None:
+    """Extract the open-questions section from today's digest and append to the tracker."""
+    m = re.search(
+        r"## Open questions.*?\n(.*?)(?=\n## |\Z)",
+        digest_md,
+        flags=re.DOTALL | re.IGNORECASE,
+    )
+    if not m:
+        return
+    questions_text = m.group(1).strip()
+    if not questions_text:
+        return
+
+    oq_path = Path("data/open_questions.md")
+    existing = oq_path.read_text() if oq_path.exists() else ""
+
+    # Avoid duplicating the same date's entry
+    if f"### {today}" in existing:
+        return
+
+    with open(oq_path, "a") as f:
+        if existing and not existing.endswith("\n\n"):
+            f.write("\n\n" if existing.endswith("\n") else "\n\n")
+        f.write(f"### {today}\n\n{questions_text}\n")
+
 
 @app.command()
 def scan(
@@ -124,7 +223,7 @@ def scan(
 
 @app.command()
 def daily(
-    days: int = typer.Option(3, help="Only include papers from the last N days."),
+    days: int = typer.Option(3, help="Only include papers from the last N days. Auto-widens when previous runs were missed."),
     pool_per_topic: int = typer.Option(
         8,
         help="Fetch up to this many papers per topic before dedupe (cap 25; ~20–30 total typical).",
@@ -173,11 +272,17 @@ def daily(
         True,
         help="Generate a narrated slideshow video from the daily PDF when possible.",
     ),
+    context_days: int = typer.Option(
+        7,
+        help="Days of history the context agent reads when building the weekly summary.",
+    ),
 ):
     """
     Scan arXiv once for each configured topic (clusters, galaxies, lensing, dark matter),
     dedupe, optionally enrich, then write a dated report with an LLM research digest.
     """
+    days = _auto_widen_days(days)
+
     collected: list[dict] = []
     for topic in TOPIC_CONFIGS:
         batch = fetch_recent_arxiv(
@@ -198,12 +303,26 @@ def daily(
     if max_pool > 0 and len(merged) > max_pool:
         merged = merged[:max_pool]
 
+    print("[cyan]Context:[/cyan] building historical context from recent briefings…")
+    try:
+        research_context = build_research_context(days_back=context_days)
+    except Exception as e:
+        print(f"[yellow]Context agent skipped:[/yellow] {e}")
+        research_context = {"summary": "", "covered_ids": set(), "covered_titles": []}
+
     pool_for_selection = [dict(p) for p in merged]
     k = max(1, present)
-    selected_pool, selection_note = select_top_papers(pool_for_selection, k=k)
+    selected_pool, selection_note = select_top_papers(
+        pool_for_selection,
+        k=k,
+        covered_ids=research_context.get("covered_ids") or set(),
+    )
 
-    enriched: list[dict] = []
-    for paper in selected_pool:
+    # Force-include watchlisted papers not already chosen
+    selected_pool = _apply_watchlist(pool_for_selection, selected_pool, WATCHLIST)
+
+    # Parallel enrichment: S2 lookup + optional per-paper summarization
+    def _enrich_one(paper: dict) -> dict:
         item = dict(paper)
         if enrich:
             try:
@@ -211,13 +330,28 @@ def daily(
             except Exception as e:
                 item["semantic_scholar_error"] = str(e)
         if per_paper:
-            item["analysis"] = summarize_paper(paper["title"], paper["summary"])
-        enriched.append(item)
+            try:
+                item["analysis"] = summarize_paper(paper["title"], paper["summary"])
+            except Exception:
+                pass
+        return item
+
+    enriched: list[dict] = []
+    with ThreadPoolExecutor(max_workers=6) as executor:
+        futures = {executor.submit(_enrich_one, p): i for i, p in enumerate(selected_pool)}
+        results: dict[int, dict] = {}
+        for future in as_completed(futures):
+            idx = futures[future]
+            results[idx] = future.result()
+    enriched = [results[i] for i in range(len(selected_pool))]
 
     digest_md = ""
     if digest:
         try:
-            digest_md = synthesize_research_digest(enriched)
+            digest_md = synthesize_research_digest(
+                enriched,
+                context=research_context.get("summary") or "",
+            )
         except Exception as e:
             digest_md = f"_Digest generation failed: {e}_"
 
@@ -231,11 +365,13 @@ def daily(
     report_pdf_path = Path(f"data/reports/daily-{today}.pdf")
     report_video_path = Path(f"data/videos/daily-{today}.mp4")
 
+    context_summary = research_context.get("summary") or ""
     payload = {
         "pool_count": len(pool_for_selection),
         "selected_count": len(enriched),
         "present_requested": k,
         "selection_note": selection_note,
+        "context_covered_count": len(research_context.get("covered_ids") or []),
         "pool": pool_for_selection,
         "selected": enriched,
     }
@@ -262,6 +398,9 @@ def daily(
         )
         if selection_note:
             f.write(f"**Selection note:** {selection_note}\n\n")
+        if context_summary:
+            f.write(context_summary)
+            f.write("\n\n---\n\n")
         if digest_md:
             f.write("## Research briefing (synthesized)\n\n")
             f.write(digest_md)
@@ -270,6 +409,8 @@ def daily(
         for i, p in enumerate(enriched, 1):
             f.write(f"### {i}. {p['title']}\n")
             f.write(f"- **Focus:** {p.get('_topic_label', '')}\n")
+            if p.get("_watchlisted"):
+                f.write(f"- **Watchlisted:** {p['_watchlisted']}\n")
             f.write(f"- Published: {p['published']}\n")
             f.write(f"- Authors: {', '.join(p['authors'])}\n")
             f.write(f"- Categories: {', '.join(p['categories'])}\n")
@@ -302,6 +443,14 @@ def daily(
             for p in remainder:
                 f.write(f"- **{p['title']}** — {p.get('_topic_label', '')} — {p.get('pdf_url', '')}\n")
 
+    # Persist open questions for the context agent to use in future runs
+    if digest_md:
+        try:
+            _append_open_questions(today, digest_md)
+        except Exception:
+            pass
+
+    # Parallel figure extraction + optional page summaries
     figure_map: dict[str, list[dict]] = {}
     page_summary_map: dict[str, list[dict]] = {}
     if pdf:
@@ -310,12 +459,14 @@ def daily(
         cache_pdf_dir.mkdir(parents=True, exist_ok=True)
         cache_fig_dir.mkdir(parents=True, exist_ok=True)
 
-        for paper in enriched:
+        def _process_paper_figures(paper: dict) -> tuple[str, list[dict], list[dict]]:
             paper_id = paper.get("id") or paper.get("title", "")
             if not paper_id:
-                continue
+                return paper_id, [], []
+            figs: list[dict] = []
+            pages: list[dict] = []
             try:
-                figure_map[paper_id] = extract_key_figures(
+                figs = extract_key_figures(
                     paper,
                     cache_pdf_dir=cache_pdf_dir,
                     cache_fig_dir=cache_fig_dir,
@@ -323,16 +474,25 @@ def daily(
                     use_gemini=gemini_figures,
                 )
             except Exception:
-                figure_map[paper_id] = []
+                pass
             if page_summaries:
                 try:
-                    page_summary_map[paper_id] = summarize_pdf_pages(
+                    pages = summarize_pdf_pages(
                         paper,
                         cache_pdf_dir=cache_pdf_dir,
                         max_pages=max(0, max_pages_per_paper),
                     )
                 except Exception:
-                    page_summary_map[paper_id] = []
+                    pass
+            return paper_id, figs, pages
+
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            fig_futures = [executor.submit(_process_paper_figures, p) for p in enriched]
+            for future in as_completed(fig_futures):
+                paper_id, figs, pages = future.result()
+                if paper_id:
+                    figure_map[paper_id] = figs
+                    page_summary_map[paper_id] = pages
 
         build_daily_pdf_report(
             out_path=report_pdf_path,

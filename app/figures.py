@@ -26,23 +26,66 @@ def _download_pdf(pdf_url: str, dest: Path) -> None:
     dest.write_bytes(r.content)
 
 
-def _render_page_image(page: fitz.Page, xref: int, zoom: float = 2.0) -> bytes | None:
+def _extract_caption(page: fitz.Page, img_rect: fitz.Rect, max_chars: int = 300) -> str:
+    """
+    Extract figure caption text from the region immediately below (or to the
+    side of) the image on the same page. Returns empty string if nothing found.
+    """
+    # Search in a band below the image, up to 120 points tall
+    search_rect = fitz.Rect(
+        img_rect.x0,
+        img_rect.y1,
+        img_rect.x1,
+        img_rect.y1 + 120,
+    )
+    # Also search a narrow band above (some papers put captions above)
+    search_rect_above = fitz.Rect(
+        img_rect.x0,
+        max(0, img_rect.y0 - 80),
+        img_rect.x1,
+        img_rect.y0,
+    )
+
+    caption = ""
+    for rect in (search_rect, search_rect_above):
+        blocks = page.get_text("blocks", clip=rect)
+        for block in blocks:
+            text = block[4].strip() if len(block) > 4 else ""
+            # Heuristic: captions typically start with "Fig" or "Figure" or a number
+            if re.match(r"^(fig|figure|panel|\d+\.)", text, flags=re.IGNORECASE):
+                caption = text[:max_chars]
+                break
+        if caption:
+            break
+
+    # Fallback: grab any text in the below-band even without the "Fig" marker
+    if not caption:
+        blocks = page.get_text("blocks", clip=search_rect)
+        texts = [b[4].strip() for b in blocks if len(b) > 4 and b[4].strip()]
+        if texts:
+            caption = " ".join(texts)[:max_chars]
+
+    return caption
+
+
+def _render_page_image(page: fitz.Page, xref: int, zoom: float = 2.0) -> tuple[bytes | None, fitz.Rect | None]:
     """
     Render an embedded image as it appears on the page.
 
+    Returns (png_bytes, image_rect_on_page) so callers can extract captions.
     Using the raw extracted image stream can lose the PDF placement transform,
     which causes some figures to appear upside down or rotated in the digest PDF.
     """
     try:
         rects = page.get_image_rects(xref)
     except Exception:
-        return None
+        return None, None
     if not rects:
-        return None
+        return None, None
 
     rect = max(rects, key=lambda r: r.width * r.height)
     if rect.width <= 0 or rect.height <= 0:
-        return None
+        return None, None
 
     try:
         pix = page.get_pixmap(
@@ -51,13 +94,13 @@ def _render_page_image(page: fitz.Page, xref: int, zoom: float = 2.0) -> bytes |
             alpha=False,
         )
     except Exception:
-        return None
-    return pix.tobytes("png")
+        return None, None
+    return pix.tobytes("png"), rect
 
 
 def _rank_with_gemini(
     paper: dict,
-    candidates: list[tuple[int, int, bytes]],
+    candidates: list[tuple[int, int, bytes, str]],  # (area, page_num, blob, caption)
     max_figures: int,
 ) -> list[dict]:
     api_key = (__import__("os").environ.get("GEMINI_API_KEY") or "").strip()
@@ -81,8 +124,9 @@ def _rank_with_gemini(
         {"text": f"Paper title: {paper.get('title', '')}"},
         {"text": f"Paper abstract: {(paper.get('summary') or '')[:3000]}"},
     ]
-    for i, (area, page_num, blob) in enumerate(shortlisted, start=1):
-        parts.append({"text": f"Figure {i} (page {page_num}, area {area}):"})
+    for i, (area, page_num, blob, caption) in enumerate(shortlisted, start=1):
+        caption_note = f" | Caption: {caption}" if caption else ""
+        parts.append({"text": f"Figure {i} (page {page_num}, area {area}{caption_note}):"})
         parts.append(
             {
                 "inline_data": {
@@ -129,13 +173,14 @@ def _rank_with_gemini(
         else:
             continue
         if isinstance(idx, int) and 1 <= idx <= len(shortlisted):
-            area, page_num, blob = shortlisted[idx - 1]
+            area, page_num, blob, caption = shortlisted[idx - 1]
             out.append(
                 {
                     "area": area,
                     "page": page_num,
                     "blob": blob,
                     "reason": reason,
+                    "caption": caption,
                 }
             )
         if len(out) >= max_figures:
@@ -162,7 +207,8 @@ def extract_key_figures(
     _download_pdf(pdf_url, pdf_path)
 
     doc = fitz.open(pdf_path)
-    candidates: list[tuple[int, int, bytes]] = []
+    # candidates: (area, page_num, blob, caption)
+    candidates: list[tuple[int, int, bytes, str]] = []
     seen_hashes: set[str] = set()
 
     max_pages = min(len(doc), 20)
@@ -182,30 +228,33 @@ def extract_key_figures(
                 continue
             seen_hashes.add(digest)
 
-            rendered = _render_page_image(page, xref)
+            rendered, img_rect = _render_page_image(page, xref)
             if rendered:
                 blob = rendered
+                caption = _extract_caption(page, img_rect) if img_rect else ""
                 try:
-                    width = int(page.get_image_rects(xref)[0].width * 2)
-                    height = int(page.get_image_rects(xref)[0].height * 2)
+                    width = int(img_rect.width * 2)
+                    height = int(img_rect.height * 2)
                 except Exception:
                     width = int(img_dict.get("width") or 0)
                     height = int(img_dict.get("height") or 0)
             else:
+                caption = ""
                 width = int(img_dict.get("width") or 0)
                 height = int(img_dict.get("height") or 0)
+
             area = width * height
             if area < 80000:
                 continue
-            candidates.append((area, page_idx + 1, blob))
+            candidates.append((area, page_idx + 1, blob, caption))
 
     doc.close()
 
     candidates.sort(key=lambda x: x[0], reverse=True)
 
     ranked = [
-        {"area": area, "page": page_num, "blob": blob, "reason": ""}
-        for area, page_num, blob in candidates[:max_figures]
+        {"area": area, "page": page_num, "blob": blob, "reason": "", "caption": caption}
+        for area, page_num, blob, caption in candidates[:max_figures]
     ]
     if use_gemini:
         try:
@@ -224,6 +273,7 @@ def extract_key_figures(
             {
                 "path": str(out),
                 "reason": item.get("reason", ""),
+                "caption": item.get("caption", ""),
                 "page": item.get("page"),
             }
         )

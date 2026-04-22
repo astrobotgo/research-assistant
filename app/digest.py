@@ -30,11 +30,23 @@ def _paper_brief(p: dict) -> str:
     return "\n".join(lines)
 
 
-def synthesize_research_digest(papers: list[dict]) -> str:
+def synthesize_research_digest(papers: list[dict], context: str = "") -> str:
     if not papers:
         return "_No papers matched the scan criteria for this period._"
 
     catalog = "\n\n".join(_paper_brief(p) for p in papers)
+
+    context_block = ""
+    if context:
+        context_block = (
+            f"{context}\n\n"
+            "Use the above context to:\n"
+            "- Note when today's papers resolve, extend, or contradict recent open questions.\n"
+            "- Flag if a theme is newly appearing vs. a continuing trend.\n"
+            "- Avoid re-summarizing background that was covered in the past week unless today's papers add something new.\n\n"
+            "---\n\n"
+        )
+
     prompt = f"""You are an expert astrophysicist and cosmologist writing an internal research briefing.
 
 You are given recent arXiv preprints spanning galaxy clusters, galaxies, gravitational lensing, and dark matter.
@@ -45,7 +57,7 @@ Rules:
 - If an area has few or no papers in the list, say so briefly rather than speculating.
 - Prefer accurate, cautious language over hype.
 
-Use this structure:
+{context_block}Use this structure:
 
 ## Executive overview
 3–6 sentences on what is newly appearing across these submissions.

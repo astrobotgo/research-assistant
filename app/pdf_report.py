@@ -118,6 +118,15 @@ def _latex_inline(text: str) -> str:
     return "".join(parts)
 
 
+def _build_fig_caption(item: dict) -> str:
+    """Combine Gemini ranking reason with extracted caption text for the PDF."""
+    reason = _latex_inline(item.get("reason") or "")
+    caption = _latex_inline(item.get("caption") or "")
+    if reason and caption:
+        return f"{reason} \\textit{{(Caption: {caption})}}"
+    return reason or caption
+
+
 def _latex_paragraphs(text: str) -> list[str]:
     raw = _normalize_text(text).strip()
     if not raw:
@@ -251,9 +260,17 @@ def _build_reportlab_pdf(
                     img = _scaled_reportlab_image(fig_path)
                     story.append(img)
                     reason = _clean_md_text(fig.get("reason", ""))
-                    if reason:
+                    caption = _clean_md_text(fig.get("caption", ""))
+                    note = ""
+                    if reason and caption:
+                        note = f"{reason} (Caption: {caption})"
+                    elif reason:
+                        note = reason
+                    elif caption:
+                        note = caption
+                    if note:
                         story.append(Spacer(1, 0.04 * inch))
-                        story.append(Paragraph(f"Why this figure matters: {reason}", styles["Italic"]))
+                        story.append(Paragraph(note, styles["Italic"]))
                     story.append(Spacer(1, 0.08 * inch))
                 except Exception:
                     continue
@@ -350,7 +367,7 @@ def _latex_document(
                         r"\begin{figure}[H]",
                         r"\centering",
                         rf"\includegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{{{_latex_escape_text(abs_path)}}}",
-                        rf"\captionsetup{{labelformat=empty}}\caption{{Why this figure matters: {_latex_inline(item.get('reason', ''))}}}" if item.get("reason") else "",
+                        rf"\captionsetup{{labelformat=empty}}\caption{{{_build_fig_caption(item)}}}" if (item.get("reason") or item.get("caption")) else "",
                         r"\end{figure}",
                     ]
                 )

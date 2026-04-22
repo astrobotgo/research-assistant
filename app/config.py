@@ -1,4 +1,9 @@
-TOPIC_CONFIGS = [
+from pathlib import Path
+
+_TOPICS_YAML = Path(__file__).parent.parent / "topics.yaml"
+
+# Hardcoded fallback — used when topics.yaml is absent or unreadable.
+_FALLBACK_TOPICS = [
     {
         "key": "galaxy_clusters",
         "label": "galaxy clusters",
@@ -31,10 +36,7 @@ TOPIC_CONFIGS = [
         "key": "galaxies",
         "label": "galaxies",
         "arxiv_query": "galaxy",
-        "include_any": (
-            "galaxy",
-            "galaxies",
-        ),
+        "include_any": ("galaxy", "galaxies"),
         "exclude_any": (),
     },
     {
@@ -69,3 +71,38 @@ TOPIC_CONFIGS = [
         "exclude_any": (),
     },
 ]
+
+_FALLBACK_WATCHLIST = {"surveys": [], "authors": []}
+
+
+def _load_yaml():
+    try:
+        import yaml  # type: ignore
+    except ImportError:
+        return None
+    try:
+        with open(_TOPICS_YAML) as f:
+            return yaml.safe_load(f)
+    except Exception:
+        return None
+
+
+def _normalise_topic(t: dict) -> dict:
+    """Convert YAML list fields to tuples for consistency with old code."""
+    return {
+        **t,
+        "include_any": tuple(t.get("include_any") or []),
+        "exclude_any": tuple(t.get("exclude_any") or []),
+    }
+
+
+def _build():
+    data = _load_yaml()
+    if data and isinstance(data.get("topics"), list):
+        topics = [_normalise_topic(t) for t in data["topics"]]
+        watchlist = data.get("watchlist") or _FALLBACK_WATCHLIST
+        return topics, watchlist
+    return _FALLBACK_TOPICS, _FALLBACK_WATCHLIST
+
+
+TOPIC_CONFIGS, WATCHLIST = _build()

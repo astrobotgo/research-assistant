@@ -61,10 +61,14 @@ def select_top_papers(
     papers: list[dict],
     k: int = 10,
     timeout: float = 360.0,
+    covered_ids: set[str] | None = None,
 ) -> tuple[list[dict], str]:
     """
-    Ask the local LLM to pick up to k papers from the pool.
+    Ask the LLM to pick up to k papers from the pool.
     Returns (selected_papers_in_order, rationale_or_error_note).
+
+    covered_ids: arXiv IDs featured in recent briefings; the LLM is told to
+    deprioritize these unless there is a compelling reason to revisit them.
     """
     if not papers or k <= 0:
         return [], ""
@@ -72,6 +76,21 @@ def select_top_papers(
         return list(papers), "Pool smaller than target; including all."
 
     catalog = _catalog_for_prompt(papers)
+
+    recently_seen_note = ""
+    if covered_ids:
+        repeat_indices = []
+        for i, p in enumerate(papers, start=1):
+            pid = (p.get("id") or "").strip()
+            if pid and pid in covered_ids:
+                repeat_indices.append(str(i))
+        if repeat_indices:
+            recently_seen_note = (
+                f"\nNote: candidates at indices [{', '.join(repeat_indices)}] appeared in "
+                "a recent daily briefing. Deprioritize them unless they have significant new "
+                "developments not covered before.\n"
+            )
+
     prompt = f"""You curate a daily astrophysics briefing covering:
 galaxy clusters, galaxies, gravitational lensing, and dark matter.
 
@@ -79,7 +98,7 @@ From the numbered candidates below, choose exactly {k} papers to present.
 Prioritize: scientific substance, novelty, and clarity of contribution.
 Aim for breadth across the four themes when the abstracts support it; do not
 pick {k} papers all from one theme if strong options exist elsewhere.
-
+{recently_seen_note}
 Return ONLY valid JSON with this shape (no markdown fences):
 {{"indices":[1,3,7,...],"brief_reason":"one short sentence"}}
 

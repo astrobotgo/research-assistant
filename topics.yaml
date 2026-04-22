@@ -1,0 +1,87 @@
+# Research assistant topic configuration.
+# Edit this file to change which arXiv queries are run, what keywords are
+# required or excluded, and which surveys/authors are always included.
+
+topics:
+  - key: galaxy_clusters
+    label: galaxy clusters
+    arxiv_query: cluster
+    include_any:
+      - galaxy cluster
+      - galaxy clusters
+      - cluster lensing
+      - weak-lensing cluster
+      - weak lensing cluster
+      - intracluster
+      - icm
+      - sunyaev-zeldovich
+      - sz cluster
+    exclude_any:
+      - star cluster
+      - star clusters
+      - stellar cluster
+      - stellar clusters
+      - globular cluster
+      - globular clusters
+      - open cluster
+      - open clusters
+      - nuclear star cluster
+      - young massive cluster
+
+  - key: galaxies
+    label: galaxies
+    arxiv_query: galaxy
+    include_any:
+      - galaxy
+      - galaxies
+    exclude_any: []
+
+  - key: gravitational_lensing
+    label: gravitational lensing
+    arxiv_query: lensing
+    include_any:
+      - gravitational lensing
+      - strong lensing
+      - weak lensing
+      - cluster lensing
+      - galaxy-galaxy lensing
+      - galaxy galaxy lensing
+      - lensed
+      - lensing
+      - microlensing
+    exclude_any: []
+
+  - key: dark_matter
+    label: dark matter
+    arxiv_query: dark matter
+    include_any:
+      - dark matter
+      - wimp
+      - axion
+      - primordial black hole
+      - primordial black holes
+      - pbh
+    exclude_any: []
+
+# Papers matching any of these survey names or author strings are always
+# included in the final selection regardless of LLM scoring.
+# Matching is case-insensitive and checked against title + abstract + authors.
+watchlist:
+  surveys:
+    - DESI
+    - Euclid
+    - JWST
+    - SPT-3G
+    - SPT
+    - ACT
+    - DES
+    - HSC
+    - Rubin
+    - LSST
+    - eROSITA
+    - Chandra
+    - XMM-Newton
+  authors: []
+  # Example author entries:
+  # - Planck Collaboration
+  # - Dark Energy Survey Collaboration

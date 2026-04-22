@@ -11,6 +11,38 @@ HEADERS = {
     "User-Agent": "research-assistant/0.1"
 }
 
+# Delays (seconds) between successive retry attempts.
+_RETRY_DELAYS = [5, 15, 45]
+
+
+def _should_retry(status: int) -> bool:
+    return status in {429, 500, 502, 503, 504}
+
+
+def _get_with_retry(url: str, params: dict | None = None, timeout: float = 90.0) -> httpx.Response:
+    """GET with exponential-backoff retry for rate-limit and transient server errors."""
+    last_exc: Exception | None = None
+    for attempt, delay in enumerate(_RETRY_DELAYS + [0], start=1):
+        try:
+            r = httpx.get(url, params=params, headers=HEADERS, timeout=timeout)
+            if _should_retry(r.status_code):
+                if attempt <= len(_RETRY_DELAYS):
+                    time.sleep(delay)
+                    continue
+                r.raise_for_status()
+            r.raise_for_status()
+            return r
+        except httpx.HTTPStatusError as e:
+            last_exc = e
+            if attempt <= len(_RETRY_DELAYS):
+                time.sleep(delay)
+        except Exception as e:
+            last_exc = e
+            if attempt <= len(_RETRY_DELAYS):
+                time.sleep(delay)
+    raise last_exc or RuntimeError(f"All retries exhausted for {url}")
+
+
 def _matches_topic(text: str, include_any: tuple[str, ...], exclude_any: tuple[str, ...]) -> bool:
     if not text:
         return False
@@ -80,6 +112,7 @@ def _parse_entries(
 
     return papers
 
+
 def fetch_recent_arxiv(
     query: str,
     category: str = "",
@@ -100,41 +133,30 @@ def fetch_recent_arxiv(
         "sortOrder": "descending",
     }
 
-    delays = [3, 6, 12]
-
-    for i, delay in enumerate(delays, start=1):
-        try:
-            r = httpx.get(ARXIV_API, params=params, headers=HEADERS, timeout=90.0)
-            if r.status_code == 429:
-                if i < len(delays):
-                    time.sleep(delay)
-                    continue
-                break
-            r.raise_for_status()
-            feed = feedparser.parse(r.text)
-            # Keep a local topic guard to avoid false positives from broader arXiv matches.
-            return _parse_entries(
-                feed.entries,
-                days=days,
-                include_any=include_any,
-                exclude_any=exclude_any,
-            )
-        except Exception:
-            if i < len(delays):
-                time.sleep(delay)
-            else:
-                break
-
-    if category:
-        feed_url = f"{ARXIV_ATOM}/{category}"
-        r = httpx.get(feed_url, headers=HEADERS, timeout=60.0)
-        r.raise_for_status()
+    try:
+        r = _get_with_retry(ARXIV_API, params=params)
         feed = feedparser.parse(r.text)
         return _parse_entries(
             feed.entries,
             days=days,
             include_any=include_any,
             exclude_any=exclude_any,
-        )[:limit]
+        )
+    except Exception:
+        pass
+
+    # Atom feed fallback (category-scoped only)
+    if category:
+        try:
+            r = _get_with_retry(f"{ARXIV_ATOM}/{category}", timeout=60.0)
+            feed = feedparser.parse(r.text)
+            return _parse_entries(
+                feed.entries,
+                days=days,
+                include_any=include_any,
+                exclude_any=exclude_any,
+            )[:limit]
+        except Exception:
+            pass
 
     return []
