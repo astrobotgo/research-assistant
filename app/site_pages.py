@@ -7,6 +7,9 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 
+_FIGURES_CACHE = Path("data/cache/figures")  # source
+_FIGURES_SITE  = Path("docs/figures")        # destination (web-accessible)
+
 
 # ---------------------------------------------------------------------------
 # Topic metadata
@@ -321,6 +324,38 @@ a:hover { text-decoration: underline; }
 
 .no-papers { font-size: 0.88rem; color: var(--muted); font-style: italic; padding: 0.5rem 0; }
 
+/* ── Paper figure ── */
+.card-figure {
+  width: 100%; border-radius: 6px; overflow: hidden;
+  background: var(--bg); border: 1px solid var(--line);
+  margin-bottom: 0.1rem;
+}
+.card-figure img {
+  width: 100%; height: 160px; object-fit: cover; object-position: center top;
+  display: block;
+}
+.card-figure-caption {
+  font-size: 0.72rem; color: var(--muted); line-height: 1.45;
+  padding: 0.3rem 0.5rem; font-style: italic;
+  border-top: 1px solid var(--line);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Related papers ── */
+.related-papers {
+  border-top: 1px solid var(--line);
+  padding-top: 0.5rem; margin-top: 0.2rem;
+}
+.related-label {
+  font-size: 0.67rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 0.35rem;
+}
+.related-list { list-style: none; display: flex; flex-direction: column; gap: 0.22rem; }
+.related-list li { font-size: 0.78rem; line-height: 1.4; }
+.related-list a { color: var(--accent-dark); }
+.related-list .rel-meta { color: var(--muted); font-size: 0.72rem; }
+
 /* ── Open questions ── */
 .open-qs-card {
   background: var(--paper);
@@ -400,6 +435,86 @@ a:hover { text-decoration: underline; }
 }
 .action-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
 
+/* ── Clickable card cursor ── */
+.paper-card { cursor: pointer; }
+
+/* ── Expand hint ── */
+.card-expand-hint {
+  font-size: 0.72rem; color: var(--accent); font-weight: 500;
+  text-align: right; margin-top: 0.1rem; opacity: 0;
+  transition: opacity 0.15s;
+}
+.paper-card:hover .card-expand-hint { opacity: 1; }
+
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(24,24,27,0.6);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+}
+.modal-overlay[hidden] { display: none; }
+.modal-box {
+  background: var(--paper);
+  border-radius: 14px;
+  width: 100%; max-width: 680px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+}
+.modal-close {
+  position: sticky; top: 0; float: right;
+  margin: 0.75rem 0.75rem 0 0;
+  background: var(--bg); border: 1px solid var(--line);
+  border-radius: 999px; width: 2rem; height: 2rem;
+  font-size: 1rem; cursor: pointer; color: var(--muted);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1;
+}
+.modal-close:hover { color: var(--ink); }
+.modal-inner { padding: 0 1.75rem 1.75rem; clear: both; }
+.modal-fig { width: 100%; border-radius: 8px; overflow: hidden; margin-bottom: 0.75rem; }
+.modal-fig img { width: 100%; max-height: 340px; object-fit: contain; background: var(--bg); display: block; }
+.modal-fig-cap {
+  font-size: 0.78rem; color: var(--muted); font-style: italic;
+  line-height: 1.5; padding: 0.4rem 0; border-top: 1px solid var(--line);
+}
+.modal-pills { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.6rem; }
+.modal-title {
+  font-family: Georgia, serif; font-size: 1.15rem; line-height: 1.4;
+  margin-bottom: 0.4rem; font-weight: 700;
+}
+.modal-title a { color: var(--ink); }
+.modal-title a:hover { color: var(--accent); text-decoration: underline; }
+.modal-meta { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; }
+.modal-section-title {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+  margin: 1.1rem 0 0.5rem; padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+.modal-abstract {
+  font-family: Georgia, serif; font-size: 0.93rem;
+  line-height: 1.78; color: #3f3f46;
+}
+.modal-analysis {
+  font-family: Georgia, serif; font-size: 0.88rem;
+  line-height: 1.7; color: #52525b;
+}
+.modal-related ul { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.modal-related li { font-size: 0.83rem; line-height: 1.45; }
+.modal-related a { color: var(--accent-dark); }
+.modal-related span { color: var(--muted); font-size: 0.78rem; }
+.modal-footer { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.modal-arxiv-btn {
+  display: inline-block; padding: 0.55rem 1.1rem;
+  background: var(--accent); color: white; border-radius: 999px;
+  font-size: 0.85rem; font-weight: 600; text-decoration: none;
+}
+.modal-arxiv-btn:hover { background: var(--accent-dark); text-decoration: none; }
+
 /* ── Responsive ── */
 @media (max-width: 960px) {
   .page-wrap { grid-template-columns: 1fr; }
@@ -411,6 +526,41 @@ a:hover { text-decoration: underline; }
   .page-wrap { padding: 1.25rem 1rem 3rem; }
 }
 """
+
+
+# ---------------------------------------------------------------------------
+# Figure helpers
+# ---------------------------------------------------------------------------
+
+def _safe_name(text: str) -> str:
+    """Mirror of figures.py _safe_name to derive the cache directory key."""
+    cleaned = re.sub(r"[^a-zA-Z0-9._-]+", "-", text.strip())
+    return cleaned.strip("-")[:120] or "paper"
+
+
+def _figure_site_path(paper: dict) -> tuple[Path | None, str]:
+    """
+    Return (site_path, caption) for the first extracted figure for this paper,
+    or (None, '') if none exists.  Copies the figure into docs/figures/ if needed.
+    """
+    pid = paper.get("id") or paper.get("title", "")
+    if not pid:
+        return None, ""
+    key = _safe_name(pid)
+    src = _FIGURES_CACHE / key / "figure_1.png"
+    if not src.exists():
+        return None, ""
+    dest_dir = _FIGURES_SITE / key
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    dest = dest_dir / "figure_1.png"
+    if not dest.exists() or dest.stat().st_mtime < src.stat().st_mtime:
+        shutil.copy2(src, dest)
+    # Extract caption from paper's figure_map entry if available
+    caption = ""
+    figs = paper.get("_figures") or []
+    if figs and isinstance(figs[0], dict):
+        caption = (figs[0].get("caption") or figs[0].get("reason") or "").strip()
+    return dest, caption
 
 
 # ---------------------------------------------------------------------------
@@ -437,11 +587,11 @@ def _topic_pills(paper: dict) -> str:
     return "\n".join(out)
 
 
-def _paper_card(paper: dict) -> str:
+def _paper_card(paper: dict, fig_prefix: str = "figures", pid: str = "") -> str:
     url = html.escape(_arxiv_url(paper))
     title = html.escape(paper.get("title") or "Untitled")
     authors = html.escape(_format_authors(paper.get("authors") or []))
-    abstract = html.escape(_truncate_abstract(paper.get("summary") or ""))
+    abstract_short = html.escape(_truncate_abstract(paper.get("summary") or ""))
     pills = _topic_pills(paper)
     date = html.escape(_paper_date(paper))
     s2 = paper.get("semantic_scholar") or {}
@@ -450,19 +600,38 @@ def _paper_card(paper: dict) -> str:
         f'<span class="card-cite">{cite_count:,} citations</span>'
         if cite_count else f'<span class="card-cite">{date}</span>'
     )
-    return f"""<article class="paper-card">
+
+    # Figure thumbnail
+    fig_path, fig_caption = _figure_site_path(paper)
+    fig_html = ""
+    if fig_path:
+        paper_pid = paper.get("id") or paper.get("title", "")
+        key = _safe_name(paper_pid)
+        img_src = html.escape(f"{fig_prefix}/{key}/figure_1.png")
+        cap_html = (
+            f'<div class="card-figure-caption">{html.escape(fig_caption)}</div>'
+            if fig_caption else ""
+        )
+        fig_html = f'<div class="card-figure"><img src="{img_src}" alt="Figure" loading="lazy">{cap_html}</div>'
+
+    expand_hint = '<div class="card-expand-hint">Click for full summary ↗</div>' if pid else ""
+    pid_attr = f'data-pid="{pid}"' if pid else ""
+
+    return f"""<article class="paper-card" {pid_attr}>
+  {fig_html}
   <div class="card-pills">{pills}</div>
   <div class="card-title"><a href="{url}" target="_blank" rel="noopener">{title}</a></div>
   <div class="card-authors">{authors}</div>
-  <p class="card-abstract">{abstract}</p>
+  <p class="card-abstract">{abstract_short}</p>
   <div class="card-footer">
     <a class="card-arxiv" href="{url}" target="_blank" rel="noopener">arXiv ↗</a>
     {cite_html}
   </div>
+  {expand_hint}
 </article>"""
 
 
-def _topic_block(topic: dict, papers: list[dict], synthesis_html: str) -> str:
+def _topic_block(topic: dict, papers: list[dict], synthesis_html: str, fig_prefix: str = "figures") -> str:
     color = topic["color"]
     label = topic["label"]
     count = len(papers)
@@ -473,7 +642,7 @@ def _topic_block(topic: dict, papers: list[dict], synthesis_html: str) -> str:
         if synthesis_html else ""
     )
     if papers:
-        cards = "\n".join(_paper_card(p) for p in papers)
+        cards = "\n".join(_paper_card(p, fig_prefix=fig_prefix, pid=p.get("_pid", "")) for p in papers)
         grid = f'<div class="papers-grid">{cards}</div>'
     else:
         grid = '<p class="no-papers">No papers in today\'s selection for this topic.</p>'
@@ -536,6 +705,7 @@ def _page_html(
     header_extra: str,
     main_content: str,
     sidebar_content: str,
+    paper_json: str = "{}",
 ) -> str:
     back = '' if is_index else '<a class="back-link" href="../index.html">← All reports</a>'
     return f"""<!doctype html>
@@ -568,6 +738,75 @@ def _page_html(
     {sidebar_content}
   </aside>
 </div>
+
+<!-- Paper detail modal -->
+<div id="paper-modal" class="modal-overlay" hidden>
+  <div class="modal-box">
+    <button class="modal-close" aria-label="Close">✕</button>
+    <div class="modal-inner" id="modal-inner"></div>
+  </div>
+</div>
+
+<script>
+const PAPERS = {paper_json};
+
+function esc(s) {{
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}}
+
+function openModal(pid) {{
+  const p = PAPERS[pid]; if (!p) return;
+  let h = '';
+  if (p.figSrc) {{
+    h += '<div class="modal-fig"><img src="'+esc(p.figSrc)+'" alt="Figure"></div>';
+    if (p.figCap) h += '<div class="modal-fig-cap">'+esc(p.figCap)+'</div>';
+  }}
+  h += '<div class="modal-pills">'+p.pills+'</div>';
+  h += '<h2 class="modal-title"><a href="'+esc(p.url)+'" target="_blank" rel="noopener">'+esc(p.title)+'</a></h2>';
+  let meta = esc(p.authors);
+  if (p.date) meta += ' &middot; '+esc(p.date);
+  if (p.cite) meta += ' &middot; '+Number(p.cite).toLocaleString()+' citations';
+  h += '<div class="modal-meta">'+meta+'</div>';
+  h += '<div class="modal-section-title">Abstract</div>';
+  h += '<div class="modal-abstract">'+esc(p.abstract)+'</div>';
+  if (p.analysisHtml) {{
+    h += '<div class="modal-section-title">AI Summary</div>';
+    h += '<div class="modal-analysis">'+p.analysisHtml+'</div>';
+  }}
+  if (p.related && p.related.length) {{
+    h += '<div class="modal-related"><div class="modal-section-title">Related work</div><ul>';
+    p.related.forEach(r => {{
+      h += '<li><a href="'+esc(r.url||'#')+'" target="_blank" rel="noopener">'+esc(r.title)+'</a>';
+      let m = [r.authors, r.year].filter(Boolean).join(', ');
+      if (m) h += ' <span>— '+esc(m)+'</span>';
+      h += '</li>';
+    }});
+    h += '</ul></div>';
+  }}
+  h += '<div class="modal-footer"><a class="modal-arxiv-btn" href="'+esc(p.url)+'" target="_blank" rel="noopener">Open on arXiv ↗</a></div>';
+  document.getElementById('modal-inner').innerHTML = h;
+  document.getElementById('paper-modal').hidden = false;
+  document.body.style.overflow = 'hidden';
+}}
+
+function closeModal() {{
+  document.getElementById('paper-modal').hidden = true;
+  document.body.style.overflow = '';
+}}
+
+document.querySelectorAll('.paper-card[data-pid]').forEach(card => {{
+  card.addEventListener('click', e => {{
+    if (e.target.closest('a')) return;
+    openModal(card.dataset.pid);
+  }});
+}});
+
+document.getElementById('paper-modal').addEventListener('click', e => {{
+  if (e.target === e.currentTarget) closeModal();
+}});
+document.querySelector('.modal-close').addEventListener('click', closeModal);
+document.addEventListener('keydown', e => {{ if (e.key === 'Escape') closeModal(); }});
+</script>
 </body>
 </html>"""
 
@@ -586,7 +825,12 @@ def _build_rich_page(
     pdf_href: str | None = None,
     video_href: str | None = None,
     archive_entries: list[dict] | None = None,
+    fig_prefix: str = "figures",
 ) -> str:
+    # Assign stable pids to every paper so cards and modal can reference each other
+    for i, p in enumerate(papers):
+        p["_pid"] = f"p{i}"
+
     briefing = _extract_briefing_block(digest_md)
 
     # Section extraction
@@ -638,7 +882,7 @@ def _build_rich_page(
         synth_text = _extract_section(briefing, topic["section_re"])
         synth_html = _md_to_html(synth_text) if synth_text else ""
         topic_papers = by_topic[topic["key"]]
-        parts.append(_topic_block(topic, topic_papers, synth_html))
+        parts.append(_topic_block(topic, topic_papers, synth_html, fig_prefix=fig_prefix))
 
     # Open questions
     if open_q_text:
@@ -660,6 +904,44 @@ def _build_rich_page(
     if archive_entries:
         sidebar_parts.append(_sidebar_archive(archive_entries))
 
+    # Build PAPERS JSON for the modal (one entry per paper with a pid)
+    paper_data: dict[str, dict] = {}
+    for p in papers:
+        pid = p.get("_pid")
+        if not pid:
+            continue
+        fig_path, fig_caption = _figure_site_path(p)
+        fig_src = ""
+        if fig_path:
+            key = _safe_name(p.get("id") or p.get("title", ""))
+            fig_src = f"{fig_prefix}/{key}/figure_1.png"
+        s2 = p.get("semantic_scholar") or {}
+        raw_analysis = p.get("analysis") or {}
+        if isinstance(raw_analysis, dict):
+            ah: list[str] = []
+            if raw_analysis.get("one_sentence_summary"):
+                ah.append(f'<p><strong>{html.escape(raw_analysis["one_sentence_summary"])}</strong></p>')
+            for _key, _lbl in [("methods", "Methods"), ("novelty_claim", "Novelty"), ("limitations", "Limitations")]:
+                if raw_analysis.get(_key):
+                    ah.append(f'<p><em>{_lbl}:</em> {html.escape(raw_analysis[_key])}</p>')
+            analysis_html = "".join(ah)
+        else:
+            analysis_html = f'<p>{html.escape(str(raw_analysis))}</p>' if raw_analysis else ""
+        paper_data[pid] = {
+            "title":        p.get("title") or "",
+            "url":          _arxiv_url(p),
+            "authors":      _format_authors(p.get("authors") or []),
+            "date":         _paper_date(p),
+            "cite":         s2.get("citationCount"),
+            "pills":        _topic_pills(p),
+            "abstract":     (p.get("summary") or "").strip(),
+            "analysisHtml": analysis_html,
+            "figSrc":       fig_src,
+            "figCap":       fig_caption,
+            "related":      p.get("related_papers") or [],
+        }
+    paper_json = json.dumps(paper_data, ensure_ascii=False)
+
     # Header pills
     header_extra = ""
     if is_index:
@@ -675,6 +957,7 @@ def _build_rich_page(
         header_extra=header_extra,
         main_content="\n".join(parts),
         sidebar_content="\n".join(sidebar_parts),
+        paper_json=paper_json,
     )
 
 
@@ -712,6 +995,7 @@ def build_pages_site(
     videos_out  = site_dir / "videos"
     reports_out.mkdir(parents=True, exist_ok=True)
     videos_out.mkdir(parents=True, exist_ok=True)
+    _FIGURES_SITE.mkdir(parents=True, exist_ok=True)
 
     # Clear old artifacts
     for f in reports_out.glob("*.pdf"):  f.unlink()
@@ -772,6 +1056,7 @@ def build_pages_site(
             pdf_href=pdf_href,
             video_href=video_href,
             archive_entries=None,
+            fig_prefix="../figures",
         )
         (reports_out / f"{stem}.html").write_text(page_html, encoding="utf-8")
 
@@ -803,6 +1088,7 @@ def build_pages_site(
             pdf_href=pdf_href_idx,
             video_href=video_href_idx,
             archive_entries=archive_entries,
+            fig_prefix="figures",
         )
         # Also write latest.html
         (site_dir / "latest.html").write_text(index_html, encoding="utf-8")

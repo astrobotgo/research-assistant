@@ -12,13 +12,17 @@ from app.context import build_research_context
 from app.digest import synthesize_research_digest
 from app.figures import extract_key_figures
 from app.fetch_arxiv import fetch_recent_arxiv
-from app.enrich_s2 import enrich_title
+from app.enrich_s2 import enrich_title, get_related_papers
 from app.page_summaries import summarize_pdf_pages
 from app.pdf_report import build_daily_pdf_report
 from app.select_papers import select_top_papers
 from app.site_pages import build_pages_site
 from app.summarize import summarize_paper
 from app.video_report import build_narrated_video
+
+# Agent names
+PTOLEMY   = "Ptolemy"    # main pipeline agent: fetch, select, enrich, digest
+COPERNICUS = "Copernicus"  # context agent: historical synthesis + related papers
 
 app = typer.Typer()
 
@@ -303,11 +307,11 @@ def daily(
     if max_pool > 0 and len(merged) > max_pool:
         merged = merged[:max_pool]
 
-    print("[cyan]Context:[/cyan] building historical context from recent briefings…")
+    print(f"[cyan]{COPERNICUS}:[/cyan] building historical context from recent briefings…")
     try:
         research_context = build_research_context(days_back=context_days)
     except Exception as e:
-        print(f"[yellow]Context agent skipped:[/yellow] {e}")
+        print(f"[yellow]{COPERNICUS} skipped:[/yellow] {e}")
         research_context = {"summary": "", "covered_ids": set(), "covered_titles": []}
 
     pool_for_selection = [dict(p) for p in merged]
@@ -321,12 +325,17 @@ def daily(
     # Force-include watchlisted papers not already chosen
     selected_pool = _apply_watchlist(pool_for_selection, selected_pool, WATCHLIST)
 
-    # Parallel enrichment: S2 lookup + optional per-paper summarization
+    # Parallel enrichment (Ptolemy): S2 lookup + optional per-paper summarization
+    # Copernicus also fetches related papers via S2 recommendations for each paper.
     def _enrich_one(paper: dict) -> dict:
         item = dict(paper)
         if enrich:
             try:
-                item["semantic_scholar"] = enrich_title(paper["title"])
+                s2 = enrich_title(paper["title"])
+                item["semantic_scholar"] = s2
+                # Copernicus: fetch related papers using the S2 paper ID
+                if s2 and s2.get("paperId"):
+                    item["related_papers"] = get_related_papers(s2["paperId"], n=3)
             except Exception as e:
                 item["semantic_scholar_error"] = str(e)
         if per_paper:
@@ -526,7 +535,7 @@ def daily(
         build_pages_site()
 
     print(
-        f"[green]Daily: pool {len(pool_for_selection)} → presenting {len(enriched)}[/green]"
+        f"[green]{PTOLEMY}: pool {len(pool_for_selection)} → presenting {len(enriched)}[/green]"
     )
     print(f"[cyan]JSON:[/cyan] {cache_path}")
     print(f"[cyan]Report:[/cyan] {report_path}")

@@ -67,6 +67,7 @@ TARGETS=(
   "docs"
   "data/open_questions.md"
   "data/run-status.json"
+  "data/cache/figures"
 )
 
 # Only add files/dirs that actually exist
