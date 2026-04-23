@@ -5,247 +5,415 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Research Digest — April 09, 2026</title>
   <style>
-  :root {
-    color-scheme: light;
-    --bg: #f3efe5;
-    --paper: #fffdf8;
-    --ink: #1f2937;
-    --muted: #5b6472;
-    --line: #d8d1c2;
-    --accent: #0f766e;
-    --accent-strong: #134e4a;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: Georgia, "Times New Roman", serif;
-    color: var(--ink);
-    background:
-      radial-gradient(circle at top left, rgba(15,118,110,0.12), transparent 28rem),
-      linear-gradient(180deg, #f8f5ee 0%, var(--bg) 100%);
-    min-height: 100vh;
-  }
-  a { color: var(--accent-strong); text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
-  a:hover { color: var(--accent); }
+:root {
+  --bg:           #f5f3ee;
+  --paper:        #ffffff;
+  --ink:          #18181b;
+  --muted:        #71717a;
+  --line:         #e4e0d8;
+  --accent:       #0f766e;
+  --accent-dark:  #115e59;
 
-  body { padding: 0; }
-  .topbar {
-    position: sticky; top: 0; z-index: 10;
-    background: rgba(255,253,248,0.92); backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--line);
-    padding: 0.75rem 1.5rem;
-    display: flex; justify-content: space-between; align-items: center;
-    gap: 1rem;
-  }
-  .topbar-left { display: flex; align-items: center; gap: 1rem; }
-  .topbar-title { font-size: 0.95rem; color: var(--muted); font-style: italic; }
-  .back-link { font-size: 0.9rem; white-space: nowrap; }
-  .topbar-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .btn-sm {
-    display: inline-block; padding: 0.35rem 0.85rem; border-radius: 999px;
-    background: var(--accent); color: white; text-decoration: none;
-    font-size: 0.85rem; font-weight: 600;
-  }
-  .btn-sm:hover { background: var(--accent-strong); color: white; }
-  .btn-sm.outline {
-    background: transparent; color: var(--accent-strong);
-    border: 1px solid var(--line);
-  }
-  .btn-sm.outline:hover { background: rgba(15,118,110,0.08); }
-  article {
-    max-width: 52rem; margin: 0 auto; padding: 2.5rem 1.5rem 5rem;
-  }
-  article h1 { font-size: clamp(1.6rem,3.5vw,2.5rem); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 1.5rem; }
-  article h2 { font-size: 1.35rem; margin: 2.5rem 0 0.75rem; padding-top: 1.5rem; border-top: 1px solid var(--line); letter-spacing: -0.01em; }
-  article h2:first-of-type { border-top: none; padding-top: 0; }
-  article h3 { font-size: 1.1rem; margin: 1.75rem 0 0.5rem; color: var(--accent-strong); }
-  article h4 { font-size: 0.95rem; margin: 1.25rem 0 0.25rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
-  article p { line-height: 1.75; margin: 0.75rem 0; }
-  article ul, article ol { line-height: 1.7; margin: 0.5rem 0 0.5rem 1.25rem; padding: 0; }
-  article li { display: list-item; border: none; padding: 0.15rem 0; font-size: 1rem; }
-  article li::marker { color: var(--accent); }
-  article hr { border: none; border-top: 1px solid var(--line); margin: 2rem 0; }
-  article strong { color: var(--ink); }
-  article code { font-size: 0.9em; background: rgba(0,0,0,0.05); padding: 0.1em 0.3em; border-radius: 3px; }
-  article blockquote { border-left: 3px solid var(--accent); margin: 1rem 0; padding: 0.25rem 1rem; color: var(--muted); }
-  .report-meta { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
-  @media (max-width: 640px) {
-    .topbar { flex-direction: column; align-items: flex-start; }
-    article { padding: 1.5rem 1rem 4rem; }
-  }
+  --blue:         #1d4ed8; --blue-bg:   #eff6ff;
+  --purple:       #7c3aed; --purple-bg: #f5f3ff;
+  --teal:         #0f766e; --teal-bg:   #f0fdfa;
+  --amber:        #b45309; --amber-bg:  #fffbeb;
+
+  --header-h: 56px;
+  --r: 10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Header ── */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--header-h);
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.header-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+  height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.site-brand { display: flex; align-items: center; gap: 0.5rem; }
+.site-name { font-weight: 800; font-size: 1rem; letter-spacing: -0.03em; color: var(--accent-dark); }
+.site-tagline { font-size: 0.8rem; color: var(--muted); }
+.header-right { display: flex; align-items: center; gap: 0.75rem; }
+.date-label { font-size: 0.82rem; color: var(--muted); }
+.header-pill {
+  font-size: 0.75rem; font-weight: 600; padding: 0.22rem 0.65rem;
+  border: 1px solid var(--line); border-radius: 999px;
+  color: var(--muted); background: transparent;
+}
+.header-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+/* ── Page layout ── */
+.page-wrap {
+  max-width: 1200px; margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 2rem;
+  align-items: start;
+}
+.main-col { min-width: 0; }
+
+/* ── Overview ── */
+.overview-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  margin-bottom: 2.25rem;
+}
+.eyebrow {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.overview-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem; line-height: 1.82; color: #27272a;
+}
+.overview-body p + p { margin-top: 0.6rem; }
+
+/* ── Topic section ── */
+.topic-section { margin-bottom: 2.5rem; }
+.topic-header {
+  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem;
+}
+.topic-badge {
+  font-size: 0.75rem; font-weight: 700; padding: 0.28rem 0.8rem;
+  border-radius: 999px; letter-spacing: 0.02em;
+}
+.c-blue   { background: var(--blue-bg);   color: var(--blue);   }
+.c-purple { background: var(--purple-bg); color: var(--purple); }
+.c-teal   { background: var(--teal-bg);   color: var(--teal);   }
+.c-amber  { background: var(--amber-bg);  color: var(--amber);  }
+.topic-count { font-size: 0.82rem; color: var(--muted); }
+
+.topic-synthesis {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.92rem; line-height: 1.78; color: #3f3f46;
+  border-left: 3px solid var(--line);
+  padding: 0.6rem 1rem;
+  margin-bottom: 1.1rem;
+  border-radius: 0 4px 4px 0;
+}
+.topic-synthesis.c-blue   { border-left-color: var(--blue);   }
+.topic-synthesis.c-purple { border-left-color: var(--purple); }
+.topic-synthesis.c-teal   { border-left-color: var(--teal);   }
+.topic-synthesis.c-amber  { border-left-color: var(--amber);  }
+.topic-synthesis p + p { margin-top: 0.5rem; }
+.topic-synthesis ul { padding-left: 1.2rem; }
+.topic-synthesis li { margin-bottom: 0.25rem; }
+
+/* ── Paper cards ── */
+.papers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 0.9rem;
+}
+.paper-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1rem 1.15rem;
+  display: flex; flex-direction: column; gap: 0.45rem;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.paper-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.08); border-color: #c8c4bc; }
+.card-pills { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.pill {
+  font-size: 0.68rem; font-weight: 600; padding: 0.12rem 0.48rem;
+  border-radius: 999px; letter-spacing: 0.03em;
+}
+.pill-blue   { background: var(--blue-bg);   color: var(--blue);   }
+.pill-purple { background: var(--purple-bg); color: var(--purple); }
+.pill-teal   { background: var(--teal-bg);   color: var(--teal);   }
+.pill-amber  { background: var(--amber-bg);  color: var(--amber);  }
+.pill-watch  { background: #fef3c7; color: #92400e; }
+
+.card-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem; font-weight: 600; line-height: 1.4;
+}
+.card-title a { color: var(--ink); }
+.card-title a:hover { color: var(--accent); text-decoration: underline; }
+.card-authors { font-size: 0.78rem; color: var(--muted); }
+.card-abstract {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.83rem; line-height: 1.65; color: #52525b;
+  flex: 1;
+}
+.card-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 0.3rem; border-top: 1px solid var(--line);
+  margin-top: 0.1rem;
+}
+.card-arxiv { font-size: 0.76rem; font-weight: 600; color: var(--accent); }
+.card-arxiv:hover { text-decoration: underline; }
+.card-cite { font-size: 0.76rem; color: var(--muted); }
+
+.no-papers { font-size: 0.88rem; color: var(--muted); font-style: italic; padding: 0.5rem 0; }
+
+/* ── Open questions ── */
+.open-qs-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.open-qs-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem; line-height: 1.75; color: #3f3f46;
+}
+.open-qs-body ul { padding-left: 1.25rem; }
+.open-qs-body li { margin-bottom: 0.35rem; }
+.open-qs-body p + p { margin-top: 0.5rem; }
+
+/* ── Sidebar ── */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 1.25rem);
+  display: flex; flex-direction: column; gap: 1.1rem;
+  max-height: calc(100vh - var(--header-h) - 2.5rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding-right: 2px;
+}
+.sidebar-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1rem 1.1rem;
+}
+.sidebar-title {
+  font-size: 0.67rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+  padding-bottom: 0.5rem; margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+.ctx-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.82rem; line-height: 1.68; color: #52525b;
+}
+.ctx-body p + p { margin-top: 0.4rem; }
+.ctx-body ul { padding-left: 1.1rem; }
+.ctx-body li { margin-bottom: 0.22rem; }
+.ctx-body h2, .ctx-body h3 { font-size: 0.82rem; margin: 0.5rem 0 0.3rem; color: var(--ink); }
+
+.must-list { list-style: none; }
+.must-list li {
+  border-top: 1px solid var(--line); padding: 0.55rem 0;
+  font-size: 0.81rem; line-height: 1.5;
+}
+.must-list li:first-child { border-top: none; padding-top: 0; }
+
+.archive-list { list-style: none; }
+.archive-list li { border-top: 1px solid var(--line); }
+.archive-list li:first-child { border-top: none; }
+.archive-list a {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.45rem 0; font-size: 0.82rem; color: var(--ink);
+}
+.archive-list a:hover { color: var(--accent); text-decoration: none; }
+.arc-label { font-weight: 500; }
+.arc-date { font-size: 0.77rem; color: var(--muted); }
+
+/* ── Report page nav ── */
+.report-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.75rem; flex-wrap: wrap;
+}
+.back-link { font-size: 0.85rem; color: var(--accent); }
+.report-actions { display: flex; gap: 0.5rem; }
+.action-pill {
+  font-size: 0.77rem; font-weight: 600; padding: 0.28rem 0.75rem;
+  border: 1px solid var(--line); border-radius: 999px; color: var(--muted);
+}
+.action-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .page-wrap { grid-template-columns: 1fr; }
+  .sidebar { position: static; max-height: none; overflow-y: visible; }
+}
+@media (max-width: 600px) {
+  .header-tagline, .date-label { display: none; }
+  .papers-grid { grid-template-columns: 1fr; }
+  .page-wrap { padding: 1.25rem 1rem 3rem; }
+}
 </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="topbar-left">
-      <a class="back-link" href="../index.html">← All reports</a>
-      <span class="topbar-title">April 09, 2026</span>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="site-brand">
+      <span class="site-name">Research Digest</span>
+      <span class="site-tagline">Galaxy clusters · Galaxies · Lensing · Dark matter</span>
     </div>
-    <div class="topbar-actions">
-      <a class="btn-sm outline" href="daily-2026-04-09.pdf">PDF</a>
+    <div class="header-right">
+      <span class="date-label">April 09, 2026</span>
       
     </div>
   </div>
-  <article>
-    <h1>Daily research digest — 2026-04-09</h1>
-<p>Topics scanned: galaxy clusters, galaxies, gravitational lensing, dark matter.</p>
-<p><strong>Pool:</strong> 17 recent papers gathered. <strong>Presenting:</strong> 10 chosen by the local model for this briefing.</p>
-<p><strong>Selection note:</strong> <em>Selection failed (timed out); using newest k.</em></p>
-<h2>Research briefing (synthesized)</h2>
-<h2>Executive overview</h2>
-<p>Recent arXiv preprints highlight advancements in understanding dark matter through various mechanisms such as magnetic fields, fermionic preheating, and interactions with standard model particles. In galaxy research, there are new insights into the structural complexity of spiral galaxies&#x27; central regions and the mass assembly processes in low-surface-brightness components. Additionally, studies on metallicity gradients at high redshifts provide evidence for strong accretion of pristine gas, while gravitational lensing is not directly addressed but inferred through cross-connections.</p>
-<h2>Galaxy clusters</h2>
-<p>No specific papers tagged under galaxy clusters are listed; thus, this section remains sparse with no recent notable submissions.</p>
-<h2>Galaxies</h2>
-<p>Recent studies on galaxies highlight the complex morphologies and dynamics in their central regions. For example, the GLANCE tool has been developed to analyze high-resolution data from MUSE observations of eight spiral galaxies, revealing diverse structures including disentangling cold, warm, hot orbital contributions, and counter-rotating components (Tracing the dynamical and structural complexity of spiral galaxy centres). In addition, the VST-SMASH survey is focusing on low surface brightness features in galactic outskirts to understand mass assembly processes and structural evolution. Metallicity gradients in high-redshift galaxies have been studied using JWST/NIRSpec-IFU data, indicating significant deviations from the local Fundamental Metallicity Relation due to strong accretion of pristine gas (Metal Mayhem at $\rm z \sim 7-10$). Extinction distributions in nearby star-resolved galaxies like M33 are being constructed with high-resolution extinction maps using RGB stars, providing robust foundations for future studies on interstellar dust and stellar populations.</p>
-<h2>Dark Matter</h2>
-<p>Recent research focuses on various mechanisms for dark matter production and detection. A study examines the relic abundance of vector dark matter originating from an axion-$SU(2)$ condensate, demonstrating a dynamical quantum quench problem that renormalizes standard abundance relations (Post-Inflationary Quenched Production of Axion SU(2) Dark Matter). Another paper explores constraints on inelastic dark matter with scalar mediators using direct detection experiments like XENON1T and PandaX-4T, opening viable parameter spaces for MeV-GeV mass ranges (Direct-detection constraints on inelastic dark matter with a scalar mediator).</p>
-<h2>Gravitational Lensing</h2>
-<p>No specific papers tagged under gravitational lensing are listed. However, insights into the dynamics of galaxies and their central black holes can indirectly contribute to our understanding of lensing effects due to massive halos (Galaxy discs regulate the growth of supermassive black holes). This work shows that galaxy morphology significantly influences SMBH masses, which could have implications for gravitational lensing phenomena.</p>
-<h2>Cross-Connections</h2>
-<p>The study &quot;Galaxy discs regulate the growth of supermassive black holes&quot; highlights how galaxy structures influence the masses of central black holes and their interactions with dark matter halos. This interplay between galactic morphology and dark matter could indirectly affect processes like gravitational lensing, offering a comprehensive view of astrophysical phenomena.</p>
-<h2>Conclusion</h2>
-<p>Recent preprints span diverse topics within galaxies and dark matter research, providing new insights into galaxy structures at high redshifts, detailed analyses of central black hole masses influenced by galactic morphologies, and novel approaches to understanding dark matter through various physical mechanisms. The lack of direct gravitational lensing studies suggests this area may benefit from further exploration, potentially integrating findings from related fields like galaxy morphology and dark matter interactions.</p>
-<hr>
-<h2>Catalog (selected)</h2>
-<h3>1. Primordial magnetic fields in the light of upcoming post-EoR Lyman-$α$ and 21-cm observations</h3>
-<ul>
-<li><strong>Focus:</strong> dark matter</li>
-<li>Published: 2026-04-08T17:44:37+00:00</li>
-<li>Authors: Arko Bhaumik, Sourav Pal, Supratik Pal</li>
-<li>Categories: astro-ph.CO, astro-ph.IM, hep-ph</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.07327v1">https://arxiv.org/pdf/2604.07327v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>The Lorentz force exerted by a primordial magnetic field (PMF) on the coupled baryon-dark matter system may enhance total matter power at small scales after recombination. In the post-reionization (post-EoR) era, a weakly scale-dependent PMF of sub-nG strength is thus expected to influence the Lyman-$α$ (Ly$α$) power spectrum, the 21 cm power spectrum, and the Ly$α$-21 cm cross-spectrum at scales $k\gtrsim 1\:h/\textrm{Mpc}$. We investigate the prospects of constraining the PMF sector via these three cosmological observables, by employing SNR estimation and Fisher forecast on the PMF amplitude $B<em>0$ and spectral index $n</em>{\rm B}$, for a next-generation DESI-like spectroscopic survey and two upcoming 21 cm facilities, namely SKA1-Mid and PUMA. Our results indicate the possibility of constraining both PMF parameters with $\lesssim10\%$ relative errors through the uncontaminated 21 cm auto-spectrum as well as the Ly$α$-21 cm cross-spectrum probed with the DESI-like+SKA1-Mid combination. Indicatively, the Ly$α$-21 cm cross-correlation via DESI-like+SKA1-Mid is predicted to constrain a fiducial scenario $B<em>0=0.8$ nG and $n</em>{\rm B}=-2.9$ with $1σ$ errors $ΔB<em>0\approx 0.07$ nG and $Δn</em>{\rm B}\approx0.02$. The DESI-like+PUMA setup is predicted to fare relatively worse due to its restriction to larger scales, resulting in comparatively one order of magnitude relaxed error bounds for similar fiducials. Since the Ly$α$-21 cm cross-signal is expected to be largely insensitive to foreground contamination (unlike the 21 cm auto-spectrum), it may serve as an optimal foreground-immune post-EoR probe to constrain a weakly scale-dependent sub-nG PMF via future DESI-like+SKA1-Mid observations.</p>
-<h4>Semantic Scholar</h4>
-<ul>
-<li>Year: 2026</li>
-<li>Venue: </li>
-<li>Citation Count: 0</li>
-<li>Influential Citations: 0</li>
-<li>Fields of Study: Physics</li>
-<li>URL: <a href="https://www.semanticscholar.org/paper/a1eec8db7e111e90b03162476a47d7ed6af1e923">https://www.semanticscholar.org/paper/a1eec8db7e111e90b03162476a47d7ed6af1e923</a></li>
-</ul>
-<h3>2. Analytic Approximations for Fermionic Preheating</h3>
-<ul>
-<li><strong>Focus:</strong> dark matter</li>
-<li>Published: 2026-04-08T17:42:38+00:00</li>
-<li>Authors: Heather E. Logan, Daniel Stolarski, Fazlul Yasin</li>
-<li>Categories: hep-ph, astro-ph.CO</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.07326v1">https://arxiv.org/pdf/2604.07326v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Non-thermal fermions can be produced non-perturbatively in the early universe during coherent oscillations of a scalar field. We explore fermion production in $λφ^{4}$ inflation through this mechanism and analyze the momentum spectrum of the fermions produced, which depends on a coupling parameter $q$. For $q \gtrsim 0.01$, the main contribution to the total number density comes from an approximately half-filled Fermi sphere as a result of non-adiabaticity. For $q\lesssim 0.01$, we find that the major contributions instead come from resonance peaks at higher momentum values. We find a simple relation to predict the momentum values corresponding to resonance peaks for any $q$. We also obtain analytic power-law approximations for the total number density of fermions and find that it is proportional to $q^{1/2}$ for $q\lesssim 0.01$ and proportional to $q^{3/4}$ for $q\gtrsim 10$. If fermions produced by this mechanism make up the entirety of dark matter, we estimate lower bounds on their mass.</p>
-<h4>Semantic Scholar</h4>
-<ul>
-<li>Year: 2026</li>
-<li>Venue: </li>
-<li>Citation Count: 0</li>
-<li>Influential Citations: 0</li>
-<li>Fields of Study: Physics</li>
-<li>URL: <a href="https://www.semanticscholar.org/paper/83bdb1f3ec77759a42c6cf4bc461afbdfabcfe12">https://www.semanticscholar.org/paper/83bdb1f3ec77759a42c6cf4bc461afbdfabcfe12</a></li>
-</ul>
-<h3>3. Constraining magnetic monopoles and multiply charged particles with diphoton events at the LHC</h3>
-<ul>
-<li><strong>Focus:</strong> dark matter</li>
-<li>Published: 2026-04-08T17:09:25+00:00</li>
-<li>Authors: Vasiliki A. Mitsou, Emanuela Musumeci</li>
-<li>Categories: hep-ph, hep-ex</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.07300v1">https://arxiv.org/pdf/2604.07300v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>The LHC is achieving energies never reached before, opening up possibilities for the discovery of exotic particles in the TeV mass range. Such states include magnetic monopoles, which can explain the electric charge quantisation and restore the symmetry in Maxwell&#x27;s equations with respect to the magnetic and electric fields. Scenarios proposed to shed light to dark matter and neutrino masses introduce high-electric-charge objects (HECOs). The existence of both classes of particles can be probed in precision measurements in a manner complementary to direct searches. We focus on the contributions of such virtual particles to light-by-light scattering in the context of effective field theories and a Born-Infeld scenario. Specifically, measurements of central exclusive production of photon pairs with proton tagging carried out by the CMS-TOTEM Precision Proton Spectrometer with LHC Run 2 proton-proton collision data are used to constrain magnetic monopole and HECOs. Resummation techniques have been employed to deal with the large HECO-photon coupling. Masses of up to a few tens of TeV have been excluded for monopoles and HECOs of various spins and magnetic and electric charges, respectively.</p>
-<h4>Semantic Scholar</h4>
-<ul>
-<li>Year: 2026</li>
-<li>Venue: </li>
-<li>Citation Count: 1</li>
-<li>Influential Citations: 0</li>
-<li>Fields of Study: Physics</li>
-<li>URL: <a href="https://www.semanticscholar.org/paper/c8375bf6cc795a0937644917f799ff08b66ae3c5">https://www.semanticscholar.org/paper/c8375bf6cc795a0937644917f799ff08b66ae3c5</a></li>
-</ul>
-<h3>4. Tracing the dynamical and structural complexity of spiral galaxy centres</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-08T17:04:26+00:00</li>
-<li>Authors: Iris Breda, Glenn van de Ven, Sabine Thater, J. Falcón-Barroso, Prashin Jethwa, Masato Onodera, Joop Schaye, Jarle Brinchmann, Bodo Ziegler, Federica Mauro</li>
-<li>Categories: astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.07297v1">https://arxiv.org/pdf/2604.07297v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>The formation of late-type galaxies has traditionally been described via two pathways: one producing pressure-supported classical bulges, the other rotationally supported pseudo-bulges. Early studies relied on photometric decompositions assuming an exponential disk extrapolated inwards. Recent high-resolution observations, however, reveal a far more complex landscape in disk galaxy centres. We investigated the morphology of central stellar components in intermediate-to-massive spiral galaxies, focusing on disentangling cold, warm, and hot orbital contributions, critically reassessing the standard approach of extrapolating the exponential disk profile inwards. We developed GLANCE (Galactic archaeoLogy via chronochemicAl and dyNamiCal modElling), a tool for photometric, chronochemical, and dynamical galaxy analysis, applied to 8 high-resolution MUSE galaxies to derive stellar population properties and decompose orbits into cold, warm, hot, and counter-rotating (CR) components. We uncovered remarkable structural diversity in the dynamically cold central component: one galaxy displays an exponential profile throughout, while the majority exhibit either a pronounced central drop resembling a doughnut-shaped structure or a compact inner disk significantly steeper than the outer disk. Most galaxies hosting nuclear disks are classifiable as classical bulges - hot, old, red, high bulge-to-total ratio - contrasting with galaxies showing a central cold-component deficit. Beyond the bulge, cold plus warm orbit contributions remain below the total, indicating non-negligible hot or CR orbits with Sérsic indexes consistently above unity. These results highlight the composite nature of disk galaxy centres and the need for decomposition methods that avoid extrapolating the outer disk inwards, requiring large IFS samples across a broad mass range, complemented by simulations such as IllustrisTNG50.</p>
-<h3>5. VST-SMASH: VST Survey of Mass Assembly and Structural Hierarchy I. Survey presentation and deep photometry of IC 5332: tracing the mass assembly in the challenging faintest-end regime</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-08T13:37:29+00:00</li>
-<li>Authors: R. Ragusa, C. Tortora, L. Hunt, M. Spavone, M. Baes, Abdurro uf, M. Gatto, F. Annibali, N. Bellucco, A. Unni, E. Schinnerer</li>
-<li>Categories: astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.07083v1">https://arxiv.org/pdf/2604.07083v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Understanding the formation and evolution of late type galaxies (LTG) requires deep imaging for tracing the faintest stellar components in their outskirts. Despite their crucial role in the buildup of stellar mass, these low surface brightness (LSB) features remain largely unexplored due to observational limitations. The VST-SMASH is designed to fill this gap, providing deep, wide field optical imaging for a volume limited sample of nearby LTG, overlapping with the Euclid Wide Survey in the South. This paper aims to introduce the VST-SMASH survey and showcase its scientific potential through the analysis of IC 5332, a LTG observed in the g, r, and i bands. The main goal is to demonstrate the depth, quality, and diagnostic power of the dataset in tracing LSB features and structural components in galactic outskirts. We carried out detailed surface photometry of IC 5332 to extract radial surface brightness and color profiles down to LSB regime. We performed multicomponent Sersic decompositions and constructed stellar mass surface density profiles. We identified and characterized faint stellar streams, estimating their colors and comparing them with adjacent galactic regions. While the internal (1Reff) negative colour gradients can be explained by dissipative collapses and SN outflows, the color profiles at larger radii reveal a significant gradient toward redder colors, consistent with the presence of accreted populations in the outskirts. We also find bluer r - i, which could be explained by strong Ha emission. These findings support a scenario of ongoing stellar mass assembly through accretion and highlight the capability of VST-SMASH to uncover faint structures in nearby galaxies.</p>
-<h3>6. Metal Mayhem at $\rm z \sim 7-10$: Diversity and Evolution of Gas-Phase Metallicity Gradients</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-08T13:31:53+00:00</li>
-<li>Authors: Maria Koller, Roberto Maiolino, Hannah Übler, Qiao Duan, Jan Scholtz, Santiago Arribas, William M. Baker, Stefano Carniani, Stephane Charlot, Mirko Curti, Luca Graziani, Gareth Jones, William McClymont, Michele Perna, Bruno Rodríguez Del Pino, Sandro Tacchella, Alessandra Venditti, Giacomo Venturi, Joris Witstok</li>
-<li>Categories: astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.07076v1">https://arxiv.org/pdf/2604.07076v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>We present a JWST/NIRSpec-IFU study of metallicity gradients in seven low-metallicity systems at $z=7.2-9.5$. The main sample spans stellar masses of $\rm \log(M<em>*/M</em>{\odot}) \sim 7.8-9.5$, star formation rates (SFRs) of $\rm \log(\text{SFR} / M<em>{\odot} \text{yr}^{-1}) \sim 0.5-2.5$, and gas-phase metallicities of $4\%-15 \%~Z</em>\odot$. Within our sample, we also identify three low-metallicity satellite galaxies associated with two of our sources, providing a rare view of early-epoch interactions. The three satellites exhibit even more primordial properties, with metallicity $3\% -4\% ~Z<em>\odot$ and low star-formation activity ($\rm \log(\text{SFR} / M</em>{\odot} \text{yr}^{-1}) \sim -0.5$ to $-0.9$). We find that our galaxies, and especially the satellites, are significantly offset from the local Fundamental Metallicity Relation (FMR), with deviations reaching $Δ\text{FMR} \approx -0.9$ dex. This indicates that these galaxies are likely experiencing strong accretion of pristine gas. Overall, we observe a large scatter in radial metallicity gradients, ranging from positive to negative with an average metallicity gradient of $\rm -0.02 \pm 0.04 \ dex \ kpc^{-1}$. Flat gradients are found in systems with confirmed satellites, suggesting that tidal interactions and mergers drive the radial mixing necessary to homogenise the interstellar medium. The (tentative) presence of an AGN in two of our sources suggests that strong feedback may also be responsible for the observed flat gradients. Conversely, the detection of a positive gradient in one source points toward a direct funnelling of metal-poor gas inflow into the central region of the galaxy. These results show that galaxies in the first billion years grow through diverse, episodic processes, suggesting that early evolution is characterised by structural variety rather than a single, predictable path.</p>
-<h3>7. Post-Inflationary Quenched Production of Axion SU(2) Dark Matter</h3>
-<ul>
-<li><strong>Focus:</strong> dark matter</li>
-<li>Published: 2026-04-08T12:59:53+00:00</li>
-<li>Authors: Imtiaz Khan, Pirzada, G. Mustafa</li>
-<li>Categories: hep-ph</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.07044v1">https://arxiv.org/pdf/2604.07044v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>The relic abundance of vector dark matter originating from an inherited axion-$SU(2)$ condensate is typically determined by implementing an adiabatic matching procedure across the symmetry-breaking transition. We demonstrate that this outcome does not arise in the generic case. The post-inflationary crossover can instead be formulated as a dynamical quantum quench problem, in which the residual coherent component of the field is characterized by a survival factor that induces an $\mathcal{O}(1)$ renormalization of the standard abundance relation. Expressed in conformal time, the spatially homogeneous condensate dynamics reduce to those of a canonical oscillator with quartic and quadratic self-interactions. This representation enables an analytic determination of the matching conditions across the symmetry-breaking transition, the derivation of the corresponding quench work and excess energy relations, and a quantitative validation of the coherent sector description via numerical simulations in both Minkowski and Friedmann--Robertson--Walker backgrounds. We also formulate the homogeneous fluctuation theory via the diagonal-$SO(3)$ $1 \oplus 3 \oplus 5$ decomposition and isolate a soft traceless-symmetric quintet with a $k=0$ vacuum obstruction, a regulated ultraviolet adiabatic bound, and a positive quartic stabilization term. Collectively, these results refine the theoretical description of inherited non-Abelian dark matter production and establish the necessary infrared framework for subsequent investigations of finite-$k$ gauge--Higgs transfer dynamics.</p>
-<h3>8. Extinction Distributions in Nearby Star-resolved Galaxies. II. M33</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-08T11:59:02+00:00</li>
-<li>Authors: Yuxi Wang, Yi Ren, Jian Gao, Bingqiu Chen, Ying Li</li>
-<li>Categories: astro-ph.GA, astro-ph.SR</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.06983v1">https://arxiv.org/pdf/2604.06983v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Extinction maps are essential for tracing interstellar dust and enabling accurate stellar population studies in galaxies. Here, a high-resolution extinction distribution of nearby galaxy M33 is constructed by fitting multiband color indexes of the individually resolved red giant branch (RGB) stars from the Panchromatic Hubble Andromeda Treasury: Triangulum Extended Region (PHATTER) survey. Achieving an angular resolution of approximately 6$^{\prime\prime}$ ($\sim$ 24.4 pc), the extinction map reveals the intricate and heterogeneous distribution of dust throughout the entire disk of M33, with distinct delineation of spiral arms, inter-arm regions, and compact dust clouds. In addition, it exhibits strong spatial correspondence with the distributions of total hydrogen, H I, and CO, underscoring the reliability of the extinction map for tracing both diffuse and dense components of the interstellar medium. The derived $V$-band extinction reaches up to 2.5 mag per pixel, with a mean value of about 1.05 mag. Beyond providing new insights into the dust structure of M33, the extinction map offers a robust foundation for accurate extinction corrections and will support future studies, including upcoming observations with the Chinese Space Station Telescope.</p>
-<h3>9. Galaxy discs regulate the growth of supermassive black holes</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies, dark matter</li>
-<li>Published: 2026-04-08T11:53:28+00:00</li>
-<li>Authors: Ryan J. Roberts, Jonathan J. Davies, Robert A. Crain</li>
-<li>Categories: astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.06977v1">https://arxiv.org/pdf/2604.06977v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>We examine the relationship between the mass of present-day central supermassive black holes (SMBHs, $M<em>{\rm BH}$), and the stellar mass ($M</em>{\star}$) and halo mass ($M<em>{200}$) of their host galaxies in the EAGLE simulation, and find that scatter about these relations correlates with both halo structure and galaxy morphology. EAGLE reproduces the observed $M</em>{\rm BH}$-$M<em>{\star}$ relation, including (qualitatively) its dependence on morphology: at fixed $M</em>{\star}$, disc-dominated galaxies host less massive SMBHs than ellipticals. We show that $M<em>{\rm BH}$ correlates with $M</em>{200}$, as expected if SMBHs are regulated by processes acting on the scale of the host dark matter halo, but exhibits a tighter correlation with the halo binding energy ($E<em>{\rm bind}$), signalling that this quantity, which encodes information about both halo mass and halo structure, is more fundamental to $M</em>{\rm BH}$. As with $M<em>{\rm BH}$-$M</em>{\star}$, scatter about the $M<em>{\rm BH}$-$E</em>{\rm bind}$ relation is strongly correlated with morphology. Gas in the central few parsecs of galaxies with present-day discs retains strong rotational support as the galaxy grows, inhibiting inward transport and precluding periods of rapid SMBH growth by gas accretion. In galaxies destined to be present-day ellipticals, however, this rotational support is disrupted, enabling gas to be funnelled onto the central SMBH, triggering rapid growth. Evolution of the mass fraction of stars formed ex-situ indicates that this disruption is caused by galaxy-galaxy interactions and mergers. Our findings corroborate the conclusion of recent studies, based on controlled simulations of an ~$L^{\star}$ galaxy, that prolonged secular galaxy evolution inhibits central SMBH growth.</p>
-<h3>10. Direct-detection constraints on inelastic dark matter with a scalar mediator</h3>
-<ul>
-<li><strong>Focus:</strong> dark matter</li>
-<li>Published: 2026-04-08T10:41:40+00:00</li>
-<li>Authors: I. V. Voronchikhin, D. V. Kirpichnikov</li>
-<li>Categories: hep-ph</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.06929v1">https://arxiv.org/pdf/2604.06929v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>We calculate direct detection constraints on inelastic dark matter (DM) for a scalar portal scenario with leptophilic couplings. The p-wave velocity suppression of the annihilation cross section of scalar-mediated inelastic Dirac DM implies the opening of viable regions of DM parameter space in the MeV-GeV mass range. Xenon-based experiments can provide a constraints on scalar-mediated inelastic fermion dark matter for sub-MeV mass splitting, via endothermic and exothermic spin-independent DM-electron scattering. To estimate the relevant constraints, we use public data from the XENON1T, PandaX-4T, and LZ liquid-xenon experiments that measure ionization electron signals.</p>
-<hr>
-<h2>Other candidates (not in top selection)</h2>
-<ul>
-<li><strong>Galactic Rotation Curves from Full-Disk Newtonian Gravity: The Lost and Found Model</strong> — dark matter — <a href="https://arxiv.org/pdf/2604.06917v1">https://arxiv.org/pdf/2604.06917v1</a></li>
-<li><strong>Memory-Burden Suppression of Hawking Radiation and Neutrino Constraints on Primordial Black Holes</strong> — dark matter — <a href="https://arxiv.org/pdf/2604.06858v1">https://arxiv.org/pdf/2604.06858v1</a></li>
-<li><strong>Gravitational Lensing as an Optical Framework for Modified Gravity Theories</strong> — gravitational lensing — <a href="https://arxiv.org/pdf/2604.06791v1">https://arxiv.org/pdf/2604.06791v1</a></li>
-<li><strong>An archival search for gamma-ray bursts gravitationally lensed by galaxy clusters</strong> — galaxy clusters — <a href="https://arxiv.org/pdf/2604.06311v1">https://arxiv.org/pdf/2604.06311v1</a></li>
-<li><strong>Zooming in on radio relics -- II. How relic morphology probes density fluctuations at the edge of galaxy clusters</strong> — galaxy clusters — <a href="https://arxiv.org/pdf/2604.06302v1">https://arxiv.org/pdf/2604.06302v1</a></li>
-<li><strong>JWST Lensed Quasar Dark Matter Survey V: Measuring the minimum halo mass with strong gravitational lensing</strong> — gravitational lensing — <a href="https://arxiv.org/pdf/2604.05237v1">https://arxiv.org/pdf/2604.05237v1</a></li>
-<li><strong>Revisiting The Gravitational Mirroring In Presence of Compact Objects</strong> — gravitational lensing — <a href="https://arxiv.org/pdf/2604.05009v1">https://arxiv.org/pdf/2604.05009v1</a></li>
-</ul>
-  </article>
+</header>
+<div class="page-wrap">
+  <main class="main-col">
+    <a class="back-link" href="../index.html">← All reports</a>
+    <div class="report-topbar"><span></span><div class="report-actions"><a class="action-pill" href="daily-2026-04-09.pdf">PDF</a></div></div>
+<div class="overview-card">
+  <div class="eyebrow">Today's Overview — April 09, 2026</div>
+  <div class="overview-body"><p>Recent arXiv preprints highlight advancements in understanding dark matter through various mechanisms such as magnetic fields, fermionic preheating, and interactions with standard model particles. In galaxy research, there are new insights into the structural complexity of spiral galaxies&#x27; central regions and the mass assembly processes in low-surface-brightness components. Additionally, studies on metallicity gradients at high redshifts provide evidence for strong accretion of pristine gas, while gravitational lensing is not directly addressed but inferred through cross-connections.</p></div>
+</div>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-blue">Galaxy Clusters</span>
+    <span class="topic-count">0 papers</span>
+  </div>
+  <div class="topic-synthesis c-blue"><p>No specific papers tagged under galaxy clusters are listed; thus, this section remains sparse with no recent notable submissions.</p></div>
+  <p class="no-papers">No papers in today's selection for this topic.</p>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-purple">Galaxies</span>
+    <span class="topic-count">5 papers</span>
+  </div>
+  <div class="topic-synthesis c-purple"><p>Recent studies on galaxies highlight the complex morphologies and dynamics in their central regions. For example, the GLANCE tool has been developed to analyze high-resolution data from MUSE observations of eight spiral galaxies, revealing diverse structures including disentangling cold, warm, hot orbital contributions, and counter-rotating components (Tracing the dynamical and structural complexity of spiral galaxy centres). In addition, the VST-SMASH survey is focusing on low surface brightness features in galactic outskirts to understand mass assembly processes and structural evolution. Metallicity gradients in high-redshift galaxies have been studied using JWST/NIRSpec-IFU data, indicating significant deviations from the local Fundamental Metallicity Relation due to strong accretion of pristine gas (Metal Mayhem at $\rm z \sim 7-10$). Extinction distributions in nearby star-resolved galaxies like M33 are being constructed with high-resolution extinction maps using RGB stars, providing robust foundations for future studies on interstellar dust and stellar populations.</p></div>
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.07297v1" target="_blank" rel="noopener">Tracing the dynamical and structural complexity of spiral galaxy centres</a></div>
+  <div class="card-authors">Iris Breda et al.</div>
+  <p class="card-abstract">The formation of late-type galaxies has traditionally been described via two pathways: one producing pressure-supported classical bulges, the other rotationally supported pseudo-bulges. Early studies relied on photometric decompositions assuming an exponential disk extrapolated inwards.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.07297v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 08</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.07083v1" target="_blank" rel="noopener">VST-SMASH: VST Survey of Mass Assembly and Structural Hierarchy I. Survey presentation and deep photometry of IC 5332: tracing the mass assembly in the challenging faintest-end regime</a></div>
+  <div class="card-authors">R. Ragusa et al.</div>
+  <p class="card-abstract">Understanding the formation and evolution of late type galaxies (LTG) requires deep imaging for tracing the faintest stellar components in their outskirts.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.07083v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 08</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.07076v1" target="_blank" rel="noopener">Metal Mayhem at $\rm z \sim 7-10$: Diversity and Evolution of Gas-Phase Metallicity Gradients</a></div>
+  <div class="card-authors">Maria Koller et al.</div>
+  <p class="card-abstract">We present a JWST/NIRSpec-IFU study of metallicity gradients in seven low-metallicity systems at $z=7.2-9.5$. The main sample spans stellar masses of $\rm \log(M_*/M_{\odot}) \sim 7.8-9.5$, star formation rates (SFRs) of $\rm \log(\text{SFR} / M_{\odot} \text{yr}^{-1}) \sim 0.5-2.5$, and gas-phase m…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.07076v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 08</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.06983v1" target="_blank" rel="noopener">Extinction Distributions in Nearby Star-resolved Galaxies. II. M33</a></div>
+  <div class="card-authors">Yuxi Wang et al.</div>
+  <p class="card-abstract">Extinction maps are essential for tracing interstellar dust and enabling accurate stellar population studies in galaxies. Here, a high-resolution extinction distribution of nearby galaxy M33 is constructed by fitting multiband color indexes of the individually resolved red giant branch (RGB) stars f…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.06983v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 08</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span>
+<span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.06977v1" target="_blank" rel="noopener">Galaxy discs regulate the growth of supermassive black holes</a></div>
+  <div class="card-authors">Ryan J. Roberts, Jonathan J. Davies, Robert A. Crain</div>
+  <p class="card-abstract">We examine the relationship between the mass of present-day central supermassive black holes (SMBHs, $M_{\rm BH}$), and the stellar mass ($M_{\star}$) and halo mass ($M_{200}$) of their host galaxies in the EAGLE simulation, and find that scatter about these relations correlates with both halo struc…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.06977v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 08</span>
+  </div>
+</article></div>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-teal">Gravitational Lensing</span>
+    <span class="topic-count">0 papers</span>
+  </div>
+  <div class="topic-synthesis c-teal"><p>No specific papers tagged under gravitational lensing are listed. However, insights into the dynamics of galaxies and their central black holes can indirectly contribute to our understanding of lensing effects due to massive halos (Galaxy discs regulate the growth of supermassive black holes). This work shows that galaxy morphology significantly influences SMBH masses, which could have implications for gravitational lensing phenomena.</p></div>
+  <p class="no-papers">No papers in today's selection for this topic.</p>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-amber">Dark Matter</span>
+    <span class="topic-count">5 papers</span>
+  </div>
+  <div class="topic-synthesis c-amber"><p>Recent research focuses on various mechanisms for dark matter production and detection. A study examines the relic abundance of vector dark matter originating from an axion-$SU(2)$ condensate, demonstrating a dynamical quantum quench problem that renormalizes standard abundance relations (Post-Inflationary Quenched Production of Axion SU(2) Dark Matter). Another paper explores constraints on inelastic dark matter with scalar mediators using direct detection experiments like XENON1T and PandaX-4T, opening viable parameter spaces for MeV-GeV mass ranges (Direct-detection constraints on inelastic dark matter with a scalar mediator).</p></div>
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.07327v1" target="_blank" rel="noopener">Primordial magnetic fields in the light of upcoming post-EoR Lyman-$α$ and 21-cm observations</a></div>
+  <div class="card-authors">Arko Bhaumik, Sourav Pal, Supratik Pal</div>
+  <p class="card-abstract">The Lorentz force exerted by a primordial magnetic field (PMF) on the coupled baryon-dark matter system may enhance total matter power at small scales after recombination.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.07327v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 08</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.07326v1" target="_blank" rel="noopener">Analytic Approximations for Fermionic Preheating</a></div>
+  <div class="card-authors">Heather E. Logan, Daniel Stolarski, Fazlul Yasin</div>
+  <p class="card-abstract">Non-thermal fermions can be produced non-perturbatively in the early universe during coherent oscillations of a scalar field. We explore fermion production in $λφ^{4}$ inflation through this mechanism and analyze the momentum spectrum of the fermions produced, which depends on a coupling parameter $…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.07326v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 08</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.07300v1" target="_blank" rel="noopener">Constraining magnetic monopoles and multiply charged particles with diphoton events at the LHC</a></div>
+  <div class="card-authors">Vasiliki A. Mitsou, Emanuela Musumeci</div>
+  <p class="card-abstract">The LHC is achieving energies never reached before, opening up possibilities for the discovery of exotic particles in the TeV mass range. Such states include magnetic monopoles, which can explain the electric charge quantisation and restore the symmetry in Maxwell&#x27;s equations with respect to the mag…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.07300v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">1 citations</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.07044v1" target="_blank" rel="noopener">Post-Inflationary Quenched Production of Axion SU(2) Dark Matter</a></div>
+  <div class="card-authors">Imtiaz Khan, Pirzada, G. Mustafa</div>
+  <p class="card-abstract">The relic abundance of vector dark matter originating from an inherited axion-$SU(2)$ condensate is typically determined by implementing an adiabatic matching procedure across the symmetry-breaking transition. We demonstrate that this outcome does not arise in the generic case.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.07044v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 08</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.06929v1" target="_blank" rel="noopener">Direct-detection constraints on inelastic dark matter with a scalar mediator</a></div>
+  <div class="card-authors">I. V. Voronchikhin, D. V. Kirpichnikov</div>
+  <p class="card-abstract">We calculate direct detection constraints on inelastic dark matter (DM) for a scalar portal scenario with leptophilic couplings. The p-wave velocity suppression of the annihilation cross section of scalar-mediated inelastic Dirac DM implies the opening of viable regions of DM parameter space in the…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.06929v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 08</span>
+  </div>
+</article></div>
+</section>
+  </main>
+  <aside class="sidebar">
+    
+  </aside>
+</div>
 </body>
 </html>

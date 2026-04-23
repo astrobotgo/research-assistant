@@ -5,260 +5,425 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Research Digest — April 21, 2026</title>
   <style>
-  :root {
-    color-scheme: light;
-    --bg: #f3efe5;
-    --paper: #fffdf8;
-    --ink: #1f2937;
-    --muted: #5b6472;
-    --line: #d8d1c2;
-    --accent: #0f766e;
-    --accent-strong: #134e4a;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: Georgia, "Times New Roman", serif;
-    color: var(--ink);
-    background:
-      radial-gradient(circle at top left, rgba(15,118,110,0.12), transparent 28rem),
-      linear-gradient(180deg, #f8f5ee 0%, var(--bg) 100%);
-    min-height: 100vh;
-  }
-  a { color: var(--accent-strong); text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
-  a:hover { color: var(--accent); }
+:root {
+  --bg:           #f5f3ee;
+  --paper:        #ffffff;
+  --ink:          #18181b;
+  --muted:        #71717a;
+  --line:         #e4e0d8;
+  --accent:       #0f766e;
+  --accent-dark:  #115e59;
 
-  body { padding: 0; }
-  .topbar {
-    position: sticky; top: 0; z-index: 10;
-    background: rgba(255,253,248,0.92); backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--line);
-    padding: 0.75rem 1.5rem;
-    display: flex; justify-content: space-between; align-items: center;
-    gap: 1rem;
-  }
-  .topbar-left { display: flex; align-items: center; gap: 1rem; }
-  .topbar-title { font-size: 0.95rem; color: var(--muted); font-style: italic; }
-  .back-link { font-size: 0.9rem; white-space: nowrap; }
-  .topbar-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .btn-sm {
-    display: inline-block; padding: 0.35rem 0.85rem; border-radius: 999px;
-    background: var(--accent); color: white; text-decoration: none;
-    font-size: 0.85rem; font-weight: 600;
-  }
-  .btn-sm:hover { background: var(--accent-strong); color: white; }
-  .btn-sm.outline {
-    background: transparent; color: var(--accent-strong);
-    border: 1px solid var(--line);
-  }
-  .btn-sm.outline:hover { background: rgba(15,118,110,0.08); }
-  article {
-    max-width: 52rem; margin: 0 auto; padding: 2.5rem 1.5rem 5rem;
-  }
-  article h1 { font-size: clamp(1.6rem,3.5vw,2.5rem); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 1.5rem; }
-  article h2 { font-size: 1.35rem; margin: 2.5rem 0 0.75rem; padding-top: 1.5rem; border-top: 1px solid var(--line); letter-spacing: -0.01em; }
-  article h2:first-of-type { border-top: none; padding-top: 0; }
-  article h3 { font-size: 1.1rem; margin: 1.75rem 0 0.5rem; color: var(--accent-strong); }
-  article h4 { font-size: 0.95rem; margin: 1.25rem 0 0.25rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
-  article p { line-height: 1.75; margin: 0.75rem 0; }
-  article ul, article ol { line-height: 1.7; margin: 0.5rem 0 0.5rem 1.25rem; padding: 0; }
-  article li { display: list-item; border: none; padding: 0.15rem 0; font-size: 1rem; }
-  article li::marker { color: var(--accent); }
-  article hr { border: none; border-top: 1px solid var(--line); margin: 2rem 0; }
-  article strong { color: var(--ink); }
-  article code { font-size: 0.9em; background: rgba(0,0,0,0.05); padding: 0.1em 0.3em; border-radius: 3px; }
-  article blockquote { border-left: 3px solid var(--accent); margin: 1rem 0; padding: 0.25rem 1rem; color: var(--muted); }
-  .report-meta { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
-  @media (max-width: 640px) {
-    .topbar { flex-direction: column; align-items: flex-start; }
-    article { padding: 1.5rem 1rem 4rem; }
-  }
+  --blue:         #1d4ed8; --blue-bg:   #eff6ff;
+  --purple:       #7c3aed; --purple-bg: #f5f3ff;
+  --teal:         #0f766e; --teal-bg:   #f0fdfa;
+  --amber:        #b45309; --amber-bg:  #fffbeb;
+
+  --header-h: 56px;
+  --r: 10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Header ── */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--header-h);
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.header-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+  height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.site-brand { display: flex; align-items: center; gap: 0.5rem; }
+.site-name { font-weight: 800; font-size: 1rem; letter-spacing: -0.03em; color: var(--accent-dark); }
+.site-tagline { font-size: 0.8rem; color: var(--muted); }
+.header-right { display: flex; align-items: center; gap: 0.75rem; }
+.date-label { font-size: 0.82rem; color: var(--muted); }
+.header-pill {
+  font-size: 0.75rem; font-weight: 600; padding: 0.22rem 0.65rem;
+  border: 1px solid var(--line); border-radius: 999px;
+  color: var(--muted); background: transparent;
+}
+.header-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+/* ── Page layout ── */
+.page-wrap {
+  max-width: 1200px; margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 2rem;
+  align-items: start;
+}
+.main-col { min-width: 0; }
+
+/* ── Overview ── */
+.overview-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  margin-bottom: 2.25rem;
+}
+.eyebrow {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.overview-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem; line-height: 1.82; color: #27272a;
+}
+.overview-body p + p { margin-top: 0.6rem; }
+
+/* ── Topic section ── */
+.topic-section { margin-bottom: 2.5rem; }
+.topic-header {
+  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem;
+}
+.topic-badge {
+  font-size: 0.75rem; font-weight: 700; padding: 0.28rem 0.8rem;
+  border-radius: 999px; letter-spacing: 0.02em;
+}
+.c-blue   { background: var(--blue-bg);   color: var(--blue);   }
+.c-purple { background: var(--purple-bg); color: var(--purple); }
+.c-teal   { background: var(--teal-bg);   color: var(--teal);   }
+.c-amber  { background: var(--amber-bg);  color: var(--amber);  }
+.topic-count { font-size: 0.82rem; color: var(--muted); }
+
+.topic-synthesis {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.92rem; line-height: 1.78; color: #3f3f46;
+  border-left: 3px solid var(--line);
+  padding: 0.6rem 1rem;
+  margin-bottom: 1.1rem;
+  border-radius: 0 4px 4px 0;
+}
+.topic-synthesis.c-blue   { border-left-color: var(--blue);   }
+.topic-synthesis.c-purple { border-left-color: var(--purple); }
+.topic-synthesis.c-teal   { border-left-color: var(--teal);   }
+.topic-synthesis.c-amber  { border-left-color: var(--amber);  }
+.topic-synthesis p + p { margin-top: 0.5rem; }
+.topic-synthesis ul { padding-left: 1.2rem; }
+.topic-synthesis li { margin-bottom: 0.25rem; }
+
+/* ── Paper cards ── */
+.papers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 0.9rem;
+}
+.paper-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1rem 1.15rem;
+  display: flex; flex-direction: column; gap: 0.45rem;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.paper-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.08); border-color: #c8c4bc; }
+.card-pills { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.pill {
+  font-size: 0.68rem; font-weight: 600; padding: 0.12rem 0.48rem;
+  border-radius: 999px; letter-spacing: 0.03em;
+}
+.pill-blue   { background: var(--blue-bg);   color: var(--blue);   }
+.pill-purple { background: var(--purple-bg); color: var(--purple); }
+.pill-teal   { background: var(--teal-bg);   color: var(--teal);   }
+.pill-amber  { background: var(--amber-bg);  color: var(--amber);  }
+.pill-watch  { background: #fef3c7; color: #92400e; }
+
+.card-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem; font-weight: 600; line-height: 1.4;
+}
+.card-title a { color: var(--ink); }
+.card-title a:hover { color: var(--accent); text-decoration: underline; }
+.card-authors { font-size: 0.78rem; color: var(--muted); }
+.card-abstract {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.83rem; line-height: 1.65; color: #52525b;
+  flex: 1;
+}
+.card-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 0.3rem; border-top: 1px solid var(--line);
+  margin-top: 0.1rem;
+}
+.card-arxiv { font-size: 0.76rem; font-weight: 600; color: var(--accent); }
+.card-arxiv:hover { text-decoration: underline; }
+.card-cite { font-size: 0.76rem; color: var(--muted); }
+
+.no-papers { font-size: 0.88rem; color: var(--muted); font-style: italic; padding: 0.5rem 0; }
+
+/* ── Open questions ── */
+.open-qs-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.open-qs-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem; line-height: 1.75; color: #3f3f46;
+}
+.open-qs-body ul { padding-left: 1.25rem; }
+.open-qs-body li { margin-bottom: 0.35rem; }
+.open-qs-body p + p { margin-top: 0.5rem; }
+
+/* ── Sidebar ── */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 1.25rem);
+  display: flex; flex-direction: column; gap: 1.1rem;
+  max-height: calc(100vh - var(--header-h) - 2.5rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding-right: 2px;
+}
+.sidebar-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1rem 1.1rem;
+}
+.sidebar-title {
+  font-size: 0.67rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+  padding-bottom: 0.5rem; margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+.ctx-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.82rem; line-height: 1.68; color: #52525b;
+}
+.ctx-body p + p { margin-top: 0.4rem; }
+.ctx-body ul { padding-left: 1.1rem; }
+.ctx-body li { margin-bottom: 0.22rem; }
+.ctx-body h2, .ctx-body h3 { font-size: 0.82rem; margin: 0.5rem 0 0.3rem; color: var(--ink); }
+
+.must-list { list-style: none; }
+.must-list li {
+  border-top: 1px solid var(--line); padding: 0.55rem 0;
+  font-size: 0.81rem; line-height: 1.5;
+}
+.must-list li:first-child { border-top: none; padding-top: 0; }
+
+.archive-list { list-style: none; }
+.archive-list li { border-top: 1px solid var(--line); }
+.archive-list li:first-child { border-top: none; }
+.archive-list a {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.45rem 0; font-size: 0.82rem; color: var(--ink);
+}
+.archive-list a:hover { color: var(--accent); text-decoration: none; }
+.arc-label { font-weight: 500; }
+.arc-date { font-size: 0.77rem; color: var(--muted); }
+
+/* ── Report page nav ── */
+.report-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.75rem; flex-wrap: wrap;
+}
+.back-link { font-size: 0.85rem; color: var(--accent); }
+.report-actions { display: flex; gap: 0.5rem; }
+.action-pill {
+  font-size: 0.77rem; font-weight: 600; padding: 0.28rem 0.75rem;
+  border: 1px solid var(--line); border-radius: 999px; color: var(--muted);
+}
+.action-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .page-wrap { grid-template-columns: 1fr; }
+  .sidebar { position: static; max-height: none; overflow-y: visible; }
+}
+@media (max-width: 600px) {
+  .header-tagline, .date-label { display: none; }
+  .papers-grid { grid-template-columns: 1fr; }
+  .page-wrap { padding: 1.25rem 1rem 3rem; }
+}
 </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="topbar-left">
-      <a class="back-link" href="../index.html">← All reports</a>
-      <span class="topbar-title">April 21, 2026</span>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="site-brand">
+      <span class="site-name">Research Digest</span>
+      <span class="site-tagline">Galaxy clusters · Galaxies · Lensing · Dark matter</span>
     </div>
-    <div class="topbar-actions">
-      <a class="btn-sm outline" href="daily-2026-04-21.pdf">PDF</a>
-      <a class="btn-sm outline" href="../videos/daily-2026-04-21.mp4">Video</a>
+    <div class="header-right">
+      <span class="date-label">April 21, 2026</span>
+      
     </div>
   </div>
-  <article>
-    <h1>Daily research digest — 2026-04-21</h1>
-<p>Topics scanned: galaxy clusters, galaxies, gravitational lensing, dark matter.</p>
-<p><strong>Pool:</strong> 16 recent papers gathered. <strong>Presenting:</strong> 10 chosen by the local model for this briefing.</p>
-<p><strong>Selection note:</strong> <em>Selection failed (timed out); using newest k.</em></p>
-<h2>Research briefing (synthesized)</h2>
-<h2>Executive Overview</h2>
-<p>Recent preprints continue to delve into the complex dynamics and properties of galaxies, particularly focusing on star formation history, gas kinematics, and magnetic fields. Advances in instrumentation have enabled new insights into galaxy evolution across different redshifts, from local surveys with GaiaNIR to high-redshift studies using JWST/NIRSpec and NOEMA. Gravitational lensing research is expanding beyond traditional second-order statistics by exploring fourth-order correlations, indicating a growing interest in non-Gaussian features of the cosmic web. Meanwhile, dark matter investigations leverage new observational capabilities such as GaiaNIR and continue to probe its influence on galaxy populations through simulations like IllustrisTNG.</p>
-<h2>Galaxy Clusters</h2>
-<p>The preprints focus on characterizing magnetic fields within clusters using high-resolution spectro-polarimetric data from MeerKAT, revealing the Fornax cluster&#x27;s intra-cluster magnetic field strength and structure. These studies are critical for understanding the impact of large-scale magnetic fields on galaxy formation and evolution in cluster environments.</p>
-<h2>Galaxies</h2>
-<p>Recent work has expanded our knowledge of galactic properties across a range of redshifts:</p>
+</header>
+<div class="page-wrap">
+  <main class="main-col">
+    <a class="back-link" href="../index.html">← All reports</a>
+    <div class="report-topbar"><span></span><div class="report-actions"><a class="action-pill" href="daily-2026-04-21.pdf">PDF</a><a class="action-pill" href="../videos/daily-2026-04-21.mp4">Video</a></div></div>
+<div class="overview-card">
+  <div class="eyebrow">Today's Overview — April 21, 2026</div>
+  <div class="overview-body"><p>Recent preprints continue to delve into the complex dynamics and properties of galaxies, particularly focusing on star formation history, gas kinematics, and magnetic fields. Advances in instrumentation have enabled new insights into galaxy evolution across different redshifts, from local surveys with GaiaNIR to high-redshift studies using JWST/NIRSpec and NOEMA. Gravitational lensing research is expanding beyond traditional second-order statistics by exploring fourth-order correlations, indicating a growing interest in non-Gaussian features of the cosmic web. Meanwhile, dark matter investigations leverage new observational capabilities such as GaiaNIR and continue to probe its influence on galaxy populations through simulations like IllustrisTNG.</p></div>
+</div>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-blue">Galaxy Clusters</span>
+    <span class="topic-count">0 papers</span>
+  </div>
+  <div class="topic-synthesis c-blue"><p>The preprints focus on characterizing magnetic fields within clusters using high-resolution spectro-polarimetric data from MeerKAT, revealing the Fornax cluster&#x27;s intra-cluster magnetic field strength and structure. These studies are critical for understanding the impact of large-scale magnetic fields on galaxy formation and evolution in cluster environments.</p></div>
+  <p class="no-papers">No papers in today's selection for this topic.</p>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-purple">Galaxies</span>
+    <span class="topic-count">8 papers</span>
+  </div>
+  <div class="topic-synthesis c-purple"><p>Recent work has expanded our knowledge of galactic properties across a range of redshifts:</p>
 <ul>
 <li><strong>ISM and Outflows</strong>: Research using JWST/NIRSpec reveals that Na D-traced neutral ISM is predominantly found at lower metallicities, indicating significant star formation histories (up to \(z \sim 0.4\)).</li>
 <li><strong>Gas Kinematics</strong>: High-resolution kinematic studies of the Fornax cluster from MeerKAT provide detailed insights into magnetic field properties and their influence on intra-cluster environments.</li>
 <li><strong>Stellar Halo Anisotropy</strong>: The Milky Way&#x27;s stellar halo velocity anisotropies are probed using large samples with Gaia data, showing a transition from radial to tangential velocities at greater radii, reinforcing hierarchical accretion models.</li>
-</ul>
-<h2>Gravitational Lensing</h2>
-<p>Fourth-order statistical measures in gravitational lensing provide new tools for studying non-Gaussian features of the cosmic web. The four-point correlation function (4PCF) between shear and galaxy positions is being developed as a means to detect higher-order correlations from stage IV surveys, potentially revealing more detailed insights into the structure of the universe.</p>
-<h2>Dark Matter</h2>
-<p>New dark matter investigations include:</p>
+</ul></div>
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.18522v1" target="_blank" rel="noopener">A Census of Na D-traced neutral ISM and outflows at $0.6&lt;z&lt;4$</a></div>
+  <div class="card-authors">Yang Sun et al.</div>
+  <p class="card-abstract">We present a statistical census of the Na D-traced neutral interstellar medium (ISM) and outflows in 309 galaxies at $0.6&lt;z&lt;4$ using JWST/NIRSpec medium-resolution grating spectroscopy from the SMILES, JADES, Blue Jay, and Aurora surveys.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.18522v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 20</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.18503v1" target="_blank" rel="noopener">NOEMA3D: Resolving radial gas flows in disk galaxies at z~1.1-1.6 with high-resolution CO observations</a></div>
+  <div class="card-authors">Jean-Baptiste Jolly et al.</div>
+  <p class="card-abstract">We present NOEMA3D, a unique high-resolution study of purely molecular gas kinematics at $z \sim 1.1$ to 1.6, providing a dedicated view of cold gas dynamics at the late stages of the peak epoch of cosmic star formation.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.18503v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 20</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.18504v1" target="_blank" rel="noopener">NOEMA3D: Spatially resolved dust, CO, and [C I] in massive star-forming main sequence galaxies at cosmic noon</a></div>
+  <div class="card-authors">Jianhang Chen et al.</div>
+  <p class="card-abstract">We present a spatially resolved study of cold molecular gas and dust in ten main-sequence galaxies at z=1.1-1.6, using observations of CO(4-3), CO(3-2), [C I](1-0), and dust continuum from the NOEMA3D survey.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.18504v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 20</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.18382v1" target="_blank" rel="noopener">Molecular Clouds at the Edge of the Galaxy II. Physical properties and scaling relations</a></div>
+  <div class="card-authors">C. S. Luo et al.</div>
+  <p class="card-abstract">The outer Galaxy presents an optimal setting for investigating molecular clouds and star formation in environments with low metallicity. A total of 72 Galactic edge clouds were surveyed using the CO\,(2--1) line with the IRAM\,30\,m telescope, leading to the identification of 112 CO clumps within mo…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.18382v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 20</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span>
+<span class="pill pill-teal">Gravitational Lensing</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.18378v1" target="_blank" rel="noopener">Fourth-order galaxy-galaxy-lensing: Theoretical framework and direct estimation</a></div>
+  <div class="card-authors">Jonathan Oel et al.</div>
+  <p class="card-abstract">Traditional galaxy-galaxy lensing is a well-established method of probing the statistical properties of the Universe&#x27;s matter and galaxy distribution. However, this measure does not carry all the statistical information, provided the matter and galaxy distribution contain non-Gaussian features.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.18378v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 20</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.18338v1" target="_blank" rel="noopener">The MeerKAT Fornax Survey VII. Characterisation of the Fornax cluster&#x27;s magnetic field and new insights on magnetisation in large scale systems</a></div>
+  <div class="card-authors">Francesca Loi et al.</div>
+  <p class="card-abstract">Large scale magnetic fields in galaxy clusters can influence their physics and the evolution of the cluster galaxies. These properties remain poorly constrained due to a historical lack of high-sensitivity and high-resolution spectro-polarimetric data.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.18338v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 20</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.18278v1" target="_blank" rel="noopener">Characterizing the velocity anisotropy of the Milky Way&#x27;s stellar halo</a></div>
+  <div class="card-authors">F. O. Barbosa et al.</div>
+  <p class="card-abstract">Modeling the Milky Way stellar halo requires well-determined density and velocity anisotropy profiles. However, it has been challenging to gather a large sample of stars with six-dimensional data that extend beyond 40 kpc to map the outer halo.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.18278v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 20</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span>
+<span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.18209v1" target="_blank" rel="noopener">Galaxy Populations in the IllustrisTNG Caustic Skeleton</a></div>
+  <div class="card-authors">Benjamin Hertzsch, Job Feldbrugge, Rien van de Weygaert</div>
+  <p class="card-abstract">The caustic skeleton is a parameter-free and mathematically rigorous formalism for tracing the hierarchical formation history of the multiscale cosmic web from the singularities in the underlying dark matter flow.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.18209v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 20</span>
+  </div>
+</article></div>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-teal">Gravitational Lensing</span>
+    <span class="topic-count">0 papers</span>
+  </div>
+  <div class="topic-synthesis c-teal"><p>Fourth-order statistical measures in gravitational lensing provide new tools for studying non-Gaussian features of the cosmic web. The four-point correlation function (4PCF) between shear and galaxy positions is being developed as a means to detect higher-order correlations from stage IV surveys, potentially revealing more detailed insights into the structure of the universe.</p></div>
+  <p class="no-papers">No papers in today's selection for this topic.</p>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-amber">Dark Matter</span>
+    <span class="topic-count">2 papers</span>
+  </div>
+  <div class="topic-synthesis c-amber"><p>New dark matter investigations include:</p>
 <ul>
 <li><strong>Globular Clusters</strong>: GaiaNIR simulations predict enhanced sensitivity for detecting extended dark matter halos in globular clusters like M4, especially under high extinction conditions.</li>
 <li><strong>IllustrisTNG Caustic Skeleton</strong>: This work explores the relationship between galaxy populations and their embedding within the cosmic web&#x27;s caustic skeleton, revealing that different regions of the cosmic web influence galaxy properties such as color and star formation activity.</li>
-</ul>
-<h2>Latest Results from Neutrino Observatories</h2>
-<p>The IceCube Neutrino Observatory continues to expand our understanding of high-energy astrophysical processes. Recent results include identifying steady neutrino sources like NGC 1068, measuring flavor composition, setting limits on atmospheric neutrinos, and searching for dark matter annihilation signals in the Sun. Future upgrades will enhance sensitivity to lower-energy neutrinos and enable more detailed studies.</p>
-<h2>Characterizing Velocity Anisotropy</h2>
-<p>The velocity anisotropy profile of the Milky Way&#x27;s stellar halo is thoroughly examined using a large sample of blue horizontal-branch stars, combining Gaia astrometric data with spectroscopic surveys. This study finds that radial velocities dominate in the inner halo (\(&lt; 30\) kpc), transitioning to tangential dispersion at larger radii, suggesting significant hierarchical accretion events.</p>
-<h2>Conclusion</h2>
-<p>These recent preprints underscore advancements in understanding galaxy evolution, gas dynamics, and dark matter interactions through advanced observational techniques and high-resolution simulations. Insights from gravitational lensing are expanding into higher-order statistical measures, while neutrino observatories like IceCube continue to reveal the high-energy universe&#x27;s secrets. Future missions like GaiaNIR promise even greater precision and new discoveries in galactic and dark matter studies.</p>
-<h2>Key Papers</h2>
-<p>1. <strong>Characterizing the velocity anisotropy of the Milky Way’s stellar halo</strong> (2026) 2. <strong>Galaxy Populations in the IllustrisTNG Caustic Skeleton</strong> (2026) 3. <strong>From Gaia to GaiaNIR: I. Probing dark matter halos in globular clusters</strong> (2026) 4. <strong>Latest results from the IceCube Neutrino Observatory</strong> (2026) 5. <strong>Fourth-order statistical measures in gravitational lensing: extending analytical basis and aperture statistics</strong> (2026)</p>
-<p>These studies collectively provide a comprehensive overview of current research trends in astrophysics, highlighting both ongoing advancements and future directions in our quest to understand the cosmos.</p>
-<hr>
-<h2>Catalog (selected)</h2>
-<h3>1. A Census of Na D-traced neutral ISM and outflows at $0.6&lt;z&lt;4$</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-20T17:19:44+00:00</li>
-<li>Authors: Yang Sun, Zhiyuan Ji, Francesco D&#x27;Eugenio, Yongda Zhu, George H. Rieke, William M. Baker, Andrew J. Bunker, Stefano Carniani, Jakob M. Helton, Michele Perna, Pablo G. Pérez-González, Pierluigi Rinaldi, Hannah Übler, Christopher N. A. Willmer</li>
-<li>Categories: astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.18522v1">https://arxiv.org/pdf/2604.18522v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>We present a statistical census of the Na D-traced neutral interstellar medium (ISM) and outflows in 309 galaxies at $0.6&lt;z&lt;4$ using JWST/NIRSpec medium-resolution grating spectroscopy from the SMILES, JADES, Blue Jay, and Aurora surveys. After subtracting the stellar continuum, we model the Na D $λλ5890, 5896$ Åand detect neutral ISM absorption in 76 galaxies. Of the Na D-traced ISM detections, 85\% are found in massive galaxies ($\log(M<em>*/M</em>\odot)&gt;10$), and only 15\% in lower-mass systems. In the massive regime, ISM absorption is seen in both star-forming and quiescent galaxies, whereas in lower-mass systems it is observed only in star-forming galaxies. In massive quiescent galaxies, Na D detectability appears linked to star formation history: it is preferentially detected in older systems with larger 4000 Åbreaks, as well as younger, rapidly quenching galaxies with strong Balmer absorption H$δ_A$. We identify Na D outflows in 26 galaxies, revealing a possible dichotomy in their driving mechanisms between star-forming and quiescent galaxies. In star-forming galaxies, outflow properties correlate with star-formation properties, consistent with a star-formation-driven origin. In quiescent galaxies, however, outflows are not associated with residual star formation and often require more energy than such star formation can provide. Together with the high AGN fraction among outflow-detected quiescent galaxies, this suggests that AGN dominate Na D-traced neutral outflows in cosmic noon quiescent systems. We further identify five quiescent galaxies with possible AGN fossil outflows, suggesting that AGN-driven outflows can persist beyond the active accretion phase and may help maintain quiescence.</p>
-<h4>Semantic Scholar</h4>
-<ul>
-<li>Year: 2026</li>
-<li>Venue: </li>
-<li>Citation Count: 0</li>
-<li>Influential Citations: 0</li>
-<li>Fields of Study: Physics</li>
-<li>URL: <a href="https://www.semanticscholar.org/paper/0313a55bd71d0084d8402015626502f85a114f51">https://www.semanticscholar.org/paper/0313a55bd71d0084d8402015626502f85a114f51</a></li>
-</ul>
-<h3>2. NOEMA3D: Resolving radial gas flows in disk galaxies at z~1.1-1.6 with high-resolution CO observations</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-20T16:53:44+00:00</li>
-<li>Authors: Jean-Baptiste Jolly, Linda J. Tacconi, Reinhard Genzel, Roberto Neri, Karl Schuster, Jianhang Chen, Natascha M. Förster Schreiber, Stavros Pastras, Letizia Scaloni, Giulia Tozzi, Capucine Barféty, Alberto Bolatto, Andreas Burker, Françoise Combes, Pierre Cox, Ric Davies, Frank Eisenhauer, Juan Manuel Espejo Salcedo, Rodrigo Herrera-Camu, Santi García-Burillo, Tadayuki Kodama, Lilian Lee, Minju M. Lee, Daizhong Liu, Dieter Lutz, Giovanni Mazzolari, Thorsten Naab, Amit Nestor Shachar, Claudia Pulsoni, Alvio Renzini, Monica Rubio, Taro T. Shimizu, Amiel Sternberg, Eckhard Sturm, Hannah Übler, Antonio Usero, Stijn Wuyts</li>
-<li>Categories: astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.18503v1">https://arxiv.org/pdf/2604.18503v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>We present NOEMA3D, a unique high-resolution study of purely molecular gas kinematics at $z \sim 1.1$ to 1.6, providing a dedicated view of cold gas dynamics at the late stages of the peak epoch of cosmic star formation. Using deep ($gtrsim 20$ hr on source per target) IRAM-NOEMA CO observations of 10 massive ($10.45 &lt; log(M^*/M<em>\odot) &lt; 11.43$) ) main-sequence galaxies, complemented by high-resolution JWST imaging, we resolve the molecular gas kinematics and morphology on kiloparsec scales. We find that all galaxies exhibit ordered rotation with moderate intrinsic turbulence (median $σ</em>0 \sim 32 \pm 10$ km/s, median $V<em>c/σ</em>0 \sim 8.6 \pm 2.9$), consistent with dynamically turbulent disks at late cosmic noon. After modeling the axisymmetric rotation with the forward-modeling code DysmalPy, we reveal spatially coherent velocity residuals in all but one more inclined system. The inferred in-plane non circular motions reach amplitudes of $\sim 50$-100 km/s, significantly larger than typically observed in local disk galaxies. Interpreting these non-circular motions as radial flows we find that the velocity residuals spatially coincide with non-axisymmetric structures -- spiral arms and bars -- demonstrating a direct link between galaxy morphology and gas transport at $z \sim 1$-2. In spiral galaxies, the residual velocity patterns are typically dominated by inflows, while barred systems display an apparent inflow-outflow pattern, characteristic of in-plane bar-driven gas motions. We further find that the inferred molecular gas inflow rates are substantial, with a typical net inflow rate of the order of the star formation rate ( $\dot M \sim -50 M_\odot/$yr). This implies that spiral arms and bars at cosmic noon are highly efficient at funneling cold gas toward galaxy centers, perhaps driving the buildup of bulges and feeding central star forming regions and supermassive black holes.</p>
-<h4>Semantic Scholar</h4>
-<ul>
-<li>Year: 2026</li>
-<li>Venue: </li>
-<li>Citation Count: 0</li>
-<li>Influential Citations: 0</li>
-<li>Fields of Study: Physics</li>
-<li>URL: <a href="https://www.semanticscholar.org/paper/cde702c1e14469162b1e8a3c90e0057ad73867bf">https://www.semanticscholar.org/paper/cde702c1e14469162b1e8a3c90e0057ad73867bf</a></li>
-</ul>
-<h3>3. NOEMA3D: Spatially resolved dust, CO, and [C I] in massive star-forming main sequence galaxies at cosmic noon</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-20T16:53:44+00:00</li>
-<li>Authors: Jianhang Chen, Linda J. Tacconi, Reinhard Genzel, Roberto Neri, Karl Schuster, Natascha M. Förster Schreiber, Jean-Baptiste Jolly, Stavros Pastras, Letizia Scaloni, Giulia Tozzi, Capucine Barféty, Alberto Bolatto, Andreas Burker, Françoise Combes, Pierre Cox, Ric Davies, Frank Eisenhauer, Juan Manuel Espejo Salcedo, Rodrigo Herrera-Camu, Santi García-Burillo, Tadayuki Kodama, Lilian Lee, Minju M. Lee, Daizhong Liu, Dieter Lutz, Giovanni Mazzolari, Thorsten Naab, Amit Nestor Shachar, Claudia Pulsoni, Alvio Renzini, Monica Rubio, Taro T. Shimizu, Amiel Sternberg, Eckhard Sturm, Hannah Übler, Antonio Usero, Stijn Wuyts</li>
-<li>Categories: astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.18504v1">https://arxiv.org/pdf/2604.18504v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>We present a spatially resolved study of cold molecular gas and dust in ten main-sequence galaxies at z=1.1-1.6, using observations of CO(4-3), CO(3-2), [C I](1-0), and dust continuum from the NOEMA3D survey. We find a widely presence of spatially extended molecular gas and dust, with sizes comparable to those of the stellar disk, in contrast to those of central-dominated starburst galaxies at similar redshifts. While various molecular gas tracers generally exhibit similar spatial distributions, the CO line (J=3-2 or J=4-3) remain the most effective for mapping molecular gas distribution and kinematics. In addition, the spatially resolved correlations between different molecular gas tracers exhibit about two times larger scatter than their galactic-integrated correlations, indicating that interstellar medium (ISM) conditions already deviate from global averages on scales of 3-6 kpc, likely reflecting the clumpy or inhomogeneous ISM in cosmic noon star-forming galaxies. Within our sample, both the molecular gas fraction and its depletion time are nearly constant across the galactic disks out to 2 Re, supporting a global linear Kennicutt-Schmidt law. The presence of extended molecular gas disks, along with regular stellar structures, small central bulges, and ordered cold gas kinematics, supports the idea that the evolution of main-sequence disk galaxies at cosmic noon is driven by steady gas accretion and transport through prominent spiral arms and/or bars. This process stands in contrast to the merger-driven stochastic gas accretion in compact starbursts.</p>
-<h4>Semantic Scholar</h4>
-<ul>
-<li>Year: 2026</li>
-<li>Venue: </li>
-<li>Citation Count: 0</li>
-<li>Influential Citations: 0</li>
-<li>Fields of Study: Physics</li>
-<li>URL: <a href="https://www.semanticscholar.org/paper/fd4544dffa7c8804a7ccc73c8e5a525063051c69">https://www.semanticscholar.org/paper/fd4544dffa7c8804a7ccc73c8e5a525063051c69</a></li>
-</ul>
-<h3>4. Molecular Clouds at the Edge of the Galaxy II. Physical properties and scaling relations</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-20T15:05:09+00:00</li>
-<li>Authors: C. S. Luo, X. D. Tang, C. Henkel, Y. Sun, Y. Gong, X. W. Zheng, T. Liu, X. Lu, Y. P. Ao, X. P. Chen, D. L. Li, Y. X. He, K. Wang, J. W. Wu, J. Esimbek, J. J. Zhou, G. Wu, Y. X. Ma, W. A. Baan, J. J. Qiu, X. Zhao, J. S. Li, Q. Zhao, L. D. Liu, C. Y. Wang</li>
-<li>Categories: astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.18382v1">https://arxiv.org/pdf/2604.18382v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>The outer Galaxy presents an optimal setting for investigating molecular clouds and star formation in environments with low metallicity. A total of 72 Galactic edge clouds were surveyed using the CO\,(2--1) line with the IRAM\,30\,m telescope, leading to the identification of 112 CO clumps within molecular clouds with linear resolutions of 0.5--0.9\,pc. Parameters such as size, mass, surface density, and velocity dispersion of these CO clumps, derived from CO\,(2--1) observations, exhibit ranges of 0.6--3.4\,pc, 34--8250\,M$<em>\odot$, 12--1025\,M$</em>{\odot}$\,pc$^{-2}$, and 0.3--1.7\,km\,s$^{-1}$, respectively. Over the Galactocentric distance range of 14--23\,kpc, no systematic variations are found in these parameters. The velocity dispersion-size relationship of the Galactic edge clumps is modeled as $σ<em>{\rm v}$\,=\,0.69($\pm$0.03)$R</em>{\rm eff}^{0.36(\pm0.10)}$, indicating that turbulence is present within the Galactic edge clumps, akin to observations in the inner Galactic disk clouds. Furthermore, the luminous mass-size relation of the Galactic edge clumps is described by $M<em>{\rm lum}$\,=\,196($\pm$17)$R</em>{\rm eff}^{\,2.18\,(\pm0.26)}$, suggesting the average column density remains almost constant for clouds of different sizes. The virial parameters range from 0.6 to 15.3, with a median value of 2.8\,$\pm$\,0.6, suggesting that most clumps are gravitationally unbound. Furthermore, the virial parameters of our Galactic edge clumps show a decreasing trend with increasing Galactocentric distances, described by an exponential relation $α<em>{\rm vir}$\,=\,33.0($\pm$\,10.4)\,e$^{-R</em>{\rm g}/6.7(\pm0.9)}$, consistent with previous results.</p>
-<h3>5. Fourth-order galaxy-galaxy-lensing: Theoretical framework and direct estimation</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies, gravitational lensing</li>
-<li>Published: 2026-04-20T15:04:01+00:00</li>
-<li>Authors: Jonathan Oel, Lucas Porth, Peter Schneider, Elena Silvestre-Rosello</li>
-<li>Categories: astro-ph.CO</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.18378v1">https://arxiv.org/pdf/2604.18378v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Traditional galaxy-galaxy lensing is a well-established method of probing the statistical properties of the Universe&#x27;s matter and galaxy distribution. However, this measure does not carry all the statistical information, provided the matter and galaxy distribution contain non-Gaussian features. In order to study these non-Gaussianities, it is necessary to consider higher-order statistical measures. The aim of this work is to extend the analytical basis describing the statistical correlations between galaxies and shear to the fourth order, with special emphasis on the associated aperture statistics. In order to include fourth-order statistics in future analysis of the relation between mass and galaxies, we further investigate whether we can expect to detect these statistics from observations of stage IV surveys. We define the four-point correlation function (4PCF) between the shear and the positions of triplets of foreground galaxies and derive its relation to the respective trispectrum. We convert the 4PCF to aperture statistics and derive the analytical form of the respective filter function, which we then implement in a numerical integration pipeline. Furthermore, we develop a direct estimator that allows us to measure galaxy-mass aperture moments of arbitrary order on pixelized data using a Fast-Fourier-Transform (FFT) algorithm. We show that the corresponding aperture measure $\langle\mathcal{N}^3 M<em>\mathrm{ap}\rangle$ can be calculated with sub-percent accuracy on relevant aperture scales, $θ$, by means of numerical integration. Furthermore, we apply the FFT-based direct estimator to a mock catalog with a realistic stage IV survey setup on a sky area of $2000~\mathrm{deg}^2$, and detect the connected part of the aperture statistics $\langle\mathcal{N}^3 M</em>\mathrm{ap}\rangle(θ)$ with a signal-to-noise ratio of roughly nine on small aperture scales.</p>
-<h3>6. The MeerKAT Fornax Survey VII. Characterisation of the Fornax cluster&#x27;s magnetic field and new insights on magnetisation in large scale systems</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-20T14:39:15+00:00</li>
-<li>Authors: Francesca Loi, Matteo Murgia, Federica Govoni, Paolo Serra, Valentina Vacca, Filippo Marcello Maccagni, Peter Kamphuis, Dane Kleiner</li>
-<li>Categories: astro-ph.CO</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.18338v1">https://arxiv.org/pdf/2604.18338v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Large scale magnetic fields in galaxy clusters can influence their physics and the evolution of the cluster galaxies. These properties remain poorly constrained due to a historical lack of high-sensitivity and high-resolution spectro-polarimetric data. Thanks to the advent of the SKA pathfinders and precursors this is now dramatically changing. By exploiting the densest RM grid produced to date with broadband spectro-polarimetric data in the context of the MeerKAT Fornax Survey and presented in a previous paper (508 sources over 6.35 deg$^2$), we aim to study in detail the Fornax cluster&#x27;s magnetic field. We compare the RM grid properties with numerical simulations to constrain the strength and the structure of the intra-cluster magnetic field. We model the magnetic field power spectrum with a power-law and we find a slope of $\sim$2.7 fluctuating between $\sim$1 and $\sim$15 kpc. It has a central strength of $\sim$5$μ$G decreasing with the thermal plasma density according to a power-law exponent of $\sim$1.6, the highest value to date in large scale systems. By analysing a sample of 17 galaxy clusters and groups with magnetic field estimates from the literature, we observe larger auto-correlation lengths in the case of massive merging clusters and lower values for relaxed clusters and low-mass systems. We also observe a systematic increase of the central magnetic field strength as a function of central density, $B<em>0\propto n</em>0^{0.38}$. Finally, we argue that the steepening of the Fornax cluster&#x27;s magnetic field profile and its relatively high central strength could be indicative of a recent re-amplification at the centre due to the extended central radio galaxy. The sample analysis supports the proposed scenario, although more detailed magnetic field studies conducted using consistent modelling on larger samples are needed to better understand magnetisation in clusters and groups.</p>
-<h3>7. Characterizing the velocity anisotropy of the Milky Way&#x27;s stellar halo</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-20T13:52:18+00:00</li>
-<li>Authors: F. O. Barbosa, A. Pérez-Villegas, S. Rossi, R. M. Santucci, L. Aguilar, H. D. Perottoni, G. Limberg, L. Borbolato, J. V. Nogueira-Santos</li>
-<li>Categories: astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.18278v1">https://arxiv.org/pdf/2604.18278v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Modeling the Milky Way stellar halo requires well-determined density and velocity anisotropy profiles. However, it has been challenging to gather a large sample of stars with six-dimensional data that extend beyond 40 kpc to map the outer halo. Our work investigates the velocity anisotropy in the Milky Way stellar halo with more than 10,000 blue horizontal-branch stars, combining Gaia astrometric data and spectroscopic data from SEGUE, DESI and LAMOST. This large sample allows us to obtain a detailed profile of up to $\sim$70 kpc. Radial velocities are predominant in the inner halo ($&lt; 30$ kpc), and the anisotropy presents a smooth decrease before rapidly dropping to negative values, becoming dominated by tangential dispersion velocities. Removing the main known accreted structures of the Milky Way, makes the anisotropy profile radially-dominated at all radii. Our profile clearly shows an increase in the anisotropy from the center of the Galaxy, in accordance to the simulations. We also investigate the correlation of anisotropy with metallicity and with color. The lack of correlation between metallicity and anisotropy in our clean sample reinforces that this relation is driven by merger events. The initial exploration with color indicates a relation between kinematics and age, showing that older stars are dynamically colder and present less radial orbits than younger stars in the inner halo.</p>
-<h3>8. From Gaia to GaiaNIR: I. Probing dark matter halos in globular clusters</h3>
-<ul>
-<li><strong>Focus:</strong> dark matter</li>
-<li>Published: 2026-04-20T13:38:13+00:00</li>
-<li>Authors: I. Henum, D. Hobbs, Ó. Jiménez-Arranz, P. J. McMillan, R. P. Church</li>
-<li>Categories: astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.18265v1">https://arxiv.org/pdf/2604.18265v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>The proposed GaiaNIR mission would extend Gaia&#x27;s astrometric capabilities into the near-infrared, improving astrometric precision and enabling observations in heavily dust-obscured regions. In this work, we investigate the impact of GaiaNIR on the detectability of dark matter halos in globular clusters by comparing its performance with that of Gaia. Expected observations from future Gaia data releases and GaiaNIR are modeled for a globular cluster with properties similar to M4. The cluster is simulated with a range of dark matter halo sizes and varying levels of extinction, allowing a direct assessment of each mission&#x27;s ability to detect and distinguish dark matter halos across different extinction conditions. To support this comparison, the relationship between the Gaia G band and several near-infrared bands is examined. We find that Gaia can resolve extended dark matter halos in low-extinction conditions, but its performance degrades significantly as extinction increases. In contrast, GaiaNIR reduces statistical uncertainties and retains sensitivity to extended halos even with strong extinction. These results indicate that GaiaNIR would both strengthen constraints on kinematic signatures accessible to Gaia and enable the study of clusters in heavily obscured regions that are currently beyond Gaia&#x27;s reach.</p>
-<h3>9. Galaxy Populations in the IllustrisTNG Caustic Skeleton</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies, dark matter</li>
-<li>Published: 2026-04-20T12:56:25+00:00</li>
-<li>Authors: Benjamin Hertzsch, Job Feldbrugge, Rien van de Weygaert</li>
-<li>Categories: astro-ph.CO, astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.18209v1">https://arxiv.org/pdf/2604.18209v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>The caustic skeleton is a parameter-free and mathematically rigorous formalism for tracing the hierarchical formation history of the multiscale cosmic web from the singularities in the underlying dark matter flow. In the present study, we explicitly use the multistreaming nature of the cosmic mass distribution to address the influence of the weblike embedding on the galaxy populations and discern their properties in different web environments. To this end, we construct the multiscale caustic skeleton of the dark mass distribution in the state-of-the-art suite of the large-scale IllustrisTNG simulations. In addition to the multistreaming dark matter density field, we assess the characteristic properties of the intergalactic baryonic gas in the vicinity of the caustics. Next, we associate the galaxies with the voids, walls, filaments and cluster nodes, and investigate their colours and star formation activities. A unique feature of the analysis is that it explicitly addresses the multiscale aspects with respect to the galaxy population, assessing issues such as the fraction of (blue) galaxies as a function of the scale of the cosmic web pattern and its caustic features. We find that the galaxy properties form a continuum in the scale-space cosmic web. Intimately coupled to the hierarchical build-up of the cosmic structure, it also allows us to systematically assess the impact of the formation time of the various structural components of the cosmic web on the galaxy properties. This furthers insight into the establishment of the observed colour-density relation of galaxies.</p>
-<h3>10. Latest results from the IceCube Neutrino Observatory</h3>
-<ul>
-<li><strong>Focus:</strong> dark matter</li>
-<li>Published: 2026-04-20T12:34:25+00:00</li>
-<li>Authors: Thijs Juan van Eeden</li>
-<li>Categories: astro-ph.HE, hep-ex</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.18178v1">https://arxiv.org/pdf/2604.18178v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>The IceCube Neutrino Observatory has opened a new window into the high-energy Universe, providing measurements of neutrinos over a broad energy range. This contribution presents recent results, including a follow-up on the first identification of a steady neutrino source NGC 1068, measurements of the flavor composition of the diffuse astrophysical flux, limits on prompt atmospheric neutrinos, and searches for neutrinos from dark matter annihilation in the Sun. These measurements probe neutrino production mechanisms, fundamental particle interactions, and physics beyond the Standard Model. Looking forward, the recently deployed IceCube Upgrade will enhance sensitivity to lower-energy neutrinos and reduce systematic uncertainties, while the planned IceCube-Gen2 will expand the detector volume, increase the neutrino detection rate, and extend energy reach, enabling more detailed studies of cosmic sources and high-energy particle physics.</p>
-<hr>
-<h2>Other candidates (not in top selection)</h2>
-<ul>
-<li><strong>In-depth analysis of the clustering of dark matter particles around primordial black holes. Part III: CMB constraints</strong> — dark matter — <a href="https://arxiv.org/pdf/2604.18007v1">https://arxiv.org/pdf/2604.18007v1</a></li>
-<li><strong>Efficiently emulating distribution functions in gigaparsec volumes for varying cosmological parameters</strong> — dark matter — <a href="https://arxiv.org/pdf/2604.17981v1">https://arxiv.org/pdf/2604.17981v1</a></li>
-<li><strong>Probing Cosmic-Ray-Boosted and Supernova-Sourced Sub-GeV Dark Matter with Paleo-Detectors</strong> — dark matter — <a href="https://arxiv.org/pdf/2604.17869v1">https://arxiv.org/pdf/2604.17869v1</a></li>
-<li><strong>Searching for dark photons in $J/ψ$ decays</strong> — dark matter — <a href="https://arxiv.org/pdf/2604.17726v1">https://arxiv.org/pdf/2604.17726v1</a></li>
-<li><strong>Weak Gravitational Lensing: A Brief Overview</strong> — gravitational lensing — <a href="https://arxiv.org/pdf/2604.17355v1">https://arxiv.org/pdf/2604.17355v1</a></li>
-<li><strong>Signatures of Suppressed Matter Clustering revealed by Fast Radio Bursts</strong> — gravitational lensing — <a href="https://arxiv.org/pdf/2604.17162v1">https://arxiv.org/pdf/2604.17162v1</a></li>
-</ul>
-  </article>
+</ul></div>
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.18265v1" target="_blank" rel="noopener">From Gaia to GaiaNIR: I. Probing dark matter halos in globular clusters</a></div>
+  <div class="card-authors">I. Henum et al.</div>
+  <p class="card-abstract">The proposed GaiaNIR mission would extend Gaia&#x27;s astrometric capabilities into the near-infrared, improving astrometric precision and enabling observations in heavily dust-obscured regions.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.18265v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 20</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.18178v1" target="_blank" rel="noopener">Latest results from the IceCube Neutrino Observatory</a></div>
+  <div class="card-authors">Thijs Juan van Eeden</div>
+  <p class="card-abstract">The IceCube Neutrino Observatory has opened a new window into the high-energy Universe, providing measurements of neutrinos over a broad energy range. This contribution presents recent results, including a follow-up on the first identification of a steady neutrino source NGC 1068, measurements of th…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.18178v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 20</span>
+  </div>
+</article></div>
+</section>
+  </main>
+  <aside class="sidebar">
+    
+  </aside>
+</div>
 </body>
 </html>

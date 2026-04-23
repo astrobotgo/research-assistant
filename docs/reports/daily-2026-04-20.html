@@ -5,185 +5,387 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Research Digest — April 20, 2026</title>
   <style>
-  :root {
-    color-scheme: light;
-    --bg: #f3efe5;
-    --paper: #fffdf8;
-    --ink: #1f2937;
-    --muted: #5b6472;
-    --line: #d8d1c2;
-    --accent: #0f766e;
-    --accent-strong: #134e4a;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: Georgia, "Times New Roman", serif;
-    color: var(--ink);
-    background:
-      radial-gradient(circle at top left, rgba(15,118,110,0.12), transparent 28rem),
-      linear-gradient(180deg, #f8f5ee 0%, var(--bg) 100%);
-    min-height: 100vh;
-  }
-  a { color: var(--accent-strong); text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
-  a:hover { color: var(--accent); }
+:root {
+  --bg:           #f5f3ee;
+  --paper:        #ffffff;
+  --ink:          #18181b;
+  --muted:        #71717a;
+  --line:         #e4e0d8;
+  --accent:       #0f766e;
+  --accent-dark:  #115e59;
 
-  body { padding: 0; }
-  .topbar {
-    position: sticky; top: 0; z-index: 10;
-    background: rgba(255,253,248,0.92); backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--line);
-    padding: 0.75rem 1.5rem;
-    display: flex; justify-content: space-between; align-items: center;
-    gap: 1rem;
-  }
-  .topbar-left { display: flex; align-items: center; gap: 1rem; }
-  .topbar-title { font-size: 0.95rem; color: var(--muted); font-style: italic; }
-  .back-link { font-size: 0.9rem; white-space: nowrap; }
-  .topbar-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .btn-sm {
-    display: inline-block; padding: 0.35rem 0.85rem; border-radius: 999px;
-    background: var(--accent); color: white; text-decoration: none;
-    font-size: 0.85rem; font-weight: 600;
-  }
-  .btn-sm:hover { background: var(--accent-strong); color: white; }
-  .btn-sm.outline {
-    background: transparent; color: var(--accent-strong);
-    border: 1px solid var(--line);
-  }
-  .btn-sm.outline:hover { background: rgba(15,118,110,0.08); }
-  article {
-    max-width: 52rem; margin: 0 auto; padding: 2.5rem 1.5rem 5rem;
-  }
-  article h1 { font-size: clamp(1.6rem,3.5vw,2.5rem); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 1.5rem; }
-  article h2 { font-size: 1.35rem; margin: 2.5rem 0 0.75rem; padding-top: 1.5rem; border-top: 1px solid var(--line); letter-spacing: -0.01em; }
-  article h2:first-of-type { border-top: none; padding-top: 0; }
-  article h3 { font-size: 1.1rem; margin: 1.75rem 0 0.5rem; color: var(--accent-strong); }
-  article h4 { font-size: 0.95rem; margin: 1.25rem 0 0.25rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
-  article p { line-height: 1.75; margin: 0.75rem 0; }
-  article ul, article ol { line-height: 1.7; margin: 0.5rem 0 0.5rem 1.25rem; padding: 0; }
-  article li { display: list-item; border: none; padding: 0.15rem 0; font-size: 1rem; }
-  article li::marker { color: var(--accent); }
-  article hr { border: none; border-top: 1px solid var(--line); margin: 2rem 0; }
-  article strong { color: var(--ink); }
-  article code { font-size: 0.9em; background: rgba(0,0,0,0.05); padding: 0.1em 0.3em; border-radius: 3px; }
-  article blockquote { border-left: 3px solid var(--accent); margin: 1rem 0; padding: 0.25rem 1rem; color: var(--muted); }
-  .report-meta { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
-  @media (max-width: 640px) {
-    .topbar { flex-direction: column; align-items: flex-start; }
-    article { padding: 1.5rem 1rem 4rem; }
-  }
+  --blue:         #1d4ed8; --blue-bg:   #eff6ff;
+  --purple:       #7c3aed; --purple-bg: #f5f3ff;
+  --teal:         #0f766e; --teal-bg:   #f0fdfa;
+  --amber:        #b45309; --amber-bg:  #fffbeb;
+
+  --header-h: 56px;
+  --r: 10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Header ── */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--header-h);
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.header-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+  height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.site-brand { display: flex; align-items: center; gap: 0.5rem; }
+.site-name { font-weight: 800; font-size: 1rem; letter-spacing: -0.03em; color: var(--accent-dark); }
+.site-tagline { font-size: 0.8rem; color: var(--muted); }
+.header-right { display: flex; align-items: center; gap: 0.75rem; }
+.date-label { font-size: 0.82rem; color: var(--muted); }
+.header-pill {
+  font-size: 0.75rem; font-weight: 600; padding: 0.22rem 0.65rem;
+  border: 1px solid var(--line); border-radius: 999px;
+  color: var(--muted); background: transparent;
+}
+.header-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+/* ── Page layout ── */
+.page-wrap {
+  max-width: 1200px; margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 2rem;
+  align-items: start;
+}
+.main-col { min-width: 0; }
+
+/* ── Overview ── */
+.overview-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  margin-bottom: 2.25rem;
+}
+.eyebrow {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.overview-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem; line-height: 1.82; color: #27272a;
+}
+.overview-body p + p { margin-top: 0.6rem; }
+
+/* ── Topic section ── */
+.topic-section { margin-bottom: 2.5rem; }
+.topic-header {
+  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem;
+}
+.topic-badge {
+  font-size: 0.75rem; font-weight: 700; padding: 0.28rem 0.8rem;
+  border-radius: 999px; letter-spacing: 0.02em;
+}
+.c-blue   { background: var(--blue-bg);   color: var(--blue);   }
+.c-purple { background: var(--purple-bg); color: var(--purple); }
+.c-teal   { background: var(--teal-bg);   color: var(--teal);   }
+.c-amber  { background: var(--amber-bg);  color: var(--amber);  }
+.topic-count { font-size: 0.82rem; color: var(--muted); }
+
+.topic-synthesis {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.92rem; line-height: 1.78; color: #3f3f46;
+  border-left: 3px solid var(--line);
+  padding: 0.6rem 1rem;
+  margin-bottom: 1.1rem;
+  border-radius: 0 4px 4px 0;
+}
+.topic-synthesis.c-blue   { border-left-color: var(--blue);   }
+.topic-synthesis.c-purple { border-left-color: var(--purple); }
+.topic-synthesis.c-teal   { border-left-color: var(--teal);   }
+.topic-synthesis.c-amber  { border-left-color: var(--amber);  }
+.topic-synthesis p + p { margin-top: 0.5rem; }
+.topic-synthesis ul { padding-left: 1.2rem; }
+.topic-synthesis li { margin-bottom: 0.25rem; }
+
+/* ── Paper cards ── */
+.papers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 0.9rem;
+}
+.paper-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1rem 1.15rem;
+  display: flex; flex-direction: column; gap: 0.45rem;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.paper-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.08); border-color: #c8c4bc; }
+.card-pills { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.pill {
+  font-size: 0.68rem; font-weight: 600; padding: 0.12rem 0.48rem;
+  border-radius: 999px; letter-spacing: 0.03em;
+}
+.pill-blue   { background: var(--blue-bg);   color: var(--blue);   }
+.pill-purple { background: var(--purple-bg); color: var(--purple); }
+.pill-teal   { background: var(--teal-bg);   color: var(--teal);   }
+.pill-amber  { background: var(--amber-bg);  color: var(--amber);  }
+.pill-watch  { background: #fef3c7; color: #92400e; }
+
+.card-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem; font-weight: 600; line-height: 1.4;
+}
+.card-title a { color: var(--ink); }
+.card-title a:hover { color: var(--accent); text-decoration: underline; }
+.card-authors { font-size: 0.78rem; color: var(--muted); }
+.card-abstract {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.83rem; line-height: 1.65; color: #52525b;
+  flex: 1;
+}
+.card-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 0.3rem; border-top: 1px solid var(--line);
+  margin-top: 0.1rem;
+}
+.card-arxiv { font-size: 0.76rem; font-weight: 600; color: var(--accent); }
+.card-arxiv:hover { text-decoration: underline; }
+.card-cite { font-size: 0.76rem; color: var(--muted); }
+
+.no-papers { font-size: 0.88rem; color: var(--muted); font-style: italic; padding: 0.5rem 0; }
+
+/* ── Open questions ── */
+.open-qs-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.open-qs-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem; line-height: 1.75; color: #3f3f46;
+}
+.open-qs-body ul { padding-left: 1.25rem; }
+.open-qs-body li { margin-bottom: 0.35rem; }
+.open-qs-body p + p { margin-top: 0.5rem; }
+
+/* ── Sidebar ── */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 1.25rem);
+  display: flex; flex-direction: column; gap: 1.1rem;
+  max-height: calc(100vh - var(--header-h) - 2.5rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding-right: 2px;
+}
+.sidebar-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1rem 1.1rem;
+}
+.sidebar-title {
+  font-size: 0.67rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+  padding-bottom: 0.5rem; margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+.ctx-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.82rem; line-height: 1.68; color: #52525b;
+}
+.ctx-body p + p { margin-top: 0.4rem; }
+.ctx-body ul { padding-left: 1.1rem; }
+.ctx-body li { margin-bottom: 0.22rem; }
+.ctx-body h2, .ctx-body h3 { font-size: 0.82rem; margin: 0.5rem 0 0.3rem; color: var(--ink); }
+
+.must-list { list-style: none; }
+.must-list li {
+  border-top: 1px solid var(--line); padding: 0.55rem 0;
+  font-size: 0.81rem; line-height: 1.5;
+}
+.must-list li:first-child { border-top: none; padding-top: 0; }
+
+.archive-list { list-style: none; }
+.archive-list li { border-top: 1px solid var(--line); }
+.archive-list li:first-child { border-top: none; }
+.archive-list a {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.45rem 0; font-size: 0.82rem; color: var(--ink);
+}
+.archive-list a:hover { color: var(--accent); text-decoration: none; }
+.arc-label { font-weight: 500; }
+.arc-date { font-size: 0.77rem; color: var(--muted); }
+
+/* ── Report page nav ── */
+.report-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.75rem; flex-wrap: wrap;
+}
+.back-link { font-size: 0.85rem; color: var(--accent); }
+.report-actions { display: flex; gap: 0.5rem; }
+.action-pill {
+  font-size: 0.77rem; font-weight: 600; padding: 0.28rem 0.75rem;
+  border: 1px solid var(--line); border-radius: 999px; color: var(--muted);
+}
+.action-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .page-wrap { grid-template-columns: 1fr; }
+  .sidebar { position: static; max-height: none; overflow-y: visible; }
+}
+@media (max-width: 600px) {
+  .header-tagline, .date-label { display: none; }
+  .papers-grid { grid-template-columns: 1fr; }
+  .page-wrap { padding: 1.25rem 1rem 3rem; }
+}
 </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="topbar-left">
-      <a class="back-link" href="../index.html">← All reports</a>
-      <span class="topbar-title">April 20, 2026</span>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="site-brand">
+      <span class="site-name">Research Digest</span>
+      <span class="site-tagline">Galaxy clusters · Galaxies · Lensing · Dark matter</span>
     </div>
-    <div class="topbar-actions">
-      <a class="btn-sm outline" href="daily-2026-04-20.pdf">PDF</a>
+    <div class="header-right">
+      <span class="date-label">April 20, 2026</span>
       
     </div>
   </div>
-  <article>
-    <h1>Daily research digest — 2026-04-20</h1>
-<p>Topics scanned: galaxy clusters, galaxies, gravitational lensing, dark matter.</p>
-<p><strong>Pool:</strong> 5 recent papers gathered. <strong>Presenting:</strong> 5 chosen by the local model for this briefing.</p>
-<p><strong>Selection note:</strong> Pool smaller than target; including all.</p>
-<h2>Research briefing (synthesized)</h2>
-<h2>Executive overview</h2>
-<p>Recent arXiv preprints have yielded new insights into metallicity calibrations for galaxies across a wide range of redshifts, explored the frequency distribution of core-collapse supernovae as influenced by galactic metallicity, and identified a class of &quot;V-shaped&quot; sources in high-redshift galaxies through Euclid observations. In dark matter research, upcoming radio telescopes are being evaluated for their potential to probe Primordial Black Holes (PBHs) via Fast Radio Burst lensing events, while the impact of thermal effects on Dark Matter production during cosmic reheating is also under scrutiny.</p>
-<h2>Galaxy clusters</h2>
-<p>This section lacks specific preprints dedicated to galaxy clusters. However, advancements in galaxy studies are indirectly relevant and may provide broader context for understanding larger-scale structures such as galaxy clusters.</p>
-<h2>Galaxies</h2>
-<p>Recent work has advanced our understanding of metallicity calibrations across the local universe and high-redshift galaxies through a comprehensive set of empirical relations derived from a large sample of HII regions and star-forming galaxies (DESIRED; 2604.16273). The study extends to various elemental abundances, providing robust diagnostics for metallicity that include both homogeneous temperature conditions and scenarios with temperature inhomogeneities.</p>
+</header>
+<div class="page-wrap">
+  <main class="main-col">
+    <a class="back-link" href="../index.html">← All reports</a>
+    <div class="report-topbar"><span></span><div class="report-actions"><a class="action-pill" href="daily-2026-04-20.pdf">PDF</a></div></div>
+<div class="overview-card">
+  <div class="eyebrow">Today's Overview — April 20, 2026</div>
+  <div class="overview-body"><p>Recent arXiv preprints have yielded new insights into metallicity calibrations for galaxies across a wide range of redshifts, explored the frequency distribution of core-collapse supernovae as influenced by galactic metallicity, and identified a class of &quot;V-shaped&quot; sources in high-redshift galaxies through Euclid observations. In dark matter research, upcoming radio telescopes are being evaluated for their potential to probe Primordial Black Holes (PBHs) via Fast Radio Burst lensing events, while the impact of thermal effects on Dark Matter production during cosmic reheating is also under scrutiny.</p></div>
+</div>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-blue">Galaxy Clusters</span>
+    <span class="topic-count">0 papers</span>
+  </div>
+  <div class="topic-synthesis c-blue"><p>This section lacks specific preprints dedicated to galaxy clusters. However, advancements in galaxy studies are indirectly relevant and may provide broader context for understanding larger-scale structures such as galaxy clusters.</p></div>
+  <p class="no-papers">No papers in today's selection for this topic.</p>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-purple">Galaxies</span>
+    <span class="topic-count">3 papers</span>
+  </div>
+  <div class="topic-synthesis c-purple"><p>Recent work has advanced our understanding of metallicity calibrations across the local universe and high-redshift galaxies through a comprehensive set of empirical relations derived from a large sample of HII regions and star-forming galaxies (DESIRED; 2604.16273). The study extends to various elemental abundances, providing robust diagnostics for metallicity that include both homogeneous temperature conditions and scenarios with temperature inhomogeneities.</p>
 <p>The relationship between core-collapse supernovae frequencies and galactic metallicity has also been explored (2604.16230), revealing insights into how the environment influences stellar evolution and explosive events within galaxies. Observational samples are compared to less biased distance-limited subsamples, highlighting differences in SN types found at various metallicities.</p>
-<p>Euclid observations have introduced a new class of high-redshift galaxies known as &quot;Little Red Dots&quot; with unique spectral energy distributions (SEDs) indicative of extreme compactness and stellar mass properties (2604.16178). This study extends the scope to include larger sky areas, revealing potentially more massive analogues to these intriguing sources.</p>
-<h2>Gravitational lensing</h2>
-<p>There are no specific gravitational lensing preprints in this list, but related work on Fast Radio Bursts (FRBs) involves potential lensing effects that could probe dark matter via Primordial Black Holes (PBHs).</p>
-<h2>Dark matter</h2>
-<p>Recent studies focus on the potential of upcoming radio telescopes such as LOFAR2.0 and BINGO to detect FRB lensing events, which can constrain the fraction of dark matter in PBH form (2604.16154). The impact of thermal effects during cosmic reheating on Dark Matter production has also been assessed (2604.16085), finding that corrections are generally small but with potential exceptions.</p>
-<h2>Cross-cutting themes</h2>
-<p>A common thread in recent preprints is the exploration of high-redshift phenomena, whether through metallicity studies or novel galaxy populations identified via advanced telescopic surveys like Euclid and JWST. Additionally, there is a focus on leveraging new observational capabilities to probe fundamental astrophysical questions, such as dark matter composition and stellar evolution.</p>
-<h2>Papers to read first</h2>
-<ul>
-<li><strong>&quot;The DESIRED strong-line calibrations: I. New empirical metallicity relations for the local and high-redshift universe&quot; (2604.16273)</strong></li>
-</ul>
-<p>- This paper presents the most comprehensive set of empirical optical strong-line metallicity calibrations to date, essential for understanding chemical evolution in galaxies.</p>
-<ul>
-<li><strong>&quot;Relative frequencies of core-collapse supernovae as a function of metallicity: observations vs theoretical predictions&quot; (2604.16230)</strong></li>
-</ul>
-<p>- This study provides crucial insights into the relationship between galactic environments and stellar evolution endpoints.</p>
-<h2>Open questions and follow-ups</h2>
-<p>Several papers hint at open questions in their respective fields:</p>
+<p>Euclid observations have introduced a new class of high-redshift galaxies known as &quot;Little Red Dots&quot; with unique spectral energy distributions (SEDs) indicative of extreme compactness and stellar mass properties (2604.16178). This study extends the scope to include larger sky areas, revealing potentially more massive analogues to these intriguing sources.</p></div>
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.16273v1" target="_blank" rel="noopener">The DESIRED strong-line calibrations: I. New empirical metallicity relations for the local and high-redshift universe</a></div>
+  <div class="card-authors">F. F. Rosales-Ortega et al.</div>
+  <p class="card-abstract">We present the most comprehensive set of empirical optical strong-line metallicity calibrations to date, based on the DEep Spectra of Ionised REgions Database (DESIRED), the largest compilation of HII regions and galaxies with direct electron-temperature determinations assembled to date.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.16273v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 17</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.16230v1" target="_blank" rel="noopener">Relative frequencies of core-collapse supernovae as a function of metallicity: observations vs theoretical predictions</a></div>
+  <div class="card-authors">Claudia P. Gutiérrez et al.</div>
+  <p class="card-abstract">Understanding supernova (SN) progenitors remains a major challenge in astrophysics, as it involves untangling the complex interplay between stellar physics (e.g., evolution, binarity, explosion) and environments (e.g., metallicity, star formation rate).…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.16230v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 17</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.16178v1" target="_blank" rel="noopener">Euclid: Scaled-up little red dots and other sources with v-shaped spectral energy distributions at z&gt;4</a></div>
+  <div class="card-authors">Euclid Collaboration et al.</div>
+  <p class="card-abstract">Little Red Dots (LRDs) are some the most intriguing galaxy populations recently identified at z&gt;~4 with JWST. They constitute the most extreme class of a more abundant population of sources with `V-shaped&#x27; spectral energy distributions (SEDs) and compact morphologies, which includes also Little Blue…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.16178v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 17</span>
+  </div>
+</article></div>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-teal">Gravitational Lensing</span>
+    <span class="topic-count">0 papers</span>
+  </div>
+  <div class="topic-synthesis c-teal"><p>There are no specific gravitational lensing preprints in this list, but related work on Fast Radio Bursts (FRBs) involves potential lensing effects that could probe dark matter via Primordial Black Holes (PBHs).</p></div>
+  <p class="no-papers">No papers in today's selection for this topic.</p>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-amber">Dark Matter</span>
+    <span class="topic-count">2 papers</span>
+  </div>
+  <div class="topic-synthesis c-amber"><p>Recent studies focus on the potential of upcoming radio telescopes such as LOFAR2.0 and BINGO to detect FRB lensing events, which can constrain the fraction of dark matter in PBH form (2604.16154). The impact of thermal effects during cosmic reheating on Dark Matter production has also been assessed (2604.16085), finding that corrections are generally small but with potential exceptions.</p></div>
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.16154v1" target="_blank" rel="noopener">Probing Primordial Black Holes with upcoming Radio Telescopes: a case study for LOFAR2.0, FAST Core Array and BINGO</a></div>
+  <div class="card-authors">Joao R. L. Santos, Guillem Domènech, Amilcar R. Queiroz</div>
+  <p class="card-abstract">Fast Radio Bursts (FRBs) are among the most intriguing phenomena observed in radio astronomy. So far, about 130 FRB signals have been confirmed and characterized by different surveys, and the CHIME telescope has recently reported a new catalog of 4539 bursts.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.16154v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 17</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.16085v1" target="_blank" rel="noopener">Thermal effects on Dark Matter production during cosmic reheating</a></div>
+  <div class="card-authors">Marco Drewes et al.</div>
+  <p class="card-abstract">The relic abundance of Dark Matter (DM) produced via thermal freeze-in is sensitive to the thermal history during and after cosmic reheating. In minimal models, this opens up the possibility to make predictions for collider observables by combining the requirement to match the DM relic abundance wit…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.16085v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 17</span>
+  </div>
+</article></div>
+</section>
+<div class="open-qs-card">
+  <div class="eyebrow">Open Questions &amp; Follow-ups</div>
+  <div class="open-qs-body"><p>Several papers hint at open questions in their respective fields:</p>
 <ul>
 <li>How do temperature variations affect the derived metallicity calibrations?</li>
 <li>What is the exact nature of the &quot;V-shaped&quot; spectral energy distributions observed by Euclid, and how representative are these sources for high-redshift galaxy populations?</li>
 <li>Can FRB lensing be a reliable probe for detecting PBHs as dark matter constituents given current observational constraints?</li>
 <li>How do thermal effects during cosmic reheating influence Dark Matter production, and what are the implications for collider observables?</li>
 </ul>
-<hr>
-<h2>Catalog (selected)</h2>
-<h3>1. The DESIRED strong-line calibrations: I. New empirical metallicity relations for the local and high-redshift universe</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-17T17:29:02+00:00</li>
-<li>Authors: F. F. Rosales-Ortega, J. E. Méndez-Delgado, J. U. Guerrero-González, C. Esteban, J. García-Rojas, K. Z. Arellano-Córdova, A. Z. Lugo-Aranda, O. Espíndola-Camacho, J. C. López-Gutiérrez, L. E. Martínez-Rivero, C. Morisset, M. Orte-García, E. Reyes-Rodríguez, L. Toribio San Cipriano, K. Kreckel, O. Egorov, I. A. Zinchenko, S. F. Sánchez, J. M. Vílchez</li>
-<li>Categories: astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.16273v1">https://arxiv.org/pdf/2604.16273v1</a></li>
+<hr></div>
+</div>
+  </main>
+  <aside class="sidebar">
+    <div class="sidebar-card">
+  <div class="sidebar-title">Recommended reading</div>
+  <div class="ctx-body"><ul>
+<li><strong>&quot;The DESIRED strong-line calibrations: I. New empirical metallicity relations for the local and high-redshift universe&quot; (2604.16273)</strong></li>
 </ul>
-<h4>Abstract</h4>
-<p>We present the most comprehensive set of empirical optical strong-line metallicity calibrations to date, based on the DEep Spectra of Ionised REgions Database (DESIRED), the largest compilation of HII regions and galaxies with direct electron-temperature determinations assembled to date. We construct a high-quality calibration sample of 2392 spectra$-$1029 extragalactic HII regions, 1296 local star-forming galaxies, and 67 high-redshift ($z &gt; 2$) galaxies$-$drawn from 201 independent literature references and spanning $12+\log({\rm O/H}) \in [6.79, 9.07]$. Physical conditions and chemical abundances are derived homogeneously using up-to-date atomic data. We derive 27 strong-line calibrations covering oxygen-, nitrogen-, sulphur-, argon-, and neon-based line ratios, including 4 previously uncalibrated diagnostics, with reported validity ranges and intrinsic dispersions (typically $\sim0.15-0.35$ dex). For the first time in a systematic calibration framework, all relations are presented for both the homogeneous temperature case ($t^2 = 0$) and a scenario including temperature inhomogeneities ($t^2 &gt; 0$), thereby reconciling abundances from recombination lines (RLs) and collisionally excited lines (CELs) and directly tackling the abundance discrepancy problem. A comparison with previous calibrations shows that the DESIRED relations span the broadest validity intervals while remaining anchored to the empirical data. Crucially, recently proposed JWST-based high-redshift calibrations are consistent with our relations within the intrinsic scatter, demonstrating that the diverse composition of the DESIRED sample naturally encompasses the ionisation conditions found at high redshift. These results indicate that sample diversity, rather than redshift-specific recalibration, is key to reliable abundance determinations across cosmic time.</p>
-<h4>Semantic Scholar</h4>
+<p>- This paper presents the most comprehensive set of empirical optical strong-line metallicity calibrations to date, essential for understanding chemical evolution in galaxies.</p>
 <ul>
-<li>Year: 2026</li>
-<li>Venue: </li>
-<li>Citation Count: 0</li>
-<li>Influential Citations: 0</li>
-<li>Fields of Study: Physics</li>
-<li>URL: <a href="https://www.semanticscholar.org/paper/bf3b19c4c1b2930276086386080999879a2cb2f3">https://www.semanticscholar.org/paper/bf3b19c4c1b2930276086386080999879a2cb2f3</a></li>
+<li><strong>&quot;Relative frequencies of core-collapse supernovae as a function of metallicity: observations vs theoretical predictions&quot; (2604.16230)</strong></li>
 </ul>
-<h3>2. Relative frequencies of core-collapse supernovae as a function of metallicity: observations vs theoretical predictions</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-17T16:46:17+00:00</li>
-<li>Authors: Claudia P. Gutiérrez, Lluís Galbany, Joseph P. Anderson, Dimitris Souropanis, Emmanouil Zapartas, Luc Dessart, Rubina Kotak</li>
-<li>Categories: astro-ph.HE</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.16230v1">https://arxiv.org/pdf/2604.16230v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Understanding supernova (SN) progenitors remains a major challenge in astrophysics, as it involves untangling the complex interplay between stellar physics (e.g., evolution, binarity, explosion) and environments (e.g., metallicity, star formation rate). To address this, we present relative frequencies of core-collapse SNe (CCSNe) as a function of metallicity using two complementary samples: (i) all literature SNe that have associated host galaxy parameters (absolute magnitudes, stellar masses, and/or oxygen abundances); and (ii) SNe classified between 2019 and 2024 with host magnitude information, including distance-limited subsamples within 50 Mpc and 100 Mpc. We found that CCSNe from the literature sample are associated with luminous galaxies, reflecting both the higher stellar content of such systems and selection biases inherent to targeted surveys. In contrast, the distance-limited subsamples provide a less biased view, showing that hydrogen-rich SNe (SNe II) are more commonly found in lower-luminosity galaxies than stripped-envelope SNe (SESNe). Comparisons between the literature sample and distance-limited subsamples indicate that trends derived from global measurements remain consistent. For the SESNe-to-SNe II ratios, we confirm a slight increase with metallicity, reflecting a higher fraction of SESNe in metal-rich environments. Comparison with theoretical predictions shows that models including either binary interactions or rotation can broadly reproduce the observed trends, although degeneracies remain, and no single scenario uniquely explains the data. Overall, our results provide observational constraints on massive-star evolution and highlight the key role of metallicity and binarity in shaping the observed diversity of CCSNe.</p>
-<h3>3. Euclid: Scaled-up little red dots and other sources with v-shaped spectral energy distributions at z&gt;4</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-17T15:44:04+00:00</li>
-<li>Authors: Euclid Collaboration, A. A. Tumborang, K. I. Caputi, P. Rinaldi, L. Bisigello, G. Girardi, E. Iani, R. Bouwens, R. Navarro-Carrera, G. Desprez, R. A. Cooper, Y. Fu, Y. Toba, J. Matthee, B. Milvang-Jensen, P. G. Perez-Gonzalez, F. Ricci, G. Rodighiero, J. Schaye, F. Tarsitano, G. Zamorani, M. Baes, C. M. Gutierrez, H. Hoekstra, K. Jahnke, D. Scott, D. Stern, B. Altieri, S. Andreon, N. Auricchio, C. Baccigalupi, M. Baldi, A. Balestra, S. Bardelli, P. Battaglia, A. Biviano, E. Branchini, M. Brescia, S. Camera, V. Capobianco, C. Carbone, J. Carretero, S. Casas, M. Castellano, G. Castignani, S. Cavuoti, K. C. Chambers, A. Cimatti, C. Colodro-Conde, G. Congedo, C. J. Conselice, L. Conversi, Y. Copin, F. Courbin, H. M. Courtois, M. Cropper, J. -G. Cuby, A. Da Silva, H. Degaudenzi, G. De Lucia, H. Dole, M. Douspis, F. Dubath, X. Dupac, M. Farina, R. Farinelli, F. Faustini, S. Ferriol, F. Finelli, S. Fotopoulou, N. Fourmanoit, M. Frailis, E. Franceschi, M. Fumana, S. Galeotta, K. George, B. Gillis, C. Giocoli, J. Gracia-Carpio, A. Grazian, F. Grupp, S. V. H. Haugan, W. Holmes, I. M. Hook, F. Hormuth, A. Hornstrup, M. Jhabvala, B. Joachimi, S. Kermiche, A. Kiessling, B. Kubik, M. Kümmel, M. Kunz, H. Kurki-Suonio, A. M. C. Le Brun, S. Ligori, P. B. Lilje, V. Lindholm, I. Lloro, G. Mainetti, E. Maiorano, O. Mansutti, S. Marcin, O. Marggraf, M. Martinelli, N. Martinet, F. Marulli, R. J. Massey, E. Medinaceli, S. Mei, M. Meneghetti, E. Merlin, G. Meylan, A. Mora, M. Moresco, L. Moscardini, C. Neissner, R. C. Nichol, S. -M. Niemi, J. W. Nightingale, C. Padilla, S. Paltani, F. Pasian, K. Pedersen, W. J. Percival, V. Pettorino, S. Pires, G. Polenta, M. Poncet, L. A. Popa, L. Pozzetti, F. Raison, A. Renzi, J. Rhodes, G. Riccio, E. Romelli, M. Roncarelli, B. Rusholme, R. Saglia, Z. Sakr, D. Sapone, M. Schirmer, P. Schneider, T. Schrabback, A. Secroun, G. Seidel, E. Sihvola, P. Simon, C. Sirignano, G. Sirri, L. Stanco, P. Tallada-Crespí, A. N. Taylor, H. I. Teplitz, I. Tereno, N. Tessore, S. Toft, R. Toledo-Moreo, F. Torradeflot, I. Tutusaus, L. Valenziano, J. Valiviita, T. Vassallo, G. Verdoes Kleijn, A. Veropalumbo, Y. Wang, J. Weller, F. M. Zerbi, E. Zucca, M. Huertas-Company, J. Martín-Fleitas, V. Scottez</li>
-<li>Categories: astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.16178v1">https://arxiv.org/pdf/2604.16178v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Little Red Dots (LRDs) are some the most intriguing galaxy populations recently identified at z&gt;~4 with JWST. They constitute the most extreme class of a more abundant population of sources with <code>V-shaped&#x27; spectral energy distributions (SEDs) and compact morphologies, which includes also Little Blue Dots (LBDs). Finding brighter analogues to these sources requires surveying sky areas which are significantly larger than those covered with JWST. Euclid deep images are ideally suited for this purpose. We make use of Euclid near-infrared images, complemented by Spitzer Infrared Array Camera (IRAC) data, over 0.75 sq. deg. of the COSMOS field to select a sample of 233 sources with </code>V-shaped&#x27; SEDs at z&gt;4. Out of those, we identify 16 sources with compactness &gt;1sigma above the median of all z&gt;4 galaxies, which we consider robust LRD/LBD candidates in our sample. The stellar masses of these 16 sources are in the range 10^{8.5} - 10^{10.5} Msun, so they are significantly more massive than typical JWST-selected LRDs/LBDs. Interestingly, half of them are about as old as the Universe at their redshifts. In addition, we find that the median photometric properties of the Euclid LRDs/LBDs are similar to those of the so-called Blue Dust-Obscured Galaxies (Blue DOGs). Less than 10% of all our <code>V-shaped&#x27; SED sources, including only one of the Euclid LBDs, correspond to known AGN. The latter mostly constitute a population disjoint to the </code>V-shaped&#x27; SED sources. Spectroscopic follow up of the Euclid LRDs/LBD candidates remains necessary to probe whether they host BLAGN as fainter analogues do and whether constitute a transition phase from these fainter sources to standard AGN.</p>
-<h3>4. Probing Primordial Black Holes with upcoming Radio Telescopes: a case study for LOFAR2.0, FAST Core Array and BINGO</h3>
-<ul>
-<li><strong>Focus:</strong> dark matter</li>
-<li>Published: 2026-04-17T15:24:35+00:00</li>
-<li>Authors: Joao R. L. Santos, Guillem Domènech, Amilcar R. Queiroz</li>
-<li>Categories: astro-ph.CO, gr-qc, hep-th</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.16154v1">https://arxiv.org/pdf/2604.16154v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Fast Radio Bursts (FRBs) are among the most intriguing phenomena observed in radio astronomy. So far, about 130 FRB signals have been confirmed and characterized by different surveys, and the CHIME telescope has recently reported a new catalog of 4539 bursts. Therefore, these numbers are expected to increase in the coming years. The detection, or lack thereof, of lensed FRB events can be used to probe Primordial Black Holes (PBHs) as a fraction of dark matter. We investigate the potential of three upcoming radio telescopes, LOFAR2.0, FAST Core Array, and BINGO, to test the PBH scenario. We forecast that LOFAR2.0 will constrain $f<em>{\mathrm{PBH}} &lt; 0.16$ for PBH masses $M</em>{\rm PBH}&gt;1\,{M<em>{\odot}}$, while FAST Core Array and BINGO will restrict $f</em>{\mathrm{PBH}} &lt; 0.39$ for $M<em>{\rm PBH}&gt;10\,{M</em>{\odot}}$ and $M<em>{\rm PBH}&gt;10^{-2}\,{M</em>{\odot}}$, respectively. Despite the existence of stricter constraints, FRB lensing offers an independent and complementary probe of PBHs in the Universe, which will improve in the future.</p>
-<h3>5. Thermal effects on Dark Matter production during cosmic reheating</h3>
-<ul>
-<li><strong>Focus:</strong> dark matter</li>
-<li>Published: 2026-04-17T14:14:55+00:00</li>
-<li>Authors: Marco Drewes, Yannis Georis, Mubarak A. S. Mohammed, Sebastian Zell</li>
-<li>Categories: hep-ph, astro-ph.CO</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.16085v1">https://arxiv.org/pdf/2604.16085v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>The relic abundance of Dark Matter (DM) produced via thermal freeze-in is sensitive to the thermal history during and after cosmic reheating. In minimal models, this opens up the possibility to make predictions for collider observables by combining the requirement to match the DM relic abundance with observations of the Cosmic Microwave Background (CMB). We assess the impact of thermal corrections to the rate of cosmic reheating and the rate of thermal DM production on CMB observables and the relic abundance. We find that such corrections are generally small in the regime where they can be computed by means of finite-temperature field theory. We construct counter-examples where this general rule is violated.</p>
-  </article>
+<p>- This study provides crucial insights into the relationship between galactic environments and stellar evolution endpoints.</p></div>
+</div>
+  </aside>
+</div>
 </body>
 </html>

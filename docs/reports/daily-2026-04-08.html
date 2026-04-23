@@ -5,198 +5,408 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Research Digest — April 08, 2026</title>
   <style>
-  :root {
-    color-scheme: light;
-    --bg: #f3efe5;
-    --paper: #fffdf8;
-    --ink: #1f2937;
-    --muted: #5b6472;
-    --line: #d8d1c2;
-    --accent: #0f766e;
-    --accent-strong: #134e4a;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: Georgia, "Times New Roman", serif;
-    color: var(--ink);
-    background:
-      radial-gradient(circle at top left, rgba(15,118,110,0.12), transparent 28rem),
-      linear-gradient(180deg, #f8f5ee 0%, var(--bg) 100%);
-    min-height: 100vh;
-  }
-  a { color: var(--accent-strong); text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
-  a:hover { color: var(--accent); }
+:root {
+  --bg:           #f5f3ee;
+  --paper:        #ffffff;
+  --ink:          #18181b;
+  --muted:        #71717a;
+  --line:         #e4e0d8;
+  --accent:       #0f766e;
+  --accent-dark:  #115e59;
 
-  body { padding: 0; }
-  .topbar {
-    position: sticky; top: 0; z-index: 10;
-    background: rgba(255,253,248,0.92); backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--line);
-    padding: 0.75rem 1.5rem;
-    display: flex; justify-content: space-between; align-items: center;
-    gap: 1rem;
-  }
-  .topbar-left { display: flex; align-items: center; gap: 1rem; }
-  .topbar-title { font-size: 0.95rem; color: var(--muted); font-style: italic; }
-  .back-link { font-size: 0.9rem; white-space: nowrap; }
-  .topbar-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .btn-sm {
-    display: inline-block; padding: 0.35rem 0.85rem; border-radius: 999px;
-    background: var(--accent); color: white; text-decoration: none;
-    font-size: 0.85rem; font-weight: 600;
-  }
-  .btn-sm:hover { background: var(--accent-strong); color: white; }
-  .btn-sm.outline {
-    background: transparent; color: var(--accent-strong);
-    border: 1px solid var(--line);
-  }
-  .btn-sm.outline:hover { background: rgba(15,118,110,0.08); }
-  article {
-    max-width: 52rem; margin: 0 auto; padding: 2.5rem 1.5rem 5rem;
-  }
-  article h1 { font-size: clamp(1.6rem,3.5vw,2.5rem); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 1.5rem; }
-  article h2 { font-size: 1.35rem; margin: 2.5rem 0 0.75rem; padding-top: 1.5rem; border-top: 1px solid var(--line); letter-spacing: -0.01em; }
-  article h2:first-of-type { border-top: none; padding-top: 0; }
-  article h3 { font-size: 1.1rem; margin: 1.75rem 0 0.5rem; color: var(--accent-strong); }
-  article h4 { font-size: 0.95rem; margin: 1.25rem 0 0.25rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
-  article p { line-height: 1.75; margin: 0.75rem 0; }
-  article ul, article ol { line-height: 1.7; margin: 0.5rem 0 0.5rem 1.25rem; padding: 0; }
-  article li { display: list-item; border: none; padding: 0.15rem 0; font-size: 1rem; }
-  article li::marker { color: var(--accent); }
-  article hr { border: none; border-top: 1px solid var(--line); margin: 2rem 0; }
-  article strong { color: var(--ink); }
-  article code { font-size: 0.9em; background: rgba(0,0,0,0.05); padding: 0.1em 0.3em; border-radius: 3px; }
-  article blockquote { border-left: 3px solid var(--accent); margin: 1rem 0; padding: 0.25rem 1rem; color: var(--muted); }
-  .report-meta { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
-  @media (max-width: 640px) {
-    .topbar { flex-direction: column; align-items: flex-start; }
-    article { padding: 1.5rem 1rem 4rem; }
-  }
+  --blue:         #1d4ed8; --blue-bg:   #eff6ff;
+  --purple:       #7c3aed; --purple-bg: #f5f3ff;
+  --teal:         #0f766e; --teal-bg:   #f0fdfa;
+  --amber:        #b45309; --amber-bg:  #fffbeb;
+
+  --header-h: 56px;
+  --r: 10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Header ── */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--header-h);
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.header-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+  height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.site-brand { display: flex; align-items: center; gap: 0.5rem; }
+.site-name { font-weight: 800; font-size: 1rem; letter-spacing: -0.03em; color: var(--accent-dark); }
+.site-tagline { font-size: 0.8rem; color: var(--muted); }
+.header-right { display: flex; align-items: center; gap: 0.75rem; }
+.date-label { font-size: 0.82rem; color: var(--muted); }
+.header-pill {
+  font-size: 0.75rem; font-weight: 600; padding: 0.22rem 0.65rem;
+  border: 1px solid var(--line); border-radius: 999px;
+  color: var(--muted); background: transparent;
+}
+.header-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+/* ── Page layout ── */
+.page-wrap {
+  max-width: 1200px; margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 2rem;
+  align-items: start;
+}
+.main-col { min-width: 0; }
+
+/* ── Overview ── */
+.overview-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  margin-bottom: 2.25rem;
+}
+.eyebrow {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.overview-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem; line-height: 1.82; color: #27272a;
+}
+.overview-body p + p { margin-top: 0.6rem; }
+
+/* ── Topic section ── */
+.topic-section { margin-bottom: 2.5rem; }
+.topic-header {
+  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem;
+}
+.topic-badge {
+  font-size: 0.75rem; font-weight: 700; padding: 0.28rem 0.8rem;
+  border-radius: 999px; letter-spacing: 0.02em;
+}
+.c-blue   { background: var(--blue-bg);   color: var(--blue);   }
+.c-purple { background: var(--purple-bg); color: var(--purple); }
+.c-teal   { background: var(--teal-bg);   color: var(--teal);   }
+.c-amber  { background: var(--amber-bg);  color: var(--amber);  }
+.topic-count { font-size: 0.82rem; color: var(--muted); }
+
+.topic-synthesis {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.92rem; line-height: 1.78; color: #3f3f46;
+  border-left: 3px solid var(--line);
+  padding: 0.6rem 1rem;
+  margin-bottom: 1.1rem;
+  border-radius: 0 4px 4px 0;
+}
+.topic-synthesis.c-blue   { border-left-color: var(--blue);   }
+.topic-synthesis.c-purple { border-left-color: var(--purple); }
+.topic-synthesis.c-teal   { border-left-color: var(--teal);   }
+.topic-synthesis.c-amber  { border-left-color: var(--amber);  }
+.topic-synthesis p + p { margin-top: 0.5rem; }
+.topic-synthesis ul { padding-left: 1.2rem; }
+.topic-synthesis li { margin-bottom: 0.25rem; }
+
+/* ── Paper cards ── */
+.papers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 0.9rem;
+}
+.paper-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1rem 1.15rem;
+  display: flex; flex-direction: column; gap: 0.45rem;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.paper-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.08); border-color: #c8c4bc; }
+.card-pills { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.pill {
+  font-size: 0.68rem; font-weight: 600; padding: 0.12rem 0.48rem;
+  border-radius: 999px; letter-spacing: 0.03em;
+}
+.pill-blue   { background: var(--blue-bg);   color: var(--blue);   }
+.pill-purple { background: var(--purple-bg); color: var(--purple); }
+.pill-teal   { background: var(--teal-bg);   color: var(--teal);   }
+.pill-amber  { background: var(--amber-bg);  color: var(--amber);  }
+.pill-watch  { background: #fef3c7; color: #92400e; }
+
+.card-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem; font-weight: 600; line-height: 1.4;
+}
+.card-title a { color: var(--ink); }
+.card-title a:hover { color: var(--accent); text-decoration: underline; }
+.card-authors { font-size: 0.78rem; color: var(--muted); }
+.card-abstract {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.83rem; line-height: 1.65; color: #52525b;
+  flex: 1;
+}
+.card-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 0.3rem; border-top: 1px solid var(--line);
+  margin-top: 0.1rem;
+}
+.card-arxiv { font-size: 0.76rem; font-weight: 600; color: var(--accent); }
+.card-arxiv:hover { text-decoration: underline; }
+.card-cite { font-size: 0.76rem; color: var(--muted); }
+
+.no-papers { font-size: 0.88rem; color: var(--muted); font-style: italic; padding: 0.5rem 0; }
+
+/* ── Open questions ── */
+.open-qs-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.open-qs-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem; line-height: 1.75; color: #3f3f46;
+}
+.open-qs-body ul { padding-left: 1.25rem; }
+.open-qs-body li { margin-bottom: 0.35rem; }
+.open-qs-body p + p { margin-top: 0.5rem; }
+
+/* ── Sidebar ── */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 1.25rem);
+  display: flex; flex-direction: column; gap: 1.1rem;
+  max-height: calc(100vh - var(--header-h) - 2.5rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding-right: 2px;
+}
+.sidebar-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1rem 1.1rem;
+}
+.sidebar-title {
+  font-size: 0.67rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+  padding-bottom: 0.5rem; margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+.ctx-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.82rem; line-height: 1.68; color: #52525b;
+}
+.ctx-body p + p { margin-top: 0.4rem; }
+.ctx-body ul { padding-left: 1.1rem; }
+.ctx-body li { margin-bottom: 0.22rem; }
+.ctx-body h2, .ctx-body h3 { font-size: 0.82rem; margin: 0.5rem 0 0.3rem; color: var(--ink); }
+
+.must-list { list-style: none; }
+.must-list li {
+  border-top: 1px solid var(--line); padding: 0.55rem 0;
+  font-size: 0.81rem; line-height: 1.5;
+}
+.must-list li:first-child { border-top: none; padding-top: 0; }
+
+.archive-list { list-style: none; }
+.archive-list li { border-top: 1px solid var(--line); }
+.archive-list li:first-child { border-top: none; }
+.archive-list a {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.45rem 0; font-size: 0.82rem; color: var(--ink);
+}
+.archive-list a:hover { color: var(--accent); text-decoration: none; }
+.arc-label { font-weight: 500; }
+.arc-date { font-size: 0.77rem; color: var(--muted); }
+
+/* ── Report page nav ── */
+.report-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.75rem; flex-wrap: wrap;
+}
+.back-link { font-size: 0.85rem; color: var(--accent); }
+.report-actions { display: flex; gap: 0.5rem; }
+.action-pill {
+  font-size: 0.77rem; font-weight: 600; padding: 0.28rem 0.75rem;
+  border: 1px solid var(--line); border-radius: 999px; color: var(--muted);
+}
+.action-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .page-wrap { grid-template-columns: 1fr; }
+  .sidebar { position: static; max-height: none; overflow-y: visible; }
+}
+@media (max-width: 600px) {
+  .header-tagline, .date-label { display: none; }
+  .papers-grid { grid-template-columns: 1fr; }
+  .page-wrap { padding: 1.25rem 1rem 3rem; }
+}
 </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="topbar-left">
-      <a class="back-link" href="../index.html">← All reports</a>
-      <span class="topbar-title">April 08, 2026</span>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="site-brand">
+      <span class="site-name">Research Digest</span>
+      <span class="site-tagline">Galaxy clusters · Galaxies · Lensing · Dark matter</span>
     </div>
-    <div class="topbar-actions">
-      <a class="btn-sm outline" href="daily-2026-04-08.pdf">PDF</a>
+    <div class="header-right">
+      <span class="date-label">April 08, 2026</span>
       
     </div>
   </div>
-  <article>
-    <h1>Daily research digest — 2026-04-08</h1>
-<p>Topics scanned: galaxy clusters, galaxies, gravitational lensing, dark matter.</p>
-<p><strong>Pool:</strong> 11 recent papers gathered. <strong>Presenting:</strong> 10 chosen by the local model for this briefing.</p>
-<p><strong>Selection note:</strong> Selected papers cover a range of astrophysical topics, prioritizing scientific substance and novelty.</p>
-<h2>Catalog (selected)</h2>
-<h3>1. Deep Spectroscopy with DESI for Photometric Redshift Training and Calibration</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-07T17:48:46+00:00</li>
-<li>Authors: Biprateep Dey, Jeffrey A. Newman, Tianqing Zhang, J. Aguilar, S. Ahlen, A. Anand, B. Andrews, S. Bailey, D. Bianchi, D. Brooks, F. J. Castander, T. Claybaugh, A. Cuceu, K. S. Dawson, A. de la Macorra, J. Della Costa, Arjun Dey, P. Doel, S. Ferraro, A. Font-Ribera, E. Gaztañaga, Satya Gontcho A Gontcho, D. Gruen, G. Gutierrez, J. Guy, H. K. Herrera-Alcantar, K. Honscheid, M. Ishak, R. Joyce, R. Kehoe, D. Kirkby, T. Kisner, A. Kremin, O. Lahav, M. Landriau, L. Le Guillou, A. Leauthaud, M. E. Levi, M. Manera, P. Martini, J. McCullough, A. Meisner, R. Miquel, J. Moustakas, A. D. Myers, J. Myles, S. Nadathur, N. Palanque-Delabrouille, W. J. Percival, F. Prada, I. Pérez-Ràfols, G. Rossi, L. Samushia, E. Sanchez, D. Schlegel, M. Schubnell, H. Seo, J. Silber, D. Sprayberry, G. Tarlé, B. A. Weaver, N. Weaverdyck, R. H. Wechsler, R. Zhou, H. Zou</li>
-<li>Categories: astro-ph.IM</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.06143v1">https://arxiv.org/pdf/2604.06143v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Deep spectroscopic samples can be used to improve photometric redshift (photo-$z$) estimates and reduce uncertainties on redshift distributions. Such improvements can increase the cosmological constraining power of large imaging-based experiments such as the Vera C. Rubin Observatory&#x27;s Legacy Survey of Space and Time (LSST) and mitigate what may be a limiting systematic effect. We present results from the ``DESI-Deep pilot&#x27;&#x27; program, which was designed to assess the capability of the Dark Energy Spectroscopic Instrument (DESI) on the 4m Mayall telescope to measure redshifts of galaxies as faint as expected lensing samples for early LSST data ($m_i \leq 24.5$). We find that DESI is remarkably efficient at this task, with redshift success rates comparable to the results of observations from 10m-class telescopes with only $\sim2\times$ longer integration time (rather than $\sim 8\times$ longer as would be expected from aperture-area scaling), while simultaneously achieving $\sim30$ times larger multiplexing. We also find that the signal-to-noise ratio of the spectra scales as expected for background-limited observations even for the longest exposure times ($\sim 7$ hours) and faintest targets in the program. These results demonstrate that DESI could provide the definitive redshift sample for the early years of LSST with a modest investment of observing time. Based upon the results of this program, we provide updated predictions for the time required to collect benchmark samples for photo-$z$ training and calibration using a variety of spectroscopic facilities. Finally, we describe a potential &quot;DESI-Deep&quot; survey designed to train and calibrate photo-$z$&#x27;s for imaging experiments, and provide forecasts of its impact on cosmological inference.</p>
-<h3>2. Lyman-$α$ Forest Signatures of Mixed Fuzzy and Cold Dark Matter</h3>
-<ul>
-<li><strong>Focus:</strong> dark matter</li>
-<li>Published: 2026-04-07T16:33:48+00:00</li>
-<li>Authors: Yourong Frank Wang</li>
-<li>Categories: astro-ph.CO, astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.06038v1">https://arxiv.org/pdf/2604.06038v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>We investigate Lyman-alpha forest flux statistics in mixed fuzzy dark matter (FDM) and cold dark matter (CDM) cosmologies using the Fluctuating Gunn-Peterson Approximation (FGPA) applied to hybrid Schrödinger-Poisson and N-body simulations. We evolve the dark matter distribution from z = 120 to z = 2 for an axion mass ( m<em>22 = 0.01) and FDM fraction (f</em>A = 0.1), and compare two realizations with identical initial conditions: one evolved with a particle-only approximation and one with full wave--mechanical dynamics. We find that, despite near-degeneracy in the nonlinear matter power spectrum, the corresponding Ly α flux power spectra differ at the 10 percent level on intermediate scales. This discrepancy arises from a strong suppression of small-scale velocity power in the Schrödinger--Poisson evolution, which is not captured by N-body treatments with matched initial transfer functions. As a result, the flux statistics cannot be fully characterized by the matter power spectrum alone, but depend sensitively on the dynamical evolution of the velocity field. These results demonstrate that wave-mechanical effects in FDM leave distinct kinematic imprints in Ly α observables beyond those associated with initial-condition suppression. While our analysis is based on an idealized FGPA framework, it isolates a mechanism by which mixed dark matter models can break degeneracies present in standard structure-based probes, motivating further investigation with full hydrodynamical simulations.</p>
-<h3>3. Testing parity with composite-field spectra of BOSS and DESI luminous red galaxies</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-07T16:19:34+00:00</li>
-<li>Authors: Zucheng Gao, Marina S. Cagliari, Azadeh Moradinezhad Dizgah, Zvonimir Vlah</li>
-<li>Categories: astro-ph.CO</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.06021v1">https://arxiv.org/pdf/2604.06021v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Detection of parity violation on cosmological scales would have profound implications for fundamental physics. Motivated in part by recent measurements of parity-odd four-point correlation functions in BOSS and DESI luminous red galaxy samples, which probe parity violation in the scalar sector, we present the first measurement of parity-odd kurto spectra in spectroscopic galaxy survey data. We analyse two composite-field spectra, $\mathcal{P}<em>{2\times2}$ (vector--pseudo-vector) and $\mathcal{P}</em>{3\times1}$ (scalar--pseudo-scalar). Compared with parity-odd four-point correlation function analyses, the kurto-spectrum formalism performs physically motivated compression on the trispectrum into a substantially lower-dimensional data vector, allowing direct estimation of covariance matrices from mock catalogues and reducing sensitivity to covariance-modelling systematics. Using null-hypothesis $χ^2$ tests and cross-patch consistency checks, we find no evidence for a cosmological parity-violating signal in either survey. We examine the impact of the adopted mock catalogues and find that the high-fidelity mocks provide a better match to the data of both surveys than the approximate mocks. The DESI DR1 measurements exhibit a scatter smaller than that of BOSS DR12 by about a factor of four, consistent with the improved statistical precision expected from the higher tracer number density. Future DESI data releases, with larger volume and number density, together with larger suites of high-fidelity mocks, can enable significantly sharper tests of parity violation using kurto spectra.</p>
-<h3>4. Unveiling axion signals in galactic supernovae with future MeV telescopes</h3>
-<ul>
-<li><strong>Focus:</strong> dark matter</li>
-<li>Published: 2026-04-07T12:51:46+00:00</li>
-<li>Authors: Zhen Xie, Jiahao Liu, Bing Liu, Ruizhi Yang</li>
-<li>Categories: astro-ph.HE</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.05817v1">https://arxiv.org/pdf/2604.05817v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Axion-like particles (ALPs) produced via the Primakoff process in the cores of Galactic core-collapse supernovae (SNe) could convert into MeV-energy gamma-rays through interactions with the Milky Way&#x27;s magnetic field. To evaluate the detection prospects for such signals, we perform sensitivity projections for next-generation MeV telescopes by combining hypothetical instrument responses with realistic background estimates. Our analysis incorporates detailed simulations of the expected ALP flux from nearby SNe, the energy-dependent conversion probability in Galactic magnetic fields, and the telescope&#x27;s angular/energy resolution based on advanced detector designs. Background components are modeled using data from current MeV missions and extrapolated to future sensitivity regimes. Our simulations demonstrate that next-generation telescopes with improved effective areas and energy resolution could achieve sensitivity to photon-ALP couplings as low as gagamma approx 1.61 x 10^-13 GeV^-1 for ALP masses ma &lt; 10^-9 eV in Galactic Center. These results indicate that future MeV missions will probe unexplored regions of ALP parameter space, with conservative estimates suggesting they could constrain gagamma values two orders of magnitude below current astrophysical limits. Such observations would provide the most stringent tests to date for axion-like particles as a dark matter candidate in the ultra-light mass regime.</p>
-<h3>5. JWST Lensed Quasar Dark Matter Survey V: Measuring the minimum halo mass with strong gravitational lensing</h3>
-<ul>
-<li><strong>Focus:</strong> gravitational lensing</li>
-<li>Published: 2026-04-06T23:00:49+00:00</li>
-<li>Authors: A. M. Nierenberg, D. Gilman, T. Treu, X. Du, C. Gannon, H. Paugnat, S. Birrer, A. J. Benson, K. N. Abazajian, T. Anguita, S. G. Djorgovski, S. F. Hoenig, R. E. Keeley, A. Kusenko, H. R. Larsson, L. A. Moustakas, P. Mozumdar, W. Sheu, D. Sluse, D. Stern, D. Williams, K. C. Wong</li>
-<li>Categories: astro-ph.CO</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.05237v1">https://arxiv.org/pdf/2604.05237v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>We explore the lowest mass limit that can be placed on the halo mass function in CDM using 28 strong gravitational lenses. For this purpose, we study an extreme model in which the halo mass function and mass-concentration relation follow CDM, with a sharp cutoff at some mass scale, $m<em>{\rm{low}}$. Lensing provides a unique window into this quantity as it does not depend on the presence of baryons in dark matter halos and also allows the detection of low mass halos at cosmological distances, both in the lens galaxies and along the line-of-sight. Our model incorporates the effects of tidal stripping of subhalos, leading to the presence of many subhalos below a given model cutoff scale. We place an upper limit on the low-mass cutoff of the halo mass function of $m</em>{\rm{low}}&lt;10^{8.3}$ M$<em>\odot$ at 10:1 odds using a prior for the normalization of the subhalo mass function from the semi-analytic model {\tt galacticus} and $m</em>{\rm{low}}&lt;10^{8.2}$ M$_\odot$ at 10:1 odds using a prior from $N$-body simulations. These limits are comparable to, or stronger than, existing constraints based on Milky Way satellite galaxies. Based on these results, we forecast more than an order of magnitude improvement with a sample of 200 quadruply imaged quasar lenses. This number represents a small subset of the thousands that are anticipated to be discovered by Rubin, Euclid, and Roman. Furthermore, with this larger sample of lenses we expect to directly constrain the normalization of the subhalo mass function, thereby eliminating a major source of uncertainty in our current measurements.</p>
-<h3>6. Revisiting The Gravitational Mirroring In Presence of Compact Objects</h3>
-<ul>
-<li><strong>Focus:</strong> gravitational lensing</li>
-<li>Published: 2026-04-06T14:52:56+00:00</li>
-<li>Authors: Bikramarka S Choudhury, Aritra Sanyal, Md Khalid Hossain, Farook Rahaman</li>
-<li>Categories: gr-qc, astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.05009v1">https://arxiv.org/pdf/2604.05009v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>We propose a novel concept of astrophysical mirroring in the schwarzschild framework, which emerges as a direct consequence of gravitational lensing effects occurring in the immediate vicinity of extremely dense massive objects within spacetime. Through rigorous theoretical calculations and numerical ray-tracing analysis, we demonstrate that sufficiently compact astrophysical objects possess the capability to induce such extreme curvature in spacetime that the resulting gravitational field can bend light rays to extraordinary degrees, creating what we term a &quot;reflection image&quot; or mirror-like appearance of the source in distant regions of space. We discuss the theoretical framework as well as the observational consequences of this phenomenon.</p>
-<h3>7. Probing cosmic anisotropy with galaxy clusters and supernovae</h3>
-<ul>
-<li><strong>Focus:</strong> galaxy clusters</li>
-<li>Published: 2026-04-06T04:19:03+00:00</li>
-<li>Authors: Shubham Barua, Sujit K. Dalui, Shantanu Desai</li>
-<li>Categories: astro-ph.CO</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.04408v1">https://arxiv.org/pdf/2604.04408v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Using $Λ$CDM and Padé-(2,1) cosmography, we study directional variations in the Hubble constant, $H<em>0$, using galaxy cluster and Type Ia Supernovae (from Pantheon Plus) by the hemisphere decomposition method. Since there is a degeneracy between $H</em>0$ and absolute magnitude $M<em>B$ for Supernovae, Cepheid host calibration is usually required to constrain $H</em>0$. Hence, in this work in order to complement the Cepheid host calibration in Supernovae, we also use calibrations based on galaxy cluster scaling relations. We find that there is a $\lesssim 1σ$ difference in $H<em>0$ variations when using galaxy clusters as calibrators compared to Cepheids highlighting that the variations in $H</em>0$ are robust across different calibration methods. Across all combinations of models and data sets used, we obtain a consistent deviation $\sim 2σ$ from isotropy. In nearly all cases, we notice that the maximum $ΔH_0$ aligns with the CMB dipole direction.</p>
-<h3>8. Hunting Dark Matter with the Einstein Telescope</h3>
-<ul>
-<li><strong>Focus:</strong> dark matter</li>
-<li>Published: 2026-04-07T17:00:06+00:00</li>
-<li>Authors: A. J. Iovino, M. Maggiore, N. Muttoni, A. Riotto</li>
-<li>Categories: astro-ph.CO, gr-qc</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.06082v1">https://arxiv.org/pdf/2604.06082v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Too light primordial black holes evaporate and are therefore strongly constrained by various bounds, e.g. Cosmic Microwave Background distortion. However, if they are formed strongly clustered, the corresponding haloes may collapse in heavier black holes which may form the entirety of the dark matter of the universe. The indirect signal of such scenario is the production of a flat stochastic background of gravitational waves which is detectable by the Einstein Telescope.</p>
-<h3>9. Probing the Solar $^8$B Neutrino Fog with XENONnT</h3>
-<ul>
-<li><strong>Focus:</strong> dark matter</li>
-<li>Published: 2026-04-07T15:29:15+00:00</li>
-<li>Authors: E. Aprile, J. Aalbers, K. Abe, M. M. Abu Rmeileh, M. Adrover, S. Ahmed Maouloud, L. Althueser, B. Andrieu, E. Angelino, D. Antón Martin, S. R. Armbruster, F. Arneodo, L. Baudis, M. Bazyk, V. Beligotti, L. Bellagamba, R. Biondi, A. Bismark, K. Boese, R. M. Braun, G. Bruni, R. Budnik, C. Cai, C. Capelli, J. M. R. Cardoso, A. P. Cimental Chávez, A. P. Colijn, J. Conrad, J. J. Cuenca-García, V. D&#x27;Andrea, L. C. Daniel Garcia, M. P. Decowski, A. Deisting, C. Di Donato, P. Di Gangi, S. Diglio, K. Eitel, S. el Morabit, R. Elleboro, A. Elykov, A. D. Ferella, C. Ferrari, H. Fischer, T. Flehmke, M. Flierman, R. Frankel, D. Fuchs, W. Fulgione, C. Fuselli, F. Gao, R. Giacomobono, F. Girard, R. Glade-Beucke, L. Grandi, J. Grigat, H. Guan, M. Guida, P. Gyorgy, R. Hammann, C. Hils, L. Hoetzsch, N. F. Hood, M. Iacovacci, Y. Itow, J. Jakob, F. Joerg, Y. Kaminaga, M. Kara, S. Kazama, P. Kharbanda, M. Kobayashi, D. Koke, K. Kooshkjalali, A. Kopec, E Kozlova, H. Landsman, R. F. Lang, L. Levinson, A. Li, H. Li, I. Li, S. Li, S. Liang, Z. Liang, Y. -T. Lin, S. Lindemann, M. Lindner, K. Liu, M. Liu, F. Lombardi, J. A. M. Lopes, G. M. Lucchetti, T. Luce, Y. Ma, C. Macolino, G. C. Madduri, J. Mahlstedt, F. Marignetti, T. Marrodán Undagoitia, K. Martens, J. Masbou, S. Mastroianni, V. Mazza, J. Merz, M. Messina, A. Michel, K. Miuchi, R. Miyata, A. Molinario, S. Moriyama, M. Murra, J. Müller, K. Ni, C. T. Oba Ishikawa, U. Oberlack, K. Otsuzuki, S. Ouahada, B. Paetsch, Y. Pan, Q. Pellegrini, R. Peres, J. Pienaar, M. Pierre, G. Plante, T. R. Pollmann, F. Pompa, A. Prajapati, L. Principe, J. Qin, D. Ramírez García, A. Ravindran, A. Razeto, R. Singh, L. Sanchez, J. M. F. dos Santos, I. Sarnoff, G. Sartorelli, M. T. Schiller, P. Schulte, H. Schulze Eißing, M. Schumann, L. Scotto Lavina, M. Selvi, F. Semeria, F. N. Semler, P. Shagin, S. Shi, H. Simgen, Z. Song, A. Stevens, C. Szyszka, A. Takeda, Y. Takeuchi, P. -L. Tan, D. Thers, G. Trinchero, C. D. Tunnell, K. Valerius, S. Vecchi, S. Vetter, G. Volta, B. von Krosigk, C. Weinheimer, D. Wenz, C. Wittweg, V. H. S. Wu, Y. Xing, D. Xu, Z. Xu, M. Yamashita, J. Yang, L. Yang, J. Ye, M. Yoshida, L. Yuan, G. Zavattini, Y. Zhao, M. Zhong, T. Zhu</li>
-<li>Categories: hep-ex</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.06002v1">https://arxiv.org/pdf/2604.06002v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>We report a 3.3 $σ$ measurement of coherent elastic neutrino-nucleus scattering from solar $^8$B neutrinos using a 6.77 t$\times$yr exposure from the XENONnT experiment, inferring a solar $^8$B neutrino flux of $(5_{-2}^{+3})\times 10^6\,\mathrm{cm}^{-2}\mathrm{s}^{-1}$, consistent with previous measurements. In the presence of the $^8$B &quot;neutrino fog&quot;, we find no evidence for light dark matter, and observe diminishing returns in sensitivity with increasing exposure. A 93% increase in exposure from the previous search improves the median sensitivity to 5 GeV/$c^2$ weakly interacting massive particles-nucleon cross section by 10%. The dataset was also used to measure the weak mixing angle at $\sim$ 0.02 GeV/$c$ momentum transfer and constrain physics beyond the Standard Model.</p>
-<h3>10. PhageBench: Can LLMs Understand Raw Bacteriophage Genomes?</h3>
-<ul>
-<li><strong>Focus:</strong> dark matter</li>
-<li>Published: 2026-04-07T12:14:23+00:00</li>
-<li>Authors: Yusen Hou, Weicai Long, Haitao Hu, Houcheng Su, Junning Feng, Yanlin Zhang</li>
-<li>Categories: cs.CL, q-bio.GN</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.05775v1">https://arxiv.org/pdf/2604.05775v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Bacteriophages, often referred to as the dark matter of the biosphere, play a critical role in regulating microbial ecosystems and in antibiotic alternatives. Thus, accurate interpretation of their genomes holds significant scientific and practical value. While general-purpose Large Language Models (LLMs) excel at understanding biological texts, their ability to directly interpret raw nucleotide sequences and perform biological reasoning remains underexplored. To address this, we introduce PhageBench, the first benchmark designed to evaluate phage genome understanding by mirroring the workflow of bioinformatics experts. The dataset contains 5,600 high-quality samples covering five core tasks across three stages: Screening, Quality Control, and Phenotype Annotation. Our evaluation of eight LLMs reveals that general-purpose reasoning models significantly outperform random baselines in phage contig identification and host prediction, demonstrating promising potential for genomic understanding. However, they exhibit significant limitations in complex reasoning tasks involving long-range dependencies and fine-grained functional localization. These findings highlight the necessity of developing next-generation models with enhanced reasoning capabilities for biological sequences.</p>
-<hr>
-<h2>Other candidates (not in top selection)</h2>
-<ul>
-<li><strong>Mirror Dual Symmetry in Physics</strong> — dark matter — <a href="https://arxiv.org/pdf/2604.05741v1">https://arxiv.org/pdf/2604.05741v1</a></li>
-</ul>
-  </article>
+</header>
+<div class="page-wrap">
+  <main class="main-col">
+    <a class="back-link" href="../index.html">← All reports</a>
+    <div class="report-topbar"><span></span><div class="report-actions"><a class="action-pill" href="daily-2026-04-08.pdf">PDF</a></div></div>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-blue">Galaxy Clusters</span>
+    <span class="topic-count">1 paper</span>
+  </div>
+  
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-blue">Galaxy Clusters</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.04408v1" target="_blank" rel="noopener">Probing cosmic anisotropy with galaxy clusters and supernovae</a></div>
+  <div class="card-authors">Shubham Barua, Sujit K. Dalui, Shantanu Desai</div>
+  <p class="card-abstract">Using $Λ$CDM and Padé-(2,1) cosmography, we study directional variations in the Hubble constant, $H_0$, using galaxy cluster and Type Ia Supernovae (from Pantheon Plus) by the hemisphere decomposition method.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.04408v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 06</span>
+  </div>
+</article></div>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-purple">Galaxies</span>
+    <span class="topic-count">2 papers</span>
+  </div>
+  
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.06143v1" target="_blank" rel="noopener">Deep Spectroscopy with DESI for Photometric Redshift Training and Calibration</a></div>
+  <div class="card-authors">Biprateep Dey et al.</div>
+  <p class="card-abstract">Deep spectroscopic samples can be used to improve photometric redshift (photo-$z$) estimates and reduce uncertainties on redshift distributions. Such improvements can increase the cosmological constraining power of large imaging-based experiments such as the Vera C.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.06143v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 07</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.06021v1" target="_blank" rel="noopener">Testing parity with composite-field spectra of BOSS and DESI luminous red galaxies</a></div>
+  <div class="card-authors">Zucheng Gao et al.</div>
+  <p class="card-abstract">Detection of parity violation on cosmological scales would have profound implications for fundamental physics. Motivated in part by recent measurements of parity-odd four-point correlation functions in BOSS and DESI luminous red galaxy samples, which probe parity violation in the scalar sector, we p…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.06021v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 07</span>
+  </div>
+</article></div>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-teal">Gravitational Lensing</span>
+    <span class="topic-count">2 papers</span>
+  </div>
+  
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-teal">Gravitational Lensing</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.05237v1" target="_blank" rel="noopener">JWST Lensed Quasar Dark Matter Survey V: Measuring the minimum halo mass with strong gravitational lensing</a></div>
+  <div class="card-authors">A. M. Nierenberg et al.</div>
+  <p class="card-abstract">We explore the lowest mass limit that can be placed on the halo mass function in CDM using 28 strong gravitational lenses. For this purpose, we study an extreme model in which the halo mass function and mass-concentration relation follow CDM, with a sharp cutoff at some mass scale, $m_{\rm{low}}$.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.05237v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 06</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-teal">Gravitational Lensing</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.05009v1" target="_blank" rel="noopener">Revisiting The Gravitational Mirroring In Presence of Compact Objects</a></div>
+  <div class="card-authors">Bikramarka S Choudhury et al.</div>
+  <p class="card-abstract">We propose a novel concept of astrophysical mirroring in the schwarzschild framework, which emerges as a direct consequence of gravitational lensing effects occurring in the immediate vicinity of extremely dense massive objects within spacetime.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.05009v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 06</span>
+  </div>
+</article></div>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-amber">Dark Matter</span>
+    <span class="topic-count">5 papers</span>
+  </div>
+  
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.06038v1" target="_blank" rel="noopener">Lyman-$α$ Forest Signatures of Mixed Fuzzy and Cold Dark Matter</a></div>
+  <div class="card-authors">Yourong Frank Wang</div>
+  <p class="card-abstract">We investigate Lyman-alpha forest flux statistics in mixed fuzzy dark matter (FDM) and cold dark matter (CDM) cosmologies using the Fluctuating Gunn-Peterson Approximation (FGPA) applied to hybrid Schrödinger-Poisson and N-body simulations.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.06038v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 07</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.05817v1" target="_blank" rel="noopener">Unveiling axion signals in galactic supernovae with future MeV telescopes</a></div>
+  <div class="card-authors">Zhen Xie et al.</div>
+  <p class="card-abstract">Axion-like particles (ALPs) produced via the Primakoff process in the cores of Galactic core-collapse supernovae (SNe) could convert into MeV-energy gamma-rays through interactions with the Milky Way&#x27;s magnetic field.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.05817v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 07</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.06082v1" target="_blank" rel="noopener">Hunting Dark Matter with the Einstein Telescope</a></div>
+  <div class="card-authors">A. J. Iovino et al.</div>
+  <p class="card-abstract">Too light primordial black holes evaporate and are therefore strongly constrained by various bounds, e.g. Cosmic Microwave Background distortion. However, if they are formed strongly clustered, the corresponding haloes may collapse in heavier black holes which may form the entirety of the dark matte…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.06082v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 07</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.06002v1" target="_blank" rel="noopener">Probing the Solar $^8$B Neutrino Fog with XENONnT</a></div>
+  <div class="card-authors">E. Aprile et al.</div>
+  <p class="card-abstract">We report a 3.3 $σ$ measurement of coherent elastic neutrino-nucleus scattering from solar $^8$B neutrinos using a 6.77 t$\times$yr exposure from the XENONnT experiment, inferring a solar $^8$B neutrino flux of $(5_{-2}^{+3})\times 10^6\,\mathrm{cm}^{-2}\mathrm{s}^{-1}$, consistent with previous mea…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.06002v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 07</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.05775v1" target="_blank" rel="noopener">PhageBench: Can LLMs Understand Raw Bacteriophage Genomes?</a></div>
+  <div class="card-authors">Yusen Hou et al.</div>
+  <p class="card-abstract">Bacteriophages, often referred to as the dark matter of the biosphere, play a critical role in regulating microbial ecosystems and in antibiotic alternatives. Thus, accurate interpretation of their genomes holds significant scientific and practical value.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.05775v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 07</span>
+  </div>
+</article></div>
+</section>
+  </main>
+  <aside class="sidebar">
+    
+  </aside>
+</div>
 </body>
 </html>

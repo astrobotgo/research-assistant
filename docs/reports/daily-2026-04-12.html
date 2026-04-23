@@ -5,199 +5,381 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Research Digest — April 12, 2026</title>
   <style>
-  :root {
-    color-scheme: light;
-    --bg: #f3efe5;
-    --paper: #fffdf8;
-    --ink: #1f2937;
-    --muted: #5b6472;
-    --line: #d8d1c2;
-    --accent: #0f766e;
-    --accent-strong: #134e4a;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: Georgia, "Times New Roman", serif;
-    color: var(--ink);
-    background:
-      radial-gradient(circle at top left, rgba(15,118,110,0.12), transparent 28rem),
-      linear-gradient(180deg, #f8f5ee 0%, var(--bg) 100%);
-    min-height: 100vh;
-  }
-  a { color: var(--accent-strong); text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
-  a:hover { color: var(--accent); }
+:root {
+  --bg:           #f5f3ee;
+  --paper:        #ffffff;
+  --ink:          #18181b;
+  --muted:        #71717a;
+  --line:         #e4e0d8;
+  --accent:       #0f766e;
+  --accent-dark:  #115e59;
 
-  body { padding: 0; }
-  .topbar {
-    position: sticky; top: 0; z-index: 10;
-    background: rgba(255,253,248,0.92); backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--line);
-    padding: 0.75rem 1.5rem;
-    display: flex; justify-content: space-between; align-items: center;
-    gap: 1rem;
-  }
-  .topbar-left { display: flex; align-items: center; gap: 1rem; }
-  .topbar-title { font-size: 0.95rem; color: var(--muted); font-style: italic; }
-  .back-link { font-size: 0.9rem; white-space: nowrap; }
-  .topbar-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .btn-sm {
-    display: inline-block; padding: 0.35rem 0.85rem; border-radius: 999px;
-    background: var(--accent); color: white; text-decoration: none;
-    font-size: 0.85rem; font-weight: 600;
-  }
-  .btn-sm:hover { background: var(--accent-strong); color: white; }
-  .btn-sm.outline {
-    background: transparent; color: var(--accent-strong);
-    border: 1px solid var(--line);
-  }
-  .btn-sm.outline:hover { background: rgba(15,118,110,0.08); }
-  article {
-    max-width: 52rem; margin: 0 auto; padding: 2.5rem 1.5rem 5rem;
-  }
-  article h1 { font-size: clamp(1.6rem,3.5vw,2.5rem); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 1.5rem; }
-  article h2 { font-size: 1.35rem; margin: 2.5rem 0 0.75rem; padding-top: 1.5rem; border-top: 1px solid var(--line); letter-spacing: -0.01em; }
-  article h2:first-of-type { border-top: none; padding-top: 0; }
-  article h3 { font-size: 1.1rem; margin: 1.75rem 0 0.5rem; color: var(--accent-strong); }
-  article h4 { font-size: 0.95rem; margin: 1.25rem 0 0.25rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
-  article p { line-height: 1.75; margin: 0.75rem 0; }
-  article ul, article ol { line-height: 1.7; margin: 0.5rem 0 0.5rem 1.25rem; padding: 0; }
-  article li { display: list-item; border: none; padding: 0.15rem 0; font-size: 1rem; }
-  article li::marker { color: var(--accent); }
-  article hr { border: none; border-top: 1px solid var(--line); margin: 2rem 0; }
-  article strong { color: var(--ink); }
-  article code { font-size: 0.9em; background: rgba(0,0,0,0.05); padding: 0.1em 0.3em; border-radius: 3px; }
-  article blockquote { border-left: 3px solid var(--accent); margin: 1rem 0; padding: 0.25rem 1rem; color: var(--muted); }
-  .report-meta { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
-  @media (max-width: 640px) {
-    .topbar { flex-direction: column; align-items: flex-start; }
-    article { padding: 1.5rem 1rem 4rem; }
-  }
+  --blue:         #1d4ed8; --blue-bg:   #eff6ff;
+  --purple:       #7c3aed; --purple-bg: #f5f3ff;
+  --teal:         #0f766e; --teal-bg:   #f0fdfa;
+  --amber:        #b45309; --amber-bg:  #fffbeb;
+
+  --header-h: 56px;
+  --r: 10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Header ── */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--header-h);
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.header-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+  height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.site-brand { display: flex; align-items: center; gap: 0.5rem; }
+.site-name { font-weight: 800; font-size: 1rem; letter-spacing: -0.03em; color: var(--accent-dark); }
+.site-tagline { font-size: 0.8rem; color: var(--muted); }
+.header-right { display: flex; align-items: center; gap: 0.75rem; }
+.date-label { font-size: 0.82rem; color: var(--muted); }
+.header-pill {
+  font-size: 0.75rem; font-weight: 600; padding: 0.22rem 0.65rem;
+  border: 1px solid var(--line); border-radius: 999px;
+  color: var(--muted); background: transparent;
+}
+.header-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+/* ── Page layout ── */
+.page-wrap {
+  max-width: 1200px; margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 2rem;
+  align-items: start;
+}
+.main-col { min-width: 0; }
+
+/* ── Overview ── */
+.overview-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  margin-bottom: 2.25rem;
+}
+.eyebrow {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.overview-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem; line-height: 1.82; color: #27272a;
+}
+.overview-body p + p { margin-top: 0.6rem; }
+
+/* ── Topic section ── */
+.topic-section { margin-bottom: 2.5rem; }
+.topic-header {
+  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem;
+}
+.topic-badge {
+  font-size: 0.75rem; font-weight: 700; padding: 0.28rem 0.8rem;
+  border-radius: 999px; letter-spacing: 0.02em;
+}
+.c-blue   { background: var(--blue-bg);   color: var(--blue);   }
+.c-purple { background: var(--purple-bg); color: var(--purple); }
+.c-teal   { background: var(--teal-bg);   color: var(--teal);   }
+.c-amber  { background: var(--amber-bg);  color: var(--amber);  }
+.topic-count { font-size: 0.82rem; color: var(--muted); }
+
+.topic-synthesis {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.92rem; line-height: 1.78; color: #3f3f46;
+  border-left: 3px solid var(--line);
+  padding: 0.6rem 1rem;
+  margin-bottom: 1.1rem;
+  border-radius: 0 4px 4px 0;
+}
+.topic-synthesis.c-blue   { border-left-color: var(--blue);   }
+.topic-synthesis.c-purple { border-left-color: var(--purple); }
+.topic-synthesis.c-teal   { border-left-color: var(--teal);   }
+.topic-synthesis.c-amber  { border-left-color: var(--amber);  }
+.topic-synthesis p + p { margin-top: 0.5rem; }
+.topic-synthesis ul { padding-left: 1.2rem; }
+.topic-synthesis li { margin-bottom: 0.25rem; }
+
+/* ── Paper cards ── */
+.papers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 0.9rem;
+}
+.paper-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1rem 1.15rem;
+  display: flex; flex-direction: column; gap: 0.45rem;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.paper-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.08); border-color: #c8c4bc; }
+.card-pills { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.pill {
+  font-size: 0.68rem; font-weight: 600; padding: 0.12rem 0.48rem;
+  border-radius: 999px; letter-spacing: 0.03em;
+}
+.pill-blue   { background: var(--blue-bg);   color: var(--blue);   }
+.pill-purple { background: var(--purple-bg); color: var(--purple); }
+.pill-teal   { background: var(--teal-bg);   color: var(--teal);   }
+.pill-amber  { background: var(--amber-bg);  color: var(--amber);  }
+.pill-watch  { background: #fef3c7; color: #92400e; }
+
+.card-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem; font-weight: 600; line-height: 1.4;
+}
+.card-title a { color: var(--ink); }
+.card-title a:hover { color: var(--accent); text-decoration: underline; }
+.card-authors { font-size: 0.78rem; color: var(--muted); }
+.card-abstract {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.83rem; line-height: 1.65; color: #52525b;
+  flex: 1;
+}
+.card-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 0.3rem; border-top: 1px solid var(--line);
+  margin-top: 0.1rem;
+}
+.card-arxiv { font-size: 0.76rem; font-weight: 600; color: var(--accent); }
+.card-arxiv:hover { text-decoration: underline; }
+.card-cite { font-size: 0.76rem; color: var(--muted); }
+
+.no-papers { font-size: 0.88rem; color: var(--muted); font-style: italic; padding: 0.5rem 0; }
+
+/* ── Open questions ── */
+.open-qs-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.open-qs-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem; line-height: 1.75; color: #3f3f46;
+}
+.open-qs-body ul { padding-left: 1.25rem; }
+.open-qs-body li { margin-bottom: 0.35rem; }
+.open-qs-body p + p { margin-top: 0.5rem; }
+
+/* ── Sidebar ── */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 1.25rem);
+  display: flex; flex-direction: column; gap: 1.1rem;
+  max-height: calc(100vh - var(--header-h) - 2.5rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding-right: 2px;
+}
+.sidebar-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1rem 1.1rem;
+}
+.sidebar-title {
+  font-size: 0.67rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+  padding-bottom: 0.5rem; margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+.ctx-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.82rem; line-height: 1.68; color: #52525b;
+}
+.ctx-body p + p { margin-top: 0.4rem; }
+.ctx-body ul { padding-left: 1.1rem; }
+.ctx-body li { margin-bottom: 0.22rem; }
+.ctx-body h2, .ctx-body h3 { font-size: 0.82rem; margin: 0.5rem 0 0.3rem; color: var(--ink); }
+
+.must-list { list-style: none; }
+.must-list li {
+  border-top: 1px solid var(--line); padding: 0.55rem 0;
+  font-size: 0.81rem; line-height: 1.5;
+}
+.must-list li:first-child { border-top: none; padding-top: 0; }
+
+.archive-list { list-style: none; }
+.archive-list li { border-top: 1px solid var(--line); }
+.archive-list li:first-child { border-top: none; }
+.archive-list a {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.45rem 0; font-size: 0.82rem; color: var(--ink);
+}
+.archive-list a:hover { color: var(--accent); text-decoration: none; }
+.arc-label { font-weight: 500; }
+.arc-date { font-size: 0.77rem; color: var(--muted); }
+
+/* ── Report page nav ── */
+.report-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.75rem; flex-wrap: wrap;
+}
+.back-link { font-size: 0.85rem; color: var(--accent); }
+.report-actions { display: flex; gap: 0.5rem; }
+.action-pill {
+  font-size: 0.77rem; font-weight: 600; padding: 0.28rem 0.75rem;
+  border: 1px solid var(--line); border-radius: 999px; color: var(--muted);
+}
+.action-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .page-wrap { grid-template-columns: 1fr; }
+  .sidebar { position: static; max-height: none; overflow-y: visible; }
+}
+@media (max-width: 600px) {
+  .header-tagline, .date-label { display: none; }
+  .papers-grid { grid-template-columns: 1fr; }
+  .page-wrap { padding: 1.25rem 1rem 3rem; }
+}
 </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="topbar-left">
-      <a class="back-link" href="../index.html">← All reports</a>
-      <span class="topbar-title">April 12, 2026</span>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="site-brand">
+      <span class="site-name">Research Digest</span>
+      <span class="site-tagline">Galaxy clusters · Galaxies · Lensing · Dark matter</span>
     </div>
-    <div class="topbar-actions">
-      <a class="btn-sm outline" href="daily-2026-04-12.pdf">PDF</a>
+    <div class="header-right">
+      <span class="date-label">April 12, 2026</span>
       
     </div>
   </div>
-  <article>
-    <h1>Daily research digest — 2026-04-12</h1>
-<p>Topics scanned: galaxy clusters, galaxies, gravitational lensing, dark matter.</p>
-<p><strong>Pool:</strong> 5 recent papers gathered. <strong>Presenting:</strong> 5 chosen by the local model for this briefing.</p>
-<p><strong>Selection note:</strong> Pool smaller than target; including all.</p>
-<h2>Research briefing (synthesized)</h2>
-<h2>Executive overview</h2>
-<p>Recent preprints reveal a range of studies on dark energy and matter interactions, detailed analyses of galaxy morphologies and their environmental impacts, advanced modeling in gravitational lensing with modifications to general relativity, and new insights into black hole shadow images. These contributions collectively enhance our understanding of cosmological phenomena while highlighting the complexity and interconnectivity of these areas.</p>
-<h2>Galaxy clusters</h2>
-<p>No specific preprints on galaxy clusters were provided, so this section remains sparse. Future submissions may address ongoing questions in cluster dynamics or mass distribution.</p>
-<h2>Galaxies</h2>
-<p>Recent studies emphasize two key themes: morphological analysis using advanced statistical frameworks and environmental effects on neutral hydrogen content within galaxies. In the first theme, a multiwavelength multiscale ordinal pattern framework is employed to analyze NGC 628, identifying characteristic spatial scales of 200 parsecs transitioning from small-scale structures influenced by star formation to larger-scale dynamics. The study reveals converging trajectories in complexity and entropy measures across different wavelengths, suggesting universal behaviors.</p>
-<p>In the second theme, neutral hydrogen content within galaxies in the Shapley Supercluster core is studied using MeerKAT data. Results highlight significant HI depletion differences among star-forming main sequence (SFMS), transition zone (TZ), and red sequence (RS) populations, reflecting environmental impacts on galaxy evolution and star formation efficiency.</p>
-<h2>Gravitational lensing</h2>
-<p>Gravitational lensing research has seen advancements in both observational and theoretical frameworks. One study explores the optical images of Kerr-Sen black holes, revealing the impact of charge and spin parameters on shadow and polarization properties through accretion disk illumination models. Observations indicate a shrinkage of photon rings with increasing charge, along with brightness asymmetry due to frame dragging effects.</p>
-<p>Another preprint investigates weak lensing convergence maps in screened modified gravity theories using ray-tracing techniques applied to FLAMINGO hydrodynamical simulations. This work contributes to accurate modeling of lensing observables and the analytical parameterization of modifications to general relativity, enhancing our understanding of cosmological probes under non-standard gravity models.</p>
-<h2>Dark matter</h2>
-<p>Recent contributions focus on coupled dark energy and dark matter scenarios motivated by DESI DR2 preferences for dynamical dark energy. These studies explore interacting quintessence fields that couple to cold dark matter via a field-dependent mass function $m(φ)$. They address the apparent phantom crossing of the effective equation of state, $w_{\rm eff}(z)$, without invoking phantom scalar fields. Key findings include the necessity for the scalar field to originate from a frozen phase in the radiation era and remain suppressed before recombination to comply with cosmic microwave background constraints.</p>
-<h2>Cross-cutting themes</h2>
-<p>A recurring theme across multiple areas is the exploration of interactions between different components of dark sectors and their observable consequences. This includes modifications to gravity models affecting lensing observables, as well as coupled dark energy scenarios influencing the apparent behavior of cosmological equations of state.</p>
-<p>Another significant pattern involves using advanced numerical techniques and simulations to model complex astrophysical systems, whether through ray-tracing methods in gravitational lensing or detailed statistical frameworks for galaxy morphology. These methods provide valuable insights into environmental impacts on galaxies within dense superclusters and the observable characteristics of black hole shadows under varying conditions.</p>
-<h2>Papers to read first</h2>
-<ul>
+</header>
+<div class="page-wrap">
+  <main class="main-col">
+    <a class="back-link" href="../index.html">← All reports</a>
+    <div class="report-topbar"><span></span><div class="report-actions"><a class="action-pill" href="daily-2026-04-12.pdf">PDF</a></div></div>
+<div class="overview-card">
+  <div class="eyebrow">Today's Overview — April 12, 2026</div>
+  <div class="overview-body"><p>Recent preprints reveal a range of studies on dark energy and matter interactions, detailed analyses of galaxy morphologies and their environmental impacts, advanced modeling in gravitational lensing with modifications to general relativity, and new insights into black hole shadow images. These contributions collectively enhance our understanding of cosmological phenomena while highlighting the complexity and interconnectivity of these areas.</p></div>
+</div>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-blue">Galaxy Clusters</span>
+    <span class="topic-count">0 papers</span>
+  </div>
+  <div class="topic-synthesis c-blue"><p>No specific preprints on galaxy clusters were provided, so this section remains sparse. Future submissions may address ongoing questions in cluster dynamics or mass distribution.</p></div>
+  <p class="no-papers">No papers in today's selection for this topic.</p>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-purple">Galaxies</span>
+    <span class="topic-count">2 papers</span>
+  </div>
+  <div class="topic-synthesis c-purple"><p>Recent studies emphasize two key themes: morphological analysis using advanced statistical frameworks and environmental effects on neutral hydrogen content within galaxies. In the first theme, a multiwavelength multiscale ordinal pattern framework is employed to analyze NGC 628, identifying characteristic spatial scales of 200 parsecs transitioning from small-scale structures influenced by star formation to larger-scale dynamics. The study reveals converging trajectories in complexity and entropy measures across different wavelengths, suggesting universal behaviors.</p>
+<p>In the second theme, neutral hydrogen content within galaxies in the Shapley Supercluster core is studied using MeerKAT data. Results highlight significant HI depletion differences among star-forming main sequence (SFMS), transition zone (TZ), and red sequence (RS) populations, reflecting environmental impacts on galaxy evolution and star formation efficiency.</p></div>
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.08409v1" target="_blank" rel="noopener">Morphological complexity of NGC 628 - a multiwavelength multiscale analysis using the ordinal pattern framework</a></div>
+  <div class="card-authors">Athokpam Langlen Chanu et al.</div>
+  <p class="card-abstract">As statistical systems, galaxies exhibit a rich interplay between organized structure and stochastic fluctuations across a broad range of spatial scales. This duality motivates the need for quantitative frameworks capable of capturing their morphological complexity.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.08409v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 09</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.08402v1" target="_blank" rel="noopener">Neutral Hydrogen in the Shapley Supercluster Core I: Environmental Effects on Gas Content and Galaxy Evolution</a></div>
+  <div class="card-authors">L. Gwebushe et al.</div>
+  <p class="card-abstract">We study the atomic Hydrogen (HI) content of galaxies in the core of the Shapley Supercluster (SSC) at &lt;z&gt; ~ 0.048, using observations from the MeerKAT Galaxy Cluster Legacy Survey and optical data from the Shapley Supercluster Survey (ShaSS) project.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.08402v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 09</span>
+  </div>
+</article></div>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-teal">Gravitational Lensing</span>
+    <span class="topic-count">2 papers</span>
+  </div>
+  <div class="topic-synthesis c-teal"><p>Gravitational lensing research has seen advancements in both observational and theoretical frameworks. One study explores the optical images of Kerr-Sen black holes, revealing the impact of charge and spin parameters on shadow and polarization properties through accretion disk illumination models. Observations indicate a shrinkage of photon rings with increasing charge, along with brightness asymmetry due to frame dragging effects.</p>
+<p>Another preprint investigates weak lensing convergence maps in screened modified gravity theories using ray-tracing techniques applied to FLAMINGO hydrodynamical simulations. This work contributes to accurate modeling of lensing observables and the analytical parameterization of modifications to general relativity, enhancing our understanding of cosmological probes under non-standard gravity models.</p></div>
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-teal">Gravitational Lensing</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.08439v1" target="_blank" rel="noopener">Optical images of Kerr-Sen black hole illuminated by thick accretion disks</a></div>
+  <div class="card-authors">Yu-Kang Wang, Chen-Yu Yang, Xiao-Xiong Zeng</div>
+  <p class="card-abstract">This paper investigates the shadow and polarization images of a Kerr-Sen black hole illuminated by geometrically thick and optically thin accretion disks.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.08439v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 09</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-teal">Gravitational Lensing</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.08393v1" target="_blank" rel="noopener">Ray-traced weak lensing convergence in screened modified gravity theories</a></div>
+  <div class="card-authors">Mattia Pantiri et al.</div>
+  <p class="card-abstract">Weak gravitational lensing is one of the primary cosmological probes, providing powerful constraints on the cosmological model. As Stage IV surveys are expected to deliver data of unprecedented precision, accurate modeling of weak gravitational lensing observables across both linear and non-linear s…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.08393v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 09</span>
+  </div>
+</article></div>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-amber">Dark Matter</span>
+    <span class="topic-count">1 paper</span>
+  </div>
+  <div class="topic-synthesis c-amber"><p>Recent contributions focus on coupled dark energy and dark matter scenarios motivated by DESI DR2 preferences for dynamical dark energy. These studies explore interacting quintessence fields that couple to cold dark matter via a field-dependent mass function $m(φ)$. They address the apparent phantom crossing of the effective equation of state, $w_{\rm eff}(z)$, without invoking phantom scalar fields. Key findings include the necessity for the scalar field to originate from a frozen phase in the radiation era and remain suppressed before recombination to comply with cosmic microwave background constraints.</p></div>
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.08449v1" target="_blank" rel="noopener">Coupled Dark Energy and Dark Matter for DESI: An Effective Guide to the Phantom Divide</a></div>
+  <div class="card-authors">Stefan Antusch, Stephen F. King, Xin Wang</div>
+  <p class="card-abstract">Motivated by the recent Dark Energy Spectroscopic Instrument (DESI) DR2 preference for dynamical dark energy, we study interacting dark energy models in which a canonical quintessence field couples to cold dark matter through a field-dependent mass $m(φ)$.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.08449v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 09</span>
+  </div>
+</article></div>
+</section>
+<div class="open-qs-card">
+  <div class="eyebrow">Open Questions &amp; Follow-ups</div>
+  <div class="open-qs-body"><p>Ongoing research in dark matter-coupled dark energy models needs to address how these interactions influence large-scale structure formation and the overall cosmic expansion history. Further studies on galactic environments within superclusters should explore additional environmental factors affecting neutral hydrogen content, such as mergers or tidal forces from neighboring clusters.</p>
+<p>In gravitational lensing, the effects of modified gravity models beyond linear scales need further investigation using high-resolution simulations and observational datasets. Additionally, extending these analyses to a broader range of black hole spacetimes could provide new insights into the observable characteristics of compact objects in diverse astrophysical settings.</p>
+<hr></div>
+</div>
+  </main>
+  <aside class="sidebar">
+    <div class="sidebar-card">
+  <div class="sidebar-title">Recommended reading</div>
+  <div class="ctx-body"><ul>
 <li><strong>&quot;Coupled Dark Energy and Dark Matter for DESI: An Effective Guide to the Phantom Divide&quot;</strong></li>
 </ul>
 <p>- This paper provides an essential update on dynamical dark energy models, specifically focusing on interacting quintessence fields in light of recent DESI data.</p>
 <ul>
 <li><strong>&quot;Optical images of Kerr-Sen black hole illuminated by thick accretion disks&quot;</strong></li>
 </ul>
-<p>- Offers detailed insights into black hole shadow and polarization properties under varying charge and spin conditions using advanced accretion disk illumination models.</p>
-<h2>Open questions and follow-ups</h2>
-<p>Ongoing research in dark matter-coupled dark energy models needs to address how these interactions influence large-scale structure formation and the overall cosmic expansion history. Further studies on galactic environments within superclusters should explore additional environmental factors affecting neutral hydrogen content, such as mergers or tidal forces from neighboring clusters.</p>
-<p>In gravitational lensing, the effects of modified gravity models beyond linear scales need further investigation using high-resolution simulations and observational datasets. Additionally, extending these analyses to a broader range of black hole spacetimes could provide new insights into the observable characteristics of compact objects in diverse astrophysical settings.</p>
-<hr>
-<h2>Catalog (selected)</h2>
-<h3>1. Coupled Dark Energy and Dark Matter for DESI: An Effective Guide to the Phantom Divide</h3>
-<ul>
-<li><strong>Focus:</strong> dark matter</li>
-<li>Published: 2026-04-09T16:45:31+00:00</li>
-<li>Authors: Stefan Antusch, Stephen F. King, Xin Wang</li>
-<li>Categories: astro-ph.CO, hep-ph</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.08449v1">https://arxiv.org/pdf/2604.08449v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Motivated by the recent Dark Energy Spectroscopic Instrument (DESI) DR2 preference for dynamical dark energy, we study interacting dark energy models in which a canonical quintessence field couples to cold dark matter through a field-dependent mass $m(φ)$. In such scenarios, the effective equation of state inferred under the assumption of non-interacting dark sectors, $w<em>{\rm eff}(z)$, can differ from the intrinsic scalar-field equation of state $w</em>φ(z)$, making an apparent phantom crossing $w<em>{\rm eff}&lt;-1$ possible without introducing a phantom scalar. We show that a viable realization of this mechanism requires the scalar field to originate from a frozen phase deep in the radiation era, in order for the effective coupling to remain sufficiently suppressed before recombination to evade cosmic microwave background constraints, and for the late-time evolution to become strong enough to reproduce the apparent behavior of $w</em>{\rm eff}(z)$ preferred by DESI. We identify the general conditions that allow these requirements to be satisfied simultaneously, and present an illustrative phenomenological realization in which $w<em>{\rm eff}(z)$ evolves from $w</em>{\rm eff}\approx -1.2$ at $z \approx 1.0$ to $w_{\rm eff}\approx -0.9$ at $z\approx 0.4$. These conditions and requirements serve as a guide for designing future models of this kind which can safely navigate the phantom divide at $w=-1$ in an effective way without phantom fields.</p>
-<h4>Semantic Scholar</h4>
-<ul>
-<li>Year: 2026</li>
-<li>Venue: </li>
-<li>Citation Count: 0</li>
-<li>Influential Citations: 0</li>
-<li>Fields of Study: Physics</li>
-<li>URL: <a href="https://www.semanticscholar.org/paper/837f8bcbeb9083696c6c9ad9abfe8108fa31a8c5">https://www.semanticscholar.org/paper/837f8bcbeb9083696c6c9ad9abfe8108fa31a8c5</a></li>
-</ul>
-<h3>2. Optical images of Kerr-Sen black hole illuminated by thick accretion disks</h3>
-<ul>
-<li><strong>Focus:</strong> gravitational lensing</li>
-<li>Published: 2026-04-09T16:38:30+00:00</li>
-<li>Authors: Yu-Kang Wang, Chen-Yu Yang, Xiao-Xiong Zeng</li>
-<li>Categories: astro-ph.HE, gr-qc</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.08439v1">https://arxiv.org/pdf/2604.08439v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>This paper investigates the shadow and polarization images of a Kerr-Sen black hole illuminated by geometrically thick and optically thin accretion disks. We adopt two classes of accretion models, namely the phenomenological radiatively inefficient accretion flow (RIAF) model and the analytical ballistic approximation accretion flow (BAAF) model. Based on radiative transfer theory, we examine the effects of the spin parameter $a$, black hole charge $Q$, and observer inclination angle $θ$ on the shadow images. Both models show that, as the charge $Q$ increases, the photon rings and the central dark regions shrink simultaneously. Meanwhile, frame dragging gives rise to a pronounced brightness asymmetry, which becomes more significant with increasing $a$ and $θ$. The main difference between isotropic and anisotropic radiation is that, in the latter case, the higher order images are brighter in the upper and lower polar regions. For the BAAF model, because the conical approximation renders certain regions geometrically thinner, the spatial extent of the higher order images is narrower than that in the RIAF model, and the separation between the direct image and the higher order images is more distinct. In the polarization images, the spatial distribution of the polarization vector directions is mainly determined by gravitational lensing and frame dragging, whereas the intensity near the photon ring and the scale of the higher order images are significantly influenced by $Q$.</p>
-<h4>Semantic Scholar</h4>
-<ul>
-<li>Year: 2026</li>
-<li>Venue: </li>
-<li>Citation Count: 0</li>
-<li>Influential Citations: 0</li>
-<li>Fields of Study: Physics</li>
-<li>URL: <a href="https://www.semanticscholar.org/paper/1572352c16cd8fb7cebffd6132a9b7aaf9e59fb4">https://www.semanticscholar.org/paper/1572352c16cd8fb7cebffd6132a9b7aaf9e59fb4</a></li>
-</ul>
-<h3>3. Morphological complexity of NGC 628 - a multiwavelength multiscale analysis using the ordinal pattern framework</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-09T16:08:41+00:00</li>
-<li>Authors: Athokpam Langlen Chanu, S Amrutha, Pravabati Chingangbam, Changbom Park</li>
-<li>Categories: astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.08409v1">https://arxiv.org/pdf/2604.08409v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>As statistical systems, galaxies exhibit a rich interplay between organized structure and stochastic fluctuations across a broad range of spatial scales. This duality motivates the need for quantitative frameworks capable of capturing their morphological complexity. The ordinal patterns framework, along with its associated statistical measures: permutation entropy ($H$), disequilibrium ($D_E$), statistical complexity ($C$), and ordinal network node entropy, has recently emerged as a powerful tool for analyzing such complexity in physical systems. We apply this framework in a multiwavelength, multiscale analysis of the galaxy NGC 628, utilizing observations in the near-ultraviolet, near-infrared, mid-infrared, and millimeter bands. Our results reveal a characteristic spatial scale of approximately 200 parsecs, marking the transition from small-scale structures influenced by star formation and stellar feedback to larger-scale morphology governed by the galaxy&#x27;s dynamics. Furthermore, we find that the $C$ vs. $H$ trajectories for all wavelengths converge toward a common attractor curve, consistent with the behavior of isotropic Gaussian random fields. This convergence suggests a universal statistical behavior in galactic structure at large scales, despite the differing physical processes traced by each wavelength.</p>
-<h4>Semantic Scholar</h4>
-<ul>
-<li>Year: 2026</li>
-<li>Venue: </li>
-<li>Citation Count: 0</li>
-<li>Influential Citations: 0</li>
-<li>Fields of Study: Physics</li>
-<li>URL: <a href="https://www.semanticscholar.org/paper/f51b05f7ebaafe171cb2536c1549398e582bf3a1">https://www.semanticscholar.org/paper/f51b05f7ebaafe171cb2536c1549398e582bf3a1</a></li>
-</ul>
-<h3>4. Neutral Hydrogen in the Shapley Supercluster Core I: Environmental Effects on Gas Content and Galaxy Evolution</h3>
-<ul>
-<li><strong>Focus:</strong> galaxies</li>
-<li>Published: 2026-04-09T16:01:32+00:00</li>
-<li>Authors: L. Gwebushe, T. Venturi, P. Merluzzi, G. Busarello, V. Casasola, O. Smirnov, M. Ramatsoku, J. Dawson</li>
-<li>Categories: astro-ph.GA</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.08402v1">https://arxiv.org/pdf/2604.08402v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>We study the atomic Hydrogen (HI) content of galaxies in the core of the Shapley Supercluster (SSC) at &lt;z&gt; ~ 0.048, using observations from the MeerKAT Galaxy Cluster Legacy Survey and optical data from the Shapley Supercluster Survey (ShaSS) project. Our sample comprises 169 galaxies with HI detections in the dynamically active region of Abell 3558 and SC1329-313. Following the literature, we classify galaxies into star-forming main sequence (SFMS), transition (TZ), and red sequence (RS) populations, and examine how the HI content varies across these populations. Galaxies on the SFMS exhibit an average HI gas fraction offset of 0.038 dex from the gas fraction main sequence, while TZ and RS populations show depleted HI fractions of -0.034 and -0.211 dex. HI depletion timescales span from 6 to 170 Gyr (SFMS-TZ-RS) confirming increasingly inefficient star formation with quenching. Scaling relations between HI mass and stellar mass in the SSC are generally consistent with field samples. The most direct signature of the dense environment of the SSC is the marked predominance of TZ galaxies, in contrast to what is observed in the field-dominated sample of xGASS, where the population is mostly composed of SFMS galaxies. Moreover, the SFMS and RS populations have similar size, again in contrast with field populations. These results suggest that galaxies in the SSC are undergoing environmental quenching through starvation or strangulation, rather than rapid gas stripping. Despite detectable HI reservoirs, many galaxies exhibit long depletion times, indicating reduced gas accretion and inefficient star formation.</p>
-<h3>5. Ray-traced weak lensing convergence in screened modified gravity theories</h3>
-<ul>
-<li><strong>Focus:</strong> gravitational lensing</li>
-<li>Published: 2026-04-09T15:54:01+00:00</li>
-<li>Authors: Mattia Pantiri, Matthieu Schaller, Alessandra Silvestri, Jeger C. Broxterman, Joop Schaye</li>
-<li>Categories: astro-ph.CO</li>
-<li>PDF: <a href="https://arxiv.org/pdf/2604.08393v1">https://arxiv.org/pdf/2604.08393v1</a></li>
-</ul>
-<h4>Abstract</h4>
-<p>Weak gravitational lensing is one of the primary cosmological probes, providing powerful constraints on the cosmological model. As Stage IV surveys are expected to deliver data of unprecedented precision, accurate modeling of weak gravitational lensing observables across both linear and non-linear scales becomes increasingly important. In this work, we investigate weak lensing in modified gravity (MG) models, extensions of the standard $Λ$CDM cosmology in which gravity deviates from general relativity, generally introducing modifications to the lensing equation. We parametrize these modifications through the common phenomenological function $Σ<em>\mathrm{mg}$ and apply ray-tracing to the density maps of N-body and hydrodynamical simulations. We model the time dependence of $Σ</em>\mathrm{mg}$ analytically, while we introduce a phenomenological scale dependence to represent the screening mechanisms by which MG models reduce to general relativity in high-density environments. Starting from the output of the FLAMINGO hydrodynamical simulations, we generate fully ray-traced convergence maps using our modified lensing model. We analyze how the parameters of our prescription affect the weak lensing convergence power spectrum and compare these effects to other known sources of variation, in particular cosmological parameters and baryonic feedback. We find that the modifications to the lensing equation deriving from the MG model produce non-negligible signatures in the convergence power spectrum and that, within extensions of the $Λ$CDM framework, these effects can be larger than those induced by baryonic physics. Our results indicate that modified lensing should become a standard ingredient of the analysis of modified gravity simulations.</p>
-  </article>
+<p>- Offers detailed insights into black hole shadow and polarization properties under varying charge and spin conditions using advanced accretion disk illumination models.</p></div>
+</div>
+  </aside>
+</div>
 </body>
 </html>

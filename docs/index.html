@@ -3,101 +3,429 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Daily Research Reports</title>
+  <title>Research Digest — April 22, 2026</title>
   <style>
-  :root {
-    color-scheme: light;
-    --bg: #f3efe5;
-    --paper: #fffdf8;
-    --ink: #1f2937;
-    --muted: #5b6472;
-    --line: #d8d1c2;
-    --accent: #0f766e;
-    --accent-strong: #134e4a;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: Georgia, "Times New Roman", serif;
-    color: var(--ink);
-    background:
-      radial-gradient(circle at top left, rgba(15,118,110,0.12), transparent 28rem),
-      linear-gradient(180deg, #f8f5ee 0%, var(--bg) 100%);
-    min-height: 100vh;
-  }
-  a { color: var(--accent-strong); text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
-  a:hover { color: var(--accent); }
+:root {
+  --bg:           #f5f3ee;
+  --paper:        #ffffff;
+  --ink:          #18181b;
+  --muted:        #71717a;
+  --line:         #e4e0d8;
+  --accent:       #0f766e;
+  --accent-dark:  #115e59;
 
-  main { max-width: 52rem; margin: 0 auto; padding: 3rem 1.25rem 4rem; }
-  .hero {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 1.25rem;
-    padding: 2rem;
-    box-shadow: 0 18px 45px rgba(31,41,55,0.08);
-  }
-  h1 { margin: 0 0 0.75rem; font-size: clamp(2rem,4vw,3.5rem); line-height: 1.05; letter-spacing: -0.03em; }
-  p { margin: 0; color: var(--muted); font-size: 1.05rem; line-height: 1.6; }
-  .cta-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.25rem; }
-  .btn {
-    display: inline-block; padding: 0.8rem 1.2rem; border-radius: 999px;
-    background: var(--accent); color: white; text-decoration: none; font-weight: 700;
-  }
-  .btn:hover { background: var(--accent-strong); color: white; }
-  .btn.outline {
-    background: transparent; color: var(--accent-strong);
-    border: 1px solid var(--line);
-  }
-  .btn.outline:hover { background: rgba(15,118,110,0.08); }
-  section { margin-top: 1.5rem; background: rgba(255,253,248,0.88); border: 1px solid var(--line); border-radius: 1.25rem; padding: 1.5rem; }
-  h2 { margin: 0 0 1rem; font-size: 1.15rem; text-transform: uppercase; letter-spacing: 0.08em; }
-  ul { list-style: none; padding: 0; margin: 0; }
-  li { display: flex; gap: 0.75rem; justify-content: space-between; align-items: baseline; padding: 0.9rem 0; border-top: 1px solid var(--line); }
-  li:first-child { border-top: 0; padding-top: 0; }
-  li:last-child { padding-bottom: 0; }
-  .li-links { display: flex; gap: 0.5rem; align-items: baseline; flex-wrap: wrap; }
-  .li-links a { font-size: 0.9rem; }
-  .li-meta { color: var(--muted); white-space: nowrap; font-size: 0.9rem; }
-  .empty { color: var(--muted); }
-  @media (max-width: 640px) {
-    li { flex-direction: column; align-items: flex-start; }
-    .li-meta { white-space: normal; }
-  }
+  --blue:         #1d4ed8; --blue-bg:   #eff6ff;
+  --purple:       #7c3aed; --purple-bg: #f5f3ff;
+  --teal:         #0f766e; --teal-bg:   #f0fdfa;
+  --amber:        #b45309; --amber-bg:  #fffbeb;
+
+  --header-h: 56px;
+  --r: 10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Header ── */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--header-h);
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.header-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+  height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.site-brand { display: flex; align-items: center; gap: 0.5rem; }
+.site-name { font-weight: 800; font-size: 1rem; letter-spacing: -0.03em; color: var(--accent-dark); }
+.site-tagline { font-size: 0.8rem; color: var(--muted); }
+.header-right { display: flex; align-items: center; gap: 0.75rem; }
+.date-label { font-size: 0.82rem; color: var(--muted); }
+.header-pill {
+  font-size: 0.75rem; font-weight: 600; padding: 0.22rem 0.65rem;
+  border: 1px solid var(--line); border-radius: 999px;
+  color: var(--muted); background: transparent;
+}
+.header-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+/* ── Page layout ── */
+.page-wrap {
+  max-width: 1200px; margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 2rem;
+  align-items: start;
+}
+.main-col { min-width: 0; }
+
+/* ── Overview ── */
+.overview-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  margin-bottom: 2.25rem;
+}
+.eyebrow {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.overview-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem; line-height: 1.82; color: #27272a;
+}
+.overview-body p + p { margin-top: 0.6rem; }
+
+/* ── Topic section ── */
+.topic-section { margin-bottom: 2.5rem; }
+.topic-header {
+  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem;
+}
+.topic-badge {
+  font-size: 0.75rem; font-weight: 700; padding: 0.28rem 0.8rem;
+  border-radius: 999px; letter-spacing: 0.02em;
+}
+.c-blue   { background: var(--blue-bg);   color: var(--blue);   }
+.c-purple { background: var(--purple-bg); color: var(--purple); }
+.c-teal   { background: var(--teal-bg);   color: var(--teal);   }
+.c-amber  { background: var(--amber-bg);  color: var(--amber);  }
+.topic-count { font-size: 0.82rem; color: var(--muted); }
+
+.topic-synthesis {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.92rem; line-height: 1.78; color: #3f3f46;
+  border-left: 3px solid var(--line);
+  padding: 0.6rem 1rem;
+  margin-bottom: 1.1rem;
+  border-radius: 0 4px 4px 0;
+}
+.topic-synthesis.c-blue   { border-left-color: var(--blue);   }
+.topic-synthesis.c-purple { border-left-color: var(--purple); }
+.topic-synthesis.c-teal   { border-left-color: var(--teal);   }
+.topic-synthesis.c-amber  { border-left-color: var(--amber);  }
+.topic-synthesis p + p { margin-top: 0.5rem; }
+.topic-synthesis ul { padding-left: 1.2rem; }
+.topic-synthesis li { margin-bottom: 0.25rem; }
+
+/* ── Paper cards ── */
+.papers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 0.9rem;
+}
+.paper-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1rem 1.15rem;
+  display: flex; flex-direction: column; gap: 0.45rem;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.paper-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.08); border-color: #c8c4bc; }
+.card-pills { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.pill {
+  font-size: 0.68rem; font-weight: 600; padding: 0.12rem 0.48rem;
+  border-radius: 999px; letter-spacing: 0.03em;
+}
+.pill-blue   { background: var(--blue-bg);   color: var(--blue);   }
+.pill-purple { background: var(--purple-bg); color: var(--purple); }
+.pill-teal   { background: var(--teal-bg);   color: var(--teal);   }
+.pill-amber  { background: var(--amber-bg);  color: var(--amber);  }
+.pill-watch  { background: #fef3c7; color: #92400e; }
+
+.card-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem; font-weight: 600; line-height: 1.4;
+}
+.card-title a { color: var(--ink); }
+.card-title a:hover { color: var(--accent); text-decoration: underline; }
+.card-authors { font-size: 0.78rem; color: var(--muted); }
+.card-abstract {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.83rem; line-height: 1.65; color: #52525b;
+  flex: 1;
+}
+.card-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 0.3rem; border-top: 1px solid var(--line);
+  margin-top: 0.1rem;
+}
+.card-arxiv { font-size: 0.76rem; font-weight: 600; color: var(--accent); }
+.card-arxiv:hover { text-decoration: underline; }
+.card-cite { font-size: 0.76rem; color: var(--muted); }
+
+.no-papers { font-size: 0.88rem; color: var(--muted); font-style: italic; padding: 0.5rem 0; }
+
+/* ── Open questions ── */
+.open-qs-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.open-qs-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem; line-height: 1.75; color: #3f3f46;
+}
+.open-qs-body ul { padding-left: 1.25rem; }
+.open-qs-body li { margin-bottom: 0.35rem; }
+.open-qs-body p + p { margin-top: 0.5rem; }
+
+/* ── Sidebar ── */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 1.25rem);
+  display: flex; flex-direction: column; gap: 1.1rem;
+  max-height: calc(100vh - var(--header-h) - 2.5rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding-right: 2px;
+}
+.sidebar-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1rem 1.1rem;
+}
+.sidebar-title {
+  font-size: 0.67rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+  padding-bottom: 0.5rem; margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+.ctx-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.82rem; line-height: 1.68; color: #52525b;
+}
+.ctx-body p + p { margin-top: 0.4rem; }
+.ctx-body ul { padding-left: 1.1rem; }
+.ctx-body li { margin-bottom: 0.22rem; }
+.ctx-body h2, .ctx-body h3 { font-size: 0.82rem; margin: 0.5rem 0 0.3rem; color: var(--ink); }
+
+.must-list { list-style: none; }
+.must-list li {
+  border-top: 1px solid var(--line); padding: 0.55rem 0;
+  font-size: 0.81rem; line-height: 1.5;
+}
+.must-list li:first-child { border-top: none; padding-top: 0; }
+
+.archive-list { list-style: none; }
+.archive-list li { border-top: 1px solid var(--line); }
+.archive-list li:first-child { border-top: none; }
+.archive-list a {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.45rem 0; font-size: 0.82rem; color: var(--ink);
+}
+.archive-list a:hover { color: var(--accent); text-decoration: none; }
+.arc-label { font-weight: 500; }
+.arc-date { font-size: 0.77rem; color: var(--muted); }
+
+/* ── Report page nav ── */
+.report-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.75rem; flex-wrap: wrap;
+}
+.back-link { font-size: 0.85rem; color: var(--accent); }
+.report-actions { display: flex; gap: 0.5rem; }
+.action-pill {
+  font-size: 0.77rem; font-weight: 600; padding: 0.28rem 0.75rem;
+  border: 1px solid var(--line); border-radius: 999px; color: var(--muted);
+}
+.action-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .page-wrap { grid-template-columns: 1fr; }
+  .sidebar { position: static; max-height: none; overflow-y: visible; }
+}
+@media (max-width: 600px) {
+  .header-tagline, .date-label { display: none; }
+  .papers-grid { grid-template-columns: 1fr; }
+  .page-wrap { padding: 1.25rem 1rem 3rem; }
+}
 </style>
 </head>
 <body>
-  <main>
-    <section class="hero">
-      <h1>Daily Research Reports</h1>
-      <p>AI-synthesised astrophysics briefings: galaxy clusters, galaxies, gravitational lensing, and dark matter.</p>
-      <div class="cta-row">
-        <a class="btn" href="reports/daily-2026-04-22.html">Read latest report</a>
-<a class="btn outline" href="latest.pdf">PDF</a>
-<a class="btn outline" href="latest.mp4">Video</a>
-
-      </div>
-    </section>
-    <section>
-      <h2>Archive</h2>
-      <ul>
-        <li><div class="li-links"><a href="reports/daily-2026-04-22.html">Read</a> <a href="reports/daily-2026-04-22.pdf">PDF · 2.2 MB</a></div><span class="li-meta">April 22, 2026</span></li>
-<li><div class="li-links"><a href="reports/daily-2026-04-21.html">Read</a> <a href="reports/daily-2026-04-21.pdf">PDF · 3.0 MB</a> <a href="videos/daily-2026-04-21.mp4">Video</a></div><span class="li-meta">April 21, 2026</span></li>
-<li><div class="li-links"><a href="reports/daily-2026-04-20.html">Read</a> <a href="reports/daily-2026-04-20.pdf">PDF · 0.0 MB</a></div><span class="li-meta">April 20, 2026</span></li>
-<li><div class="li-links"><a href="reports/daily-2026-04-19.html">Read</a> <a href="reports/daily-2026-04-19.pdf">PDF · 0.3 MB</a></div><span class="li-meta">April 19, 2026</span></li>
-<li><div class="li-links"><a href="reports/daily-2026-04-18.html">Read</a> <a href="reports/daily-2026-04-18.pdf">PDF · 0.5 MB</a></div><span class="li-meta">April 18, 2026</span></li>
-<li><div class="li-links"><a href="reports/daily-2026-04-17.html">Read</a> <a href="reports/daily-2026-04-17.pdf">PDF · 0.5 MB</a></div><span class="li-meta">April 17, 2026</span></li>
-<li><div class="li-links"><a href="reports/daily-2026-04-16.html">Read</a> <a href="reports/daily-2026-04-16.pdf">PDF · 1.2 MB</a></div><span class="li-meta">April 16, 2026</span></li>
-<li><div class="li-links"><a href="reports/daily-2026-04-15.html">Read</a> <a href="reports/daily-2026-04-15.pdf">PDF · 0.8 MB</a></div><span class="li-meta">April 15, 2026</span></li>
-<li><div class="li-links"><a href="reports/daily-2026-04-14.html">Read</a> <a href="reports/daily-2026-04-14.pdf">PDF · 0.5 MB</a></div><span class="li-meta">April 14, 2026</span></li>
-<li><div class="li-links"><a href="reports/daily-2026-04-13.html">Read</a> <a href="reports/daily-2026-04-13.pdf">PDF · 0.4 MB</a></div><span class="li-meta">April 13, 2026</span></li>
-<li><div class="li-links"><a href="reports/daily-2026-04-12.html">Read</a> <a href="reports/daily-2026-04-12.pdf">PDF · 0.9 MB</a></div><span class="li-meta">April 12, 2026</span></li>
-<li><div class="li-links"><a href="reports/daily-2026-04-11.html">Read</a> <a href="reports/daily-2026-04-11.pdf">PDF · 1.4 MB</a></div><span class="li-meta">April 11, 2026</span></li>
-<li><div class="li-links"><a href="reports/daily-2026-04-10.html">Read</a> <a href="reports/daily-2026-04-10.pdf">PDF · 1.4 MB</a></div><span class="li-meta">April 10, 2026</span></li>
-<li><div class="li-links"><a href="reports/daily-2026-04-09.html">Read</a> <a href="reports/daily-2026-04-09.pdf">PDF · 1.3 MB</a></div><span class="li-meta">April 09, 2026</span></li>
-<li><div class="li-links"><a href="reports/daily-2026-04-08.html">Read</a> <a href="reports/daily-2026-04-08.pdf">PDF · 3.7 MB</a></div><span class="li-meta">April 08, 2026</span></li>
-<li><div class="li-links"><a href="reports/daily-2026-04-07.html">Read</a> <a href="reports/daily-2026-04-07.pdf">PDF · 0.8 MB</a></div><span class="li-meta">April 07, 2026</span></li>
-      </ul>
-    </section>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="site-brand">
+      <span class="site-name">Research Digest</span>
+      <span class="site-tagline">Galaxy clusters · Galaxies · Lensing · Dark matter</span>
+    </div>
+    <div class="header-right">
+      <span class="date-label">April 22, 2026</span>
+      <a class="header-pill" href="reports/daily-2026-04-22.pdf">PDF</a>
+    </div>
+  </div>
+</header>
+<div class="page-wrap">
+  <main class="main-col">
+    
+    <div class="overview-card">
+  <div class="eyebrow">Today's Overview — April 22, 2026</div>
+  <div class="overview-body"><p>Recent preprints highlight advancements in the study of galaxy clusters, galaxies, gravitational lensing, and dark matter through a variety of methods. Key themes include precision measurements using spectroscopic data, detailed analysis of gravitational effects like the kinetic Sunyaev-Zel&#x27;dovich effect (kSZ), and novel probes for constraining dark matter models during early epochs. The papers also underscore the importance of high-resolution imaging and modeling in elucidating galactic properties and the role of feedback mechanisms.</p></div>
+</div>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-blue">Galaxy Clusters</span>
+    <span class="topic-count">0 papers</span>
+  </div>
+  <div class="topic-synthesis c-blue"><p>No recent preprints are tagged specifically with galaxy clusters, so this section is sparse. Focus remains on indirect contributions through related topics like dark matter and gravitational lensing.</p></div>
+  <p class="no-papers">No papers in today's selection for this topic.</p>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-purple">Galaxies</span>
+    <span class="topic-count">8 papers</span>
+  </div>
+  <div class="topic-synthesis c-purple"><p>Recent submissions emphasize detailed studies of galaxies using high-resolution imaging and spectroscopic data from telescopes such as Hubble and ALMA. Papers include investigations into the luminosity functions and spectral energy distributions (SEDs) of active galactic nuclei (AGN), protoclusters, supernova gravitational waves, and accretion processes in young stellar objects (YSOs). These studies aim to disentangle AGN properties from host galaxy emission through morphological decomposition techniques and resolve complex astrophysical phenomena.</p></div>
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span>
+<span class="pill pill-teal">Gravitational Lensing</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.19745v1" target="_blank" rel="noopener">Precision Kinematic Sunyaev--Zel&#x27;dovich Measurements Across Halo Mass and Redshift with DESI DR2 and ACT DR6: Part II. Bright Galaxy Survey and Emission-Line Galaxies</a></div>
+  <div class="card-authors">B. Hadzhiyska et al.</div>
+  <p class="card-abstract">We present the first high-significance spectroscopic stacked kinetic Sunyaev-Zel&#x27;dovich (kSZ) measurements of circumgalactic gas profiles for both Bright Galaxy Survey (BGS) and Emission Line Galaxy (ELG) tracers, combining DESI Data Release 2 with ACT Data Release 6.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.19745v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">1 citations</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span>
+<span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.19744v1" target="_blank" rel="noopener">Precision Kinematic Sunyaev--Zel&#x27;dovich Measurements Across Halo Mass and Redshift with DESI DR2 and ACT DR6: Part I. Luminous Red Galaxies</a></div>
+  <div class="card-authors">F. J. Qu et al.</div>
+  <p class="card-abstract">We present the most precise measurements of the kinetic Sunyaev-Zel&#x27;dovich (kSZ) effect around luminous red galaxies to date, detecting the signal at $18σ$ significance in both harmonic and configuration space.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.19744v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">1 citations</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span>
+<span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.19726v1" target="_blank" rel="noopener">Breaking the UV Luminosity Function Degeneracy:Self-Interacting Dark Matter Constraints from Reionization Topology</a></div>
+  <div class="card-authors">Zihan Wang, Huanyuan Shan</div>
+  <p class="card-abstract">Self-interacting dark matter (SIDM) is the leading framework resolving small-scale cold dark matter (CDM) crises, yet high-redshift SIDM constraints are fundamentally limited by degeneracies between dark matter microphysics and galaxy formation astrophysics.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.19726v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 21</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.19674v1" target="_blank" rel="noopener">Resolved UV-Optical HST Imaging and Spectral Energy Distribution Modeling of Nearby BAT Active Galactic Nuclei</a></div>
+  <div class="card-authors">Connor Auge et al.</div>
+  <p class="card-abstract">We use high-resolution UV-to-optical imaging from the Hubble Space Telescope (HST) to construct spatially resolved spectral energy distributions (SEDs) for seven nearby ($z&lt;0.07$) hard (14--195$\,$keV) X-ray-selected broad-line active galactic nuclei (AGN) with $L_{\rm bol}=10^{43.26}-10^{45.34}\,\r…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.19674v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 21</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.19651v1" target="_blank" rel="noopener">A Possible Protocluster of Galaxies Serendipitously Discovered in the Field of an Intermediate-Redshift Post-starburst Galaxy</a></div>
+  <div class="card-authors">Mary C. Knowlton et al.</div>
+  <p class="card-abstract">We present the serendipitous discovery of an overdensity of submillimeter galaxies (SMGs) in the field of SDSSJ0909-0108, a massive z~0.7 post-starburst galaxy from the SQuIGGLE survey.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.19651v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 21</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.19613v1" target="_blank" rel="noopener">MG-NECOLA: A Field-Level Emulator for $f(R)$ Gravity and Massive Neutrino Cosmologies</a></div>
+  <div class="card-authors">J. Bayron Orjuela-Quintana et al.</div>
+  <p class="card-abstract">Accurate modeling of non-linear gravitational dynamics is essential for constraining extensions to the standard cosmological model using large-scale structure observations.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.19613v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 21</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.19557v1" target="_blank" rel="noopener">Understanding supernova gravitational waves with protoneutron star asteroseismology</a></div>
+  <div class="card-authors">Hajime Sotani</div>
+  <p class="card-abstract">Supernovae are one of the most promising gravitational wave sources. But, since the system of the supernovae is nearly spherically symmetric, the expected gravitational waves from them are relatively weak, compared to the case of the compact binary mergers.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.19557v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 21</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.19551v1" target="_blank" rel="noopener">Characterizing and spectrally modeling embedded FUor eruptions in the near-infrared</a></div>
+  <div class="card-authors">Jiaxun Li, Tinggui Wang, Zheyu Lin</div>
+  <p class="card-abstract">Context. Episodic accretion in young stellar objects (YSOs) is thought to play a critical role in addressing the &quot;luminosity problem&quot; associated with star formation. However, optical surveys tend to bias against sources that are heavily obscured.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.19551v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 21</span>
+  </div>
+</article></div>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-teal">Gravitational Lensing</span>
+    <span class="topic-count">1 paper</span>
+  </div>
+  <div class="topic-synthesis c-teal"><p>Submissions on gravitational lensing include the analysis of a rare radio changing-look Narrow-line Seyfert 1 (NLS1) galaxy, SDSSJ110546.07+145202.4, which presents unique challenges and opportunities for understanding outburst mechanisms in AGNs. This work provides comprehensive observational data across multiple wavelengths, including the first high-frequency radio observations and X-ray monitoring.</p></div>
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-teal">Gravitational Lensing</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.19435v1" target="_blank" rel="noopener">SDSSJ110546.07+145202.4: The first long-duration radio changing-look NLS1 galaxy</a></div>
+  <div class="card-authors">S. Komossa et al.</div>
+  <p class="card-abstract">SDSSJ110546.07+145202.4 stands out as a unique radio changing-look Narrow-line Seyfert 1 (NLS1) galaxy that has brightened dramatically and shows an exceptionally long duration of its &quot;on&quot; phase.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.19435v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 21</span>
+  </div>
+</article></div>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-amber">Dark Matter</span>
+    <span class="topic-count">1 paper</span>
+  </div>
+  <div class="topic-synthesis c-amber"><p>Recent dark matter papers explore constraints on TeV-scale subcomponents of dark matter through cosmic microwave background (CMB) data and future 21-cm signal detections. Another paper investigates the kinetic Sunyaev-Zel&#x27;dovich effect for probing feedback mechanisms in galaxies, offering a novel approach to constrain dark matter models by examining decays into different particle types during early cosmological epochs.</p></div>
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.19198v1" target="_blank" rel="noopener">Cosmological constraints on TeV-scale dark matter subcomponents decaying between recombination and reionisation</a></div>
+  <div class="card-authors">Markus R. Mosbech, Cristina Benso, Felix Kahlhoefer</div>
+  <p class="card-abstract">The Dark Ages and the Cosmic Dawn are an untapped well of information about the particle physics properties of dark matter, which may become accessible with future radio telescopes able to probe the 21-cm signal from atomic hydrogen.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.19198v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 21</span>
+  </div>
+</article></div>
+</section>
   </main>
+  <aside class="sidebar">
+    <div class="sidebar-card">
+  <div class="sidebar-title">Recommended reading</div>
+  <div class="ctx-body"><ul>
+<li><strong>&quot;Understanding supernova gravitational waves with protoneutron star asteroseismology&quot;</strong>: Provides insights into using supernovae as gravitational wave sources.</li>
+<li><strong>&quot;Cosmological constraints on TeV-scale dark matter subcomponents decaying between recombination and reionisation&quot;</strong>: Explores novel approaches to constraining early universe physics through CMB data and future 21-cm signal detections.</li>
+</ul>
+<p>These papers offer significant contributions to their respective fields, providing valuable insights into the complex astrophysical phenomena under investigation.</p>
+<hr></div>
+</div>
+<div class="sidebar-card">
+  <div class="sidebar-title">Archive</div>
+  <ul class="archive-list"><li><a href="reports/daily-2026-04-22.html"><span class="arc-label">April 22, 2026</span><span class="arc-date">2026-04-22</span></a></li><li><a href="reports/daily-2026-04-21.html"><span class="arc-label">April 21, 2026</span><span class="arc-date">2026-04-21</span></a></li><li><a href="reports/daily-2026-04-20.html"><span class="arc-label">April 20, 2026</span><span class="arc-date">2026-04-20</span></a></li><li><a href="reports/daily-2026-04-19.html"><span class="arc-label">April 19, 2026</span><span class="arc-date">2026-04-19</span></a></li><li><a href="reports/daily-2026-04-18.html"><span class="arc-label">April 18, 2026</span><span class="arc-date">2026-04-18</span></a></li><li><a href="reports/daily-2026-04-17.html"><span class="arc-label">April 17, 2026</span><span class="arc-date">2026-04-17</span></a></li><li><a href="reports/daily-2026-04-16.html"><span class="arc-label">April 16, 2026</span><span class="arc-date">2026-04-16</span></a></li><li><a href="reports/daily-2026-04-15.html"><span class="arc-label">April 15, 2026</span><span class="arc-date">2026-04-15</span></a></li><li><a href="reports/daily-2026-04-14.html"><span class="arc-label">April 14, 2026</span><span class="arc-date">2026-04-14</span></a></li><li><a href="reports/daily-2026-04-13.html"><span class="arc-label">April 13, 2026</span><span class="arc-date">2026-04-13</span></a></li><li><a href="reports/daily-2026-04-12.html"><span class="arc-label">April 12, 2026</span><span class="arc-date">2026-04-12</span></a></li><li><a href="reports/daily-2026-04-11.html"><span class="arc-label">April 11, 2026</span><span class="arc-date">2026-04-11</span></a></li><li><a href="reports/daily-2026-04-10.html"><span class="arc-label">April 10, 2026</span><span class="arc-date">2026-04-10</span></a></li><li><a href="reports/daily-2026-04-09.html"><span class="arc-label">April 09, 2026</span><span class="arc-date">2026-04-09</span></a></li><li><a href="reports/daily-2026-04-08.html"><span class="arc-label">April 08, 2026</span><span class="arc-date">2026-04-08</span></a></li><li><a href="reports/daily-2026-04-07.html"><span class="arc-label">April 07, 2026</span><span class="arc-date">2026-04-07</span></a></li></ul>
+</div>
+  </aside>
+</div>
 </body>
 </html>
