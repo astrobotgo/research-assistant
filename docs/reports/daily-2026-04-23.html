@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Research Digest — April 23, 2026</title>
+  <style>
+:root {
+  --bg:           #f5f3ee;
+  --paper:        #ffffff;
+  --ink:          #18181b;
+  --muted:        #71717a;
+  --line:         #e4e0d8;
+  --accent:       #0f766e;
+  --accent-dark:  #115e59;
+
+  --blue:         #1d4ed8; --blue-bg:   #eff6ff;
+  --purple:       #7c3aed; --purple-bg: #f5f3ff;
+  --teal:         #0f766e; --teal-bg:   #f0fdfa;
+  --amber:        #b45309; --amber-bg:  #fffbeb;
+
+  --header-h: 56px;
+  --r: 10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Header ── */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--header-h);
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.header-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+  height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.site-brand { display: flex; align-items: center; gap: 0.5rem; }
+.site-name { font-weight: 800; font-size: 1rem; letter-spacing: -0.03em; color: var(--accent-dark); }
+.site-tagline { font-size: 0.8rem; color: var(--muted); }
+.header-right { display: flex; align-items: center; gap: 0.75rem; }
+.date-label { font-size: 0.82rem; color: var(--muted); }
+.header-pill {
+  font-size: 0.75rem; font-weight: 600; padding: 0.22rem 0.65rem;
+  border: 1px solid var(--line); border-radius: 999px;
+  color: var(--muted); background: transparent;
+}
+.header-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+/* ── Page layout ── */
+.page-wrap {
+  max-width: 1200px; margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 2rem;
+  align-items: start;
+}
+.main-col { min-width: 0; }
+
+/* ── Overview ── */
+.overview-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  margin-bottom: 2.25rem;
+}
+.eyebrow {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.overview-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem; line-height: 1.82; color: #27272a;
+}
+.overview-body p + p { margin-top: 0.6rem; }
+
+/* ── Topic section ── */
+.topic-section { margin-bottom: 2.5rem; }
+.topic-header {
+  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem;
+}
+.topic-badge {
+  font-size: 0.75rem; font-weight: 700; padding: 0.28rem 0.8rem;
+  border-radius: 999px; letter-spacing: 0.02em;
+}
+.c-blue   { background: var(--blue-bg);   color: var(--blue);   }
+.c-purple { background: var(--purple-bg); color: var(--purple); }
+.c-teal   { background: var(--teal-bg);   color: var(--teal);   }
+.c-amber  { background: var(--amber-bg);  color: var(--amber);  }
+.topic-count { font-size: 0.82rem; color: var(--muted); }
+
+.topic-synthesis {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.92rem; line-height: 1.78; color: #3f3f46;
+  border-left: 3px solid var(--line);
+  padding: 0.6rem 1rem;
+  margin-bottom: 1.1rem;
+  border-radius: 0 4px 4px 0;
+}
+.topic-synthesis.c-blue   { border-left-color: var(--blue);   }
+.topic-synthesis.c-purple { border-left-color: var(--purple); }
+.topic-synthesis.c-teal   { border-left-color: var(--teal);   }
+.topic-synthesis.c-amber  { border-left-color: var(--amber);  }
+.topic-synthesis p + p { margin-top: 0.5rem; }
+.topic-synthesis ul { padding-left: 1.2rem; }
+.topic-synthesis li { margin-bottom: 0.25rem; }
+
+/* ── Paper cards ── */
+.papers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 0.9rem;
+}
+.paper-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1rem 1.15rem;
+  display: flex; flex-direction: column; gap: 0.45rem;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.paper-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.08); border-color: #c8c4bc; }
+.card-pills { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.pill {
+  font-size: 0.68rem; font-weight: 600; padding: 0.12rem 0.48rem;
+  border-radius: 999px; letter-spacing: 0.03em;
+}
+.pill-blue   { background: var(--blue-bg);   color: var(--blue);   }
+.pill-purple { background: var(--purple-bg); color: var(--purple); }
+.pill-teal   { background: var(--teal-bg);   color: var(--teal);   }
+.pill-amber  { background: var(--amber-bg);  color: var(--amber);  }
+.pill-watch  { background: #fef3c7; color: #92400e; }
+
+.card-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem; font-weight: 600; line-height: 1.4;
+}
+.card-title a { color: var(--ink); }
+.card-title a:hover { color: var(--accent); text-decoration: underline; }
+.card-authors { font-size: 0.78rem; color: var(--muted); }
+.card-abstract {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.83rem; line-height: 1.65; color: #52525b;
+  flex: 1;
+}
+.card-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 0.3rem; border-top: 1px solid var(--line);
+  margin-top: 0.1rem;
+}
+.card-arxiv { font-size: 0.76rem; font-weight: 600; color: var(--accent); }
+.card-arxiv:hover { text-decoration: underline; }
+.card-cite { font-size: 0.76rem; color: var(--muted); }
+
+.no-papers { font-size: 0.88rem; color: var(--muted); font-style: italic; padding: 0.5rem 0; }
+
+/* ── Open questions ── */
+.open-qs-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.open-qs-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem; line-height: 1.75; color: #3f3f46;
+}
+.open-qs-body ul { padding-left: 1.25rem; }
+.open-qs-body li { margin-bottom: 0.35rem; }
+.open-qs-body p + p { margin-top: 0.5rem; }
+
+/* ── Sidebar ── */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 1.25rem);
+  display: flex; flex-direction: column; gap: 1.1rem;
+  max-height: calc(100vh - var(--header-h) - 2.5rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding-right: 2px;
+}
+.sidebar-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1rem 1.1rem;
+}
+.sidebar-title {
+  font-size: 0.67rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+  padding-bottom: 0.5rem; margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+.ctx-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.82rem; line-height: 1.68; color: #52525b;
+}
+.ctx-body p + p { margin-top: 0.4rem; }
+.ctx-body ul { padding-left: 1.1rem; }
+.ctx-body li { margin-bottom: 0.22rem; }
+.ctx-body h2, .ctx-body h3 { font-size: 0.82rem; margin: 0.5rem 0 0.3rem; color: var(--ink); }
+
+.must-list { list-style: none; }
+.must-list li {
+  border-top: 1px solid var(--line); padding: 0.55rem 0;
+  font-size: 0.81rem; line-height: 1.5;
+}
+.must-list li:first-child { border-top: none; padding-top: 0; }
+
+.archive-list { list-style: none; }
+.archive-list li { border-top: 1px solid var(--line); }
+.archive-list li:first-child { border-top: none; }
+.archive-list a {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.45rem 0; font-size: 0.82rem; color: var(--ink);
+}
+.archive-list a:hover { color: var(--accent); text-decoration: none; }
+.arc-label { font-weight: 500; }
+.arc-date { font-size: 0.77rem; color: var(--muted); }
+
+/* ── Report page nav ── */
+.report-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.75rem; flex-wrap: wrap;
+}
+.back-link { font-size: 0.85rem; color: var(--accent); }
+.report-actions { display: flex; gap: 0.5rem; }
+.action-pill {
+  font-size: 0.77rem; font-weight: 600; padding: 0.28rem 0.75rem;
+  border: 1px solid var(--line); border-radius: 999px; color: var(--muted);
+}
+.action-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .page-wrap { grid-template-columns: 1fr; }
+  .sidebar { position: static; max-height: none; overflow-y: visible; }
+}
+@media (max-width: 600px) {
+  .header-tagline, .date-label { display: none; }
+  .papers-grid { grid-template-columns: 1fr; }
+  .page-wrap { padding: 1.25rem 1rem 3rem; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="site-brand">
+      <span class="site-name">Research Digest</span>
+      <span class="site-tagline">Galaxy clusters · Galaxies · Lensing · Dark matter</span>
+    </div>
+    <div class="header-right">
+      <span class="date-label">April 23, 2026</span>
+      
+    </div>
+  </div>
+</header>
+<div class="page-wrap">
+  <main class="main-col">
+    <a class="back-link" href="../index.html">← All reports</a>
+    <div class="report-topbar"><span></span><div class="report-actions"><a class="action-pill" href="daily-2026-04-23.pdf">PDF</a></div></div>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-blue">Galaxy Clusters</span>
+    <span class="topic-count">0 papers</span>
+  </div>
+  
+  <p class="no-papers">No papers in today's selection for this topic.</p>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-purple">Galaxies</span>
+    <span class="topic-count">8 papers</span>
+  </div>
+  
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.20843v1" target="_blank" rel="noopener">Self-regulated galaxy evolution within a self-consistently varying galaxy-wide IMF</a></div>
+  <div class="card-authors">Lukas Hof et al.</div>
+  <p class="card-abstract">Semi-analytical evolution models of galaxies are a useful and computationally inexpensive tool for fast assessment of individual properties and their evolution.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.20843v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 22</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.20411v1" target="_blank" rel="noopener">The Evolution of the SFR-M_* relation at 0.1&lt;z&lt;4: Environmental and Morphological Dependencies</a></div>
+  <div class="card-authors">Kaimin He et al.</div>
+  <p class="card-abstract">We present a comprehensive study of the relationship between star formation rate (SFR) and stellar mass (M_*) from z = 0.1 to z = 4 using a mass-complete sample of approximately 290,000 galaxies from the COSMOS2020 catalog.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.20411v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 22</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.20344v1" target="_blank" rel="noopener">The core of the problem: Physical limits of the core-Sérsic model</a></div>
+  <div class="card-authors">Maarten Baes</div>
+  <p class="card-abstract">The core-Sérsic model is the standard tool for describing partially depleted stellar cores in massive early-type galaxies, yet its physical admissibility has rarely been examined.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.20344v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 22</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span>
+<span class="pill pill-teal">Gravitational Lensing</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.20195v1" target="_blank" rel="noopener">Photometric Super-Resolution for Improving Galaxy Morphological Measurements using Conditional Generative Adversarial Networks</a></div>
+  <div class="card-authors">Samuel Kahn et al.</div>
+  <p class="card-abstract">The measurement of galaxy morphological parameters from astronomical images features in a wide range of modern analyses, including galaxy evolution and cosmological weak lensing studies. The precision and accuracy of morphological parameter estimation can be influenced by several key factors.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.20195v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 22</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span>
+<span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.20086v1" target="_blank" rel="noopener">Photon and neutrino fluxes from spheroidal dwarf galaxies in a decaying DM model</a></div>
+  <div class="card-authors">A. Carrillo-Monteverde, L. López-Lozano, F. San Juan-Villegas</div>
+  <p class="card-abstract">In this work, we investigate a decaying dark matter scenario and its associated indirect detection signatures. The model consists of a scalar singlet with a lifetime exceeding the age of the Universe.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.20086v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 22</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.20080v1" target="_blank" rel="noopener">Cold molecular gas distribution and kinematics in the low-metallicity dusty starburst of Mrk 996 resolved with ALMA</a></div>
+  <div class="card-authors">R. Slater et al.</div>
+  <p class="card-abstract">Detecting cold molecular gas in metal-poor starbursts remains a major challenge. Low carbon and oxygen abundances hinder CO formation, while low dust content reduces shielding against UV photodissociation. Consequently, CO, the main tracer of molecular gas, becomes faint or undetectable.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.20080v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 22</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span>
+<span class="pill pill-watch">★ DESI</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.20060v1" target="_blank" rel="noopener">Unraveling Chemical Enrichment in Extreme Emission-Line Galaxies: A Multi-Element Bayesian View of Bursty Star Formation and Galaxy Evolution in DESI</a></div>
+  <div class="card-authors">Razieh Emami et al.</div>
+  <p class="card-abstract">Extreme emission-line galaxies (EELGs) probe chemical enrichment in low-mass, bursty systems where star formation, feedback, and gas accretion are poorly constrained.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.20060v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 21</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-purple">Galaxies</span>
+<span class="pill pill-watch">★ ACT</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.20056v1" target="_blank" rel="noopener">MAUVE-MUSE: Ionization and Kinematic Signatures of Environmental Effects on Virgo Cluster Disks</a></div>
+  <div class="card-authors">Toby Brown et al.</div>
+  <p class="card-abstract">We present early science results from the MAUVE (Multiphase Astrophysics to Unveil the Virgo Environment) program which targets 40 Virgo Cluster galaxies to investigate the effect of environment on the interstellar medium (ISM) at ~100 pc scales.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.20056v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 21</span>
+  </div>
+</article></div>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-teal">Gravitational Lensing</span>
+    <span class="topic-count">0 papers</span>
+  </div>
+  
+  <p class="no-papers">No papers in today's selection for this topic.</p>
+</section>
+<section class="topic-section">
+  <div class="topic-header">
+    <span class="topic-badge c-amber">Dark Matter</span>
+    <span class="topic-count">5 papers</span>
+  </div>
+  
+  <div class="papers-grid"><article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.20734v1" target="_blank" rel="noopener">Search for Axion Like Particles produced via the Primakoff process at COMPASS</a></div>
+  <div class="card-authors">Mehran Dehpour</div>
+  <p class="card-abstract">Axion-Like Particles (ALPs) are well-motivated candidates for dark matter and potential mediators to the dark sector. We present a search for ALPs coupled to photons, based on a reinterpretation of COMPASS data.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.20734v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 22</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.20481v1" target="_blank" rel="noopener">Dilaton-Induced Resonant Production of Ultralight Vector Dark Matter</a></div>
+  <div class="card-authors">Imtiaz Khan et al.</div>
+  <p class="card-abstract">We study the resonant production of ultralight vector dark matter from an oscillating spectator scalar $φ$ coupled to a massive vector $A_μ$ through a dilatonic kinetic function $\W(φ)$. The mechanism contains a narrow branch near $\mA/\mphi\simeq 1/2$.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.20481v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 22</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.20456v1" target="_blank" rel="noopener">How Invisible: Regressing The Key Model Parameter for Semi-visible Jet Searches</a></div>
+  <div class="card-authors">Yin Li et al.</div>
+  <p class="card-abstract">Semi-visible jets (SVJs) provide a characteristic collider signature of strongly interacting dark sectors, in which the key model parameter $r_{\mathrm{inv}}$ controls the fraction of dark hadrons decaying to dark matter candidates.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.20456v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 22</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.20385v1" target="_blank" rel="noopener">Prospects of boosted magnetic dipole inelastic fermion dark matter at ILC-BDX</a></div>
+  <div class="card-authors">I. V. Voronchikhin, D. V. Kirpichnikov</div>
+  <p class="card-abstract">In this work, we investigate the projected sensitivity of the Beam-Dump eXperiment at the International Linear Collider (ILC-BDX) to inelastic fermionic dark matter coupled to the Standard Model photon through an off-diagonal magnetic dipole operator.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.20385v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 22</span>
+  </div>
+</article>
+<article class="paper-card">
+  <div class="card-pills"><span class="pill pill-amber">Dark Matter</span>
+<span class="pill pill-watch">★ ACT</span></div>
+  <div class="card-title"><a href="https://arxiv.org/abs/2604.20063v1" target="_blank" rel="noopener">Purely Quadratic Non-Gaussianity from Tachyonic Instability: Primordial Black Holes and Scalar-Induced Gravitational Waves</a></div>
+  <div class="card-authors">He-Xu Zhang, Mei Huang</div>
+  <p class="card-abstract">We investigate primordial black hole (PBH) formation in a cosmological scenario where curvature perturbations follow purely quadratic non-Gaussianity, $ζ= A(φ^2-\langleφ^2\rangle)$, arising from tachyonic instability in multi-component inflationary models.…</p>
+  <div class="card-footer">
+    <a class="card-arxiv" href="https://arxiv.org/abs/2604.20063v1" target="_blank" rel="noopener">arXiv ↗</a>
+    <span class="card-cite">Apr 21</span>
+  </div>
+</article></div>
+</section>
+  </main>
+  <aside class="sidebar">
+    <div class="sidebar-card">
+  <div class="sidebar-title">This week in the field</div>
+  <div class="ctx-body"><h3>Themes and Methods</h3>
+<p>Recent astrophysics research highlights a continued focus on the interplay between local and global processes in galaxies, particularly how bars influence star formation and quenching mechanisms. Studies are leveraging large datasets like SDSS and advanced machine learning techniques to parse these dynamics. In dark matter studies, unconventional models such as inelastic self-interactions and cosmic strings remain active areas of inquiry, with ongoing efforts to probe their observational signatures.</p>
+<h3>Active Debates</h3>
+<p>A persistent debate centers on the role of local versus global processes in galaxy evolution and star formation regulation. While machine learning algorithms suggest that star formation is primarily a local process driven by stellar mass surface density, quenching mechanisms appear more influenced by global properties like black hole masses and halo environments. This tension underpins much of the recent research.</p>
+<h3>Open Questions</h3>
+<p>Several open questions continue to recur:</p>
+<ul>
+<li><strong>The role of dark matter in structure formation:</strong> How do exotic dark matter models impact galaxy dynamics and large-scale structure?</li>
+<li><strong>Gravitational lensing signatures:</strong> Can fourth-order statistical measures reveal non-Gaussian features in the cosmic web, providing deeper insights into dark matter distributions?</li>
+<li><strong>Galaxy evolution mechanisms:</strong> What specific processes drive star formation bimodality in barred spiral galaxies? How do these mechanisms vary across different galactic environments?</li>
+</ul>
+<h3>Notable Shifts</h3>
+<p>There is growing momentum toward higher-order statistical measures in gravitational lensing research. Fourth-order correlations, like the four-point correlation function (4PCF), are being developed to detect non-Gaussian features from stage IV surveys, potentially offering a new window into dark matter and the cosmic web&#x27;s structure.</p>
+<p>Overall, recent work underscores the intricate balance between local stellar dynamics and global galactic properties in shaping cosmic structures, while also advancing novel methods for detecting subtle gravitational effects.</p>
+<hr></div>
+</div>
+  </aside>
+</div>
+</body>
+</html>
