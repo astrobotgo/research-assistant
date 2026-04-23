@@ -13,7 +13,7 @@ _console = Console()
 
 from app.agents import COPERNICUS, PTOLEMY
 from app.config import TOPIC_CONFIGS, WATCHLIST
-from app.context import build_research_context, update_field_state
+from app.context import build_historical_backdrop, build_research_context, update_field_state
 from app.digest import synthesize_research_digest
 from app.figures import extract_key_figures
 from app.fetch_arxiv import fetch_recent_arxiv
@@ -450,6 +450,14 @@ def daily(
                         early_page_summary_map[pid] = pages
                     progress.advance(task)
 
+    # Copernicus: historical backdrop connecting today's papers to 20-year field arc
+    print(f"[cyan]{COPERNICUS.name}:[/cyan] building historical backdrop...")
+    hist_backdrop = ""
+    try:
+        hist_backdrop = build_historical_backdrop(enriched)
+    except Exception as _hb_err:
+        print(f"[yellow]{COPERNICUS.name}:[/yellow] historical backdrop failed: {_hb_err}")
+
     digest_md = ""
     if digest:
         print(f"[cyan]{COPERNICUS.name}:[/cyan] synthesizing research digest...")
@@ -515,6 +523,9 @@ def daily(
             f.write(f"**Selection note:** {selection_note}\n\n")
         if context_summary:
             f.write(context_summary)
+            f.write("\n\n---\n\n")
+        if hist_backdrop:
+            f.write(hist_backdrop)
             f.write("\n\n---\n\n")
         if digest_md:
             f.write("## Research briefing (synthesized)\n\n")

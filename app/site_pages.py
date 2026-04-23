@@ -666,6 +666,15 @@ def _sidebar_context(context_html: str) -> str:
 </div>"""
 
 
+def _sidebar_history(history_html: str) -> str:
+    if not history_html:
+        return ""
+    return f"""<div class="sidebar-card">
+  <div class="sidebar-title">20-year arc</div>
+  <div class="ctx-body">{history_html}</div>
+</div>"""
+
+
 def _sidebar_must_reads(must_reads_html: str) -> str:
     if not must_reads_html:
         return ""
@@ -839,6 +848,7 @@ def _build_rich_page(
         r"(?:executive\s+(?:overview|summary)|what\s+is\s+new.*worth\s+noticing)",
     )
     context_text = _extract_section(digest_md, r"recent\s+context.*")
+    history_text = _extract_section(digest_md, r"historical\s+backdrop")
     open_q_text = _extract_section(briefing, r"open\s+questions.*|future\s+directions")
     must_read_text = _extract_section(
         briefing,
@@ -903,6 +913,9 @@ def _build_rich_page(
 
     if context_text:
         sidebar_parts.append(_sidebar_context(_md_to_html(context_text)))
+
+    if history_text:
+        sidebar_parts.append(_sidebar_history(_md_to_html(history_text)))
 
     if must_read_text:
         sidebar_parts.append(_sidebar_must_reads(_md_to_html(must_read_text)))

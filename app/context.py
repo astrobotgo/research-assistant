@@ -354,3 +354,63 @@ def build_research_context(
         "covered_ids": covered_ids,
         "covered_titles": covered_titles,
     }
+
+
+def build_historical_backdrop(papers: list[dict]) -> str:
+    """
+    Place today's selected papers in the 20-year arc of the field.
+    Called after enrichment so it receives the actual selected papers.
+    Returns a Markdown string headed '## Historical backdrop', or '' on failure.
+    """
+    if not papers:
+        return ""
+
+    paper_items = []
+    for p in papers:
+        title = (p.get("title") or "").strip()
+        abstract = (p.get("summary") or "")[:350].strip()
+        if title:
+            paper_items.append(f"- **{title}**: {abstract}")
+    if not paper_items:
+        return ""
+    papers_block = "\n".join(paper_items)
+
+    prompt = f"""You are Copernicus, a scientific advisor who specialises in the history and long-term
+evolution of astrophysics research covering galaxy clusters, galaxies, gravitational lensing,
+and dark matter — roughly the past 20 years (2005–2025).
+
+Today's briefing highlights these papers:
+
+{papers_block}
+
+Write a **concise Markdown section** (300–450 words) headed exactly:
+
+## Historical backdrop
+
+For each major theme you see in today's papers, identify:
+- The landmark results, surveys, or theoretical frameworks that established the foundation
+  (name them explicitly: Bullet Cluster, SDSS, Planck, DES, HST/JWST, SPT, ACT, eROSITA,
+  CLASH, Frontier Fields, XMM-Newton, Chandra, DESI, Euclid, Rubin/LSST, etc.)
+- How understanding in that sub-area has evolved over the past two decades
+- Active long-running tensions or open problems that today's papers push on
+
+Be specific and name real results. Write in present tense as if briefing an expert who knows the
+field well but needs historical grounding relative to today's papers. No filler sentences.
+"""
+
+    backdrop = ""
+    try:
+        backdrop = gemini_generate(prompt=prompt, timeout=120.0)
+    except Exception:
+        try:
+            r = httpx.post(
+                f"{OLLAMA_HOST}/api/generate",
+                json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False},
+                timeout=300.0,
+            )
+            r.raise_for_status()
+            backdrop = r.json().get("response", "").strip()
+        except Exception:
+            pass
+
+    return backdrop
