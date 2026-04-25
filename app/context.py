@@ -11,8 +11,28 @@ from pathlib import Path
 
 import httpx
 
+from app.agents import COPERNICUS
 from app.gemini_llm import gemini_generate
 from app.summarize import OLLAMA_HOST, OLLAMA_MODEL
+
+
+def _extract_json(text: str):
+    text = text.strip()
+    m = re.match(r"^```(?:json)?\s*(.*?)\s*```$", text, flags=re.DOTALL)
+    if m:
+        text = m.group(1).strip()
+    try:
+        return json.loads(text)
+    except Exception:
+        pass
+    start = text.find("{")
+    end = text.rfind("}")
+    if start != -1 and end > start:
+        try:
+            return json.loads(text[start : end + 1])
+        except Exception:
+            pass
+    return None
 
 
 def _read_past_digests(days_back: int, today: date) -> list[tuple[str, str]]:
@@ -36,10 +56,14 @@ def _read_past_digests(days_back: int, today: date) -> list[tuple[str, str]]:
     return results
 
 
-def _read_covered_ids(days_back: int, today: date) -> tuple[set[str], list[str]]:
-    """Return (set of arXiv IDs, list of titles) from selected papers in recent caches."""
+def _read_recent_selected_papers(
+    days_back: int,
+    today: date,
+) -> tuple[set[str], list[str], list[dict]]:
+    """Return recent selected IDs, titles, and lightweight paper records."""
     covered_ids: set[str] = set()
     covered_titles: list[str] = []
+    recent_papers: list[dict] = []
     for offset in range(1, days_back + 1):
         d = today - timedelta(days=offset)
         ds = d.isoformat()
@@ -51,13 +75,22 @@ def _read_covered_ids(days_back: int, today: date) -> tuple[set[str], list[str]]
             for p in data.get("selected", []):
                 pid = (p.get("id") or "").strip()
                 title = (p.get("title") or "").strip()
+                topic = (p.get("_topic_label") or p.get("_topic") or "").strip()
+                summary = (p.get("summary") or "").strip()
                 if pid:
                     covered_ids.add(pid)
                 if title:
                     covered_titles.append(title)
+                    recent_papers.append({
+                        "date": ds,
+                        "id": pid,
+                        "title": title,
+                        "topic": topic,
+                        "summary": summary[:700],
+                    })
         except Exception:
             pass
-    return covered_ids, covered_titles
+    return covered_ids, covered_titles, recent_papers
 
 
 def _read_open_questions(max_chars: int = 3000) -> str:
@@ -72,6 +105,121 @@ def _read_open_questions(max_chars: int = 3000) -> str:
     return text
 
 
+def _recent_papers_block(recent_papers: list[dict], max_items: int = 24) -> str:
+    if not recent_papers:
+        return "(no recent selected-paper cache records found)"
+    lines = []
+    for p in recent_papers[-max_items:]:
+        lines.append(
+            f"- {p.get('date', '')} | {p.get('topic', '')} | {p.get('title', '')}\n"
+            f"  Abstract excerpt: {p.get('summary', '')}"
+        )
+    return "\n".join(lines)
+
+
+def _default_selection_brief(
+    open_questions: str,
+    covered_titles: list[str],
+) -> dict:
+    return {
+        "priority_signals": [
+            "clear new result or constraint",
+            "surprising implication or tension with recent work",
+            "new method, data set, simulation, or measurement with reusable value",
+            "paper that directly addresses a recurring open question",
+        ],
+        "open_questions_to_watch": [
+            line.strip("- ").strip()
+            for line in open_questions.splitlines()
+            if line.strip().startswith("-")
+        ][:8],
+        "recently_covered_titles": covered_titles[-12:],
+        "deprioritize": [
+            "generic incremental applications unless the abstract states a concrete new finding",
+            "papers already featured recently unless they add a distinct development",
+        ],
+        "selection_advice": (
+            "Choose papers because they say something important or interesting, "
+            "not because they fill a topic quota."
+        ),
+    }
+
+
+def _build_selection_brief(
+    history_block: str,
+    open_questions: str,
+    covered_titles: list[str],
+    recent_papers: list[dict],
+) -> dict:
+    fallback = _default_selection_brief(open_questions, covered_titles)
+    recent_block = _recent_papers_block(recent_papers)
+    oq_block = open_questions or "(no accumulated open questions found)"
+
+    prompt = f"""{COPERNICUS.prompt_preamble()}
+
+You advise the discovery agent before it selects today's papers.
+
+The final report should be a concise summary of the important new findings and
+the most interesting points, not a broad catalog. Your job is to tell the
+discovery agent what kinds of papers are worth selecting today.
+
+Return ONLY valid JSON with this shape:
+{{
+  "priority_signals": ["signal to boost", "..."],
+  "open_questions_to_watch": ["specific unresolved question", "..."],
+  "recently_saturated_topics": ["topic or method already covered heavily", "..."],
+  "deprioritize": ["pattern to avoid", "..."],
+  "selection_advice": "2-4 sentences of concrete guidance for today's selection"
+}}
+
+Base your advice only on the recent briefing history and selected-paper cache below.
+Prefer concrete scientific signals over generic topic labels.
+
+Past briefing synthesis:
+{history_block}
+
+Accumulated open questions:
+{oq_block}
+
+Recently selected papers:
+{recent_block}
+"""
+
+    try:
+        text = gemini_generate(prompt=prompt, timeout=120.0)
+        parsed = _extract_json(text)
+        if isinstance(parsed, dict):
+            return {**fallback, **parsed}
+    except Exception:
+        pass
+
+    try:
+        r = httpx.post(
+            f"{OLLAMA_HOST}/api/generate",
+            json={
+                "model": OLLAMA_MODEL,
+                "prompt": prompt,
+                "stream": False,
+                "format": "json",
+            },
+            timeout=300.0,
+        )
+        if r.status_code >= 400:
+            r = httpx.post(
+                f"{OLLAMA_HOST}/api/generate",
+                json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False},
+                timeout=300.0,
+            )
+        r.raise_for_status()
+        parsed = _extract_json(r.json().get("response", ""))
+        if isinstance(parsed, dict):
+            return {**fallback, **parsed}
+    except Exception:
+        pass
+
+    return fallback
+
+
 def build_research_context(
     days_back: int = 7,
     today: date | None = None,
@@ -82,18 +230,24 @@ def build_research_context(
 
     Returns:
         summary      : str        Markdown "## Recent context" section (may be empty)
+        selection_brief: dict     Structured guidance for the selection agent
         covered_ids  : set[str]   arXiv IDs featured in recent briefings
         covered_titles: list[str] Titles of recently featured papers
     """
     if today is None:
         today = date.today()
 
-    covered_ids, covered_titles = _read_covered_ids(days_back, today)
+    covered_ids, covered_titles, recent_papers = _read_recent_selected_papers(days_back, today)
     past_digests = _read_past_digests(days_back, today)
     open_questions = _read_open_questions()
 
     if not past_digests and not open_questions:
-        return {"summary": "", "covered_ids": covered_ids, "covered_titles": covered_titles}
+        return {
+            "summary": "",
+            "selection_brief": _default_selection_brief(open_questions, covered_titles),
+            "covered_ids": covered_ids,
+            "covered_titles": covered_titles,
+        }
 
     history_block = "\n\n---\n\n".join(
         f"**{ds}**\n\n{text[:2500]}" for ds, text in past_digests
@@ -104,7 +258,9 @@ def build_research_context(
         if open_questions else ""
     )
 
-    prompt = f"""You are a scientific context advisor for a daily astrophysics research briefing
+    prompt = f"""{COPERNICUS.prompt_preamble()}
+
+You are a scientific context advisor for a daily astrophysics research briefing
 covering galaxy clusters, galaxies, gravitational lensing, and dark matter.
 
 Below are synthesized digests from the past {len(past_digests)} daily briefings (oldest first),
@@ -153,8 +309,16 @@ Past briefings (oldest first):
             if lines:
                 summary = "## Recent context and open threads\n\n" + "\n\n".join(lines)
 
+    selection_brief = _build_selection_brief(
+        history_block=history_block,
+        open_questions=open_questions,
+        covered_titles=covered_titles,
+        recent_papers=recent_papers,
+    )
+
     return {
         "summary": summary,
+        "selection_brief": selection_brief,
         "covered_ids": covered_ids,
         "covered_titles": covered_titles,
     }

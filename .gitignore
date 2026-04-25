@@ -1,3 +1,26 @@
+# Local environment
+.env
+.env.*
+!.env.example
 .venv/
+
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Generated research outputs and publication artifacts
+data/cache/
+data/reports/
+data/videos/
+data/open_questions.md
+data/run-status.json
+data/LAST_RUN_FAILED
+data/cron-daily.log
+docs/
+
+# Downloaded local models
+models/piper/

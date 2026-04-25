@@ -1,5 +1,6 @@
 import httpx
 
+from app.agents import COPERNICUS
 from app.gemini_llm import gemini_generate
 from app.summarize import OLLAMA_HOST, OLLAMA_MODEL
 
@@ -18,6 +19,8 @@ def _paper_brief(p: dict) -> str:
     ]
     if pdf:
         lines.append(f"  - PDF: {pdf}")
+    if p.get("_selection_reason"):
+        lines.append(f"  - Why selected: {p['_selection_reason']}")
     lines.append(f"  - Abstract (excerpt): {excerpt}")
     analysis = p.get("analysis") or {}
     if isinstance(analysis, dict) and analysis.get("one_sentence_summary"):
@@ -40,43 +43,48 @@ def synthesize_research_digest(papers: list[dict], context: str = "") -> str:
     if context:
         context_block = (
             f"{context}\n\n"
-            "Use the above context to:\n"
-            "- Note when today's papers resolve, extend, or contradict recent open questions.\n"
-            "- Flag if a theme is newly appearing vs. a continuing trend.\n"
-            "- Avoid re-summarizing background that was covered in the past week unless today's papers add something new.\n\n"
+            "Use the above context to identify which submissions are genuinely new, "
+            "which extend recent threads, and which answer or sharpen unresolved "
+            "questions. Do not spend space recapping background unless it explains "
+            "why a new finding matters.\n\n"
             "---\n\n"
         )
 
-    prompt = f"""You are an expert astrophysicist and cosmologist writing an internal research briefing.
+    prompt = f"""{COPERNICUS.prompt_preamble()}
 
-You are given recent arXiv preprints spanning galaxy clusters, galaxies, gravitational lensing, and dark matter.
-Write a **single cohesive Markdown document** for researchers who already know the field.
+You are writing an internal research briefing as an expert astrophysicist and cosmologist.
+
+You are given recent arXiv preprints spanning galaxy clusters, galaxies,
+gravitational lensing, and dark matter. Write a **findings-first Markdown
+briefing** for researchers who already know the field.
 
 Rules:
 - Ground every claim in the supplied abstracts/snippets; do not invent empirical results or citations not implied by the text.
-- If an area has few or no papers in the list, say so briefly rather than speculating.
+- Lead with important new findings and the most interesting points. A paper should earn space because it says something notable, not because it belongs to a topic bucket.
+- Extract the concrete result, constraint, method, data set, tension, or implication from each paper when the abstract provides one.
+- Mention topic balance only when it helps the reader understand the day's strongest papers.
+- If a selected paper is incremental or unclear from the abstract, say that briefly and do not inflate its importance.
 - Prefer accurate, cautious language over hype.
 
 {context_block}Use this structure:
 
-## Executive overview
-3–6 sentences on what is newly appearing across these submissions.
+## What is new and worth noticing
+4-7 sentences summarizing the most important findings, sharpest constraints,
+surprising implications, or methodological advances across today's selected papers.
 
-## Galaxy clusters
-## Galaxies
-## Gravitational lensing
-## Dark matter
+## Most interesting papers
+Bullet list of up to 8 papers. For each: title plus 1-2 sentences explaining the
+important new finding or interesting point, and why a researcher should care.
 
-(For each section above: synthesize themes, methods, and tensions **only** from papers tagged with that topic focus, and note cross-connections where obvious.)
+## Findings by theme
+Short subsections only for themes that have meaningful findings today. Synthesize
+results, methods, and tensions; do not force all four scanner topics to appear.
 
-## Cross-cutting themes
-Patterns that span multiple areas.
-
-## Papers to read first
-Bullet list of up to 8 entries: title + one sentence on why it matters (only from this set).
+## Connections and tensions
+How today's findings relate to recent open questions, recurring debates, or each other.
 
 ## Open questions and follow-ups
-What the abstracts suggest is unresolved or worth tracking.
+What today's abstracts suggest is unresolved or worth tracking next.
 
 ---
 

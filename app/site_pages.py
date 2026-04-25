@@ -834,10 +834,16 @@ def _build_rich_page(
     briefing = _extract_briefing_block(digest_md)
 
     # Section extraction
-    exec_text  = _extract_section(briefing, r"executive\s+(?:overview|summary)")
+    exec_text  = _extract_section(
+        briefing,
+        r"(?:executive\s+(?:overview|summary)|what\s+is\s+new.*worth\s+noticing)",
+    )
     context_text = _extract_section(digest_md, r"recent\s+context.*")
     open_q_text = _extract_section(briefing, r"open\s+questions.*|future\s+directions")
-    must_read_text = _extract_section(briefing, r"papers\s+to\s+read.*")
+    must_read_text = _extract_section(
+        briefing,
+        r"(?:papers\s+to\s+read|most\s+interesting\s+papers).*",
+    )
 
     # Group papers by primary topic
     by_topic: dict[str, list[dict]] = {t["key"]: [] for t in _TOPICS}
@@ -985,22 +991,32 @@ def build_pages_site(
     cache_dir: Path = Path("data/cache"),
     videos_dir: Path = Path("data/videos"),
     site_dir: Path = Path("docs"),
+    include_videos: bool = False,
 ) -> Path:
     md_paths    = sorted(reports_dir.glob("daily-*.md"), reverse=True)
     pdf_by_stem = {p.stem: p for p in reports_dir.glob("daily-*.pdf")}
-    vid_by_stem = {p.stem: p for p in videos_dir.glob("daily-*.mp4")}
+    vid_by_stem = (
+        {p.stem: p for p in videos_dir.glob("daily-*.mp4")}
+        if include_videos else {}
+    )
 
     site_dir.mkdir(parents=True, exist_ok=True)
     reports_out = site_dir / "reports"
     videos_out  = site_dir / "videos"
     reports_out.mkdir(parents=True, exist_ok=True)
-    videos_out.mkdir(parents=True, exist_ok=True)
+    if include_videos:
+        videos_out.mkdir(parents=True, exist_ok=True)
     _FIGURES_SITE.mkdir(parents=True, exist_ok=True)
 
     # Clear old artifacts
     for f in reports_out.glob("*.pdf"):  f.unlink()
     for f in reports_out.glob("*.html"): f.unlink()
-    for f in videos_out.glob("*.mp4"):   f.unlink()
+    if videos_out.exists():
+        for f in videos_out.glob("*.mp4"):
+            f.unlink()
+    latest_site_video = site_dir / "latest.mp4"
+    if latest_site_video.exists():
+        latest_site_video.unlink()
 
     # Copy binary assets
     for stem, p in pdf_by_stem.items():
@@ -1011,7 +1027,8 @@ def build_pages_site(
     latest_pdf   = reports_dir / "latest.pdf"
     latest_video = videos_dir  / "latest.mp4"
     if latest_pdf.exists():   shutil.copy2(latest_pdf,   site_dir / "latest.pdf")
-    if latest_video.exists(): shutil.copy2(latest_video, site_dir / "latest.mp4")
+    if include_videos and latest_video.exists():
+        shutil.copy2(latest_video, site_dir / "latest.mp4")
 
     # Build archive entry list (for sidebar)
     archive_entries: list[dict] = []

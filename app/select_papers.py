@@ -3,6 +3,7 @@ import re
 
 import httpx
 
+from app.agents import PTOLEMY
 from app.gemini_llm import gemini_generate
 from app.summarize import OLLAMA_HOST, OLLAMA_MODEL
 
@@ -41,6 +42,98 @@ def _fallback_parse_indices(text: str) -> tuple[list[int], str]:
     return indices, reason
 
 
+def _selection_context_for_prompt(selection_context: dict | str | None) -> str:
+    if not selection_context:
+        return ""
+    if isinstance(selection_context, str):
+        body = selection_context.strip()
+    else:
+        body = json.dumps(selection_context, indent=2)
+    if not body:
+        return ""
+    return (
+        "\nCopernicus selection brief:\n"
+        f"{body}\n\n"
+        "Use this brief as scientific context, but still judge each candidate "
+        "by the evidence in its title and abstract.\n"
+    )
+
+
+def _parse_selection(text: str) -> tuple[list[int], str, dict[int, str]]:
+    parsed = _extract_json(text)
+    reason = ""
+    reason_by_index: dict[int, str] = {}
+    indices: list[int] = []
+
+    if isinstance(parsed, dict):
+        reason = str(parsed.get("brief_reason", "")).strip()
+        picks = parsed.get("picks")
+        if isinstance(picks, list):
+            for pick in picks:
+                if not isinstance(pick, dict):
+                    continue
+                try:
+                    idx = int(pick.get("index"))
+                except (TypeError, ValueError):
+                    continue
+                if idx <= 0:
+                    continue
+                indices.append(idx)
+                pick_reason = str(pick.get("reason", "")).strip()
+                if pick_reason:
+                    reason_by_index[idx] = pick_reason
+        if not indices:
+            for raw in parsed.get("indices") or []:
+                try:
+                    indices.append(int(raw))
+                except (TypeError, ValueError):
+                    continue
+
+    if not indices:
+        indices, fallback_reason = _fallback_parse_indices(text)
+        if not reason:
+            reason = fallback_reason
+
+    return indices, reason, reason_by_index
+
+
+def _chosen_from_indices(
+    papers: list[dict],
+    indices: list[int],
+    k: int,
+    reason_by_index: dict[int, str],
+) -> list[dict]:
+    seen_indices: set[int] = set()
+    seen_keys: set[str] = set()
+    chosen: list[dict] = []
+    for raw in indices:
+        idx = int(raw)
+        if idx < 1 or idx > len(papers) or idx in seen_indices:
+            continue
+        paper = dict(papers[idx - 1])
+        key = paper.get("id") or paper.get("title") or str(idx)
+        if key in seen_keys:
+            continue
+        pick_reason = reason_by_index.get(idx, "")
+        if pick_reason:
+            paper["_selection_reason"] = pick_reason
+        seen_indices.add(idx)
+        seen_keys.add(key)
+        chosen.append(paper)
+        if len(chosen) >= k:
+            break
+    if len(chosen) < k:
+        for i, paper in enumerate(papers, start=1):
+            key = paper.get("id") or paper.get("title") or str(i)
+            if key in seen_keys:
+                continue
+            chosen.append(dict(paper))
+            seen_keys.add(key)
+            if len(chosen) >= k:
+                break
+    return chosen
+
+
 def _catalog_for_prompt(papers: list[dict]) -> str:
     lines = []
     for i, p in enumerate(papers, start=1):
@@ -62,6 +155,7 @@ def select_top_papers(
     k: int = 10,
     timeout: float = 360.0,
     covered_ids: set[str] | None = None,
+    selection_context: dict | str | None = None,
 ) -> tuple[list[dict], str]:
     """
     Ask the LLM to pick up to k papers from the pool.
@@ -69,6 +163,8 @@ def select_top_papers(
 
     covered_ids: arXiv IDs featured in recent briefings; the LLM is told to
     deprioritize these unless there is a compelling reason to revisit them.
+    selection_context: Copernicus' structured advice about what is worth
+    selecting today.
     """
     if not papers or k <= 0:
         return [], ""
@@ -76,6 +172,7 @@ def select_top_papers(
         return list(papers), "Pool smaller than target; including all."
 
     catalog = _catalog_for_prompt(papers)
+    context_note = _selection_context_for_prompt(selection_context)
 
     recently_seen_note = ""
     if covered_ids:
@@ -91,16 +188,27 @@ def select_top_papers(
                 "developments not covered before.\n"
             )
 
-    prompt = f"""You curate a daily astrophysics briefing covering:
+    prompt = f"""{PTOLEMY.prompt_preamble()}
+
+Your task is to curate a daily astrophysics briefing covering:
 galaxy clusters, galaxies, gravitational lensing, and dark matter.
 
 From the numbered candidates below, choose exactly {k} papers to present.
-Prioritize: scientific substance, novelty, and clarity of contribution.
-Aim for breadth across the four themes when the abstracts support it; do not
-pick {k} papers all from one theme if strong options exist elsewhere.
+Prioritize papers whose abstracts contain important new findings, unusually
+interesting points, clear constraints, surprising implications, notable data,
+or methods that change how a problem can be attacked.
+Breadth across themes is useful, but it is secondary: do not include a routine
+paper just to fill a topic slot, and do not bury the most interesting paper
+because its theme was already represented.
 {recently_seen_note}
+{context_note}
 Return ONLY valid JSON with this shape (no markdown fences):
-{{"indices":[1,3,7,...],"brief_reason":"one short sentence"}}
+{{
+  "picks": [
+    {{"index": 1, "reason": "why this paper has an important new finding or interesting point"}}
+  ],
+  "brief_reason": "one short sentence summarizing the selection"
+}}
 
 Use each index exactly once. Indices refer to [n] in the list. There are {len(papers)} candidates.
 
@@ -110,38 +218,10 @@ CANDIDATES:
 
     try:
         text = gemini_generate(prompt=prompt, timeout=timeout)
-        parsed = _extract_json(text)
-        indices: list = []
-        reason = ""
-        if isinstance(parsed, dict):
-            indices = parsed.get("indices") or []
-            reason = str(parsed.get("brief_reason", "")).strip()
-        if not indices:
-            indices, reason_fb = _fallback_parse_indices(text)
-            if not reason:
-                reason = reason_fb
+        indices, reason, reason_by_index = _parse_selection(text)
         if not indices:
             raise RuntimeError("Gemini JSON parse failed")
-        seen: set[int] = set()
-        chosen: list[dict] = []
-        for raw in indices:
-            try:
-                idx = int(raw)
-            except (TypeError, ValueError):
-                continue
-            if idx < 1 or idx > len(papers) or idx in seen:
-                continue
-            seen.add(idx)
-            chosen.append(papers[idx - 1])
-            if len(chosen) >= k:
-                break
-        if len(chosen) < k:
-            for p in papers:
-                if p in chosen:
-                    continue
-                chosen.append(p)
-                if len(chosen) >= k:
-                    break
+        chosen = _chosen_from_indices(papers, indices, k, reason_by_index)
         note = reason or "Gemini-selected subset."
         return chosen, note
     except Exception:
@@ -168,40 +248,10 @@ CANDIDATES:
             )
         r.raise_for_status()
         text = r.json().get("response", "").strip()
-        parsed = _extract_json(text)
-        indices: list = []
-        reason = ""
-        if isinstance(parsed, dict):
-            indices = parsed.get("indices") or []
-            reason = str(parsed.get("brief_reason", "")).strip()
-        if not indices:
-            indices, reason_fb = _fallback_parse_indices(text)
-            if not reason:
-                reason = reason_fb
+        indices, reason, reason_by_index = _parse_selection(text)
         if not indices:
             return papers[:k], "_Selection JSON parse failed; using newest k._"
-        seen: set[int] = set()
-        chosen: list[dict] = []
-        for raw in indices:
-            try:
-                idx = int(raw)
-            except (TypeError, ValueError):
-                continue
-            if idx < 1 or idx > len(papers) or idx in seen:
-                continue
-            seen.add(idx)
-            chosen.append(papers[idx - 1])
-            if len(chosen) >= k:
-                break
-
-        if len(chosen) < k:
-            for i, p in enumerate(papers):
-                if p in chosen:
-                    continue
-                chosen.append(p)
-                if len(chosen) >= k:
-                    break
-
+        chosen = _chosen_from_indices(papers, indices, k, reason_by_index)
         note = reason or "Ollama-selected subset."
         return chosen, note
     except Exception as e:

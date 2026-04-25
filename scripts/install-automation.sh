@@ -71,7 +71,7 @@ case "$MODE" in
   systemd) install_systemd ;;
   cron) install_cron ;;
   *)
-    echo "Usage: $0 [systemd|cron] [0|1]  (second arg enables auto-push)" >&2
+    echo "Usage: $0 [systemd|cron] [0|1]  (second arg force-adds and pushes generated reports/site files)" >&2
     exit 1
     ;;
 esac
@@ -79,5 +79,5 @@ esac
 echo ""
 echo "Ollama must be running when the job fires (e.g. ollama serve as a user or system service)."
 if [[ "$AUTO_PUSH" == "1" ]]; then
-  echo "Auto-push is enabled. Ensure this machine can push to origin non-interactively."
+  echo "Generated report/site publishing is enabled. Ensure this machine can push to origin non-interactively."
 fi

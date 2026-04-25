@@ -7,6 +7,7 @@ from pathlib import Path
 import typer
 from rich import print
 
+from app.agents import COPERNICUS, PTOLEMY
 from app.config import TOPIC_CONFIGS, WATCHLIST
 from app.context import build_research_context
 from app.digest import synthesize_research_digest
@@ -19,10 +20,6 @@ from app.select_papers import select_top_papers
 from app.site_pages import build_pages_site
 from app.summarize import summarize_paper
 from app.video_report import build_narrated_video
-
-# Agent names
-PTOLEMY   = "Ptolemy"    # main pipeline agent: fetch, select, enrich, digest
-COPERNICUS = "Copernicus"  # context agent: historical synthesis + related papers
 
 app = typer.Typer()
 
@@ -273,8 +270,8 @@ def daily(
         help="Cap pages summarized per paper (0 means all pages).",
     ),
     video: bool = typer.Option(
-        True,
-        help="Generate a narrated slideshow video from the daily PDF when possible.",
+        False,
+        help="Opt in to generating a narrated slideshow video from the daily PDF.",
     ),
     context_days: int = typer.Option(
         7,
@@ -307,11 +304,11 @@ def daily(
     if max_pool > 0 and len(merged) > max_pool:
         merged = merged[:max_pool]
 
-    print(f"[cyan]{COPERNICUS}:[/cyan] building historical context from recent briefings…")
+    print(f"[cyan]{COPERNICUS.name}:[/cyan] building historical context from recent briefings...")
     try:
         research_context = build_research_context(days_back=context_days)
     except Exception as e:
-        print(f"[yellow]{COPERNICUS} skipped:[/yellow] {e}")
+        print(f"[yellow]{COPERNICUS.name} skipped:[/yellow] {e}")
         research_context = {"summary": "", "covered_ids": set(), "covered_titles": []}
 
     pool_for_selection = [dict(p) for p in merged]
@@ -320,6 +317,7 @@ def daily(
         pool_for_selection,
         k=k,
         covered_ids=research_context.get("covered_ids") or set(),
+        selection_context=research_context.get("selection_brief") or {},
     )
 
     # Force-include watchlisted papers not already chosen
@@ -367,7 +365,8 @@ def daily(
     today = date.today().isoformat()
     Path("data/cache").mkdir(parents=True, exist_ok=True)
     Path("data/reports").mkdir(parents=True, exist_ok=True)
-    Path("data/videos").mkdir(parents=True, exist_ok=True)
+    if video:
+        Path("data/videos").mkdir(parents=True, exist_ok=True)
 
     cache_path = Path(f"data/cache/daily-{today}.json")
     report_path = Path(f"data/reports/daily-{today}.md")
@@ -376,10 +375,15 @@ def daily(
 
     context_summary = research_context.get("summary") or ""
     payload = {
+        "agents": {
+            "discovery": PTOLEMY.as_dict(),
+            "synthesis": COPERNICUS.as_dict(),
+        },
         "pool_count": len(pool_for_selection),
         "selected_count": len(enriched),
         "present_requested": k,
         "selection_note": selection_note,
+        "selection_brief": research_context.get("selection_brief") or {},
         "context_covered_count": len(research_context.get("covered_ids") or []),
         "pool": pool_for_selection,
         "selected": enriched,
@@ -418,6 +422,8 @@ def daily(
         for i, p in enumerate(enriched, 1):
             f.write(f"### {i}. {p['title']}\n")
             f.write(f"- **Focus:** {p.get('_topic_label', '')}\n")
+            if p.get("_selection_reason"):
+                f.write(f"- **Why selected:** {p['_selection_reason']}\n")
             if p.get("_watchlisted"):
                 f.write(f"- **Watchlisted:** {p['_watchlisted']}\n")
             f.write(f"- Published: {p['published']}\n")
@@ -529,19 +535,19 @@ def daily(
     if pdf and report_pdf_path.exists():
         with open("data/reports/latest.pdf", "wb") as f:
             f.write(report_pdf_path.read_bytes())
-        if report_video_path.exists():
+        if video and report_video_path.exists():
             with open("data/videos/latest.mp4", "wb") as f:
                 f.write(report_video_path.read_bytes())
-        build_pages_site()
+        build_pages_site(include_videos=video)
 
     print(
-        f"[green]{PTOLEMY}: pool {len(pool_for_selection)} → presenting {len(enriched)}[/green]"
+        f"[green]{PTOLEMY.name}: pool {len(pool_for_selection)} -> presenting {len(enriched)}[/green]"
     )
     print(f"[cyan]JSON:[/cyan] {cache_path}")
     print(f"[cyan]Report:[/cyan] {report_path}")
     if pdf and report_pdf_path.exists():
         print(f"[cyan]PDF:[/cyan] {report_pdf_path}")
-        if report_video_path.exists():
+        if video and report_video_path.exists():
             print(f"[cyan]Video:[/cyan] {report_video_path}")
         print("[cyan]Site:[/cyan] docs/index.html")
     print("[cyan]Also:[/cyan] data/cache/latest.json, data/reports/latest.md")

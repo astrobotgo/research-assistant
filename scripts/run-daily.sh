@@ -55,6 +55,9 @@ if [[ $EXIT_CODE -ne 0 ]]; then
   exit $EXIT_CODE
 fi
 
+# Generated reports, caches, and docs are ignored by default so the
+# repository stays focused on code. Flip AUTO_PUSH_REPORTS=1 only when this
+# machine is intentionally publishing those artifacts.
 if [[ "$AUTO_PUSH_REPORTS" != "1" ]]; then
   exit 0
 fi
@@ -63,7 +66,6 @@ TARGETS=(
   "data/cache/latest.json"
   "data/cache/daily-$TODAY.json"
   "data/reports"
-  "data/videos"
   "docs"
   "data/open_questions.md"
   "data/run-status.json"
@@ -77,7 +79,7 @@ for t in "${TARGETS[@]}"; do
 done
 
 if [[ ${#EXISTING[@]} -gt 0 ]]; then
-  git add "${EXISTING[@]}"
+  git add -f "${EXISTING[@]}"
 fi
 
 if git diff --cached --quiet; then
