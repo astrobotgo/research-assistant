@@ -11,20 +11,22 @@
       "mission": "connect today's papers to recent briefings, identify recurring open threads, and write a cautious research digest grounded in the supplied sources."
     }
   },
-  "pool_count": 5,
-  "selected_count": 5,
+  "pool_count": 0,
+  "selected_count": 0,
   "present_requested": 10,
-  "selection_note": "Pool smaller than target; including all.",
+  "selection_note": "",
   "selection_brief": {
     "priority_signals": [
-      "fermion condensate inflation",
-      "sterile neutrino decay",
-      "galaxy evolution at high redshifts"
+      "sterile neutrino decay signal in galaxy clusters",
+      "adiabatic particle creation mimicking dark energy behavior",
+      "informative priors on primordial non-Gaussianity bias $b_\u03c6$",
+      "ionized outflows in AGN environments"
     ],
     "open_questions_to_watch": [
-      "mechanisms for fermion condensate-induced inflation and its effects on primordial black holes",
-      "detection of sterile neutrinos in galaxy clusters through the 3.55 keV line",
-      "impact of very massive stars on early galaxy formation"
+      "Confirming the sterile neutrino decay signal with higher statistical significance to understand its implications for dark matter properties.",
+      "Investigating the conditions under which adiabatic particle creation can fully mimic dark energy behavior, potentially reducing reliance on exotic dark energy models.",
+      "Extending the framework for constructing priors on $b_\u03c6$ to other types of galaxies and observational datasets to validate its robustness across different contexts.",
+      "Further monitoring and modeling ionized outflows in AGN environments over extended periods to understand their evolutionary dynamics and connection to galaxy feedback mechanisms."
     ],
     "recently_covered_titles": [
       "Informative Priors on Primordial Non-Gaussianity Bias $b_\u03c6$ From Galaxy Formation",
@@ -41,268 +43,16 @@
       "Signatures of Very Massive Stars in the Epoch of Reionization"
     ],
     "deprioritize": [
-      "models with universal mass functions for non-Gaussianity bias without physical motivation",
-      "detailed spectral modeling of well-studied galaxy outflows like NGC 3783"
+      "studies focusing on the neutrino fog and neutron stars for probing low DM-nucleon cross-sections",
+      "multi-wavelength studies of gamma-ray bursts without significant new findings in dark matter interactions"
     ],
-    "selection_advice": "Focus on papers that explore new mechanisms in dark matter and early galaxy formation, such as fermion condensate inflation and the influence of very massive stars. Prioritize studies with novel observational evidence for sterile neutrinos or other particle physics implications.",
+    "selection_advice": "Prioritize papers that advance our understanding of sterile neutrino decay, adiabatic particle creation mimicking dark energy, and ionized outflows in AGN. Focus on those providing robust priors for $b_\u03c6$ and extending these models to new contexts. Avoid studies focusing solely on neutron stars or multi-wavelength gamma-ray bursts without novel insights into dark matter interactions.",
     "recently_saturated_topics": [
-      "radiation properties from accretion disks around regular black holes within dark matter halos",
-      "multi-wavelength studies of gamma-ray bursts and their afterglows"
+      "regular black hole embedded in a Dehnen-type dark matter halo with thin accretion disk",
+      "Fermion Condensate Inflation, Dynamical Waterfall Mechanism"
     ]
   },
   "context_covered_count": 13,
-  "pool": [
-    {
-      "id": "http://arxiv.org/abs/2604.21817v1",
-      "title": "An RXTE Search for the Sterile Neutrino Decay in Galaxy Clusters",
-      "summary": "We have searched for the 3.55 keV line from sterile neutrino decay using 3.1 megaseconds of RXTE cluster data. A 2.5$\u03c3$ excess of emission over a thermal model is found over the energy span of the 3.55 keV line in the combined spectra of the eight clusters that individually have an excess. The residuals are added to increase the signal to noise ratio of the excess, which is then modeled with a Gaussian to simulate the instrumental spectral response. We find a significant correlation (r = 0.76) for a line centered at 3.6 keV with a model flux of 3.07 x 10$^{-5}$ ph cm$^{-2}$ s$^{-1}$. Mixing angle for detected clusters ranges from 0.35 to 6.2 x 10$^{-10}$. The decay rate inferred from the line flux is strongly correlated (r = 0.87) with cluster temperature, which is due to hotter, more massive clusters having a larger amount of dark matter. Approximately half of the decay line total flux comes from the Coma cluster. We fit the Coma cluster spectrum with two different three-component models. The first includes a Gaussian fixed at 3.55 keV to model soft emission. The second three-component model uses a second thermal component to model soft emission. The model fit parameters indicate that the second thermal component is modeling high-energy residuals rather than low ones, where the Gaussian is. Though our line fluxes exceed most reported detections and upper limits, they do not overproduce the dark matter. We conclude that some fraction of the marginally detected excess could be attributed to the decay line since low-temperature thermal emission and systematics fail to model it completely.",
-      "published": "2026-04-23T16:11:53+00:00",
-      "updated": "2026-04-23T16:11:53Z",
-      "authors": [
-        "Mark J. Henriksen"
-      ],
-      "pdf_url": "https://arxiv.org/pdf/2604.21817v1",
-      "categories": [
-        "astro-ph.HE"
-      ],
-      "_topic": "galaxy_clusters",
-      "_topic_label": "galaxy clusters, galaxies, dark matter"
-    },
-    {
-      "id": "http://arxiv.org/abs/2604.21790v1",
-      "title": "Informative Priors on Primordial Non-Gaussianity Bias $b_\u03c6$ From Galaxy Formation",
-      "summary": "Constraining primordial non-Gaussianity via its scale-dependent imprint on galaxy clustering requires knowledge of the bias parameter $b_\u03c6$, which is exactly degenerate with $f^{\\rm{loc}}_{\\rm{NL}}$ at leading order. To break this degeneracy, current analyses adopt the relation $\\left(b_\u03c6 = 2\u03b4_c\\left(b_1 - 1\\right)\\right)$ based on the assumption of a universal mass function. This relation is known to break down for physically motivated galaxy selections, introducing systematic errors in the inferred $f^{\\rm{loc}}_{\\rm{NL}}$ that scale directly with the assumed $b_\u03c6$ prior. We present a framework to construct physically motivated, observation-conditioned priors on $b_\u03c6$ by marginalizing over galaxy formation uncertainties. We use the CAMELS-SAM simulation suite, augmented by separate Universe simulations, to measure galaxy formation observables, like the stellar mass function (SMF) and the stellar-to-halo mass relationship (SHMR), and $b_\u03c6$ across a range of galaxy formation parameters. From these measurements, we construct a distribution of $b_\u03c6$ conditioned on observations, and we select our galaxy sample to resemble the DESI Emission Line Galaxy (ELG) sample. Conditioning on the SMF or SHMR decreases $\u03c3_{b_\u03c6}$ from $0.69$ to $0.08$ and $0.02$ respectively -- reductions of $88\\%$ and $97\\%$ -- with consistent results when conditioning on the observed data directly. Despite substantial shifts in the galaxy formation posteriors driven by known SC-SAM discrepancies at high halo masses, the resulting $b_\u03c6$ distributions remain mutually consistent across all observables. The SMF and SHMR are found to carry sufficient constraining power to reduce the galaxy formation uncertainty in $b_\u03c6$ relevant for $f^{\\rm{loc}}_{\\rm{NL}}$ inference with next-generation spectroscopic surveys",
-      "published": "2026-04-23T15:46:53+00:00",
-      "updated": "2026-04-23T15:46:53Z",
-      "authors": [
-        "Anne Moore",
-        "Lucia A. Perez",
-        "Elisabeth Krause"
-      ],
-      "pdf_url": "https://arxiv.org/pdf/2604.21790v1",
-      "categories": [
-        "astro-ph.CO"
-      ],
-      "_topic": "galaxies",
-      "_topic_label": "galaxies"
-    },
-    {
-      "id": "http://arxiv.org/abs/2604.21770v1",
-      "title": "Accelerating scaling solutions from dark matter particle creation",
-      "summary": "This article opens new window to obtain accelerating scaling attractors without any need of dark energy. We study cosmological dynamics in a two-fluid system where pressureless dark matter (DM) undergoes adiabatic particle creation and exchanges energy with a barotropic fluid. Considering six widely used interaction prescriptions, we formulate the corresponding autonomous systems in a compact phase space and perform a unified dynamical analysis. We find that accelerating scaling attractors, namely late-time states where both fluids coexist with fixed energy fractions, arise only when the interaction is controlled by the DM density and energy flows from DM to the second fluid. Such attractors appear in the global and local DM-based interactions, and in the global mixed case, but are entirely absent when the interaction depends on the second fluid or on local mixed terms, which instead drive the universe to a DM-dominated accelerating phase. These results clarify the unique conditions under which matter creation can mimic dark-energy-like behaviour without introducing a dark-energy component.",
-      "published": "2026-04-23T15:28:34+00:00",
-      "updated": "2026-04-23T15:28:34Z",
-      "authors": [
-        "Sudip Halder",
-        "Jaume de Haro",
-        "Supriya Pan",
-        "Emmanuel N. Saridakis",
-        "Tapan Saha",
-        "Subenoy Chakraborty"
-      ],
-      "pdf_url": "https://arxiv.org/pdf/2604.21770v1",
-      "categories": [
-        "gr-qc",
-        "astro-ph.CO",
-        "math-ph"
-      ],
-      "_topic": "dark_matter",
-      "_topic_label": "dark matter"
-    },
-    {
-      "id": "http://arxiv.org/abs/2604.21710v1",
-      "title": "Delving into the depths of NGC 3783 with XRISM: V. Broad-band modeling of ionized outflows",
-      "summary": "The Seyfert 1 galaxy NGC 3783 hosts a multiphase warm absorber (WA) that has been extensively studied in the X-ray band. High-resolution spectra from 2000-2001 revealed a complex outflow with multiple ionization and velocity components. Two decades later, new XMM-Newton and XRISM observations allow us to investigate the long-term evolution of these outflows. We perform joint spectral modeling of the XMM-Newton/RGS and XRISM/Resolve time-averaged spectra using the pion photoionization code within SPEX. We derive the ionization parameter, column density, turbulent velocity, and outflow velocity for each absorption component, and investigate their thermal stability and Absorption Measure Distribution (AMD) to characterize the physical and dynamical properties of the WA in NGC 3783 in 2024. We compare these results with the 2000-2001 epoch to assess long-term variability, stability, and possible changes in the absorber population. We identify eight WA components spanning log $\u03be=$ 1.08-3.38 and outflow velocities of 480-1230 km s$^{-1}$. The ranges of column densities and turbulent velocities remain broadly consistent with the WAs from 2000-2001, but the earlier data contained more low-ionization, high-velocity components. The total column density in 2024 is 1.5 times larger than in 2000-2001, requiring replenishment by fresh material. The dominant Unresolved Transition Array (UTA) absorber (Comp. B3) has increased its column density by a factor of three while maintaining a similar ionization parameter. The WAs in NGC 3783 have undergone significant structural and dynamical evolution over the past 24 years.",
-      "published": "2026-04-23T14:16:59+00:00",
-      "updated": "2026-04-23T14:16:59Z",
-      "authors": [
-        "Keqin Zhao",
-        "Jelle S. Kaastra",
-        "Liyi Gu",
-        "Missagh Mehdipour",
-        "Megan E. Eckart",
-        "Keigo Fukumura",
-        "Matteo Guainazzi",
-        "Chen Li",
-        "Christos Panagiotou",
-        "Matilde Signorini"
-      ],
-      "pdf_url": "https://arxiv.org/pdf/2604.21710v1",
-      "categories": [
-        "astro-ph.HE"
-      ],
-      "_topic": "galaxies",
-      "_topic_label": "galaxies"
-    },
-    {
-      "id": "http://arxiv.org/abs/2604.21671v1",
-      "title": "Saturation Mechanisms in the Interacting Dark Sector",
-      "summary": "We introduce a family of phenomenological cosmological models featuring an interacting dark sector modulated by a sparseness scale parameter, in order to describe the late-time accelerated expansion of the universe. The sparseness scale, inspired by well-established saturation mechanisms in ecology and biology, is introduced in the interaction as a half-saturation constant that bounds the energy exchange between dark matter and dark energy, controls the dynamical behaviour of the physical variables and can prevent the phantom crossing. We consider three nonlinear interacting models, where two of them recover the linear interacting scenarios when the sparsity parameter vanishes. We examine the phase-space of the cosmological field equations by using the Hubble normalization approach. We determine the stationary points and their stability properties in order to reconstruct the asymptotics behaviour of the field equations. Such an analysis allows us to demonstrate the effects of the sparseness scale on the background dynamics. We test the interacting models with observational data. Specifically, we employ Supernovae catalogues, cosmic chronometers, Baryon Acoustic Oscillation measurements from DESI DR2, and redshift-space distortion measurements of the growth of large-scale structure through the $f$ and $f\u03c3_8$ observables. The Bayesian analysis suggests that, for two of the three models, a vanishing sparsity parameter is disfavoured at more than the 95\\% confidence interval, providing observational support for a nonzero sparseness scale in the dark sector interaction.",
-      "published": "2026-04-23T13:36:31+00:00",
-      "updated": "2026-04-23T13:36:31Z",
-      "authors": [
-        "Andronikos Paliathanasis",
-        "Kevin J. Duffy"
-      ],
-      "pdf_url": "https://arxiv.org/pdf/2604.21671v1",
-      "categories": [
-        "astro-ph.CO",
-        "gr-qc"
-      ],
-      "_topic": "dark_matter",
-      "_topic_label": "dark matter"
-    }
-  ],
-  "selected": [
-    {
-      "id": "http://arxiv.org/abs/2604.21817v1",
-      "title": "An RXTE Search for the Sterile Neutrino Decay in Galaxy Clusters",
-      "summary": "We have searched for the 3.55 keV line from sterile neutrino decay using 3.1 megaseconds of RXTE cluster data. A 2.5$\u03c3$ excess of emission over a thermal model is found over the energy span of the 3.55 keV line in the combined spectra of the eight clusters that individually have an excess. The residuals are added to increase the signal to noise ratio of the excess, which is then modeled with a Gaussian to simulate the instrumental spectral response. We find a significant correlation (r = 0.76) for a line centered at 3.6 keV with a model flux of 3.07 x 10$^{-5}$ ph cm$^{-2}$ s$^{-1}$. Mixing angle for detected clusters ranges from 0.35 to 6.2 x 10$^{-10}$. The decay rate inferred from the line flux is strongly correlated (r = 0.87) with cluster temperature, which is due to hotter, more massive clusters having a larger amount of dark matter. Approximately half of the decay line total flux comes from the Coma cluster. We fit the Coma cluster spectrum with two different three-component models. The first includes a Gaussian fixed at 3.55 keV to model soft emission. The second three-component model uses a second thermal component to model soft emission. The model fit parameters indicate that the second thermal component is modeling high-energy residuals rather than low ones, where the Gaussian is. Though our line fluxes exceed most reported detections and upper limits, they do not overproduce the dark matter. We conclude that some fraction of the marginally detected excess could be attributed to the decay line since low-temperature thermal emission and systematics fail to model it completely.",
-      "published": "2026-04-23T16:11:53+00:00",
-      "updated": "2026-04-23T16:11:53Z",
-      "authors": [
-        "Mark J. Henriksen"
-      ],
-      "pdf_url": "https://arxiv.org/pdf/2604.21817v1",
-      "categories": [
-        "astro-ph.HE"
-      ],
-      "_topic": "galaxy_clusters",
-      "_topic_label": "galaxy clusters, galaxies, dark matter",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=An+RXTE+Search+for+the+Sterile+Neutrino+Decay+in+Galaxy+Clusters&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
-    },
-    {
-      "id": "http://arxiv.org/abs/2604.21790v1",
-      "title": "Informative Priors on Primordial Non-Gaussianity Bias $b_\u03c6$ From Galaxy Formation",
-      "summary": "Constraining primordial non-Gaussianity via its scale-dependent imprint on galaxy clustering requires knowledge of the bias parameter $b_\u03c6$, which is exactly degenerate with $f^{\\rm{loc}}_{\\rm{NL}}$ at leading order. To break this degeneracy, current analyses adopt the relation $\\left(b_\u03c6 = 2\u03b4_c\\left(b_1 - 1\\right)\\right)$ based on the assumption of a universal mass function. This relation is known to break down for physically motivated galaxy selections, introducing systematic errors in the inferred $f^{\\rm{loc}}_{\\rm{NL}}$ that scale directly with the assumed $b_\u03c6$ prior. We present a framework to construct physically motivated, observation-conditioned priors on $b_\u03c6$ by marginalizing over galaxy formation uncertainties. We use the CAMELS-SAM simulation suite, augmented by separate Universe simulations, to measure galaxy formation observables, like the stellar mass function (SMF) and the stellar-to-halo mass relationship (SHMR), and $b_\u03c6$ across a range of galaxy formation parameters. From these measurements, we construct a distribution of $b_\u03c6$ conditioned on observations, and we select our galaxy sample to resemble the DESI Emission Line Galaxy (ELG) sample. Conditioning on the SMF or SHMR decreases $\u03c3_{b_\u03c6}$ from $0.69$ to $0.08$ and $0.02$ respectively -- reductions of $88\\%$ and $97\\%$ -- with consistent results when conditioning on the observed data directly. Despite substantial shifts in the galaxy formation posteriors driven by known SC-SAM discrepancies at high halo masses, the resulting $b_\u03c6$ distributions remain mutually consistent across all observables. The SMF and SHMR are found to carry sufficient constraining power to reduce the galaxy formation uncertainty in $b_\u03c6$ relevant for $f^{\\rm{loc}}_{\\rm{NL}}$ inference with next-generation spectroscopic surveys",
-      "published": "2026-04-23T15:46:53+00:00",
-      "updated": "2026-04-23T15:46:53Z",
-      "authors": [
-        "Anne Moore",
-        "Lucia A. Perez",
-        "Elisabeth Krause"
-      ],
-      "pdf_url": "https://arxiv.org/pdf/2604.21790v1",
-      "categories": [
-        "astro-ph.CO"
-      ],
-      "_topic": "galaxies",
-      "_topic_label": "galaxies",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Informative+Priors+on+Primordial+Non-Gaussianity+Bias+%24b_%CF%86%24+From+Galaxy+Formation&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
-    },
-    {
-      "id": "http://arxiv.org/abs/2604.21770v1",
-      "title": "Accelerating scaling solutions from dark matter particle creation",
-      "summary": "This article opens new window to obtain accelerating scaling attractors without any need of dark energy. We study cosmological dynamics in a two-fluid system where pressureless dark matter (DM) undergoes adiabatic particle creation and exchanges energy with a barotropic fluid. Considering six widely used interaction prescriptions, we formulate the corresponding autonomous systems in a compact phase space and perform a unified dynamical analysis. We find that accelerating scaling attractors, namely late-time states where both fluids coexist with fixed energy fractions, arise only when the interaction is controlled by the DM density and energy flows from DM to the second fluid. Such attractors appear in the global and local DM-based interactions, and in the global mixed case, but are entirely absent when the interaction depends on the second fluid or on local mixed terms, which instead drive the universe to a DM-dominated accelerating phase. These results clarify the unique conditions under which matter creation can mimic dark-energy-like behaviour without introducing a dark-energy component.",
-      "published": "2026-04-23T15:28:34+00:00",
-      "updated": "2026-04-23T15:28:34Z",
-      "authors": [
-        "Sudip Halder",
-        "Jaume de Haro",
-        "Supriya Pan",
-        "Emmanuel N. Saridakis",
-        "Tapan Saha",
-        "Subenoy Chakraborty"
-      ],
-      "pdf_url": "https://arxiv.org/pdf/2604.21770v1",
-      "categories": [
-        "gr-qc",
-        "astro-ph.CO",
-        "math-ph"
-      ],
-      "_topic": "dark_matter",
-      "_topic_label": "dark matter",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Accelerating+scaling+solutions+from+dark+matter+particle+creation&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
-    },
-    {
-      "id": "http://arxiv.org/abs/2604.21710v1",
-      "title": "Delving into the depths of NGC 3783 with XRISM: V. Broad-band modeling of ionized outflows",
-      "summary": "The Seyfert 1 galaxy NGC 3783 hosts a multiphase warm absorber (WA) that has been extensively studied in the X-ray band. High-resolution spectra from 2000-2001 revealed a complex outflow with multiple ionization and velocity components. Two decades later, new XMM-Newton and XRISM observations allow us to investigate the long-term evolution of these outflows. We perform joint spectral modeling of the XMM-Newton/RGS and XRISM/Resolve time-averaged spectra using the pion photoionization code within SPEX. We derive the ionization parameter, column density, turbulent velocity, and outflow velocity for each absorption component, and investigate their thermal stability and Absorption Measure Distribution (AMD) to characterize the physical and dynamical properties of the WA in NGC 3783 in 2024. We compare these results with the 2000-2001 epoch to assess long-term variability, stability, and possible changes in the absorber population. We identify eight WA components spanning log $\u03be=$ 1.08-3.38 and outflow velocities of 480-1230 km s$^{-1}$. The ranges of column densities and turbulent velocities remain broadly consistent with the WAs from 2000-2001, but the earlier data contained more low-ionization, high-velocity components. The total column density in 2024 is 1.5 times larger than in 2000-2001, requiring replenishment by fresh material. The dominant Unresolved Transition Array (UTA) absorber (Comp. B3) has increased its column density by a factor of three while maintaining a similar ionization parameter. The WAs in NGC 3783 have undergone significant structural and dynamical evolution over the past 24 years.",
-      "published": "2026-04-23T14:16:59+00:00",
-      "updated": "2026-04-23T14:16:59Z",
-      "authors": [
-        "Keqin Zhao",
-        "Jelle S. Kaastra",
-        "Liyi Gu",
-        "Missagh Mehdipour",
-        "Megan E. Eckart",
-        "Keigo Fukumura",
-        "Matteo Guainazzi",
-        "Chen Li",
-        "Christos Panagiotou",
-        "Matilde Signorini"
-      ],
-      "pdf_url": "https://arxiv.org/pdf/2604.21710v1",
-      "categories": [
-        "astro-ph.HE"
-      ],
-      "_topic": "galaxies",
-      "_topic_label": "galaxies",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Delving+into+the+depths+of+NGC+3783+with+XRISM%3A+V.+Broad-band+modeling+of+ionized+outflows&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
-    },
-    {
-      "id": "http://arxiv.org/abs/2604.21671v1",
-      "title": "Saturation Mechanisms in the Interacting Dark Sector",
-      "summary": "We introduce a family of phenomenological cosmological models featuring an interacting dark sector modulated by a sparseness scale parameter, in order to describe the late-time accelerated expansion of the universe. The sparseness scale, inspired by well-established saturation mechanisms in ecology and biology, is introduced in the interaction as a half-saturation constant that bounds the energy exchange between dark matter and dark energy, controls the dynamical behaviour of the physical variables and can prevent the phantom crossing. We consider three nonlinear interacting models, where two of them recover the linear interacting scenarios when the sparsity parameter vanishes. We examine the phase-space of the cosmological field equations by using the Hubble normalization approach. We determine the stationary points and their stability properties in order to reconstruct the asymptotics behaviour of the field equations. Such an analysis allows us to demonstrate the effects of the sparseness scale on the background dynamics. We test the interacting models with observational data. Specifically, we employ Supernovae catalogues, cosmic chronometers, Baryon Acoustic Oscillation measurements from DESI DR2, and redshift-space distortion measurements of the growth of large-scale structure through the $f$ and $f\u03c3_8$ observables. The Bayesian analysis suggests that, for two of the three models, a vanishing sparsity parameter is disfavoured at more than the 95\\% confidence interval, providing observational support for a nonzero sparseness scale in the dark sector interaction.",
-      "published": "2026-04-23T13:36:31+00:00",
-      "updated": "2026-04-23T13:36:31Z",
-      "authors": [
-        "Andronikos Paliathanasis",
-        "Kevin J. Duffy"
-      ],
-      "pdf_url": "https://arxiv.org/pdf/2604.21671v1",
-      "categories": [
-        "astro-ph.CO",
-        "gr-qc"
-      ],
-      "_topic": "dark_matter",
-      "_topic_label": "dark matter",
-      "semantic_scholar": {
-        "paperId": "8d17f30df316b4951e82372cc23cdb2acb8a4d04",
-        "externalIds": {
-          "ArXiv": "2604.21671",
-          "CorpusId": 287702540
-        },
-        "url": "https://www.semanticscholar.org/paper/8d17f30df316b4951e82372cc23cdb2acb8a4d04",
-        "title": "Saturation Mechanisms in the Interacting Dark Sector",
-        "venue": "",
-        "year": 2026,
-        "citationCount": 0,
-        "influentialCitationCount": 0,
-        "fieldsOfStudy": [
-          "Physics"
-        ],
-        "authors": [
-          {
-            "authorId": "2386603069",
-            "name": "A. Paliathanasis"
-          },
-          {
-            "authorId": "2275197381",
-            "name": "Kevin Duffy"
-          }
-        ]
-      },
-      "related_papers": [
-        {
-          "title": "Interacting k-essence field with non-pressureless dark matter: Cosmological dynamics and observational constraints",
-          "authors": "Saddam Hussain et al.",
-          "year": 2026,
-          "url": "https://www.semanticscholar.org/paper/565d12278d239725e0989a8186633b103cde8d92"
-        },
-        {
-          "title": "Phenomenology of an Open Effective Field Theory of Dark Energy",
-          "authors": "Santiago Agu'i Salcedo et al.",
-          "year": 2026,
-          "url": "https://arxiv.org/abs/2603.12321"
-        },
-        {
-          "title": "Observational Constraints on the Structure-Induced Dark Energy Model",
-          "authors": "A. K. cCamlibel",
-          "year": 2026,
-          "url": "https://arxiv.org/abs/2603.03999"
-        }
-      ]
-    }
-  ]
+  "pool": [],
+  "selected": []
 }
