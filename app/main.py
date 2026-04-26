@@ -352,12 +352,40 @@ def daily(
             results[idx] = future.result()
     enriched = [results[i] for i in range(len(selected_pool))]
 
+    # Compute page summaries before digest so the LLM has full paper content.
+    early_page_summary_map: dict[str, list[dict]] = {}
+    if page_summaries:
+        cache_pdf_dir_early = Path("data/cache/pdfs")
+        cache_pdf_dir_early.mkdir(parents=True, exist_ok=True)
+
+        def _summarize_one(paper: dict) -> tuple[str, list[dict]]:
+            paper_id = paper.get("id") or paper.get("title", "")
+            if not paper_id:
+                return paper_id, []
+            try:
+                pages = summarize_pdf_pages(
+                    paper,
+                    cache_pdf_dir=cache_pdf_dir_early,
+                    max_pages=max(0, max_pages_per_paper),
+                )
+            except Exception:
+                pages = []
+            return paper_id, pages
+
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            sum_futures = [executor.submit(_summarize_one, p) for p in enriched]
+            for future in as_completed(sum_futures):
+                pid, pages = future.result()
+                if pid:
+                    early_page_summary_map[pid] = pages
+
     digest_md = ""
     if digest:
         try:
             digest_md = synthesize_research_digest(
                 enriched,
                 context=research_context.get("summary") or "",
+                page_summary_map=early_page_summary_map or None,
             )
         except Exception as e:
             digest_md = f"_Digest generation failed: {e}_"
@@ -467,7 +495,7 @@ def daily(
 
     # Parallel figure extraction + optional page summaries
     figure_map: dict[str, list[dict]] = {}
-    page_summary_map: dict[str, list[dict]] = {}
+    page_summary_map: dict[str, list[dict]] = early_page_summary_map
     if pdf:
         cache_pdf_dir = Path("data/cache/pdfs")
         cache_fig_dir = Path("data/cache/figures")
@@ -490,7 +518,7 @@ def daily(
                 )
             except Exception:
                 pass
-            if page_summaries:
+            if page_summaries and paper_id not in early_page_summary_map:
                 try:
                     pages = summarize_pdf_pages(
                         paper,
@@ -507,7 +535,8 @@ def daily(
                 paper_id, figs, pages = future.result()
                 if paper_id:
                     figure_map[paper_id] = figs
-                    page_summary_map[paper_id] = pages
+                    if pages:
+                        page_summary_map[paper_id] = pages
 
         build_daily_pdf_report(
             out_path=report_pdf_path,

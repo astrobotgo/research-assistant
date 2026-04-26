@@ -5,7 +5,7 @@ from app.gemini_llm import gemini_generate
 from app.summarize import OLLAMA_HOST, OLLAMA_MODEL
 
 
-def _paper_brief(p: dict) -> str:
+def _paper_brief(p: dict, page_summaries: list[dict] | None = None) -> str:
     title = p.get("title", "")
     published = p.get("published", "")
     topic = p.get("_topic_label", p.get("_topic", ""))
@@ -21,7 +21,7 @@ def _paper_brief(p: dict) -> str:
         lines.append(f"  - PDF: {pdf}")
     if p.get("_selection_reason"):
         lines.append(f"  - Why selected: {p['_selection_reason']}")
-    lines.append(f"  - Abstract (excerpt): {excerpt}")
+    lines.append(f"  - Abstract: {excerpt}")
     analysis = p.get("analysis") or {}
     if isinstance(analysis, dict) and analysis.get("one_sentence_summary"):
         lines.append(f"  - Prior one-line take: {analysis['one_sentence_summary']}")
@@ -30,14 +30,27 @@ def _paper_brief(p: dict) -> str:
         lines.append(
             f"  - Citations (Semantic Scholar): {s2.get('citationCount', '')}"
         )
+    if page_summaries:
+        lines.append("  - Full paper content (by page):")
+        for ps in page_summaries:
+            lines.append(f"    - Page {ps['page']}: {ps['summary']}")
     return "\n".join(lines)
 
 
-def synthesize_research_digest(papers: list[dict], context: str = "") -> str:
+def synthesize_research_digest(
+    papers: list[dict],
+    context: str = "",
+    page_summary_map: dict[str, list[dict]] | None = None,
+) -> str:
     if not papers:
         return "_No papers matched the scan criteria for this period._"
 
-    catalog = "\n\n".join(_paper_brief(p) for p in papers)
+    def _brief(p: dict) -> str:
+        pid = p.get("id") or p.get("title") or ""
+        page_sums = (page_summary_map or {}).get(pid, [])
+        return _paper_brief(p, page_summaries=page_sums or None)
+
+    catalog = "\n\n".join(_brief(p) for p in papers)
 
     context_block = ""
     if context:
@@ -59,11 +72,12 @@ gravitational lensing, and dark matter. Write a **findings-first Markdown
 briefing** for researchers who already know the field.
 
 Rules:
-- Ground every claim in the supplied abstracts/snippets; do not invent empirical results or citations not implied by the text.
+- Where full paper content (page summaries) is provided, use it — go beyond the abstract to extract specific numbers, constraints, figures, methods, and conclusions from the body of the paper.
+- Ground every claim in the supplied text; do not invent empirical results or citations not present in the provided content.
 - Lead with important new findings and the most interesting points. A paper should earn space because it says something notable, not because it belongs to a topic bucket.
-- Extract the concrete result, constraint, method, data set, tension, or implication from each paper when the abstract provides one.
+- Extract concrete results: numbers, confidence levels, dataset names, tensions with prior work, methodological advances.
 - Mention topic balance only when it helps the reader understand the day's strongest papers.
-- If a selected paper is incremental or unclear from the abstract, say that briefly and do not inflate its importance.
+- If a paper is incremental or its content is unclear, say so briefly and do not inflate its importance.
 - Prefer accurate, cautious language over hype.
 
 {context_block}Use this structure:
