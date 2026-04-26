@@ -13,7 +13,7 @@ _console = Console()
 
 from app.agents import COPERNICUS, PTOLEMY
 from app.config import TOPIC_CONFIGS, WATCHLIST
-from app.context import build_research_context
+from app.context import build_research_context, update_field_state
 from app.digest import synthesize_research_digest
 from app.figures import extract_key_figures
 from app.fetch_arxiv import fetch_recent_arxiv
@@ -508,12 +508,18 @@ def daily(
             for p in remainder:
                 f.write(f"- **{p['title']}** — {p.get('_topic_label', '')} — {p.get('pdf_url', '')}\n")
 
-    # Persist open questions for the context agent to use in future runs
+    # Persist open questions and update the long-term field state document
     if digest_md:
         try:
             _append_open_questions(today, digest_md)
         except Exception:
             pass
+        try:
+            print(f"[cyan]{COPERNICUS.name}:[/cyan] updating long-term field state...")
+            update_field_state(today, digest_md)
+            print(f"[green]{COPERNICUS.name}:[/green] field state updated")
+        except Exception as e:
+            print(f"[yellow]{COPERNICUS.name}:[/yellow] field state update skipped: {e}")
 
     # Parallel figure extraction + optional page summaries
     figure_map: dict[str, list[dict]] = {}

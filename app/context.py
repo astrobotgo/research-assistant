@@ -1,8 +1,10 @@
 """
-Context agent: synthesizes a week of past daily briefings into a concise
-historical-context block that the main digest agent can use to:
-  - ground recurring themes and open questions
-  - avoid re-selecting papers already featured recently
+Context agent: maintains a persistent "state of the field" document that
+accumulates knowledge over months, plus short-term paper deduplication.
+
+field_state.md is a living ~1500-word document Copernicus rewrites each day,
+compressing new findings into durable long-term context spanning the full
+history of the assistant's runs.
 """
 import json
 import re
@@ -103,6 +105,98 @@ def _read_open_questions(max_chars: int = 3000) -> str:
         # Keep the most recent entries (end of file)
         text = "…[earlier entries truncated]…\n\n" + text[-max_chars:]
     return text
+
+
+FIELD_STATE_PATH = Path("data/field_state.md")
+
+
+def read_field_state() -> str:
+    """Return the current state-of-the-field document, or empty string if none exists yet."""
+    if not FIELD_STATE_PATH.exists():
+        return ""
+    return FIELD_STATE_PATH.read_text().strip()
+
+
+def update_field_state(today: str, digest_md: str) -> None:
+    """
+    Ask Copernicus to merge today's digest into the persistent field state document.
+    The document is rewritten in place, keeping it to ~1500 words.
+    Astronomy moves slowly — the field state accumulates knowledge over months.
+    """
+    current_state = read_field_state()
+
+    current_block = (
+        f"Current state of the field document (maintain and update this):\n\n{current_state}"
+        if current_state
+        else "No prior field state exists yet. Write the initial version from today's digest."
+    )
+
+    prompt = f"""{COPERNICUS.prompt_preamble()}
+
+You maintain a persistent "state of the field" document for astrophysics research
+covering galaxy clusters, galaxies, gravitational lensing, and dark matter.
+
+This document is your long-term scientific memory. It is updated after every daily
+briefing and accumulates knowledge over months. Astronomy progresses slowly —
+findings, debates, and open questions persist and evolve over months to years.
+
+Your task: given the current field state document and today's new digest, rewrite
+the field state document to incorporate new findings, update ongoing debates, retire
+resolved questions, and track new open problems.
+
+Rules:
+- Keep the document to 1200–1800 words.
+- Write in present tense as a scientific summary, not a log of events.
+- Do not mention specific dates or "today's papers" — fold findings into the narrative.
+- Preserve important ongoing debates and unresolved tensions even if not in today's digest.
+- Retire findings that have been superseded or resolved.
+- Use specific numbers, constraints, and method names when available.
+- Structure the document with these sections (use only those that have content):
+
+## Active research fronts
+What problems are actively being worked on and why they matter.
+
+## Established recent findings
+Concrete results, constraints, and measurements that have emerged recently and appear durable.
+
+## Ongoing debates and tensions
+Where the field disagrees, what the competing interpretations are, and what evidence exists on each side.
+
+## Open questions
+Specific unresolved scientific questions the field is actively trying to answer.
+
+## Methods and data gaining traction
+Techniques, surveys, simulations, or instruments that are producing new results.
+
+---
+
+{current_block}
+
+---
+
+Today's new digest ({today}):
+
+{digest_md[:6000]}
+"""
+
+    new_state = ""
+    try:
+        new_state = gemini_generate(prompt=prompt, timeout=180.0).strip()
+    except Exception:
+        try:
+            r = httpx.post(
+                f"{OLLAMA_HOST}/api/generate",
+                json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False},
+                timeout=300.0,
+            )
+            r.raise_for_status()
+            new_state = r.json().get("response", "").strip()
+        except Exception:
+            return
+
+    if new_state:
+        FIELD_STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        FIELD_STATE_PATH.write_text(new_state)
 
 
 def _recent_papers_block(recent_papers: list[dict], max_items: int = 24) -> str:
@@ -221,94 +315,32 @@ Recently selected papers:
 
 
 def build_research_context(
-    days_back: int = 7,
+    days_back: int = 30,
     today: date | None = None,
 ) -> dict:
     """
-    Read the last `days_back` daily reports and caches, then ask Gemini to
-    synthesize a concise context block for the upcoming digest.
+    Build context for today's digest using the persistent field state document
+    as long-term memory, plus recent paper cache for deduplication.
+
+    The field_state.md document accumulates months of scientific knowledge.
+    days_back controls only the deduplication window (how far back to look for
+    already-covered paper IDs).
 
     Returns:
-        summary      : str        Markdown "## Recent context" section (may be empty)
-        selection_brief: dict     Structured guidance for the selection agent
-        covered_ids  : set[str]   arXiv IDs featured in recent briefings
-        covered_titles: list[str] Titles of recently featured papers
+        summary        : str        The field state document (long-term context)
+        selection_brief: dict       Structured guidance for the selection agent
+        covered_ids    : set[str]   arXiv IDs featured recently (dedup window)
+        covered_titles : list[str]  Titles of recently featured papers
     """
     if today is None:
         today = date.today()
 
     covered_ids, covered_titles, recent_papers = _read_recent_selected_papers(days_back, today)
-    past_digests = _read_past_digests(days_back, today)
+    field_state = read_field_state()
     open_questions = _read_open_questions()
 
-    if not past_digests and not open_questions:
-        return {
-            "summary": "",
-            "selection_brief": _default_selection_brief(open_questions, covered_titles),
-            "covered_ids": covered_ids,
-            "covered_titles": covered_titles,
-        }
-
-    history_block = "\n\n---\n\n".join(
-        f"**{ds}**\n\n{text[:2500]}" for ds, text in past_digests
-    ) if past_digests else "(no recent briefings found)"
-
-    oq_block = (
-        f"\n\n### Accumulated open questions (from all past briefings)\n\n{open_questions}"
-        if open_questions else ""
-    )
-
-    prompt = f"""{COPERNICUS.prompt_preamble()}
-
-You are a scientific context advisor for a daily astrophysics research briefing
-covering galaxy clusters, galaxies, gravitational lensing, and dark matter.
-
-Below are synthesized digests from the past {len(past_digests)} daily briefings (oldest first),
-followed by a running log of open questions flagged across all previous runs.
-
-Your task is to extract *durable context* that will help today's reader immediately understand
-the current state of play in the field.
-
-Write a **concise Markdown section** (250–400 words) headed exactly:
-
-## Recent context and open threads
-
-Focus on:
-- Themes and methods that have appeared in multiple briefings
-- Active debates or tensions that keep resurfacing
-- Open questions that have been flagged repeatedly and remain unresolved
-- Any notable shifts or momentum in specific sub-areas
-
-Do NOT list individual papers or dates. Write in present tense as though briefing a colleague.
-Be concise and specific — no filler sentences.
-
-Past briefings (oldest first):
-
-{history_block}{oq_block}
-"""
-
-    summary = ""
-    try:
-        summary = gemini_generate(prompt=prompt, timeout=120.0)
-    except Exception:
-        try:
-            r = httpx.post(
-                f"{OLLAMA_HOST}/api/generate",
-                json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False},
-                timeout=300.0,
-            )
-            r.raise_for_status()
-            summary = r.json().get("response", "").strip()
-        except Exception:
-            # Graceful degradation: use a plain bullet summary of recent open questions
-            lines = []
-            for ds, text in past_digests[-3:]:
-                m = re.search(r"## (?:Open questions|Future Directions)(.*?)(?=\n## |\Z)", text, flags=re.DOTALL | re.IGNORECASE)
-                if m:
-                    lines.append(m.group(1).strip()[:400])
-            if lines:
-                summary = "## Recent context and open threads\n\n" + "\n\n".join(lines)
-
+    # Build selection brief from field state + recent papers
+    history_block = field_state if field_state else "(no field state document yet)"
     selection_brief = _build_selection_brief(
         history_block=history_block,
         open_questions=open_questions,
@@ -317,7 +349,7 @@ Past briefings (oldest first):
     )
 
     return {
-        "summary": summary,
+        "summary": field_state,
         "selection_brief": selection_brief,
         "covered_ids": covered_ids,
         "covered_titles": covered_titles,

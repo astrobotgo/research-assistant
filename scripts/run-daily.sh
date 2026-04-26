@@ -68,6 +68,7 @@ TARGETS=(
   "data/reports"
   "docs"
   "data/open_questions.md"
+  "data/field_state.md"
   "data/run-status.json"
   "data/cache/figures"
 )
