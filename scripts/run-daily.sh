@@ -31,6 +31,9 @@ TODAY="$("$VENV_PY" -c "from datetime import date; print(date.today().isoformat(
 if [[ $EXIT_CODE -eq 0 ]]; then
   RUN_STATUS="success"
   rm -f "$FAILED_SENTINEL"
+elif [[ $EXIT_CODE -eq 2 ]]; then
+  RUN_STATUS="no_papers"
+  rm -f "$FAILED_SENTINEL"
 else
   RUN_STATUS="failed"
   echo "RESEARCH ASSISTANT DAILY RUN FAILED — $TODAY (exit $EXIT_CODE)" > "$FAILED_SENTINEL"
@@ -49,6 +52,11 @@ with open("$STATUS_FILE", "w") as f:
         "exit_code": $EXIT_CODE,
     }, f, indent=2)
 PY
+
+if [[ $EXIT_CODE -eq 2 ]]; then
+  echo "No papers found — skipping commit and push."
+  exit 0
+fi
 
 if [[ $EXIT_CODE -ne 0 ]]; then
   echo "Daily run FAILED (exit $EXIT_CODE). Sentinel written to: $FAILED_SENTINEL" >&2

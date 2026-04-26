@@ -367,7 +367,7 @@ def daily(
 
     if not pool_for_selection:
         print(f"[yellow]{PTOLEMY.name}:[/yellow] no papers found — keeping existing reports unchanged.")
-        raise typer.Exit(0)
+        raise typer.Exit(2)
 
     k = max(1, present)
     print(f"[cyan]{PTOLEMY.name}:[/cyan] selecting top {k} papers from pool of {len(pool_for_selection)}...")
