@@ -22,9 +22,24 @@ def _paper_brief(p: dict, page_summaries: list[dict] | None = None) -> str:
     if p.get("_selection_reason"):
         lines.append(f"  - Why selected: {p['_selection_reason']}")
     lines.append(f"  - Abstract: {excerpt}")
-    background = (p.get("background") or "").strip()
-    if background:
-        lines.append(f"  - Prior literature context: {background}")
+    background = p.get("background") or {}
+    if isinstance(background, str):
+        background = {"text": background, "verified": []}
+    bg_text = background.get("text", "").strip()
+    if bg_text:
+        lines.append(f"  - Prior literature context: {bg_text}")
+    verified_papers = background.get("verified") or []
+    if verified_papers:
+        lines.append("  - Key prior papers:")
+        for vp in verified_papers:
+            vt = vp.get("title", "")
+            vy = vp.get("year", "")
+            vurl = vp.get("arxiv_url", "")
+            vreason = vp.get("reason", "")
+            entry = f"    - [{vt} ({vy})]({vurl})" if vurl else f"    - {vt} ({vy})"
+            if vreason:
+                entry += f" — {vreason}"
+            lines.append(entry)
     analysis = p.get("analysis") or {}
     if isinstance(analysis, dict) and analysis.get("one_sentence_summary"):
         lines.append(f"  - Prior one-line take: {analysis['one_sentence_summary']}")

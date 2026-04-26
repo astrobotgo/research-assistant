@@ -1,6 +1,7 @@
-import os
 import json
+import os
 import re
+
 import httpx
 from dotenv import load_dotenv
 
@@ -97,45 +98,85 @@ def summarize_with_ollama(title: str, abstract: str):
     return summarize_paper(title, abstract)
 
 
-def enrich_background(title: str, abstract: str) -> str:
+def enrich_background(title: str, abstract: str) -> dict:
     """
     Ask the LLM to draw on its training knowledge to provide scientific background
-    for a paper: key prior results, relevant surveys/instruments, known tensions,
-    and where this work fits in the broader literature.
-    Returns a plain-text paragraph (3-5 sentences).
+    for a paper, plus a list of key prior papers with arXiv IDs where known.
+
+    Returns a dict:
+        text       : str   — background paragraph (3-5 sentences)
+        key_papers : list  — [{"title": ..., "year": ..., "arxiv_id": ..., "reason": ...}]
+        verified   : list  — key_papers entries confirmed to exist on arXiv (with arxiv_url added)
     """
+    from app.fetch_arxiv import lookup_arxiv_paper
+
     prompt = f"""You are an expert astrophysicist with deep knowledge of the literature.
 
-Given the title and abstract of a new paper, write 3-5 sentences of scientific background
-drawn from your knowledge of the prior literature. Cover:
-- The key prior results or constraints that this work builds on or challenges
-- Relevant surveys, instruments, simulations, or datasets that have shaped this area
-- Known tensions, debates, or open questions in this subfield
-- Where this paper fits in the progression of the field
+Given the title and abstract of a new paper, return JSON with two fields:
 
-Write for an expert reader. Be specific — cite known results, parameter values, survey names,
-and theoretical frameworks where relevant. Do not summarize the abstract; provide context for it.
+1. "background": 3-5 sentences of scientific context from the prior literature. Cover:
+   - Key prior results or constraints this work builds on or challenges
+   - Relevant surveys, instruments, simulations, or datasets
+   - Known tensions, debates, or open questions in this subfield
+   - Where this paper fits in the field's progression
+   Write for an expert reader. Be specific — cite results, parameter values, survey names.
+
+2. "key_papers": list of up to 5 important prior papers most relevant to understanding this work.
+   For each paper include:
+   - "title": exact paper title
+   - "year": publication year (integer)
+   - "arxiv_id": arXiv ID if you are confident it is correct (e.g. "2301.04527"), else null
+   - "reason": one sentence on why this paper is relevant
+
+Return ONLY valid JSON. No markdown fences.
 
 Title: {title}
 
-Abstract: {abstract[:1500]}
+Abstract: {abstract[:1500]}"""
 
-Scientific background from prior literature:"""
-
+    raw = ""
     try:
-        result = gemini_generate(prompt=prompt, timeout=120.0).strip()
-        if result:
-            return result
+        raw = gemini_generate(prompt=prompt, timeout=120.0).strip()
     except Exception:
         pass
 
+    if not raw:
+        try:
+            r = httpx.post(
+                f"{OLLAMA_HOST}/api/generate",
+                json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False, "format": "json"},
+                timeout=180.0,
+            )
+            r.raise_for_status()
+            raw = r.json().get("response", "").strip()
+        except Exception:
+            return {"text": "", "key_papers": [], "verified": []}
+
+    # Parse JSON, tolerating markdown fences
+    parsed = None
     try:
-        r = httpx.post(
-            f"{OLLAMA_HOST}/api/generate",
-            json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False},
-            timeout=180.0,
-        )
-        r.raise_for_status()
-        return r.json().get("response", "").strip()
+        cleaned = re.sub(r"^```(?:json)?\s*|\s*```$", "", raw.strip(), flags=re.DOTALL).strip()
+        parsed = json.loads(cleaned)
     except Exception:
-        return ""
+        pass
+
+    if not isinstance(parsed, dict):
+        return {"text": raw, "key_papers": [], "verified": []}
+
+    background_text = parsed.get("background", "").strip()
+    key_papers = parsed.get("key_papers", [])
+    if not isinstance(key_papers, list):
+        key_papers = []
+
+    # Verify each cited paper against arXiv
+    verified = []
+    for paper in key_papers[:5]:
+        if not isinstance(paper, dict):
+            continue
+        ptitle = paper.get("title", "")
+        pid = paper.get("arxiv_id") or ""
+        result = lookup_arxiv_paper(title=ptitle, arxiv_id=pid)
+        if result:
+            verified.append({**paper, "arxiv_url": result["arxiv_url"]})
+
+    return {"text": background_text, "key_papers": key_papers, "verified": verified}

@@ -506,6 +506,27 @@ def daily(
                 f.write(f"- Limitations: {analysis.get('limitations', '')}\n")
                 f.write(f"- Novelty: {analysis.get('novelty_claim', '')}\n")
                 f.write(f"- Relevance: {analysis.get('relevance_score_1_to_10', '')}\n\n")
+            background = p.get("background") or {}
+            if isinstance(background, str):
+                background = {"text": background, "verified": []}
+            bg_text = background.get("text", "").strip()
+            verified_papers = background.get("verified") or []
+            if bg_text or verified_papers:
+                f.write("#### Prior literature context\n")
+                if bg_text:
+                    f.write(f"{bg_text}\n\n")
+                if verified_papers:
+                    f.write("**Key prior papers:**\n")
+                    for vp in verified_papers:
+                        vt = vp.get("title", "")
+                        vy = vp.get("year", "")
+                        vurl = vp.get("arxiv_url", "")
+                        vreason = vp.get("reason", "")
+                        entry = f"- [{vt} ({vy})]({vurl})" if vurl else f"- {vt} ({vy})"
+                        if vreason:
+                            entry += f" — {vreason}"
+                        f.write(entry + "\n")
+                    f.write("\n")
 
         if remainder:
             f.write("---\n\n## Other candidates (not in top selection)\n\n")
