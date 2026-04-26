@@ -11,26 +11,48 @@
       "mission": "connect today's papers to recent briefings, identify recurring open threads, and write a cautious research digest grounded in the supplied sources."
     }
   },
-  "pool_count": 15,
+  "pool_count": 19,
   "selected_count": 13,
   "present_requested": 10,
-  "selection_note": "_Selection failed (timed out); using newest k._",
+  "selection_note": "_Selection JSON parse failed; using newest k._",
   "selection_brief": {
     "priority_signals": [
-      "clear new result or constraint",
-      "surprising implication or tension with recent work",
-      "new method, data set, simulation, or measurement with reusable value",
-      "paper that directly addresses a recurring open question"
+      "sterile neutrino decay signal in galaxy clusters",
+      "adiabatic particle creation mimicking dark energy behavior",
+      "constructing priors on $b_\u03c6$ for different galaxies and datasets",
+      "ionized outflows in AGN environments over extended periods"
     ],
-    "open_questions_to_watch": [],
-    "recently_covered_titles": [],
+    "open_questions_to_watch": [
+      "Confirming the sterile neutrino decay signal with higher statistical significance to understand its implications for dark matter properties.",
+      "Investigating conditions under which adiabatic particle creation can fully mimic dark energy behavior, potentially reducing reliance on exotic models.",
+      "Extending frameworks for constructing priors on $b_\u03c6$ to validate robustness across different contexts.",
+      "Further monitoring and modeling ionized outflows in AGN environments over extended periods."
+    ],
+    "recently_covered_titles": [
+      "Informative Priors on Primordial Non-Gaussianity Bias $b_\u03c6$ From Galaxy Formation",
+      "Accelerating scaling solutions from dark matter particle creation",
+      "Delving into the depths of NGC 3783 with XRISM: V. Broad-band modeling of ionized outflows",
+      "Saturation Mechanisms in the Interacting Dark Sector",
+      "Conformal anomaly transport induced by dark photon",
+      "Constraining dark matter self-interaction from kinetic heating in neutron stars",
+      "Aspects of gravitational clustering and structure formation in the Universe",
+      "Multi-wavelength study of EP250416a / GRB 250416C: An Optically Dark Long GRB with a Late Jet Break",
+      "Radiation properties of a regular black hole embedded in a Dehnen-type dark matter halo with a thin accretion disk",
+      "Fermion Condensate Inflation, Dynamical Waterfall Mechanism and Primordial Black Holes",
+      "SPURS: Bursty Star Formation in an Extremely Luminous Weak Emission Line Galaxy at $z=9.3$",
+      "Signatures of Very Massive Stars in the Epoch of Reionization"
+    ],
     "deprioritize": [
-      "generic incremental applications unless the abstract states a concrete new finding",
-      "papers already featured recently unless they add a distinct development"
+      "studies focusing on the detailed radiation and shadow properties of black holes without new insights into broader cosmological implications",
+      "detailed studies on fermion condensate inflation models unless they provide novel mechanisms or insights beyond existing frameworks"
     ],
-    "selection_advice": "Choose papers because they say something important or interesting, not because they fill a topic quota."
+    "selection_advice": "Focus today's selections on papers that offer significant advancements in detecting sterile neutrino decay signals, investigating adiabatic particle creation mimicking dark energy, and refining priors for $b_\u03c6$. Also, prioritize studies monitoring ionized outflows over extended periods to understand their evolutionary dynamics.",
+    "recently_saturated_topics": [
+      "radiation properties of regular black holes embedded in dark matter halos",
+      "fermion condensate inflation dynamics"
+    ]
   },
-  "context_covered_count": 0,
+  "context_covered_count": 13,
   "pool": [
     {
       "id": "http://arxiv.org/abs/2604.21817v1",
@@ -46,7 +68,38 @@
         "astro-ph.HE"
       ],
       "_topic": "galaxy_clusters",
-      "_topic_label": "galaxy clusters, galaxies, dark matter"
+      "_topic_label": "galaxy clusters, galaxies, dark matter",
+      "_topic_matches": [
+        "galaxy clusters",
+        "galaxies",
+        "dark matter"
+      ],
+      "_priority_score": 3
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.19867v1",
+      "title": "Hamilton's Object Revisited: A challenging source redshift of a strong lensing configuration",
+      "summary": "Low-resolution spectrographs used to have difficulties to determine redshifts of galaxies at $z\\approx1$ and $z\\approx3$. Spectral emission and absorption lines of magnesium and iron redshifted to $z\\approx1$ fall close to hydrogen, silicon, and oxygen lines at $z\\approx3$. Here, we demonstrate that, even with modern, integrated field unit spectrographs, this task remains challenging. Hamilton's object, a blue star-forming galaxy, gravitationally lensed into three multiple images by the galaxy cluster SDSS J223010.47-081017.8 is such a case. Using the Blue Keck Cosmic Web Imager, its redshift was determined as $z=0.82$, while its MOIRCS spectrum hinted at $z=3.201$. To resolve the ambiguity, we completely re-analyse the Blue KCWI spectra of all three multiple images including the star-forming region in the outskirts. We employ a new data reduction pipeline, PypeIt, signal enhancement, and line fitting by Python-routines. The re-evaluation confirms the previous result based on 6 absorption features, $z=0.820 \\pm 0.001$ and 4 emission features, $z=0.821 \\pm 0.002$. The alternative $z=3.199\\pm 0.003$, based on 6 absorption and 2 emission lines is a worse fit, also compared to other spectra. Moreover, we find the MOIRCS spectrum inconclusive: Observations cover two of three multiple images, with the slit for image C only covering its central bulge; furthermore the pixel-to-wavelength calibration requires a nightsky-emission-line calibration due to a missing calibration arc lamp. New MOIRCS observations are needed to verify that Hamilton's object has the smallest separation in angular diameter distance between lensing cluster and source galaxy among the known cluster-scale strong lenses.",
+      "published": "2026-04-21T18:00:01+00:00",
+      "updated": "2026-04-21T18:00:01Z",
+      "authors": [
+        "Jenny Wagner",
+        "Richard E. Griffiths",
+        "Emilio E. Falco"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.19867v1",
+      "categories": [
+        "astro-ph.GA",
+        "astro-ph.CO"
+      ],
+      "_topic": "gravitational_lensing",
+      "_topic_label": "gravitational lensing",
+      "_topic_matches": [
+        "galaxy clusters",
+        "galaxies",
+        "gravitational lensing"
+      ],
+      "_priority_score": 3
     },
     {
       "id": "http://arxiv.org/abs/2604.21790v1",
@@ -64,7 +117,148 @@
         "astro-ph.CO"
       ],
       "_topic": "galaxies",
-      "_topic_label": "galaxies"
+      "_topic_label": "galaxies",
+      "_topic_matches": [
+        "galaxy clusters",
+        "galaxies"
+      ],
+      "_priority_score": 2
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.20195v1",
+      "title": "Photometric Super-Resolution for Improving Galaxy Morphological Measurements using Conditional Generative Adversarial Networks",
+      "summary": "The measurement of galaxy morphological parameters from astronomical images features in a wide range of modern analyses, including galaxy evolution and cosmological weak lensing studies. The precision and accuracy of morphological parameter estimation can be influenced by several key factors. The effective seeing of the image, summarized by the point spread function (PSF), limits how galaxy features or light profiles are resolved. The pixel scale of the detector also influences the resolution and the amount of statistical information available for a given object. The depth of the observations determines the signal-to-noise ratio of the image. Improving each of these factors is very costly, either in terms of detector upgrades, observatory design, or observing time. Here, we develop a conditional generative adversarial network, called Neo, trained to transform existing ground-based images into sharper, finer-scale images comparable to space-based image quality. We demonstrate that Neo improves the accuracy of measured morphological parameters by factors of $2$-$10$ when trained to translate Subaru Hyper Suprime-Camera (HSC) images to approximate Hubble Space Telescope (HST) data. Neo is designed for applicability to ongoing, large-scale surveys such as the Legacy Survey of Space and Time (LSST) conducted by Vera C. Rubin Observatory in combination with space telescopes such as HST, James Webb Space Telescope, and Nancy Grace Roman Space Telescope. These results suggest that Neo could be used to improve both cosmological and galaxy evolution analyses based on massive, ground-based survey datasets like LSST. The model code is open source and available at https://purl.archive.org/neo/code.",
+      "published": "2026-04-22T05:23:02+00:00",
+      "updated": "2026-04-22T05:23:02Z",
+      "authors": [
+        "Samuel Kahn",
+        "Ryan Hausen",
+        "Hubert Bretonni\u00e8re",
+        "Nicole Drakos",
+        "Brant Robertson"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.20195v1",
+      "categories": [
+        "astro-ph.IM",
+        "astro-ph.GA"
+      ],
+      "_topic": "gravitational_lensing",
+      "_topic_label": "gravitational lensing",
+      "_topic_matches": [
+        "galaxies",
+        "gravitational lensing"
+      ],
+      "_priority_score": 2
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.19745v1",
+      "title": "Precision Kinematic Sunyaev--Zel'dovich Measurements Across Halo Mass and Redshift with DESI DR2 and ACT DR6: Part II. Bright Galaxy Survey and Emission-Line Galaxies",
+      "summary": "We present the first high-significance spectroscopic stacked kinetic Sunyaev-Zel'dovich (kSZ) measurements of circumgalactic gas profiles for both Bright Galaxy Survey (BGS) and Emission Line Galaxy (ELG) tracers, combining DESI Data Release 2 with ACT Data Release 6. Using reconstructed line-of-sight velocities from the DESI galaxies and high-resolution ACT temperature maps, we detect the kSZ signal at high significance, reaching signal-to-noise ratios of up to $\\sim$9 for BGS and $\\sim$7.5 for ELGs in optimal stellar-mass selections. Together with the LRG measurements presented in Paper I, these constitute the most significant kSZ detections from any spectroscopic survey to date. We perform the analysis in both real and harmonic space, obtaining consistent results. By splitting both tracers into stellar-mass bins, we study the scaling of the kSZ amplitude with galaxy properties. Combining the kSZ measurements with ACT Data Release 6 (DR6) CMB lensing maps enables a joint calibration of the galaxy-halo connection and the gas fractions of host halos. For the BGS galaxies, we observe low gas fractions around the virial radius relative to standard expectations, likely attributable to active galactic nuclei (AGN) activity. We find some evidence for higher-mass halos retaining a larger fraction of their baryons, consistent with more efficient feedback in lower-mass systems. For the ELG sample, dominated by blue, star-forming galaxies, we provide the first detection of the gas distribution in ELG host halos. The ELGs appear to exhibit relatively high gas fractions, which points to the possibility of weaker feedback (due to e.g. low AGN and supernova feedback activity) at their mass scale. Finally, we present generalized Navarro-Frenk-White (GNFW) fits to the harmonic-space measurements, providing a compact parametrization of gas profiles for forward modeling in large-scale structure analyses.",
+      "published": "2026-04-21T17:59:30+00:00",
+      "updated": "2026-04-21T17:59:30Z",
+      "authors": [
+        "B. Hadzhiyska",
+        "S. Ferraro",
+        "F. J. Qu",
+        "B. Ried Guachalla",
+        "E. Schaan",
+        "J. Aguilar",
+        "S. Ahlen",
+        "D. Bianchi",
+        "D. Brooks",
+        "F. J. Castander",
+        "E. Chaussidon",
+        "T. Claybaugh",
+        "A. de la Macorra",
+        "Arjun Dey",
+        "Biprateep Dey",
+        "P. Doel",
+        "J. E. Forero-Romero",
+        "E. Gazta\u00f1aga",
+        "S. Gontcho A Gontcho",
+        "G. Gutierrez",
+        "J. Guy",
+        "K. Honscheid",
+        "C. Howlett",
+        "D. Huterer",
+        "M. Ishak",
+        "R. Joyce",
+        "R. Kehoe",
+        "T. Kisner",
+        "A. Kremin",
+        "O. Lahav",
+        "M. Landriau",
+        "L. Le Guillou",
+        "A. Leauthaud",
+        "M. Manera",
+        "P. Martini",
+        "A. Meisner",
+        "R. Miquel",
+        "S. Nadathur",
+        "N. Palanque-Delabrouille",
+        "W. J. Percival",
+        "F. Prada",
+        "I. P\u00e9rez-R\u00e0fols",
+        "G. Rossi",
+        "L. Samushia",
+        "E. Sanchez",
+        "E. F. Schlafly",
+        "D. Schlegel",
+        "J. Silber",
+        "D. Sprayberry",
+        "G. Tarl\u00e9",
+        "B. A. Weaver",
+        "R. Zhou",
+        "H. Zou"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.19745v1",
+      "categories": [
+        "astro-ph.CO",
+        "astro-ph.GA"
+      ],
+      "_topic": "gravitational_lensing",
+      "_topic_label": "gravitational lensing",
+      "_topic_matches": [
+        "galaxies",
+        "gravitational lensing"
+      ],
+      "_priority_score": 2
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.19435v1",
+      "title": "SDSSJ110546.07+145202.4: The first long-duration radio changing-look NLS1 galaxy",
+      "summary": "SDSSJ110546.07+145202.4 stands out as a unique radio changing-look Narrow-line Seyfert 1 (NLS1) galaxy that has brightened dramatically and shows an exceptionally long duration of its \"on\" phase. We present the first high-frequency radio observations, the first simultaneous radio spectral energy distributions (SEDs), the first optical--UV--X-ray SEDs, and the first X-ray monitoring and spectroscopy of this recently discovered event. Importantly for understanding the nature of the outburst, we show that the X-ray spectrum is soft with a photon index Gamma_X=2.5; line-of-sight absorption and extinction are low or absent; the radio SED is peaked at low frequencies ~2 GHz; and the radio outburst emission is very long-lived (t > 8 yr) and roughly constant. The softness of the X-ray spectrum, low supermassive black hole (SMBH) mass, and high Eddington ratio all corroborate the optical NLS1 classification. We discuss multiple outburst scenarios, including lensing, absorption, a binary SMBH merger, a long-duration giant-star tidal disruption, a newly ignited active galactic nucleus (AGN), and an accretion-rate change. While most of them can be either excluded or are deemed too rare and lack positive evidence so far, most or all types of these transients are expected to be detected in ongoing VLA and upcoming SKA surveys. SDSSJ110546.07+145202.4 itself is well explained by an accretion rate change that triggered the powerful radio jet emission. The low redshift and SMBH mass of this system offer a unique perspective of the physical processes of radio-jet ignition that are expected to operate in the early Universe around growing SMBHs.",
+      "published": "2026-04-21T13:09:40+00:00",
+      "updated": "2026-04-21T13:09:40Z",
+      "authors": [
+        "S. Komossa",
+        "D. Grupe",
+        "A. Kraus",
+        "P. G. Edwards",
+        "E. F. Kerrison",
+        "K. Rose",
+        "R. Soria",
+        "T. An",
+        "M. J. Hardcastle",
+        "K. E. Gabanyi",
+        "S. Panda",
+        "D. W. Xu",
+        "J. Wang",
+        "S. Frey",
+        "A. Mezosi"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.19435v1",
+      "categories": [
+        "astro-ph.HE",
+        "astro-ph.GA"
+      ],
+      "_topic": "gravitational_lensing",
+      "_topic_label": "gravitational lensing",
+      "_topic_matches": [
+        "galaxies",
+        "gravitational lensing"
+      ],
+      "_priority_score": 2
     },
     {
       "id": "http://arxiv.org/abs/2604.21770v1",
@@ -87,7 +281,11 @@
         "math-ph"
       ],
       "_topic": "dark_matter",
-      "_topic_label": "dark matter"
+      "_topic_label": "dark matter",
+      "_topic_matches": [
+        "dark matter"
+      ],
+      "_priority_score": 1
     },
     {
       "id": "http://arxiv.org/abs/2604.21710v1",
@@ -112,7 +310,11 @@
         "astro-ph.HE"
       ],
       "_topic": "galaxies",
-      "_topic_label": "galaxies"
+      "_topic_label": "galaxies",
+      "_topic_matches": [
+        "galaxies"
+      ],
+      "_priority_score": 1
     },
     {
       "id": "http://arxiv.org/abs/2604.21671v1",
@@ -130,7 +332,11 @@
         "gr-qc"
       ],
       "_topic": "dark_matter",
-      "_topic_label": "dark matter"
+      "_topic_label": "dark matter",
+      "_topic_matches": [
+        "dark matter"
+      ],
+      "_priority_score": 1
     },
     {
       "id": "http://arxiv.org/abs/2604.21664v1",
@@ -148,7 +354,11 @@
         "hep-th"
       ],
       "_topic": "dark_matter",
-      "_topic_label": "dark matter"
+      "_topic_label": "dark matter",
+      "_topic_matches": [
+        "dark matter"
+      ],
+      "_priority_score": 1
     },
     {
       "id": "http://arxiv.org/abs/2604.21652v1",
@@ -165,7 +375,11 @@
         "astro-ph.GA"
       ],
       "_topic": "dark_matter",
-      "_topic_label": "dark matter"
+      "_topic_label": "dark matter",
+      "_topic_matches": [
+        "dark matter"
+      ],
+      "_priority_score": 1
     },
     {
       "id": "http://arxiv.org/abs/2604.21634v1",
@@ -181,7 +395,11 @@
         "astro-ph.CO"
       ],
       "_topic": "galaxies",
-      "_topic_label": "galaxies"
+      "_topic_label": "galaxies",
+      "_topic_matches": [
+        "galaxies"
+      ],
+      "_priority_score": 1
     },
     {
       "id": "http://arxiv.org/abs/2604.21624v1",
@@ -228,7 +446,11 @@
         "astro-ph.HE"
       ],
       "_topic": "galaxies",
-      "_topic_label": "galaxies"
+      "_topic_label": "galaxies",
+      "_topic_matches": [
+        "galaxies"
+      ],
+      "_priority_score": 1
     },
     {
       "id": "http://arxiv.org/abs/2604.21615v1",
@@ -247,7 +469,11 @@
         "gr-qc"
       ],
       "_topic": "dark_matter",
-      "_topic_label": "dark matter"
+      "_topic_label": "dark matter",
+      "_topic_matches": [
+        "dark matter"
+      ],
+      "_priority_score": 1
     },
     {
       "id": "http://arxiv.org/abs/2604.21535v1",
@@ -269,7 +495,11 @@
         "gr-qc"
       ],
       "_topic": "dark_matter",
-      "_topic_label": "dark matter"
+      "_topic_label": "dark matter",
+      "_topic_matches": [
+        "dark matter"
+      ],
+      "_priority_score": 1
     },
     {
       "id": "http://arxiv.org/abs/2604.21516v1",
@@ -295,7 +525,11 @@
         "astro-ph.GA"
       ],
       "_topic": "galaxies",
-      "_topic_label": "galaxies"
+      "_topic_label": "galaxies",
+      "_topic_matches": [
+        "galaxies"
+      ],
+      "_priority_score": 1
     },
     {
       "id": "http://arxiv.org/abs/2604.21493v1",
@@ -316,7 +550,11 @@
         "astro-ph.SR"
       ],
       "_topic": "galaxies",
-      "_topic_label": "galaxies"
+      "_topic_label": "galaxies",
+      "_topic_matches": [
+        "galaxies"
+      ],
+      "_priority_score": 1
     },
     {
       "id": "http://arxiv.org/abs/2604.21492v1",
@@ -334,7 +572,11 @@
         "hep-ph"
       ],
       "_topic": "dark_matter",
-      "_topic_label": "dark matter"
+      "_topic_label": "dark matter",
+      "_topic_matches": [
+        "dark matter"
+      ],
+      "_priority_score": 1
     },
     {
       "id": "http://arxiv.org/abs/2604.21405v1",
@@ -383,7 +625,11 @@
         "astro-ph.HE"
       ],
       "_topic": "galaxies",
-      "_topic_label": "galaxies"
+      "_topic_label": "galaxies",
+      "_topic_matches": [
+        "galaxies"
+      ],
+      "_priority_score": 1
     }
   ],
   "selected": [
@@ -402,7 +648,49 @@
       ],
       "_topic": "galaxy_clusters",
       "_topic_label": "galaxy clusters, galaxies, dark matter",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=An+RXTE+Search+for+the+Sterile+Neutrino+Decay+in+Galaxy+Clusters&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "_topic_matches": [
+        "galaxy clusters",
+        "galaxies",
+        "dark matter"
+      ],
+      "_priority_score": 3,
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=An+RXTE+Search+for+the+Sterile+Neutrino+Decay+in+Galaxy+Clusters&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "background": {
+        "text": "",
+        "key_papers": [],
+        "verified": []
+      }
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.19867v1",
+      "title": "Hamilton's Object Revisited: A challenging source redshift of a strong lensing configuration",
+      "summary": "Low-resolution spectrographs used to have difficulties to determine redshifts of galaxies at $z\\approx1$ and $z\\approx3$. Spectral emission and absorption lines of magnesium and iron redshifted to $z\\approx1$ fall close to hydrogen, silicon, and oxygen lines at $z\\approx3$. Here, we demonstrate that, even with modern, integrated field unit spectrographs, this task remains challenging. Hamilton's object, a blue star-forming galaxy, gravitationally lensed into three multiple images by the galaxy cluster SDSS J223010.47-081017.8 is such a case. Using the Blue Keck Cosmic Web Imager, its redshift was determined as $z=0.82$, while its MOIRCS spectrum hinted at $z=3.201$. To resolve the ambiguity, we completely re-analyse the Blue KCWI spectra of all three multiple images including the star-forming region in the outskirts. We employ a new data reduction pipeline, PypeIt, signal enhancement, and line fitting by Python-routines. The re-evaluation confirms the previous result based on 6 absorption features, $z=0.820 \\pm 0.001$ and 4 emission features, $z=0.821 \\pm 0.002$. The alternative $z=3.199\\pm 0.003$, based on 6 absorption and 2 emission lines is a worse fit, also compared to other spectra. Moreover, we find the MOIRCS spectrum inconclusive: Observations cover two of three multiple images, with the slit for image C only covering its central bulge; furthermore the pixel-to-wavelength calibration requires a nightsky-emission-line calibration due to a missing calibration arc lamp. New MOIRCS observations are needed to verify that Hamilton's object has the smallest separation in angular diameter distance between lensing cluster and source galaxy among the known cluster-scale strong lenses.",
+      "published": "2026-04-21T18:00:01+00:00",
+      "updated": "2026-04-21T18:00:01Z",
+      "authors": [
+        "Jenny Wagner",
+        "Richard E. Griffiths",
+        "Emilio E. Falco"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.19867v1",
+      "categories": [
+        "astro-ph.GA",
+        "astro-ph.CO"
+      ],
+      "_topic": "gravitational_lensing",
+      "_topic_label": "gravitational lensing",
+      "_topic_matches": [
+        "galaxy clusters",
+        "galaxies",
+        "gravitational lensing"
+      ],
+      "_priority_score": 3,
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Hamilton%27s+Object+Revisited%3A+A+challenging+source+redshift+of+a+strong+lensing+configuration&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "background": {
+        "text": "",
+        "key_papers": [],
+        "verified": []
+      }
     },
     {
       "id": "http://arxiv.org/abs/2604.21790v1",
@@ -421,7 +709,228 @@
       ],
       "_topic": "galaxies",
       "_topic_label": "galaxies",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Informative+Priors+on+Primordial+Non-Gaussianity+Bias+%24b_%CF%86%24+From+Galaxy+Formation&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "_topic_matches": [
+        "galaxy clusters",
+        "galaxies"
+      ],
+      "_priority_score": 2,
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Informative+Priors+on+Primordial+Non-Gaussianity+Bias+%24b_%CF%86%24+From+Galaxy+Formation&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "background": {
+        "text": "",
+        "key_papers": [],
+        "verified": []
+      }
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.20195v1",
+      "title": "Photometric Super-Resolution for Improving Galaxy Morphological Measurements using Conditional Generative Adversarial Networks",
+      "summary": "The measurement of galaxy morphological parameters from astronomical images features in a wide range of modern analyses, including galaxy evolution and cosmological weak lensing studies. The precision and accuracy of morphological parameter estimation can be influenced by several key factors. The effective seeing of the image, summarized by the point spread function (PSF), limits how galaxy features or light profiles are resolved. The pixel scale of the detector also influences the resolution and the amount of statistical information available for a given object. The depth of the observations determines the signal-to-noise ratio of the image. Improving each of these factors is very costly, either in terms of detector upgrades, observatory design, or observing time. Here, we develop a conditional generative adversarial network, called Neo, trained to transform existing ground-based images into sharper, finer-scale images comparable to space-based image quality. We demonstrate that Neo improves the accuracy of measured morphological parameters by factors of $2$-$10$ when trained to translate Subaru Hyper Suprime-Camera (HSC) images to approximate Hubble Space Telescope (HST) data. Neo is designed for applicability to ongoing, large-scale surveys such as the Legacy Survey of Space and Time (LSST) conducted by Vera C. Rubin Observatory in combination with space telescopes such as HST, James Webb Space Telescope, and Nancy Grace Roman Space Telescope. These results suggest that Neo could be used to improve both cosmological and galaxy evolution analyses based on massive, ground-based survey datasets like LSST. The model code is open source and available at https://purl.archive.org/neo/code.",
+      "published": "2026-04-22T05:23:02+00:00",
+      "updated": "2026-04-22T05:23:02Z",
+      "authors": [
+        "Samuel Kahn",
+        "Ryan Hausen",
+        "Hubert Bretonni\u00e8re",
+        "Nicole Drakos",
+        "Brant Robertson"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.20195v1",
+      "categories": [
+        "astro-ph.IM",
+        "astro-ph.GA"
+      ],
+      "_topic": "gravitational_lensing",
+      "_topic_label": "gravitational lensing",
+      "_topic_matches": [
+        "galaxies",
+        "gravitational lensing"
+      ],
+      "_priority_score": 2,
+      "semantic_scholar": {
+        "paperId": "ef9cf43314948d983cc5951c4e4af2d91d10fb56",
+        "externalIds": {
+          "ArXiv": "2604.20195",
+          "CorpusId": 287669129
+        },
+        "url": "https://www.semanticscholar.org/paper/ef9cf43314948d983cc5951c4e4af2d91d10fb56",
+        "title": "Photometric Super-Resolution for Improving Galaxy Morphological Measurements using Conditional Generative Adversarial Networks",
+        "venue": "",
+        "year": 2026,
+        "citationCount": 0,
+        "influentialCitationCount": 0,
+        "fieldsOfStudy": [
+          "Physics"
+        ],
+        "authors": [
+          {
+            "authorId": "2367882096",
+            "name": "Samuel Kahn"
+          },
+          {
+            "authorId": "3136204",
+            "name": "R. Hausen"
+          },
+          {
+            "authorId": "2105603470",
+            "name": "H. Bretonnie\u0300re"
+          },
+          {
+            "authorId": "4317471",
+            "name": "N. Drakos"
+          },
+          {
+            "authorId": "2248145838",
+            "name": "B. Robertson"
+          }
+        ]
+      },
+      "related_papers": [
+        {
+          "title": "Enhancing Gravitational Lens Study with Deep Learning: A Study on Effects of Dropout Regularization",
+          "authors": "J. J. Ancona-Flores et al.",
+          "year": 2026,
+          "url": "https://arxiv.org/abs/2603.06339"
+        },
+        {
+          "title": "AstroSURE: Learning to Remove Noise from Astronomical Images Without Ground Truth Data",
+          "authors": "Omid Vaheb et al.",
+          "year": 2026,
+          "url": "https://arxiv.org/abs/2604.16793"
+        },
+        {
+          "title": "Beyond Colors: Probing Redshifts from Galaxy Morphology in Single-band Images with ViT-MDNz",
+          "authors": "Zhijian Luo et al.",
+          "year": 2026,
+          "url": "https://arxiv.org/abs/2602.22711"
+        }
+      ],
+      "background": {
+        "text": "",
+        "key_papers": [],
+        "verified": []
+      }
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.19745v1",
+      "title": "Precision Kinematic Sunyaev--Zel'dovich Measurements Across Halo Mass and Redshift with DESI DR2 and ACT DR6: Part II. Bright Galaxy Survey and Emission-Line Galaxies",
+      "summary": "We present the first high-significance spectroscopic stacked kinetic Sunyaev-Zel'dovich (kSZ) measurements of circumgalactic gas profiles for both Bright Galaxy Survey (BGS) and Emission Line Galaxy (ELG) tracers, combining DESI Data Release 2 with ACT Data Release 6. Using reconstructed line-of-sight velocities from the DESI galaxies and high-resolution ACT temperature maps, we detect the kSZ signal at high significance, reaching signal-to-noise ratios of up to $\\sim$9 for BGS and $\\sim$7.5 for ELGs in optimal stellar-mass selections. Together with the LRG measurements presented in Paper I, these constitute the most significant kSZ detections from any spectroscopic survey to date. We perform the analysis in both real and harmonic space, obtaining consistent results. By splitting both tracers into stellar-mass bins, we study the scaling of the kSZ amplitude with galaxy properties. Combining the kSZ measurements with ACT Data Release 6 (DR6) CMB lensing maps enables a joint calibration of the galaxy-halo connection and the gas fractions of host halos. For the BGS galaxies, we observe low gas fractions around the virial radius relative to standard expectations, likely attributable to active galactic nuclei (AGN) activity. We find some evidence for higher-mass halos retaining a larger fraction of their baryons, consistent with more efficient feedback in lower-mass systems. For the ELG sample, dominated by blue, star-forming galaxies, we provide the first detection of the gas distribution in ELG host halos. The ELGs appear to exhibit relatively high gas fractions, which points to the possibility of weaker feedback (due to e.g. low AGN and supernova feedback activity) at their mass scale. Finally, we present generalized Navarro-Frenk-White (GNFW) fits to the harmonic-space measurements, providing a compact parametrization of gas profiles for forward modeling in large-scale structure analyses.",
+      "published": "2026-04-21T17:59:30+00:00",
+      "updated": "2026-04-21T17:59:30Z",
+      "authors": [
+        "B. Hadzhiyska",
+        "S. Ferraro",
+        "F. J. Qu",
+        "B. Ried Guachalla",
+        "E. Schaan",
+        "J. Aguilar",
+        "S. Ahlen",
+        "D. Bianchi",
+        "D. Brooks",
+        "F. J. Castander",
+        "E. Chaussidon",
+        "T. Claybaugh",
+        "A. de la Macorra",
+        "Arjun Dey",
+        "Biprateep Dey",
+        "P. Doel",
+        "J. E. Forero-Romero",
+        "E. Gazta\u00f1aga",
+        "S. Gontcho A Gontcho",
+        "G. Gutierrez",
+        "J. Guy",
+        "K. Honscheid",
+        "C. Howlett",
+        "D. Huterer",
+        "M. Ishak",
+        "R. Joyce",
+        "R. Kehoe",
+        "T. Kisner",
+        "A. Kremin",
+        "O. Lahav",
+        "M. Landriau",
+        "L. Le Guillou",
+        "A. Leauthaud",
+        "M. Manera",
+        "P. Martini",
+        "A. Meisner",
+        "R. Miquel",
+        "S. Nadathur",
+        "N. Palanque-Delabrouille",
+        "W. J. Percival",
+        "F. Prada",
+        "I. P\u00e9rez-R\u00e0fols",
+        "G. Rossi",
+        "L. Samushia",
+        "E. Sanchez",
+        "E. F. Schlafly",
+        "D. Schlegel",
+        "J. Silber",
+        "D. Sprayberry",
+        "G. Tarl\u00e9",
+        "B. A. Weaver",
+        "R. Zhou",
+        "H. Zou"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.19745v1",
+      "categories": [
+        "astro-ph.CO",
+        "astro-ph.GA"
+      ],
+      "_topic": "gravitational_lensing",
+      "_topic_label": "gravitational lensing",
+      "_topic_matches": [
+        "galaxies",
+        "gravitational lensing"
+      ],
+      "_priority_score": 2,
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Precision+Kinematic+Sunyaev--Zel%27dovich+Measurements+Across+Halo+Mass+and+Redshift+with+DESI+DR2+and+ACT+DR6%3A+Part+II.+Bright+Galaxy+Survey+and+Emission-Line+Galaxies&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "background": {
+        "text": "",
+        "key_papers": [],
+        "verified": []
+      }
+    },
+    {
+      "id": "http://arxiv.org/abs/2604.19435v1",
+      "title": "SDSSJ110546.07+145202.4: The first long-duration radio changing-look NLS1 galaxy",
+      "summary": "SDSSJ110546.07+145202.4 stands out as a unique radio changing-look Narrow-line Seyfert 1 (NLS1) galaxy that has brightened dramatically and shows an exceptionally long duration of its \"on\" phase. We present the first high-frequency radio observations, the first simultaneous radio spectral energy distributions (SEDs), the first optical--UV--X-ray SEDs, and the first X-ray monitoring and spectroscopy of this recently discovered event. Importantly for understanding the nature of the outburst, we show that the X-ray spectrum is soft with a photon index Gamma_X=2.5; line-of-sight absorption and extinction are low or absent; the radio SED is peaked at low frequencies ~2 GHz; and the radio outburst emission is very long-lived (t > 8 yr) and roughly constant. The softness of the X-ray spectrum, low supermassive black hole (SMBH) mass, and high Eddington ratio all corroborate the optical NLS1 classification. We discuss multiple outburst scenarios, including lensing, absorption, a binary SMBH merger, a long-duration giant-star tidal disruption, a newly ignited active galactic nucleus (AGN), and an accretion-rate change. While most of them can be either excluded or are deemed too rare and lack positive evidence so far, most or all types of these transients are expected to be detected in ongoing VLA and upcoming SKA surveys. SDSSJ110546.07+145202.4 itself is well explained by an accretion rate change that triggered the powerful radio jet emission. The low redshift and SMBH mass of this system offer a unique perspective of the physical processes of radio-jet ignition that are expected to operate in the early Universe around growing SMBHs.",
+      "published": "2026-04-21T13:09:40+00:00",
+      "updated": "2026-04-21T13:09:40Z",
+      "authors": [
+        "S. Komossa",
+        "D. Grupe",
+        "A. Kraus",
+        "P. G. Edwards",
+        "E. F. Kerrison",
+        "K. Rose",
+        "R. Soria",
+        "T. An",
+        "M. J. Hardcastle",
+        "K. E. Gabanyi",
+        "S. Panda",
+        "D. W. Xu",
+        "J. Wang",
+        "S. Frey",
+        "A. Mezosi"
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2604.19435v1",
+      "categories": [
+        "astro-ph.HE",
+        "astro-ph.GA"
+      ],
+      "_topic": "gravitational_lensing",
+      "_topic_label": "gravitational lensing",
+      "_topic_matches": [
+        "galaxies",
+        "gravitational lensing"
+      ],
+      "_priority_score": 2,
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=SDSSJ110546.07%2B145202.4%3A+The+first+long-duration+radio+changing-look+NLS1+galaxy&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "background": {
+        "text": "",
+        "key_papers": [],
+        "verified": []
+      }
     },
     {
       "id": "http://arxiv.org/abs/2604.21770v1",
@@ -445,7 +954,16 @@
       ],
       "_topic": "dark_matter",
       "_topic_label": "dark matter",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Accelerating+scaling+solutions+from+dark+matter+particle+creation&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "_topic_matches": [
+        "dark matter"
+      ],
+      "_priority_score": 1,
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Accelerating+scaling+solutions+from+dark+matter+particle+creation&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "background": {
+        "text": "",
+        "key_papers": [],
+        "verified": []
+      }
     },
     {
       "id": "http://arxiv.org/abs/2604.21710v1",
@@ -471,84 +989,16 @@
       ],
       "_topic": "galaxies",
       "_topic_label": "galaxies",
-      "semantic_scholar": {
-        "paperId": "fbdbd449379f083dbfd454ad93f795463afd1fc4",
-        "externalIds": {
-          "ArXiv": "2604.21710",
-          "CorpusId": 287702623
-        },
-        "url": "https://www.semanticscholar.org/paper/fbdbd449379f083dbfd454ad93f795463afd1fc4",
-        "title": "Delving into the depths of NGC 3783 with XRISM: V. Broad-band modeling of ionized outflows",
-        "venue": "",
-        "year": 2026,
-        "citationCount": 0,
-        "influentialCitationCount": 0,
-        "fieldsOfStudy": [
-          "Physics"
-        ],
-        "authors": [
-          {
-            "authorId": "2367200991",
-            "name": "Keqin Zhao"
-          },
-          {
-            "authorId": "7470605",
-            "name": "J. Kaastra"
-          },
-          {
-            "authorId": "2303261886",
-            "name": "Liyi Gu"
-          },
-          {
-            "authorId": "46918075",
-            "name": "M. Mehdipour"
-          },
-          {
-            "authorId": "3041289",
-            "name": "M. Eckart"
-          },
-          {
-            "authorId": "46219384",
-            "name": "K. Fukumura"
-          },
-          {
-            "authorId": "2264638683",
-            "name": "M. Guainazzi"
-          },
-          {
-            "authorId": "2256784987",
-            "name": "Chen Li"
-          },
-          {
-            "authorId": "49933807",
-            "name": "C. Panagiotou"
-          },
-          {
-            "authorId": "2209881905",
-            "name": "M. Signorini"
-          }
-        ]
-      },
-      "related_papers": [
-        {
-          "title": "Variability of the X-ray obscuring wind in Mrk 335 with XMM-Newton/RGS",
-          "authors": "D. Rogantini et al.",
-          "year": 2026,
-          "url": "https://arxiv.org/abs/2602.23255"
-        },
-        {
-          "title": "Stratification of the Active Galactic Nucleus\u2013Driven Multiphase Outflows in the Dwarf Seyfert Galaxy NGC 4395",
-          "authors": "P. Nandi et al.",
-          "year": 2026,
-          "url": "https://www.semanticscholar.org/paper/837b5c326ee96e8a9f3d2c34fc03bc00a6ba848c"
-        },
-        {
-          "title": "The Galaxy Activity, Torus, and Outflow Survey (GATOS). XIII. Coupling Driven H2 Excitation in Seyferts",
-          "authors": "D. Delaney et al.",
-          "year": 2026,
-          "url": "https://arxiv.org/abs/2604.06524"
-        }
-      ]
+      "_topic_matches": [
+        "galaxies"
+      ],
+      "_priority_score": 1,
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Delving+into+the+depths+of+NGC+3783+with+XRISM%3A+V.+Broad-band+modeling+of+ionized+outflows&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "background": {
+        "text": "",
+        "key_papers": [],
+        "verified": []
+      }
     },
     {
       "id": "http://arxiv.org/abs/2604.21671v1",
@@ -567,7 +1017,61 @@
       ],
       "_topic": "dark_matter",
       "_topic_label": "dark matter",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Saturation+Mechanisms+in+the+Interacting+Dark+Sector&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "_topic_matches": [
+        "dark matter"
+      ],
+      "_priority_score": 1,
+      "semantic_scholar": {
+        "paperId": "8d17f30df316b4951e82372cc23cdb2acb8a4d04",
+        "externalIds": {
+          "ArXiv": "2604.21671",
+          "CorpusId": 287702540
+        },
+        "url": "https://www.semanticscholar.org/paper/8d17f30df316b4951e82372cc23cdb2acb8a4d04",
+        "title": "Saturation Mechanisms in the Interacting Dark Sector",
+        "venue": "",
+        "year": 2026,
+        "citationCount": 0,
+        "influentialCitationCount": 0,
+        "fieldsOfStudy": [
+          "Physics"
+        ],
+        "authors": [
+          {
+            "authorId": "2386603069",
+            "name": "A. Paliathanasis"
+          },
+          {
+            "authorId": "2275197381",
+            "name": "Kevin Duffy"
+          }
+        ]
+      },
+      "related_papers": [
+        {
+          "title": "Interacting k-essence field with non-pressureless dark matter: Cosmological dynamics and observational constraints",
+          "authors": "Saddam Hussain et al.",
+          "year": 2026,
+          "url": "https://www.semanticscholar.org/paper/565d12278d239725e0989a8186633b103cde8d92"
+        },
+        {
+          "title": "Phenomenology of an Open Effective Field Theory of Dark Energy",
+          "authors": "Santiago Agu'i Salcedo et al.",
+          "year": 2026,
+          "url": "https://arxiv.org/abs/2603.12321"
+        },
+        {
+          "title": "Observational Constraints on the Structure-Induced Dark Energy Model",
+          "authors": "A. K. cCamlibel",
+          "year": 2026,
+          "url": "https://arxiv.org/abs/2603.03999"
+        }
+      ],
+      "background": {
+        "text": "",
+        "key_papers": [],
+        "verified": []
+      }
     },
     {
       "id": "http://arxiv.org/abs/2604.21664v1",
@@ -586,7 +1090,16 @@
       ],
       "_topic": "dark_matter",
       "_topic_label": "dark matter",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Conformal+anomaly+transport+induced+by+dark+photon&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "_topic_matches": [
+        "dark matter"
+      ],
+      "_priority_score": 1,
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Conformal+anomaly+transport+induced+by+dark+photon&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "background": {
+        "text": "",
+        "key_papers": [],
+        "verified": []
+      }
     },
     {
       "id": "http://arxiv.org/abs/2604.21652v1",
@@ -604,6 +1117,11 @@
       ],
       "_topic": "dark_matter",
       "_topic_label": "dark matter",
+      "_topic_matches": [
+        "dark matter"
+      ],
+      "_priority_score": 1,
+      "_watchlisted": "act",
       "semantic_scholar": {
         "paperId": "9015058e8d3e9f6cd76707a7e36c828bc7b5d3b1",
         "externalIds": {
@@ -645,7 +1163,12 @@
           "year": 2026,
           "url": "https://arxiv.org/abs/2604.04560"
         }
-      ]
+      ],
+      "background": {
+        "text": "",
+        "key_papers": [],
+        "verified": []
+      }
     },
     {
       "id": "http://arxiv.org/abs/2604.21634v1",
@@ -662,7 +1185,58 @@
       ],
       "_topic": "galaxies",
       "_topic_label": "galaxies",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Aspects+of+gravitational+clustering+and+structure+formation+in+the+Universe&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "_topic_matches": [
+        "galaxies"
+      ],
+      "_priority_score": 1,
+      "_watchlisted": "act",
+      "semantic_scholar": {
+        "paperId": "b9d1f03378226e1df98c830d82f6e589a0341dde",
+        "externalIds": {
+          "ArXiv": "2604.21634",
+          "CorpusId": 287702554
+        },
+        "url": "https://www.semanticscholar.org/paper/b9d1f03378226e1df98c830d82f6e589a0341dde",
+        "title": "Aspects of gravitational clustering and structure formation in the Universe",
+        "venue": "",
+        "year": 2026,
+        "citationCount": 0,
+        "influentialCitationCount": 0,
+        "fieldsOfStudy": [
+          "Physics"
+        ],
+        "authors": [
+          {
+            "authorId": "2189372981",
+            "name": "Swati Gavas"
+          }
+        ]
+      },
+      "related_papers": [
+        {
+          "title": "The Inner Dark-Matter Structure of Galaxies",
+          "authors": "Vicente Honorato et al.",
+          "year": 2026,
+          "url": "https://arxiv.org/abs/2604.02566"
+        },
+        {
+          "title": "Morphological Signatures of Gravitational Evolution, Redshift-Space Distortions, and Massive Neutrinos in Large-Scale Structure",
+          "authors": "Priya Goyal et al.",
+          "year": 2026,
+          "url": "https://arxiv.org/abs/2603.19734"
+        },
+        {
+          "title": "Modelling the expulsion of baryons from haloes from first principles: the role of feedback and of the cosmological constant",
+          "authors": "O. Veenema et al.",
+          "year": 2026,
+          "url": "https://arxiv.org/abs/2603.13095"
+        }
+      ],
+      "background": {
+        "text": "",
+        "key_papers": [],
+        "verified": []
+      }
     },
     {
       "id": "http://arxiv.org/abs/2604.21624v1",
@@ -710,155 +1284,17 @@
       ],
       "_topic": "galaxies",
       "_topic_label": "galaxies",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Multi-wavelength+study+of+EP250416a+%2F+GRB+250416C%3A+An+Optically+Dark+Long+GRB+with+a+Late+Jet+Break&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
-    },
-    {
-      "id": "http://arxiv.org/abs/2604.21615v1",
-      "title": "Radiation properties of a regular black hole embedded in a Dehnen-type dark matter halo with a thin accretion disk",
-      "summary": "We investigate the shadow, timelike geodesic structure, radiation properties of thin accretion disks, and optical appearance of a static spherically symmetric regular black hole, constructed based on the Dehnen-type density profile. Using observational data from M87* and Sgr A*, we constrain the model parameter $a$ at both $1\u03c3$ and $2\u03c3$ confidence levels. Based on the Page--Thorne model, we calculate the local radiative flux, redshift factor distribution, and the radiation flux received by a distant observer, systematically examining the effects of the parameter $a$ and the viewing angle on the black hole image. The results show that larger $a$ will enlarge the effective radiation area of the accretion disk and significantly enhance the asymmetry and Doppler boosting effects of the direct and secondary images at large viewing angles.",
-      "published": "2026-04-23T12:39:49+00:00",
-      "updated": "2026-04-23T12:39:49Z",
-      "authors": [
-        "Tianyou Ren",
-        "Jing-Ya Zhao",
-        "Xiaomei Liu",
-        "Rong-Jia Yang"
+      "_topic_matches": [
+        "galaxies"
       ],
-      "pdf_url": "https://arxiv.org/pdf/2604.21615v1",
-      "categories": [
-        "gr-qc"
-      ],
-      "_topic": "dark_matter",
-      "_topic_label": "dark matter",
-      "semantic_scholar": {
-        "paperId": "662c5e510af6970352e13627d6120a3c5ec697cf",
-        "externalIds": {
-          "ArXiv": "2604.21615",
-          "CorpusId": 287702529
-        },
-        "url": "https://www.semanticscholar.org/paper/662c5e510af6970352e13627d6120a3c5ec697cf",
-        "title": "Radiation properties of a regular black hole embedded in a Dehnen-type dark matter halo with a thin accretion disk",
-        "venue": "",
-        "year": 2026,
-        "citationCount": 0,
-        "influentialCitationCount": 0,
-        "fieldsOfStudy": [
-          "Physics"
-        ],
-        "authors": [
-          {
-            "authorId": "2387216050",
-            "name": "Tian-You Ren"
-          },
-          {
-            "authorId": "2342556964",
-            "name": "Jingye Zhao"
-          },
-          {
-            "authorId": "2258068947",
-            "name": "Xiaomei Liu"
-          },
-          {
-            "authorId": "2281891828",
-            "name": "Rong-Jia Yang"
-          }
-        ]
-      },
-      "related_papers": [
-        {
-          "title": "Dynamics of thin accretion disks and accretion around a charged-PFDM black hole",
-          "authors": "Taiyang Zhang et al.",
-          "year": 2026,
-          "url": "https://arxiv.org/abs/2603.09105"
-        },
-        {
-          "title": "Visual Characteristics of a Rotating Black Hole in $4$D Einstein-Gauss-Bonnet Gravity with Thin Accretion Disk Under EHT Constraints",
-          "authors": "Muhammad Israr Aslam et al.",
-          "year": 2026,
-          "url": "https://arxiv.org/abs/2604.18628"
-        },
-        {
-          "title": "Distinguishing Black Holes and Neutron Stars via Optical Images Illuminated by Thick Accretion Disks",
-          "authors": "Chen-Yu Yang et al.",
-          "year": 2026,
-          "url": "https://arxiv.org/abs/2604.00117"
-        }
-      ]
-    },
-    {
-      "id": "http://arxiv.org/abs/2604.21535v1",
-      "title": "Fermion Condensate Inflation, Dynamical Waterfall Mechanism and Primordial Black Holes",
-      "summary": "Fermion condensate inflation, where inflation emerges from four-fermion interactions induced by spacetime torsion, removes the need for additional scalar fields beyond the Standard Model. In this framework, the fermion field can be decomposed into two distinguished sectors, each giving rise to bound states. After integrating out fermions, the bound fields play the roles of the inflaton and the auxiliary fields, resembling hybrid inflation with a waterfall mechanism. The inclusion of an axial chemical potential naturally introduces a mechanism to end inflation and trigger instant preheating. During the waterfall phase, the effective potential of the fermion condensate supports the formation of non-topological solitons such as Q-balls, which act as seeds of primordial black holes. This model is intrinsically connected to Chern-Simons gravity, which implies a parity-violating universe. Consequently, both the primordial black hole (PBH) dark-matter abundance and parity-violation signatures could provide observational tests of the model.",
-      "published": "2026-04-23T10:59:00+00:00",
-      "updated": "2026-04-23T10:59:00Z",
-      "authors": [
-        "Stephon Alexander",
-        "Pisin Chen",
-        "Jinglong Liu",
-        "Antonino Marciano",
-        "Misao Sasaki",
-        "Xuan-Lin Su"
-      ],
-      "pdf_url": "https://arxiv.org/pdf/2604.21535v1",
-      "categories": [
-        "hep-th",
-        "gr-qc"
-      ],
-      "_topic": "dark_matter",
-      "_topic_label": "dark matter",
-      "_watchlisted": "act",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Fermion+Condensate+Inflation%2C+Dynamical+Waterfall+Mechanism+and+Primordial+Black+Holes&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
-    },
-    {
-      "id": "http://arxiv.org/abs/2604.21516v1",
-      "title": "SPURS: Bursty Star Formation in an Extremely Luminous Weak Emission Line Galaxy at $z=9.3$",
-      "summary": "JWST has revealed a population of super-luminous early galaxies with a volume density in excess of most expectations. The spectra reveal diverse properties: while some reveal strong emission lines characteristic of galaxies in the midst of strong bursts, others show weak emission lines that could reflect old stellar populations, large escape fractions, or post-burst star formation histories. Through the JWST Cycle 4 large program SPURS, we have obtained ultra-deep (29 hr) rest-frame UV spectroscopy of a z=9.3 super-luminous ($M_{\\rm UV}=-21.66$) galaxy with large assembled stellar mass (1.6$\\times$10$^9$ $M_\\odot$) and extremely weak emission lines (H$\u03b2$ EW $\\approx25$~\u00c5). The strong stellar wind features and rest-optical line ratios suggest the galaxy is already significantly enriched, with a metallicity of 0.4--0.7~Z$_\\odot$. The interstellar absorption lines reveal outflows ($v\\simeq -161$~km~s$^{-1}$) with a large neutral gas covering fraction, suggesting that the weak emission lines are not due to large escape fractions. The combination of the Balmer break, weak emission lines, and stellar wind features constrains the star formation history, indicating a recent burst of star formation lasting 10--20 Myr followed by a downturn over the last 10~Myr. The observations suggest that $z\\gtrsim 9$ weak emission line galaxies such as this source can be explained by stochastic star formation, provided that the downturns in star formation are recent (i.e., <10 Myr prior to observation). The ultra-deep grating spectrum enables the IGM damping wing to be characterized, decoupling the effects of local absorption. The smooth Ly$\u03b1$ break indicates that this source, one of the most massive galaxies known at z>9, is likely situated in a small ionized bubble ($0.29_{-0.09}^{+0.11}$~pMpc), as is common at large neutral hydrogen fractions ($\\bar{x}_{\\rm HI}=0.81_{-0.21}^{+0.14}$).",
-      "published": "2026-04-23T10:23:19+00:00",
-      "updated": "2026-04-23T10:23:19Z",
-      "authors": [
-        "Zuyi Chen",
-        "Daniel P. Stark",
-        "Charlotte A. Mason",
-        "Adele Plat",
-        "Viola Gelli",
-        "Peter Senchyna",
-        "Keerthi Vasan G. C.",
-        "Ryan Endsley",
-        "Mengtao Tang",
-        "Michael W. Topping",
-        "Lily Whitler"
-      ],
-      "pdf_url": "https://arxiv.org/pdf/2604.21516v1",
-      "categories": [
-        "astro-ph.GA"
-      ],
-      "_topic": "galaxies",
-      "_topic_label": "galaxies",
-      "_watchlisted": "jwst",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=SPURS%3A+Bursty+Star+Formation+in+an+Extremely+Luminous+Weak+Emission+Line+Galaxy+at+%24z%3D9.3%24&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
-    },
-    {
-      "id": "http://arxiv.org/abs/2604.21493v1",
-      "title": "Signatures of Very Massive Stars in the Epoch of Reionization",
-      "summary": "We present ultra-deep ($\\simeq 20-30$ hours), rest-frame UV spectroscopy with NIRSpec/JWST of two UV-bright galaxies at $z\\sim 8.7$, CEERS-1019 and CEERS-1025 ($Z_{\\rm neb} \\simeq 0.1 Z_{\\odot}$). The spectra reveal exceptionally strong P-Cygni profiles in wind lines (NV $\u03bb$1240 and CIV $\u03bb$1550) and significant broad and strong HeII $\u03bb$1640 emission ($\\rm EW\\simeq 2-4$ A). We compare the observations with synthetic stellar population models at $Z_{\\star} \\simeq 0.1 Z_{\\odot}$, both including and excluding very massive stars (VMS). Models including VMS provide a markedly improved fit to the data relative to non-VMS models ($\u0394$AIC and $\u0394$BIC $> 70$), which fail to reproduce the observed strengths of the wind features. A comparison with empirical spectra of VMS-dominated systems in the local Universe further supports this interpretation. The best-fit VMS models imply extremely young ages of the stellar populations ($\\simeq 1.5-2.0$Myr) and high ionizing photon production efficiencies ($\\log \u03be_{\\rm ion} [\\rm Hz erg^{-1}] \\gtrsim 25.8$), exceeding those inferred from non-VMS models by $\\sim 0.1-0.2$ dex. These results provide evidence for an overabundance of VMS at high-$z$ with an IMF extending well beyond $100 M_{\\odot}$, and highlight their potential role in shaping the rest-frame UV spectra, chemical enrichment, and ionizing output of galaxies in the early Universe.",
-      "published": "2026-04-23T09:54:38+00:00",
-      "updated": "2026-04-23T09:54:38Z",
-      "authors": [
-        "Rui Marques-Chaves",
-        "Fabrice Martins",
-        "Daniel Schaerer",
-        "Miroslava Dessauges-Zavadsky",
-        "Ana Palacios"
-      ],
-      "pdf_url": "https://arxiv.org/pdf/2604.21493v1",
-      "categories": [
-        "astro-ph.GA",
-        "astro-ph.SR"
-      ],
-      "_topic": "galaxies",
-      "_topic_label": "galaxies",
-      "_watchlisted": "jwst",
-      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Signatures+of+Very+Massive+Stars+in+the+Epoch+of+Reionization&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "_priority_score": 1,
+      "_watchlisted": "desi",
+      "semantic_scholar_error": "Client error '429 ' for url 'https://api.semanticscholar.org/graph/v1/paper/search?query=Multi-wavelength+study+of+EP250416a+%2F+GRB+250416C%3A+An+Optically+Dark+Long+GRB+with+a+Late+Jet+Break&limit=1&fields=paperId%2Ctitle%2Cyear%2Cauthors%2CcitationCount%2CinfluentialCitationCount%2CexternalIds%2Curl%2Cvenue%2CfieldsOfStudy'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "background": {
+        "text": "",
+        "key_papers": [],
+        "verified": []
+      }
     }
   ]
 }
