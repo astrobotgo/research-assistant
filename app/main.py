@@ -69,25 +69,41 @@ def _sort_by_published(papers: list[dict]) -> list[dict]:
 
 def _auto_widen_days(requested_days: int) -> int:
     """
-    If the last successful run was more than `requested_days` ago, extend the
-    window so the gap is covered. This handles weekends and missed runs.
+    Extend the fetch window when arXiv submissions are sparse:
+    - Weekends and Mondays: arXiv publishes nothing Sat/Sun, so look back
+      enough to always cover the preceding Friday's submissions.
+    - Missed runs: if the last cache is older than requested_days, cover the gap.
     """
-    cache_files = sorted(Path("data/cache").glob("daily-*.json"))
-    if not cache_files:
-        return requested_days
-    latest_stem = cache_files[-1].stem  # e.g. "daily-2026-04-21"
-    try:
-        last_run = date.fromisoformat(latest_stem.replace("daily-", ""))
-    except ValueError:
-        return requested_days
-    gap = (date.today() - last_run).days
-    if gap > requested_days:
-        widened = gap + 1
+    today = date.today()
+    weekday = today.weekday()  # 0=Mon, 5=Sat, 6=Sun
+
+    # On Saturday look back to Thursday, Sunday/Monday look back to Friday
+    weekend_minimum = {5: 2, 6: 3, 0: 4}.get(weekday, 0)
+    days = max(requested_days, weekend_minimum)
+    if weekend_minimum > requested_days:
+        day_name = today.strftime("%A")
         print(
-            f"[yellow]Auto-widening --days from {requested_days} to {widened} "
-            f"(last run was {gap} day(s) ago)[/yellow]"
+            f"[yellow]Auto-widening --days from {requested_days} to {days} "
+            f"({day_name} — arXiv publishes nothing on weekends)[/yellow]"
         )
-        return widened
+
+    cache_files = sorted(Path("data/cache").glob("daily-*.json"))
+    if cache_files:
+        latest_stem = cache_files[-1].stem
+        try:
+            last_run = date.fromisoformat(latest_stem.replace("daily-", ""))
+            gap = (today - last_run).days
+            if gap > days:
+                widened = gap + 1
+                print(
+                    f"[yellow]Auto-widening --days from {days} to {widened} "
+                    f"(last run was {gap} day(s) ago)[/yellow]"
+                )
+                days = widened
+        except ValueError:
+            pass
+
+    return days
     return requested_days
 
 
