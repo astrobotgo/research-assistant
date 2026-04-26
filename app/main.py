@@ -6,6 +6,10 @@ from pathlib import Path
 
 import typer
 from rich import print
+from rich.console import Console
+from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn, TimeElapsedColumn
+
+_console = Console()
 
 from app.agents import COPERNICUS, PTOLEMY
 from app.config import TOPIC_CONFIGS, WATCHLIST
@@ -284,8 +288,11 @@ def daily(
     """
     days = _auto_widen_days(days)
 
+    print(f"[cyan]{PTOLEMY.name}:[/cyan] scanning arXiv across {len(TOPIC_CONFIGS)} topics (last {days} days)...")
     collected: list[dict] = []
     for topic in TOPIC_CONFIGS:
+        label = topic.get("label", topic["key"])
+        print(f"  [dim]fetching:[/dim] {label}")
         batch = fetch_recent_arxiv(
             query=topic["arxiv_query"],
             category=category,
@@ -299,10 +306,12 @@ def daily(
             p["_topic"] = topic["key"]
             p["_topic_label"] = topic.get("label", _topic_label(topic["key"]))
             collected.append(p)
+        print(f"  [dim]  → {len(batch)} papers[/dim]")
 
     merged = _sort_by_published(_dedupe_papers(collected))
     if max_pool > 0 and len(merged) > max_pool:
         merged = merged[:max_pool]
+    print(f"[cyan]{PTOLEMY.name}:[/cyan] {len(collected)} collected, {len(merged)} unique after deduplication")
 
     print(f"[cyan]{COPERNICUS.name}:[/cyan] building historical context from recent briefings...")
     try:
@@ -313,12 +322,14 @@ def daily(
 
     pool_for_selection = [dict(p) for p in merged]
     k = max(1, present)
+    print(f"[cyan]{PTOLEMY.name}:[/cyan] selecting top {k} papers from pool of {len(pool_for_selection)}...")
     selected_pool, selection_note = select_top_papers(
         pool_for_selection,
         k=k,
         covered_ids=research_context.get("covered_ids") or set(),
         selection_context=research_context.get("selection_brief") or {},
     )
+    print(f"[cyan]{PTOLEMY.name}:[/cyan] selected {len(selected_pool)} papers")
 
     # Force-include watchlisted papers not already chosen
     selected_pool = _apply_watchlist(pool_for_selection, selected_pool, WATCHLIST)
@@ -344,12 +355,16 @@ def daily(
         return item
 
     enriched: list[dict] = []
-    with ThreadPoolExecutor(max_workers=6) as executor:
-        futures = {executor.submit(_enrich_one, p): i for i, p in enumerate(selected_pool)}
-        results: dict[int, dict] = {}
-        for future in as_completed(futures):
-            idx = futures[future]
-            results[idx] = future.result()
+    print(f"[cyan]{PTOLEMY.name}:[/cyan] enriching {len(selected_pool)} papers (Semantic Scholar + related)...")
+    with Progress(SpinnerColumn(), TextColumn("{task.description}"), BarColumn(), TextColumn("{task.completed}/{task.total}"), TimeElapsedColumn(), console=_console) as progress:
+        task = progress.add_task(f"{PTOLEMY.name}: enriching", total=len(selected_pool))
+        with ThreadPoolExecutor(max_workers=6) as executor:
+            futures = {executor.submit(_enrich_one, p): i for i, p in enumerate(selected_pool)}
+            results: dict[int, dict] = {}
+            for future in as_completed(futures):
+                idx = futures[future]
+                results[idx] = future.result()
+                progress.advance(task)
     enriched = [results[i] for i in range(len(selected_pool))]
 
     # Compute page summaries before digest so the LLM has full paper content.
@@ -372,23 +387,30 @@ def daily(
                 pages = []
             return paper_id, pages
 
-        with ThreadPoolExecutor(max_workers=4) as executor:
-            sum_futures = [executor.submit(_summarize_one, p) for p in enriched]
-            for future in as_completed(sum_futures):
-                pid, pages = future.result()
-                if pid:
-                    early_page_summary_map[pid] = pages
+        print(f"[cyan]{PTOLEMY.name}:[/cyan] downloading and summarizing {len(enriched)} PDFs...")
+        with Progress(SpinnerColumn(), TextColumn("{task.description}"), BarColumn(), TextColumn("{task.completed}/{task.total}"), TimeElapsedColumn(), console=_console) as progress:
+            task = progress.add_task(f"{PTOLEMY.name}: reading papers", total=len(enriched))
+            with ThreadPoolExecutor(max_workers=4) as executor:
+                sum_futures = [executor.submit(_summarize_one, p) for p in enriched]
+                for future in as_completed(sum_futures):
+                    pid, pages = future.result()
+                    if pid:
+                        early_page_summary_map[pid] = pages
+                    progress.advance(task)
 
     digest_md = ""
     if digest:
+        print(f"[cyan]{COPERNICUS.name}:[/cyan] synthesizing research digest...")
         try:
             digest_md = synthesize_research_digest(
                 enriched,
                 context=research_context.get("summary") or "",
                 page_summary_map=early_page_summary_map or None,
             )
+            print(f"[green]{COPERNICUS.name}:[/green] digest complete")
         except Exception as e:
             digest_md = f"_Digest generation failed: {e}_"
+            print(f"[red]{COPERNICUS.name}:[/red] digest failed: {e}")
 
     today = date.today().isoformat()
     Path("data/cache").mkdir(parents=True, exist_ok=True)
@@ -529,14 +551,18 @@ def daily(
                     pass
             return paper_id, figs, pages
 
-        with ThreadPoolExecutor(max_workers=4) as executor:
-            fig_futures = [executor.submit(_process_paper_figures, p) for p in enriched]
-            for future in as_completed(fig_futures):
-                paper_id, figs, pages = future.result()
-                if paper_id:
-                    figure_map[paper_id] = figs
-                    if pages:
-                        page_summary_map[paper_id] = pages
+        print(f"[cyan]{PTOLEMY.name}:[/cyan] extracting figures from {len(enriched)} papers...")
+        with Progress(SpinnerColumn(), TextColumn("{task.description}"), BarColumn(), TextColumn("{task.completed}/{task.total}"), TimeElapsedColumn(), console=_console) as progress:
+            task = progress.add_task(f"{PTOLEMY.name}: extracting figures", total=len(enriched))
+            with ThreadPoolExecutor(max_workers=4) as executor:
+                fig_futures = [executor.submit(_process_paper_figures, p) for p in enriched]
+                for future in as_completed(fig_futures):
+                    paper_id, figs, pages = future.result()
+                    if paper_id:
+                        figure_map[paper_id] = figs
+                        if pages:
+                            page_summary_map[paper_id] = pages
+                    progress.advance(task)
 
         build_daily_pdf_report(
             out_path=report_pdf_path,
