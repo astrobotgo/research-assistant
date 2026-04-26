@@ -95,3 +95,47 @@ def summarize_paper(title: str, abstract: str):
 def summarize_with_ollama(title: str, abstract: str):
     # Backward-compatible alias; now Gemini-first with Ollama fallback.
     return summarize_paper(title, abstract)
+
+
+def enrich_background(title: str, abstract: str) -> str:
+    """
+    Ask the LLM to draw on its training knowledge to provide scientific background
+    for a paper: key prior results, relevant surveys/instruments, known tensions,
+    and where this work fits in the broader literature.
+    Returns a plain-text paragraph (3-5 sentences).
+    """
+    prompt = f"""You are an expert astrophysicist with deep knowledge of the literature.
+
+Given the title and abstract of a new paper, write 3-5 sentences of scientific background
+drawn from your knowledge of the prior literature. Cover:
+- The key prior results or constraints that this work builds on or challenges
+- Relevant surveys, instruments, simulations, or datasets that have shaped this area
+- Known tensions, debates, or open questions in this subfield
+- Where this paper fits in the progression of the field
+
+Write for an expert reader. Be specific — cite known results, parameter values, survey names,
+and theoretical frameworks where relevant. Do not summarize the abstract; provide context for it.
+
+Title: {title}
+
+Abstract: {abstract[:1500]}
+
+Scientific background from prior literature:"""
+
+    try:
+        result = gemini_generate(prompt=prompt, timeout=120.0).strip()
+        if result:
+            return result
+    except Exception:
+        pass
+
+    try:
+        r = httpx.post(
+            f"{OLLAMA_HOST}/api/generate",
+            json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False},
+            timeout=180.0,
+        )
+        r.raise_for_status()
+        return r.json().get("response", "").strip()
+    except Exception:
+        return ""

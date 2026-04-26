@@ -22,6 +22,9 @@ def _paper_brief(p: dict, page_summaries: list[dict] | None = None) -> str:
     if p.get("_selection_reason"):
         lines.append(f"  - Why selected: {p['_selection_reason']}")
     lines.append(f"  - Abstract: {excerpt}")
+    background = (p.get("background") or "").strip()
+    if background:
+        lines.append(f"  - Prior literature context: {background}")
     analysis = p.get("analysis") or {}
     if isinstance(analysis, dict) and analysis.get("one_sentence_summary"):
         lines.append(f"  - Prior one-line take: {analysis['one_sentence_summary']}")
@@ -73,9 +76,11 @@ briefing** for researchers who already know the field.
 
 Rules:
 - Where full paper content (page summaries) is provided, use it — go beyond the abstract to extract specific numbers, constraints, figures, methods, and conclusions from the body of the paper.
-- Ground every claim in the supplied text; do not invent empirical results or citations not present in the provided content.
+- Each paper includes a "Prior literature context" paragraph drawn from the broader scientific literature. Use this to explain why a finding matters, how it compares to established results, and where it fits in the progression of the field.
+- For specific new results reported in today's papers, ground claims in the supplied text. For background and context, draw freely on your knowledge of the astrophysics literature — key surveys, established constraints, foundational debates, and prior measurements.
 - Lead with important new findings and the most interesting points. A paper should earn space because it says something notable, not because it belongs to a topic bucket.
 - Extract concrete results: numbers, confidence levels, dataset names, tensions with prior work, methodological advances.
+- Explicitly connect new results to prior work: does this confirm, challenge, or refine established results? How large is the improvement over previous measurements?
 - Mention topic balance only when it helps the reader understand the day's strongest papers.
 - If a paper is incremental or its content is unclear, say so briefly and do not inflate its importance.
 - Prefer accurate, cautious language over hype.

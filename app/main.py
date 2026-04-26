@@ -22,7 +22,7 @@ from app.page_summaries import summarize_pdf_pages
 from app.pdf_report import build_daily_pdf_report
 from app.select_papers import select_top_papers
 from app.site_pages import build_pages_site
-from app.summarize import summarize_paper
+from app.summarize import summarize_paper, enrich_background
 from app.video_report import build_narrated_video
 
 app = typer.Typer()
@@ -352,6 +352,10 @@ def daily(
                 item["analysis"] = summarize_paper(paper["title"], paper["summary"])
             except Exception:
                 pass
+        try:
+            item["background"] = enrich_background(paper["title"], paper.get("summary", ""))
+        except Exception:
+            pass
         return item
 
     enriched: list[dict] = []
