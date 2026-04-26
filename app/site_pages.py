@@ -194,25 +194,42 @@ a:hover { text-decoration: underline; }
 .site-header {
   position: sticky; top: 0; z-index: 100;
   height: var(--header-h);
-  background: rgba(255,255,255,0.94);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line);
+  background: linear-gradient(135deg, #0a1628 0%, #0c2340 55%, #071a1a 100%);
+  border-bottom: 1px solid rgba(15,118,110,0.35);
+  overflow: hidden;
+}
+.site-header::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    radial-gradient(circle at 8%  40%, rgba(255,255,255,0.85) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 18% 70%, rgba(255,255,255,0.5)  0.5px, transparent 0.5px),
+    radial-gradient(circle at 27% 20%, rgba(255,255,255,0.7)  0.5px, transparent 0.5px),
+    radial-gradient(circle at 38% 55%, rgba(255,255,255,0.4)  0.5px, transparent 0.5px),
+    radial-gradient(circle at 48% 80%, rgba(255,255,255,0.65) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 56% 30%, rgba(255,255,255,0.9)  0.5px, transparent 0.5px),
+    radial-gradient(circle at 63% 65%, rgba(255,255,255,0.5)  0.5px, transparent 0.5px),
+    radial-gradient(circle at 72% 15%, rgba(255,255,255,0.7)  0.5px, transparent 0.5px),
+    radial-gradient(circle at 80% 50%, rgba(255,255,255,0.45) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 88% 75%, rgba(255,255,255,0.8)  0.5px, transparent 0.5px),
+    radial-gradient(circle at 94% 35%, rgba(255,255,255,0.55) 0.5px, transparent 0.5px);
 }
 .header-inner {
   max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
   height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  position: relative;
 }
 .site-brand { display: flex; align-items: center; gap: 0.5rem; }
-.site-name { font-weight: 800; font-size: 1rem; letter-spacing: -0.03em; color: var(--accent-dark); }
-.site-tagline { font-size: 0.8rem; color: var(--muted); }
+.site-name { font-weight: 800; font-size: 1rem; letter-spacing: -0.03em; color: #e2e8f0; }
+.site-tagline { font-size: 0.8rem; color: rgba(226,232,240,0.45); }
 .header-right { display: flex; align-items: center; gap: 0.75rem; }
-.date-label { font-size: 0.82rem; color: var(--muted); }
+.date-label { font-size: 0.82rem; color: rgba(226,232,240,0.6); }
 .header-pill {
   font-size: 0.75rem; font-weight: 600; padding: 0.22rem 0.65rem;
-  border: 1px solid var(--line); border-radius: 999px;
-  color: var(--muted); background: transparent;
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 999px;
+  color: rgba(226,232,240,0.7); background: transparent;
 }
-.header-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+.header-pill:hover { border-color: #5eead4; color: #5eead4; text-decoration: none; }
 
 /* ── Page layout ── */
 .page-wrap {
@@ -246,9 +263,20 @@ a:hover { text-decoration: underline; }
 
 /* ── Topic section ── */
 .topic-section { margin-bottom: 2.5rem; }
-.topic-header {
-  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem;
+.topic-head {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.9rem 1.25rem;
+  border-radius: 10px;
+  margin-bottom: 1.1rem;
+  border-left: 4px solid transparent;
 }
+.topic-head.c-blue   { background: linear-gradient(135deg, var(--blue-bg)   0%, rgba(255,255,255,0) 65%); border-left-color: var(--blue);   }
+.topic-head.c-purple { background: linear-gradient(135deg, var(--purple-bg) 0%, rgba(255,255,255,0) 65%); border-left-color: var(--purple); }
+.topic-head.c-teal   { background: linear-gradient(135deg, var(--teal-bg)   0%, rgba(255,255,255,0) 65%); border-left-color: var(--teal);   }
+.topic-head.c-amber  { background: linear-gradient(135deg, var(--amber-bg)  0%, rgba(255,255,255,0) 65%); border-left-color: var(--amber);  }
+.topic-head-name { font-family: Georgia, "Times New Roman", serif; font-size: 1.1rem; font-weight: 700; color: var(--ink); }
+.topic-head-sub  { font-size: 0.76rem; color: var(--muted); margin-top: 0.1rem; }
+/* Legacy badge classes kept for pills */
 .topic-badge {
   font-size: 0.75rem; font-weight: 700; padding: 0.28rem 0.8rem;
   border-radius: 999px; letter-spacing: 0.02em;
@@ -284,12 +312,17 @@ a:hover { text-decoration: underline; }
 .paper-card {
   background: var(--paper);
   border: 1px solid var(--line);
+  border-top-width: 3px;
   border-radius: var(--r);
   padding: 1rem 1.15rem;
   display: flex; flex-direction: column; gap: 0.45rem;
-  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
 }
-.paper-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.08); border-color: #c8c4bc; }
+.paper-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.1); transform: translateY(-2px); border-color: #c0bcb4; }
+.card-c-blue   { border-top-color: var(--blue);   }
+.card-c-purple { border-top-color: var(--purple); }
+.card-c-teal   { border-top-color: var(--teal);   }
+.card-c-amber  { border-top-color: var(--amber);  }
 .card-pills { display: flex; flex-wrap: wrap; gap: 0.3rem; }
 .pill {
   font-size: 0.68rem; font-weight: 600; padding: 0.12rem 0.48rem;
@@ -331,9 +364,10 @@ a:hover { text-decoration: underline; }
   margin-bottom: 0.1rem;
 }
 .card-figure img {
-  width: 100%; height: 160px; object-fit: cover; object-position: center top;
-  display: block;
+  width: 100%; height: 200px; object-fit: cover; object-position: center top;
+  display: block; transition: transform 0.3s ease;
 }
+.paper-card:hover .card-figure img { transform: scale(1.03); }
 .card-figure-caption {
   font-size: 0.72rem; color: var(--muted); line-height: 1.45;
   padding: 0.3rem 0.5rem; font-style: italic;
@@ -434,6 +468,60 @@ a:hover { text-decoration: underline; }
   border: 1px solid var(--line); border-radius: 999px; color: var(--muted);
 }
 .action-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+/* ── Card pull quote ── */
+.card-quote {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic; font-size: 0.8rem; line-height: 1.6;
+  color: #71717a; border-left: 2px solid var(--line);
+  padding-left: 0.55rem; margin: 0.05rem 0;
+}
+
+/* ── Hero spotlight paper ── */
+.hero-paper {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px; overflow: hidden;
+  margin-bottom: 2.25rem; cursor: pointer;
+  display: grid; grid-template-columns: 1.15fr 1fr;
+  min-height: 280px;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.hero-paper:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.12); border-color: #b8b4ac; }
+.hero-fig { overflow: hidden; }
+.hero-fig img {
+  width: 100%; height: 100%; object-fit: cover;
+  min-height: 260px; display: block;
+  transition: transform 0.4s ease;
+}
+.hero-paper:hover .hero-fig img { transform: scale(1.03); }
+.hero-body {
+  padding: 1.75rem 2rem;
+  display: flex; flex-direction: column; justify-content: center; gap: 0.75rem;
+}
+.hero-eyebrow {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.13em;
+  text-transform: uppercase; color: var(--accent);
+}
+.hero-pills { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.hero-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.3rem; line-height: 1.35; font-weight: 700;
+}
+.hero-title a { color: var(--ink); }
+.hero-title a:hover { color: var(--accent); text-decoration: underline; }
+.hero-quote {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic; font-size: 0.93rem; color: #52525b;
+  line-height: 1.72; border-left: 3px solid var(--accent);
+  padding-left: 0.85rem; margin: 0;
+}
+.hero-meta { font-size: 0.8rem; color: var(--muted); }
+.hero-cta { font-size: 0.8rem; color: var(--accent); font-weight: 600; margin-top: auto; }
+@media (max-width: 680px) {
+  .hero-paper { grid-template-columns: 1fr; }
+  .hero-fig img { min-height: 200px; height: 200px; object-position: center; }
+}
 
 /* ── Clickable card cursor ── */
 .paper-card { cursor: pointer; }
@@ -587,7 +675,44 @@ def _topic_pills(paper: dict) -> str:
     return "\n".join(out)
 
 
+def _hero_paper(paper: dict, fig_prefix: str = "figures", pid: str = "") -> str:
+    """Full-width spotlight card for the day's featured paper (requires a figure)."""
+    fig_path, _ = _figure_site_path(paper)
+    if not fig_path:
+        return ""
+    key = _safe_name(paper.get("id") or paper.get("title", ""))
+    img_src = html.escape(f"{fig_prefix}/{key}/figure_1.png")
+    url = html.escape(_arxiv_url(paper))
+    title = html.escape(paper.get("title") or "Untitled")
+    authors = html.escape(_format_authors(paper.get("authors") or []))
+    pills = _topic_pills(paper)
+    s2 = paper.get("semantic_scholar") or {}
+    cite = s2.get("citationCount")
+    meta_parts = [authors]
+    if cite:
+        meta_parts.append(f"{cite:,} citations")
+    meta = html.escape(" · ".join(p for p in meta_parts if p))
+    analysis = paper.get("analysis") or {}
+    pull_quote = ""
+    if isinstance(analysis, dict):
+        pull_quote = (analysis.get("one_sentence_summary") or "").strip()
+    quote_html = f'<blockquote class="hero-quote">{html.escape(pull_quote)}</blockquote>' if pull_quote else ""
+    pid_attr = f'data-pid="{pid}"' if pid else ""
+    return f"""<div class="hero-paper" {pid_attr}>
+  <div class="hero-fig"><img src="{img_src}" alt="Featured figure" loading="eager"></div>
+  <div class="hero-body">
+    <div class="hero-eyebrow">Today\'s spotlight</div>
+    <div class="hero-pills">{pills}</div>
+    <h2 class="hero-title"><a href="{url}" target="_blank" rel="noopener">{title}</a></h2>
+    {quote_html}
+    <div class="hero-meta">{meta}</div>
+    <div class="hero-cta">Click for full summary ↗</div>
+  </div>
+</div>"""
+
+
 def _paper_card(paper: dict, fig_prefix: str = "figures", pid: str = "") -> str:
+    color = _COLOR_FOR_KEY.get(paper.get("_topic", ""), "teal")
     url = html.escape(_arxiv_url(paper))
     title = html.escape(paper.get("title") or "Untitled")
     authors = html.escape(_format_authors(paper.get("authors") or []))
@@ -600,6 +725,14 @@ def _paper_card(paper: dict, fig_prefix: str = "figures", pid: str = "") -> str:
         f'<span class="card-cite">{cite_count:,} citations</span>'
         if cite_count else f'<span class="card-cite">{date}</span>'
     )
+
+    # Pull quote from AI analysis
+    analysis = paper.get("analysis") or {}
+    pull_quote_html = ""
+    if isinstance(analysis, dict):
+        pq = (analysis.get("one_sentence_summary") or "").strip()
+        if pq:
+            pull_quote_html = f'<blockquote class="card-quote">{html.escape(pq)}</blockquote>'
 
     # Figure thumbnail
     fig_path, fig_caption = _figure_site_path(paper)
@@ -617,11 +750,12 @@ def _paper_card(paper: dict, fig_prefix: str = "figures", pid: str = "") -> str:
     expand_hint = '<div class="card-expand-hint">Click for full summary ↗</div>' if pid else ""
     pid_attr = f'data-pid="{pid}"' if pid else ""
 
-    return f"""<article class="paper-card" {pid_attr}>
+    return f"""<article class="paper-card card-c-{color}" {pid_attr}>
   {fig_html}
   <div class="card-pills">{pills}</div>
   <div class="card-title"><a href="{url}" target="_blank" rel="noopener">{title}</a></div>
   <div class="card-authors">{authors}</div>
+  {pull_quote_html}
   <p class="card-abstract">{abstract_short}</p>
   <div class="card-footer">
     <a class="card-arxiv" href="{url}" target="_blank" rel="noopener">arXiv ↗</a>
@@ -648,9 +782,11 @@ def _topic_block(topic: dict, papers: list[dict], synthesis_html: str, fig_prefi
         grid = '<p class="no-papers">No papers in today\'s selection for this topic.</p>'
 
     return f"""<section class="topic-section">
-  <div class="topic-header">
-    <span class="topic-badge c-{color}">{html.escape(label)}</span>
-    <span class="topic-count">{count_str}</span>
+  <div class="topic-head c-{color}">
+    <div>
+      <div class="topic-head-name">{html.escape(label)}</div>
+      <div class="topic-head-sub">{count_str}</div>
+    </div>
   </div>
   {synthesis_block}
   {grid}
@@ -873,6 +1009,16 @@ def _build_rich_page(
             if not placed:
                 by_topic[_TOPICS[0]["key"]].append(p)
 
+    # Pick spotlight paper: first with a figure (shown as hero, skipped in topic grids)
+    spotlight_id: str | None = None
+    hero_html = ""
+    for p in papers:
+        fpath, _ = _figure_site_path(p)
+        if fpath:
+            spotlight_id = p.get("id") or p.get("title")
+            hero_html = _hero_paper(p, fig_prefix=fig_prefix, pid=p.get("_pid", ""))
+            break
+
     # Main content
     parts: list[str] = []
 
@@ -889,15 +1035,22 @@ def _build_rich_page(
     if exec_text:
         overview_html = _md_to_html(exec_text)
         parts.append(f"""<div class="overview-card">
-  <div class="eyebrow">Today's Overview — {html.escape(human_date)}</div>
+  <div class="eyebrow">Today\'s Overview — {html.escape(human_date)}</div>
   <div class="overview-body">{overview_html}</div>
 </div>""")
 
-    # Topic sections
+    # Hero spotlight (first paper with a figure)
+    if hero_html:
+        parts.append(hero_html)
+
+    # Topic sections (skip the spotlight paper so it doesn't repeat in the grid)
     for topic in _TOPICS:
         synth_text = _extract_section(briefing, topic["section_re"])
         synth_html = _md_to_html(synth_text) if synth_text else ""
-        topic_papers = by_topic[topic["key"]]
+        topic_papers = [
+            p for p in by_topic[topic["key"]]
+            if (p.get("id") or p.get("title")) != spotlight_id
+        ]
         parts.append(_topic_block(topic, topic_papers, synth_html, fig_prefix=fig_prefix))
 
     # Open questions

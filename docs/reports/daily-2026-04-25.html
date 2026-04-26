@@ -37,25 +37,42 @@ a:hover { text-decoration: underline; }
 .site-header {
   position: sticky; top: 0; z-index: 100;
   height: var(--header-h);
-  background: rgba(255,255,255,0.94);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line);
+  background: linear-gradient(135deg, #0a1628 0%, #0c2340 55%, #071a1a 100%);
+  border-bottom: 1px solid rgba(15,118,110,0.35);
+  overflow: hidden;
+}
+.site-header::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    radial-gradient(circle at 8%  40%, rgba(255,255,255,0.85) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 18% 70%, rgba(255,255,255,0.5)  0.5px, transparent 0.5px),
+    radial-gradient(circle at 27% 20%, rgba(255,255,255,0.7)  0.5px, transparent 0.5px),
+    radial-gradient(circle at 38% 55%, rgba(255,255,255,0.4)  0.5px, transparent 0.5px),
+    radial-gradient(circle at 48% 80%, rgba(255,255,255,0.65) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 56% 30%, rgba(255,255,255,0.9)  0.5px, transparent 0.5px),
+    radial-gradient(circle at 63% 65%, rgba(255,255,255,0.5)  0.5px, transparent 0.5px),
+    radial-gradient(circle at 72% 15%, rgba(255,255,255,0.7)  0.5px, transparent 0.5px),
+    radial-gradient(circle at 80% 50%, rgba(255,255,255,0.45) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 88% 75%, rgba(255,255,255,0.8)  0.5px, transparent 0.5px),
+    radial-gradient(circle at 94% 35%, rgba(255,255,255,0.55) 0.5px, transparent 0.5px);
 }
 .header-inner {
   max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
   height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  position: relative;
 }
 .site-brand { display: flex; align-items: center; gap: 0.5rem; }
-.site-name { font-weight: 800; font-size: 1rem; letter-spacing: -0.03em; color: var(--accent-dark); }
-.site-tagline { font-size: 0.8rem; color: var(--muted); }
+.site-name { font-weight: 800; font-size: 1rem; letter-spacing: -0.03em; color: #e2e8f0; }
+.site-tagline { font-size: 0.8rem; color: rgba(226,232,240,0.45); }
 .header-right { display: flex; align-items: center; gap: 0.75rem; }
-.date-label { font-size: 0.82rem; color: var(--muted); }
+.date-label { font-size: 0.82rem; color: rgba(226,232,240,0.6); }
 .header-pill {
   font-size: 0.75rem; font-weight: 600; padding: 0.22rem 0.65rem;
-  border: 1px solid var(--line); border-radius: 999px;
-  color: var(--muted); background: transparent;
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 999px;
+  color: rgba(226,232,240,0.7); background: transparent;
 }
-.header-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+.header-pill:hover { border-color: #5eead4; color: #5eead4; text-decoration: none; }
 
 /* ── Page layout ── */
 .page-wrap {
@@ -89,9 +106,20 @@ a:hover { text-decoration: underline; }
 
 /* ── Topic section ── */
 .topic-section { margin-bottom: 2.5rem; }
-.topic-header {
-  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem;
+.topic-head {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.9rem 1.25rem;
+  border-radius: 10px;
+  margin-bottom: 1.1rem;
+  border-left: 4px solid transparent;
 }
+.topic-head.c-blue   { background: linear-gradient(135deg, var(--blue-bg)   0%, rgba(255,255,255,0) 65%); border-left-color: var(--blue);   }
+.topic-head.c-purple { background: linear-gradient(135deg, var(--purple-bg) 0%, rgba(255,255,255,0) 65%); border-left-color: var(--purple); }
+.topic-head.c-teal   { background: linear-gradient(135deg, var(--teal-bg)   0%, rgba(255,255,255,0) 65%); border-left-color: var(--teal);   }
+.topic-head.c-amber  { background: linear-gradient(135deg, var(--amber-bg)  0%, rgba(255,255,255,0) 65%); border-left-color: var(--amber);  }
+.topic-head-name { font-family: Georgia, "Times New Roman", serif; font-size: 1.1rem; font-weight: 700; color: var(--ink); }
+.topic-head-sub  { font-size: 0.76rem; color: var(--muted); margin-top: 0.1rem; }
+/* Legacy badge classes kept for pills */
 .topic-badge {
   font-size: 0.75rem; font-weight: 700; padding: 0.28rem 0.8rem;
   border-radius: 999px; letter-spacing: 0.02em;
@@ -127,12 +155,17 @@ a:hover { text-decoration: underline; }
 .paper-card {
   background: var(--paper);
   border: 1px solid var(--line);
+  border-top-width: 3px;
   border-radius: var(--r);
   padding: 1rem 1.15rem;
   display: flex; flex-direction: column; gap: 0.45rem;
-  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
 }
-.paper-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.08); border-color: #c8c4bc; }
+.paper-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.1); transform: translateY(-2px); border-color: #c0bcb4; }
+.card-c-blue   { border-top-color: var(--blue);   }
+.card-c-purple { border-top-color: var(--purple); }
+.card-c-teal   { border-top-color: var(--teal);   }
+.card-c-amber  { border-top-color: var(--amber);  }
 .card-pills { display: flex; flex-wrap: wrap; gap: 0.3rem; }
 .pill {
   font-size: 0.68rem; font-weight: 600; padding: 0.12rem 0.48rem;
@@ -174,9 +207,10 @@ a:hover { text-decoration: underline; }
   margin-bottom: 0.1rem;
 }
 .card-figure img {
-  width: 100%; height: 160px; object-fit: cover; object-position: center top;
-  display: block;
+  width: 100%; height: 200px; object-fit: cover; object-position: center top;
+  display: block; transition: transform 0.3s ease;
 }
+.paper-card:hover .card-figure img { transform: scale(1.03); }
 .card-figure-caption {
   font-size: 0.72rem; color: var(--muted); line-height: 1.45;
   padding: 0.3rem 0.5rem; font-style: italic;
@@ -277,6 +311,60 @@ a:hover { text-decoration: underline; }
   border: 1px solid var(--line); border-radius: 999px; color: var(--muted);
 }
 .action-pill:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+/* ── Card pull quote ── */
+.card-quote {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic; font-size: 0.8rem; line-height: 1.6;
+  color: #71717a; border-left: 2px solid var(--line);
+  padding-left: 0.55rem; margin: 0.05rem 0;
+}
+
+/* ── Hero spotlight paper ── */
+.hero-paper {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px; overflow: hidden;
+  margin-bottom: 2.25rem; cursor: pointer;
+  display: grid; grid-template-columns: 1.15fr 1fr;
+  min-height: 280px;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.hero-paper:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.12); border-color: #b8b4ac; }
+.hero-fig { overflow: hidden; }
+.hero-fig img {
+  width: 100%; height: 100%; object-fit: cover;
+  min-height: 260px; display: block;
+  transition: transform 0.4s ease;
+}
+.hero-paper:hover .hero-fig img { transform: scale(1.03); }
+.hero-body {
+  padding: 1.75rem 2rem;
+  display: flex; flex-direction: column; justify-content: center; gap: 0.75rem;
+}
+.hero-eyebrow {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.13em;
+  text-transform: uppercase; color: var(--accent);
+}
+.hero-pills { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.hero-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.3rem; line-height: 1.35; font-weight: 700;
+}
+.hero-title a { color: var(--ink); }
+.hero-title a:hover { color: var(--accent); text-decoration: underline; }
+.hero-quote {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic; font-size: 0.93rem; color: #52525b;
+  line-height: 1.72; border-left: 3px solid var(--accent);
+  padding-left: 0.85rem; margin: 0;
+}
+.hero-meta { font-size: 0.8rem; color: var(--muted); }
+.hero-cta { font-size: 0.8rem; color: var(--accent); font-weight: 600; margin-top: auto; }
+@media (max-width: 680px) {
+  .hero-paper { grid-template-columns: 1fr; }
+  .hero-fig img { min-height: 200px; height: 200px; object-position: center; }
+}
 
 /* ── Clickable card cursor ── */
 .paper-card { cursor: pointer; }
@@ -387,38 +475,43 @@ a:hover { text-decoration: underline; }
   <main class="main-col">
     <a class="back-link" href="../index.html">← All reports</a>
     <div class="report-topbar"><span></span><div class="report-actions"><a class="action-pill" href="daily-2026-04-25.pdf">PDF</a></div></div>
-<section class="topic-section">
-  <div class="topic-header">
-    <span class="topic-badge c-blue">Galaxy Clusters</span>
-    <span class="topic-count">1 paper</span>
-  </div>
-  
-  <div class="papers-grid"><article class="paper-card" data-pid="p0">
-  <div class="card-figure"><img src="../figures/http-arxiv.org-abs-2604.21817v1/figure_1.png" alt="Figure" loading="lazy"></div>
-  <div class="card-pills"><span class="pill pill-blue">Galaxy Clusters</span>
+<div class="hero-paper" data-pid="p0">
+  <div class="hero-fig"><img src="../figures/http-arxiv.org-abs-2604.21817v1/figure_1.png" alt="Featured figure" loading="eager"></div>
+  <div class="hero-body">
+    <div class="hero-eyebrow">Today's spotlight</div>
+    <div class="hero-pills"><span class="pill pill-blue">Galaxy Clusters</span>
 <span class="pill pill-purple">Galaxies</span>
 <span class="pill pill-amber">Dark Matter</span></div>
-  <div class="card-title"><a href="https://arxiv.org/abs/2604.21817v1" target="_blank" rel="noopener">An RXTE Search for the Sterile Neutrino Decay in Galaxy Clusters</a></div>
-  <div class="card-authors">Mark J. Henriksen</div>
-  <p class="card-abstract">We have searched for the 3.55 keV line from sterile neutrino decay using 3.1 megaseconds of RXTE cluster data. A 2.5$σ$ excess of emission over a thermal model is found over the energy span of the 3.55 keV line in the combined spectra of the eight clusters that individually have an excess.…</p>
-  <div class="card-footer">
-    <a class="card-arxiv" href="https://arxiv.org/abs/2604.21817v1" target="_blank" rel="noopener">arXiv ↗</a>
-    <span class="card-cite">Apr 23</span>
+    <h2 class="hero-title"><a href="https://arxiv.org/abs/2604.21817v1" target="_blank" rel="noopener">An RXTE Search for the Sterile Neutrino Decay in Galaxy Clusters</a></h2>
+    
+    <div class="hero-meta">Mark J. Henriksen</div>
+    <div class="hero-cta">Click for full summary ↗</div>
   </div>
-  <div class="card-expand-hint">Click for full summary ↗</div>
-</article></div>
-</section>
+</div>
 <section class="topic-section">
-  <div class="topic-header">
-    <span class="topic-badge c-purple">Galaxies</span>
-    <span class="topic-count">6 papers</span>
+  <div class="topic-head c-blue">
+    <div>
+      <div class="topic-head-name">Galaxy Clusters</div>
+      <div class="topic-head-sub">0 papers</div>
+    </div>
   </div>
   
-  <div class="papers-grid"><article class="paper-card" data-pid="p1">
+  <p class="no-papers">No papers in today's selection for this topic.</p>
+</section>
+<section class="topic-section">
+  <div class="topic-head c-purple">
+    <div>
+      <div class="topic-head-name">Galaxies</div>
+      <div class="topic-head-sub">6 papers</div>
+    </div>
+  </div>
+  
+  <div class="papers-grid"><article class="paper-card card-c-purple" data-pid="p1">
   
   <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
   <div class="card-title"><a href="https://arxiv.org/abs/2604.21790v1" target="_blank" rel="noopener">Informative Priors on Primordial Non-Gaussianity Bias $b_φ$ From Galaxy Formation</a></div>
   <div class="card-authors">Anne Moore, Lucia A. Perez, Elisabeth Krause</div>
+  
   <p class="card-abstract">Constraining primordial non-Gaussianity via its scale-dependent imprint on galaxy clustering requires knowledge of the bias parameter $b_φ$, which is exactly degenerate with $f^{\rm{loc}}_{\rm{NL}}$ at leading order.…</p>
   <div class="card-footer">
     <a class="card-arxiv" href="https://arxiv.org/abs/2604.21790v1" target="_blank" rel="noopener">arXiv ↗</a>
@@ -426,11 +519,12 @@ a:hover { text-decoration: underline; }
   </div>
   <div class="card-expand-hint">Click for full summary ↗</div>
 </article>
-<article class="paper-card" data-pid="p3">
+<article class="paper-card card-c-purple" data-pid="p3">
   <div class="card-figure"><img src="../figures/http-arxiv.org-abs-2604.21710v1/figure_1.png" alt="Figure" loading="lazy"></div>
   <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
   <div class="card-title"><a href="https://arxiv.org/abs/2604.21710v1" target="_blank" rel="noopener">Delving into the depths of NGC 3783 with XRISM: V. Broad-band modeling of ionized outflows</a></div>
   <div class="card-authors">Keqin Zhao et al.</div>
+  
   <p class="card-abstract">The Seyfert 1 galaxy NGC 3783 hosts a multiphase warm absorber (WA) that has been extensively studied in the X-ray band. High-resolution spectra from 2000-2001 revealed a complex outflow with multiple ionization and velocity components.…</p>
   <div class="card-footer">
     <a class="card-arxiv" href="https://arxiv.org/abs/2604.21710v1" target="_blank" rel="noopener">arXiv ↗</a>
@@ -438,11 +532,12 @@ a:hover { text-decoration: underline; }
   </div>
   <div class="card-expand-hint">Click for full summary ↗</div>
 </article>
-<article class="paper-card" data-pid="p7">
+<article class="paper-card card-c-purple" data-pid="p7">
   
   <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
   <div class="card-title"><a href="https://arxiv.org/abs/2604.21634v1" target="_blank" rel="noopener">Aspects of gravitational clustering and structure formation in the Universe</a></div>
   <div class="card-authors">Swati Gavas</div>
+  
   <p class="card-abstract">The distribution of galaxies, halo abundance, and peculiar velocities are influenced by non-linear gravitational interactions, making the study of non-linear evolution crucial for accurate cosmological predictions. We explore these aspects using N-body simulations.…</p>
   <div class="card-footer">
     <a class="card-arxiv" href="https://arxiv.org/abs/2604.21634v1" target="_blank" rel="noopener">arXiv ↗</a>
@@ -450,11 +545,12 @@ a:hover { text-decoration: underline; }
   </div>
   <div class="card-expand-hint">Click for full summary ↗</div>
 </article>
-<article class="paper-card" data-pid="p8">
+<article class="paper-card card-c-purple" data-pid="p8">
   <div class="card-figure"><img src="../figures/http-arxiv.org-abs-2604.21624v1/figure_1.png" alt="Figure" loading="lazy"></div>
   <div class="card-pills"><span class="pill pill-purple">Galaxies</span></div>
   <div class="card-title"><a href="https://arxiv.org/abs/2604.21624v1" target="_blank" rel="noopener">Multi-wavelength study of EP250416a / GRB 250416C: An Optically Dark Long GRB with a Late Jet Break</a></div>
   <div class="card-authors">Guoying Zhao et al.</div>
+  
   <p class="card-abstract">We present multi-wavelength study of the $γ$/X-ray transient EP250416a (also designated GRB 250416C), triggered by the Einstein Probe (EP) Wide-field X-ray Telescope and also by SVOM and Konus-Wind.…</p>
   <div class="card-footer">
     <a class="card-arxiv" href="https://arxiv.org/abs/2604.21624v1" target="_blank" rel="noopener">arXiv ↗</a>
@@ -462,12 +558,13 @@ a:hover { text-decoration: underline; }
   </div>
   <div class="card-expand-hint">Click for full summary ↗</div>
 </article>
-<article class="paper-card" data-pid="p11">
+<article class="paper-card card-c-purple" data-pid="p11">
   
   <div class="card-pills"><span class="pill pill-purple">Galaxies</span>
 <span class="pill pill-watch">★ JWST</span></div>
   <div class="card-title"><a href="https://arxiv.org/abs/2604.21516v1" target="_blank" rel="noopener">SPURS: Bursty Star Formation in an Extremely Luminous Weak Emission Line Galaxy at $z=9.3$</a></div>
   <div class="card-authors">Zuyi Chen et al.</div>
+  
   <p class="card-abstract">JWST has revealed a population of super-luminous early galaxies with a volume density in excess of most expectations. The spectra reveal diverse properties: while some reveal strong emission lines characteristic of galaxies in the midst of strong bursts, others show weak emission lines that could re…</p>
   <div class="card-footer">
     <a class="card-arxiv" href="https://arxiv.org/abs/2604.21516v1" target="_blank" rel="noopener">arXiv ↗</a>
@@ -475,12 +572,13 @@ a:hover { text-decoration: underline; }
   </div>
   <div class="card-expand-hint">Click for full summary ↗</div>
 </article>
-<article class="paper-card" data-pid="p12">
+<article class="paper-card card-c-purple" data-pid="p12">
   
   <div class="card-pills"><span class="pill pill-purple">Galaxies</span>
 <span class="pill pill-watch">★ JWST</span></div>
   <div class="card-title"><a href="https://arxiv.org/abs/2604.21493v1" target="_blank" rel="noopener">Signatures of Very Massive Stars in the Epoch of Reionization</a></div>
   <div class="card-authors">Rui Marques-Chaves et al.</div>
+  
   <p class="card-abstract">We present ultra-deep ($\simeq 20-30$ hours), rest-frame UV spectroscopy with NIRSpec/JWST of two UV-bright galaxies at $z\sim 8.7$, CEERS-1019 and CEERS-1025 ($Z_{\rm neb} \simeq 0.1 Z_{\odot}$).…</p>
   <div class="card-footer">
     <a class="card-arxiv" href="https://arxiv.org/abs/2604.21493v1" target="_blank" rel="noopener">arXiv ↗</a>
@@ -490,24 +588,29 @@ a:hover { text-decoration: underline; }
 </article></div>
 </section>
 <section class="topic-section">
-  <div class="topic-header">
-    <span class="topic-badge c-teal">Gravitational Lensing</span>
-    <span class="topic-count">0 papers</span>
+  <div class="topic-head c-teal">
+    <div>
+      <div class="topic-head-name">Gravitational Lensing</div>
+      <div class="topic-head-sub">0 papers</div>
+    </div>
   </div>
   
   <p class="no-papers">No papers in today's selection for this topic.</p>
 </section>
 <section class="topic-section">
-  <div class="topic-header">
-    <span class="topic-badge c-amber">Dark Matter</span>
-    <span class="topic-count">6 papers</span>
+  <div class="topic-head c-amber">
+    <div>
+      <div class="topic-head-name">Dark Matter</div>
+      <div class="topic-head-sub">6 papers</div>
+    </div>
   </div>
   
-  <div class="papers-grid"><article class="paper-card" data-pid="p2">
+  <div class="papers-grid"><article class="paper-card card-c-amber" data-pid="p2">
   <div class="card-figure"><img src="../figures/http-arxiv.org-abs-2604.21770v1/figure_1.png" alt="Figure" loading="lazy"></div>
   <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
   <div class="card-title"><a href="https://arxiv.org/abs/2604.21770v1" target="_blank" rel="noopener">Accelerating scaling solutions from dark matter particle creation</a></div>
   <div class="card-authors">Sudip Halder et al.</div>
+  
   <p class="card-abstract">This article opens new window to obtain accelerating scaling attractors without any need of dark energy. We study cosmological dynamics in a two-fluid system where pressureless dark matter (DM) undergoes adiabatic particle creation and exchanges energy with a barotropic fluid.…</p>
   <div class="card-footer">
     <a class="card-arxiv" href="https://arxiv.org/abs/2604.21770v1" target="_blank" rel="noopener">arXiv ↗</a>
@@ -515,11 +618,12 @@ a:hover { text-decoration: underline; }
   </div>
   <div class="card-expand-hint">Click for full summary ↗</div>
 </article>
-<article class="paper-card" data-pid="p4">
+<article class="paper-card card-c-amber" data-pid="p4">
   
   <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
   <div class="card-title"><a href="https://arxiv.org/abs/2604.21671v1" target="_blank" rel="noopener">Saturation Mechanisms in the Interacting Dark Sector</a></div>
   <div class="card-authors">Andronikos Paliathanasis, Kevin J. Duffy</div>
+  
   <p class="card-abstract">We introduce a family of phenomenological cosmological models featuring an interacting dark sector modulated by a sparseness scale parameter, in order to describe the late-time accelerated expansion of the universe.…</p>
   <div class="card-footer">
     <a class="card-arxiv" href="https://arxiv.org/abs/2604.21671v1" target="_blank" rel="noopener">arXiv ↗</a>
@@ -527,11 +631,12 @@ a:hover { text-decoration: underline; }
   </div>
   <div class="card-expand-hint">Click for full summary ↗</div>
 </article>
-<article class="paper-card" data-pid="p5">
+<article class="paper-card card-c-amber" data-pid="p5">
   
   <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
   <div class="card-title"><a href="https://arxiv.org/abs/2604.21664v1" target="_blank" rel="noopener">Conformal anomaly transport induced by dark photon</a></div>
   <div class="card-authors">Marek Rogatko, Karol I. Wysokinski</div>
+  
   <p class="card-abstract">We have considered the problem of the influence of inhomogeneity of gravitational field on transport effects predicted by the field theory describing massless Dirac fermions in the Maxwell and dark matter background.…</p>
   <div class="card-footer">
     <a class="card-arxiv" href="https://arxiv.org/abs/2604.21664v1" target="_blank" rel="noopener">arXiv ↗</a>
@@ -539,11 +644,12 @@ a:hover { text-decoration: underline; }
   </div>
   <div class="card-expand-hint">Click for full summary ↗</div>
 </article>
-<article class="paper-card" data-pid="p6">
+<article class="paper-card card-c-amber" data-pid="p6">
   
   <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
   <div class="card-title"><a href="https://arxiv.org/abs/2604.21652v1" target="_blank" rel="noopener">Constraining dark matter self-interaction from kinetic heating in neutron stars</a></div>
   <div class="card-authors">Sambo Sarkar</div>
+  
   <p class="card-abstract">Dark matter search strategies have started advancing towards the neutrino fog. In this regard, compact objects such as neutron stars have already demonstrated their ability in probing such low DM-nucleon cross-sections from dark matter induced effects.…</p>
   <div class="card-footer">
     <a class="card-arxiv" href="https://arxiv.org/abs/2604.21652v1" target="_blank" rel="noopener">arXiv ↗</a>
@@ -551,11 +657,12 @@ a:hover { text-decoration: underline; }
   </div>
   <div class="card-expand-hint">Click for full summary ↗</div>
 </article>
-<article class="paper-card" data-pid="p9">
+<article class="paper-card card-c-amber" data-pid="p9">
   
   <div class="card-pills"><span class="pill pill-amber">Dark Matter</span></div>
   <div class="card-title"><a href="https://arxiv.org/abs/2604.21615v1" target="_blank" rel="noopener">Radiation properties of a regular black hole embedded in a Dehnen-type dark matter halo with a thin accretion disk</a></div>
   <div class="card-authors">Tianyou Ren et al.</div>
+  
   <p class="card-abstract">We investigate the shadow, timelike geodesic structure, radiation properties of thin accretion disks, and optical appearance of a static spherically symmetric regular black hole, constructed based on the Dehnen-type density profile.…</p>
   <div class="card-footer">
     <a class="card-arxiv" href="https://arxiv.org/abs/2604.21615v1" target="_blank" rel="noopener">arXiv ↗</a>
@@ -563,12 +670,13 @@ a:hover { text-decoration: underline; }
   </div>
   <div class="card-expand-hint">Click for full summary ↗</div>
 </article>
-<article class="paper-card" data-pid="p10">
+<article class="paper-card card-c-amber" data-pid="p10">
   <div class="card-figure"><img src="../figures/http-arxiv.org-abs-2604.21535v1/figure_1.png" alt="Figure" loading="lazy"></div>
   <div class="card-pills"><span class="pill pill-amber">Dark Matter</span>
 <span class="pill pill-watch">★ ACT</span></div>
   <div class="card-title"><a href="https://arxiv.org/abs/2604.21535v1" target="_blank" rel="noopener">Fermion Condensate Inflation, Dynamical Waterfall Mechanism and Primordial Black Holes</a></div>
   <div class="card-authors">Stephon Alexander et al.</div>
+  
   <p class="card-abstract">Fermion condensate inflation, where inflation emerges from four-fermion interactions induced by spacetime torsion, removes the need for additional scalar fields beyond the Standard Model.…</p>
   <div class="card-footer">
     <a class="card-arxiv" href="https://arxiv.org/abs/2604.21535v1" target="_blank" rel="noopener">arXiv ↗</a>
