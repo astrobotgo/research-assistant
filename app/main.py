@@ -364,6 +364,11 @@ def daily(
         research_context = {"summary": "", "covered_ids": set(), "covered_titles": []}
 
     pool_for_selection = [dict(p) for p in merged]
+
+    if not pool_for_selection:
+        print(f"[yellow]{PTOLEMY.name}:[/yellow] no papers found — keeping existing reports unchanged.")
+        raise typer.Exit(0)
+
     k = max(1, present)
     print(f"[cyan]{PTOLEMY.name}:[/cyan] selecting top {k} papers from pool of {len(pool_for_selection)}...")
     selected_pool, selection_note = select_top_papers(
