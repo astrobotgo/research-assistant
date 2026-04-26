@@ -14,42 +14,67 @@ from reportlab.platypus import Image, PageBreak, Paragraph, SimpleDocTemplate, S
 def _normalize_text(text: str) -> str:
     return (
         (text or "")
+        # dashes and ellipsis
         .replace("\u2013", "--")
         .replace("\u2014", "---")
         .replace("\u2212", "-")
         .replace("\u2026", "...")
+        # spaces
         .replace("\u00a0", " ")
+        .replace("\u202f", " ")
+        # quotes
+        .replace("\u2018", "`")
+        .replace("\u2019", "'")
+        .replace("\u201c", "``")
+        .replace("\u201d", "''")
+        # ligatures (from PDF text extraction)
+        .replace("\ufb00", "ff")
+        .replace("\ufb01", "fi")
+        .replace("\ufb02", "fl")
+        .replace("\ufb03", "ffi")
+        .replace("\ufb04", "ffl")
+        # math / special symbols
+        .replace("\u223c", r"$\sim$")
+        .replace("\u2217", "*")
+        .replace("\u2020", r"\dag{}")
+        .replace("\u2021", r"\ddag{}")
+        .replace("\u2022", r"\textbullet{}")
+        .replace("\u2126", r"$\Omega$")
+        .replace("\u00b1", r"$\pm$")
+        .replace("\u00d7", r"$\times$")
+        .replace("\u2264", r"$\leq$")
+        .replace("\u2265", r"$\geq$")
+        .replace("\u221e", r"$\infty$")
+        # accents and dotless i
+        .replace("\u0131", "i")
+        .replace("\u02c7", "")
+        .replace("\u02dd", "")
+        .replace("\u02d9", "")
     )
 
 
 _GREEK_TEXT_REPLACEMENTS = {
-    "α": r"$\alpha$",
-    "β": r"$\beta$",
-    "γ": r"$\gamma$",
-    "δ": r"$\delta$",
-    "Δ": r"$\Delta$",
-    "λ": r"$\lambda$",
-    "μ": r"$\mu$",
-    "π": r"$\pi$",
-    "σ": r"$\sigma$",
-    "τ": r"$\tau$",
-    "φ": r"$\phi$",
-    "ω": r"$\omega$",
+    "α": r"$\alpha$", "β": r"$\beta$", "γ": r"$\gamma$", "δ": r"$\delta$",
+    "ε": r"$\varepsilon$", "ζ": r"$\zeta$", "η": r"$\eta$", "θ": r"$\theta$",
+    "ι": r"$\iota$", "κ": r"$\kappa$", "λ": r"$\lambda$", "μ": r"$\mu$",
+    "ν": r"$\nu$", "ξ": r"$\xi$", "π": r"$\pi$", "ρ": r"$\rho$",
+    "σ": r"$\sigma$", "τ": r"$\tau$", "υ": r"$\upsilon$", "φ": r"$\phi$",
+    "χ": r"$\chi$", "ψ": r"$\psi$", "ω": r"$\omega$",
+    "Γ": r"$\Gamma$", "Δ": r"$\Delta$", "Θ": r"$\Theta$", "Λ": r"$\Lambda$",
+    "Ξ": r"$\Xi$", "Π": r"$\Pi$", "Σ": r"$\Sigma$", "Υ": r"$\Upsilon$",
+    "Φ": r"$\Phi$", "Ψ": r"$\Psi$",
 }
 
 _GREEK_MATH_REPLACEMENTS = {
-    "α": r"\alpha ",
-    "β": r"\beta ",
-    "γ": r"\gamma ",
-    "δ": r"\delta ",
-    "Δ": r"\Delta ",
-    "λ": r"\lambda ",
-    "μ": r"\mu ",
-    "π": r"\pi ",
-    "σ": r"\sigma ",
-    "τ": r"\tau ",
-    "φ": r"\phi ",
-    "ω": r"\omega ",
+    "α": r"\alpha ", "β": r"\beta ", "γ": r"\gamma ", "δ": r"\delta ",
+    "ε": r"\varepsilon ", "ζ": r"\zeta ", "η": r"\eta ", "θ": r"\theta ",
+    "ι": r"\iota ", "κ": r"\kappa ", "λ": r"\lambda ", "μ": r"\mu ",
+    "ν": r"\nu ", "ξ": r"\xi ", "π": r"\pi ", "ρ": r"\rho ",
+    "σ": r"\sigma ", "τ": r"\tau ", "υ": r"\upsilon ", "φ": r"\phi ",
+    "χ": r"\chi ", "ψ": r"\psi ", "ω": r"\omega ",
+    "Γ": r"\Gamma ", "Δ": r"\Delta ", "Θ": r"\Theta ", "Λ": r"\Lambda ",
+    "Ξ": r"\Xi ", "Π": r"\Pi ", "Σ": r"\Sigma ", "Υ": r"\Upsilon ",
+    "Φ": r"\Phi ", "Ψ": r"\Psi ",
 }
 
 

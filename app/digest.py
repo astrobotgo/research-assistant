@@ -25,7 +25,7 @@ def _paper_brief(p: dict, page_summaries: list[dict] | None = None) -> str:
     background = p.get("background") or {}
     if isinstance(background, str):
         background = {"text": background, "verified": []}
-    bg_text = background.get("text", "").strip()
+    bg_text = background.get("text", "").strip()[:600]
     if bg_text:
         lines.append(f"  - Prior literature context: {bg_text}")
     verified_papers = background.get("verified") or []
@@ -49,9 +49,9 @@ def _paper_brief(p: dict, page_summaries: list[dict] | None = None) -> str:
             f"  - Citations (Semantic Scholar): {s2.get('citationCount', '')}"
         )
     if page_summaries:
-        lines.append("  - Full paper content (by page):")
+        lines.append("  - Full paper content:")
         for ps in page_summaries:
-            lines.append(f"    - Page {ps['page']}: {ps['summary']}")
+            lines.append(f"    {ps['summary'][:2000]}")
     return "\n".join(lines)
 
 
