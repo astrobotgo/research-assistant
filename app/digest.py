@@ -128,7 +128,7 @@ Preprints (with topic focus labels from the scanner):
 """
 
     try:
-        return gemini_generate(prompt=prompt, timeout=300.0)
+        return gemini_generate(prompt=prompt, timeout=600.0)
     except Exception:
         r = httpx.post(
             f"{OLLAMA_HOST}/api/generate",
