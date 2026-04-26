@@ -141,8 +141,12 @@ def _catalog_for_prompt(papers: list[dict]) -> str:
         topic = p.get("_topic_label", "")
         abstract = (p.get("summary") or "")[:1800]
         cats = ", ".join(p.get("categories", []) or [])
+        score = p.get("_priority_score", 0)
+        all_topics = p.get("_topic_matches") or [topic]
+        topics_str = ", ".join(all_topics) if len(all_topics) > 1 else topic
+        priority_note = f" [priority score: {score}]" if score > 0 else ""
         lines.append(
-            f"[{i}] Topic: {topic}\n"
+            f"[{i}] Topic: {topics_str}{priority_note}\n"
             f"    Title: {title}\n"
             f"    Categories: {cats}\n"
             f"    Abstract: {abstract}\n"
@@ -197,6 +201,8 @@ From the numbered candidates below, choose exactly {k} papers to present.
 Prioritize papers whose abstracts contain important new findings, unusually
 interesting points, clear constraints, surprising implications, notable data,
 or methods that change how a problem can be attacked.
+Papers marked with a [priority score] match multiple research topics or key
+user-defined keywords — give them extra weight, all else being equal.
 Breadth across themes is useful, but it is secondary: do not include a routine
 paper just to fill a topic slot, and do not bury the most interesting paper
 because its theme was already represented.

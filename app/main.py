@@ -12,7 +12,7 @@ from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn, TimeEl
 _console = Console()
 
 from app.agents import COPERNICUS, PTOLEMY
-from app.config import TOPIC_CONFIGS, WATCHLIST
+from app.config import TOPIC_CONFIGS, WATCHLIST, PRIORITY_KEYWORDS
 from app.context import build_research_context, update_field_state
 from app.digest import synthesize_research_digest
 from app.figures import extract_key_figures
@@ -308,7 +308,32 @@ def daily(
             collected.append(p)
         print(f"  [dim]  → {len(batch)} papers[/dim]")
 
+    # Track all matching topics per paper before deduplication collapses them
+    topic_matches: dict[str, set[str]] = {}
+    for p in collected:
+        key = p.get("id") or p.get("title") or ""
+        if key:
+            topic_matches.setdefault(key, set()).add(p.get("_topic_label", ""))
+
     merged = _sort_by_published(_dedupe_papers(collected))
+
+    # Score each paper: priority keyword hits + cross-topic bonus
+    def _priority_score(paper: dict) -> int:
+        text = f"{paper.get('title', '')} {paper.get('summary', '')}".lower()
+        kw_hits = sum(1 for kw in PRIORITY_KEYWORDS if kw in text)
+        key = paper.get("id") or paper.get("title") or ""
+        topic_count = len(topic_matches.get(key, {paper.get("_topic_label", "")}))
+        cross_topic_bonus = max(0, topic_count - 1) * 2
+        return kw_hits + cross_topic_bonus
+
+    for p in merged:
+        key = p.get("id") or p.get("title") or ""
+        all_topics = topic_matches.get(key, {p.get("_topic_label", "")})
+        p["_topic_matches"] = sorted(all_topics)
+        p["_priority_score"] = _priority_score(p)
+
+    merged.sort(key=lambda p: p["_priority_score"], reverse=True)
+
     if max_pool > 0 and len(merged) > max_pool:
         merged = merged[:max_pool]
     print(f"[cyan]{PTOLEMY.name}:[/cyan] {len(collected)} collected, {len(merged)} unique after deduplication")

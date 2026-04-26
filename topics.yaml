@@ -63,6 +63,21 @@ topics:
       - pbh
     exclude_any: []
 
+# Keywords that boost a paper's priority score when found in title or abstract.
+# Papers matching more of these rise to the top of the candidate pool before
+# the LLM makes its selection. Add terms most relevant to your research.
+priority_keywords:
+  - galaxy cluster
+  - galaxy clusters
+  - cluster lensing
+  - weak lensing
+  - strong lensing
+  - gravitational lensing
+  - dark matter halo
+  - mass function
+  - hydrostatic mass
+  - lensing mass
+
 # Papers matching any of these survey names or author strings are always
 # included in the final selection regardless of LLM scoring.
 # Matching is case-insensitive and checked against title + abstract + authors.
