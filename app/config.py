@@ -74,15 +74,6 @@ _FALLBACK_TOPICS = [
 
 _FALLBACK_WATCHLIST = {"surveys": [], "authors": []}
 
-_FALLBACK_PRIORITY_KEYWORDS: list[str] = [
-    "galaxy cluster",
-    "galaxy clusters",
-    "cluster lensing",
-    "weak lensing",
-    "strong lensing",
-    "gravitational lensing",
-]
-
 
 def _load_yaml():
     try:
@@ -110,9 +101,8 @@ def _build():
     if data and isinstance(data.get("topics"), list):
         topics = [_normalise_topic(t) for t in data["topics"]]
         watchlist = data.get("watchlist") or _FALLBACK_WATCHLIST
-        priority_keywords = [k.lower() for k in (data.get("priority_keywords") or [])]
-        return topics, watchlist, priority_keywords or _FALLBACK_PRIORITY_KEYWORDS
-    return _FALLBACK_TOPICS, _FALLBACK_WATCHLIST, _FALLBACK_PRIORITY_KEYWORDS
+        return topics, watchlist
+    return _FALLBACK_TOPICS, _FALLBACK_WATCHLIST
 
 
-TOPIC_CONFIGS, WATCHLIST, PRIORITY_KEYWORDS = _build()
+TOPIC_CONFIGS, WATCHLIST = _build()

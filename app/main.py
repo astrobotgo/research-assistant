@@ -12,7 +12,7 @@ from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn, TimeEl
 _console = Console()
 
 from app.agents import COPERNICUS, PTOLEMY
-from app.config import TOPIC_CONFIGS, WATCHLIST, PRIORITY_KEYWORDS
+from app.config import TOPIC_CONFIGS, WATCHLIST
 from app.context import build_research_context, update_field_state
 from app.digest import synthesize_research_digest
 from app.figures import extract_key_figures
@@ -317,20 +317,22 @@ def daily(
 
     merged = _sort_by_published(_dedupe_papers(collected))
 
-    # Score each paper: priority keyword hits + cross-topic bonus
-    def _priority_score(paper: dict) -> int:
+    # Score each paper by how many distinct topics have keyword hits in its text.
+    # Any combination counts — a paper touching galaxy clusters + lensing + dark matter
+    # scores 3, one touching only galaxies scores 1.
+    def _score_paper(paper: dict) -> tuple[int, list[str]]:
         text = f"{paper.get('title', '')} {paper.get('summary', '')}".lower()
-        kw_hits = sum(1 for kw in PRIORITY_KEYWORDS if kw in text)
-        key = paper.get("id") or paper.get("title") or ""
-        topic_count = len(topic_matches.get(key, {paper.get("_topic_label", "")}))
-        cross_topic_bonus = max(0, topic_count - 1) * 2
-        return kw_hits + cross_topic_bonus
+        matched = [
+            t["label"]
+            for t in TOPIC_CONFIGS
+            if any(kw in text for kw in t.get("include_any", ()))
+        ]
+        return len(matched), matched
 
     for p in merged:
-        key = p.get("id") or p.get("title") or ""
-        all_topics = topic_matches.get(key, {p.get("_topic_label", "")})
-        p["_topic_matches"] = sorted(all_topics)
-        p["_priority_score"] = _priority_score(p)
+        score, matched_topics = _score_paper(p)
+        p["_topic_matches"] = matched_topics
+        p["_priority_score"] = score
 
     merged.sort(key=lambda p: p["_priority_score"], reverse=True)
 
